@@ -3,6 +3,8 @@
 ## Vor DNS-Umzug
 
 - Vercel Preview bauen und mobil/desktop pruefen.
+- `npm run validate:articles` und `npm run build` muessen erfolgreich sein.
+- Blogartikel duerfen nur aus Volltexten in `content/articles/` kommen, nicht aus Kurzfassungen.
 - Alle Onepage-URLs aus `docs/migration/onepage-current/inventory.json` testen.
 - Keine wichtige URL darf versehentlich 404 liefern.
 - `sitemap.xml` enthaelt nur indexierbare Zielseiten.

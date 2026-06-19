@@ -9,7 +9,9 @@ type PageProps = {
 };
 
 export function generateStaticParams() {
-  return sitePages.map((page) => ({ slug: page.slug }));
+  return sitePages
+    .filter((page) => page.slug !== "hochzeitsmappe")
+    .map((page) => ({ slug: page.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

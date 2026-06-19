@@ -10,7 +10,21 @@ export const siteConfig = {
   },
   bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL ?? "https://kennenlernen.landgut-seebuehne.de/termin",
   alternateBookingUrl:
-    process.env.NEXT_PUBLIC_ALT_BOOKING_URL ?? "https://kennenlernen.landgut-seebuehne.de/terminb"
+    process.env.NEXT_PUBLIC_ALT_BOOKING_URL ?? "https://kennenlernen.landgut-seebuehne.de/terminb",
+  brand: {
+    logo: {
+      src: "/images/brand/landgut-seebuehne-logo.svg",
+      alt: "Landgut Seebühne",
+      width: 526,
+      height: 128
+    },
+    logoLight: {
+      src: "/images/brand/landgut-seebuehne-logo-light.svg",
+      alt: "Landgut Seebühne",
+      width: 526,
+      height: 128
+    }
+  }
 } as const;
 
 export const imageLibrary = {
@@ -273,15 +287,15 @@ export const sitePages: SitePage[] = [
   {
     slug: "hochzeitsmappe",
     navTitle: "Hochzeitsmappe",
-    title: "Hochzeitsmappe anfordern",
+    title: "Hochzeitsmappe",
     description:
-      "Die Hochzeitsmappe gibt Paaren einen ersten Überblick über Möglichkeiten, Ablauf und Atmosphäre am Landgut Seebühne.",
+      "Detaillierter PDF-Guide für Hochzeiten an der Seebühne: Location, Ablauf, Ideen und wichtige Fragen für euren Planungsstart.",
     heroEyebrow: "Hochzeitsmappe",
-    heroTitle: "Ein erster Überblick, bevor ihr alles einzeln zusammensuchen müsst.",
+    heroTitle: "Die Hochzeitsmappe",
     heroText:
-      "Die Mappe hilft euch, den Ort, den Ablauf und die wichtigsten Fragen besser einzuordnen. Der konkrete Rahmen wird anschließend persönlich im Erstgespräch geklärt.",
-    imageKey: "lake",
-    primaryCta: "Hochzeitsmappe anfragen",
+      "Detaillierter PDF-Guide für Hochzeiten an der Seebühne, damit ihr Ort, Ablauf und wichtige Fragen besser einordnen könnt.",
+    imageKey: "mappeCover",
+    primaryCta: "Hochzeitsmappe sichern",
     secondaryCta: "Telefontermin vereinbaren",
     sections: [
       {

@@ -43,7 +43,9 @@ export function FAQ({ items }: { items?: SitePage["faqs"] }) {
           {items.map((item) => (
             <article className="faq-item" key={item.question}>
               <h3>{item.question}</h3>
-              <p>{item.answer}</p>
+              {item.answer.split(/\n{2,}/).map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
             </article>
           ))}
         </div>

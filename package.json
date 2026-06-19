@@ -5,9 +5,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/validate-articles.mjs && next build",
     "start": "next start",
     "lint": "eslint .",
+    "validate:articles": "node scripts/validate-articles.mjs",
     "crawl:onepage": "node scripts/crawl-onepage.mjs",
     "download:onepage-media": "node scripts/download-onepage-media.mjs"
   },

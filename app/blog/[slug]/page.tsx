@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import { CTASection, FAQ } from "@/components/PageSections";
+import { ArticleFinalCta, ArticleMarkdown } from "@/components/MarkdownArticle";
+import { FAQ } from "@/components/PageSections";
 import { articles, getArticle } from "@/data/articles";
 
 type ArticlePageProps = {
@@ -48,26 +49,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </Link>
           <p className="eyebrow dark">{article.pillar}</p>
           <h1>{article.title}</h1>
-          <p>{article.intro}</p>
+          <p>{article.description}</p>
+          <div className="article-meta" aria-label="Artikelinformationen">
+            <span>{article.readingTime}</span>
+            <span>{article.wordCount.toLocaleString("de-DE")} Wörter</span>
+          </div>
         </div>
-        <div className="article-body">
-          {article.sections.map((section) => (
-            <section key={section.title}>
-              <h2>{section.title}</h2>
-              <p>{section.body}</p>
-              {section.bullets ? (
-                <ul>
-                  {section.bullets.map((bullet) => (
-                    <li key={bullet}>{bullet}</li>
-                  ))}
-                </ul>
-              ) : null}
-            </section>
-          ))}
-        </div>
+        <ArticleMarkdown blocks={article.blocks} />
       </article>
-      <FAQ items={article.faq.map((item) => ({ question: item.question, answer: item.answer }))} />
-      <CTASection />
+      <ArticleFinalCta blocks={article.ctaBlocks} />
+      <FAQ items={article.faq} />
     </>
   );
 }

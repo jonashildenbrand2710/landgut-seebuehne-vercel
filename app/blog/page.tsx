@@ -61,6 +61,9 @@ export default function BlogIndexPage() {
             <p>{featuredArticle.pillar}</p>
             <h2>{featuredArticle.title}</h2>
             <span>{featuredArticle.description}</span>
+            <small>
+              {featuredArticle.readingTime} · {featuredArticle.wordCount.toLocaleString("de-DE")} Wörter
+            </small>
             <Link href={`/blog/${featuredArticle.slug}`}>
               Artikel lesen <ArrowRight aria-hidden="true" size={16} />
             </Link>
@@ -78,6 +81,9 @@ export default function BlogIndexPage() {
                 <p>{article.pillar}</p>
                 <h2>{article.title}</h2>
                 <span>{article.description}</span>
+                <small>
+                  {article.readingTime} · {article.wordCount.toLocaleString("de-DE")} Wörter
+                </small>
                 <Link href={`/blog/${article.slug}`}>
                   Artikel lesen <ArrowRight aria-hidden="true" size={16} />
                 </Link>

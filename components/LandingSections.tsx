@@ -26,6 +26,7 @@ import {
   landingTeamLeaders,
   landingTestimonials
 } from "@/data/landing";
+import { BrandLogo } from "@/components/BrandLogo";
 import { imageLibrary, siteConfig } from "@/data/site";
 
 function InternalCta({
@@ -115,7 +116,7 @@ export function LeadMagnetSection() {
           <div className="inline-actions">
             <InternalCta href="/hochzeitsmappe">Hochzeitsmappe downloaden</InternalCta>
           </div>
-          <span className="lead-logo">SB</span>
+          <BrandLogo className="brand-logo brand-logo-lead" decorative variant="light" />
         </div>
       </div>
     </section>

@@ -24,6 +24,16 @@ const nextConfig: NextConfig = {
         statusCode: 301
       },
       {
+        source: "/journal",
+        destination: "/blog",
+        statusCode: 301
+      },
+      {
+        source: "/journal/:slug",
+        destination: "/blog/:slug",
+        statusCode: 301
+      },
+      {
         source: "/hochzeitslocation-mittelfranken",
         destination: "/location",
         statusCode: 301

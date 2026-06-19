@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
+import { BrandLogo } from "@/components/BrandLogo";
 import { mainNavigation, siteConfig } from "@/data/site";
 
 export function Footer() {
@@ -7,7 +8,7 @@ export function Footer() {
     <footer className="site-footer">
       <div className="footer-grid">
         <div>
-          <p className="footer-kicker">Landgut Seebühne</p>
+          <BrandLogo className="brand-logo brand-logo-footer" variant="light" />
           <h2>Naturnah heiraten, gut begleitet planen.</h2>
           <p>
             Ein Ort am See für Paare, die Atmosphäre, Exklusivität und klare

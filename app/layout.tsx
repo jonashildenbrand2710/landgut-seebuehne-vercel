@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inclusive_Sans, Noto_Serif_Georgian } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { siteConfig } from "@/data/site";
 import "./globals.css";
 
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Header />
         <main>{children}</main>
         <Footer />
+        <ScrollReveal />
       </body>
     </html>
   );

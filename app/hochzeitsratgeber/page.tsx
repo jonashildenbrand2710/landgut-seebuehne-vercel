@@ -36,6 +36,9 @@ export default function RatgeberIndexPage() {
                 <p>{article.pillar}</p>
                 <h2>{article.title}</h2>
                 <span>{article.description}</span>
+                <small>
+                  {article.readingTime} · {article.wordCount.toLocaleString("de-DE")} Wörter
+                </small>
                 <Link href={`/hochzeitsratgeber/${article.slug}`}>
                   Artikel lesen <ArrowRight aria-hidden="true" size={16} />
                 </Link>

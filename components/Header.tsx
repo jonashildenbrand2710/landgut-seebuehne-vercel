@@ -1,16 +1,13 @@
 import Link from "next/link";
 import { CalendarDays } from "lucide-react";
+import { BrandLogo } from "@/components/BrandLogo";
 import { mainNavigation } from "@/data/site";
 
 export function Header() {
   return (
     <header className="site-header">
       <Link className="brand" href="/" aria-label="Landgut Seebühne Startseite">
-        <span className="brand-mark">LS</span>
-        <span>
-          <strong>Landgut Seebühne</strong>
-          <small>Hochzeiten am See</small>
-        </span>
+        <BrandLogo className="brand-logo brand-logo-header" decorative priority />
       </Link>
       <nav className="main-nav" aria-label="Hauptnavigation">
         {mainNavigation.map((item) => (
