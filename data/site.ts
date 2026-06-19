@@ -546,6 +546,6 @@ export const mainNavigation = [
   { label: "Trauung", href: "/trauung" },
   { label: "Getting Ready", href: "/getting-ready" },
   { label: "Über uns", href: "/uber-uns" },
-  { label: "Ratgeber", href: "/hochzeitsratgeber" },
+  { label: "Journal", href: "/blog" },
   { label: "Termin", href: "/termin-buchen" }
 ];

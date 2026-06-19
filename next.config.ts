@@ -9,13 +9,18 @@ const nextConfig: NextConfig = {
         statusCode: 301
       },
       {
-        source: "/blog",
-        destination: "/hochzeitsratgeber",
+        source: "/hochzeitsratgeber",
+        destination: "/blog",
+        statusCode: 301
+      },
+      {
+        source: "/hochzeitsratgeber/:slug",
+        destination: "/blog/:slug",
         statusCode: 301
       },
       {
         source: "/ratgeber",
-        destination: "/hochzeitsratgeber",
+        destination: "/blog",
         statusCode: 301
       },
       {

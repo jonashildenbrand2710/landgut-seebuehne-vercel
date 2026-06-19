@@ -21,7 +21,7 @@ function ctaHref(label?: string) {
   const normalized = label.toLowerCase();
   if (normalized.includes("mappe")) return "/hochzeitsmappe";
   if (normalized.includes("e-mail") || normalized.includes("mail")) return `mailto:${siteConfig.email}`;
-  if (normalized.includes("ratgeber")) return "/hochzeitsratgeber/freie-trauung-am-see";
+  if (normalized.includes("ratgeber")) return "/blog/freie-trauung-am-see";
   if (normalized.includes("location")) return "/location";
   if (normalized.includes("kontakt")) return "/kontaktformular";
   if (normalized.includes("kalender")) return siteConfig.bookingUrl;

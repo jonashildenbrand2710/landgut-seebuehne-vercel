@@ -17,11 +17,11 @@ export function GET() {
       return `- ${siteConfig.domain}${path}: ${page.description}`;
     }),
     "",
-    "## Ratgeber",
-    "- " + `${siteConfig.domain}/hochzeitsratgeber: Orientierung zu Location-Entscheidung, Outdoor-Trauung und Planungsfragen.`,
+    "## Journal",
+    "- " + `${siteConfig.domain}/blog: Orientierung zu Location-Entscheidung, Outdoor-Trauung und Planungsfragen.`,
     ...articles.map(
       (article) =>
-        `- ${siteConfig.domain}/hochzeitsratgeber/${article.slug}: ${article.description}`
+        `- ${siteConfig.domain}/blog/${article.slug}: ${article.description}`
     ),
     "",
     "## Kontakt",
