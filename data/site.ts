@@ -15,6 +15,10 @@ export const siteConfig = {
 
 export const imageLibrary = {
   hero: {
+    src: "/images/onepage/raw/ceba4def-e52b-41c0-8966-5b7a43290051.png",
+    alt: "Brautpaar mit Schirm auf einem Holzsteg am See des Landgut Seebühne"
+  },
+  coupleDock: {
     src: "/images/onepage/raw/792a3014-5d0b-418d-ab7a-63c0bdad5d81.jpg",
     alt: "Brautpaar auf einem Holzsteg am See des Landgut Seebühne mit viel Grün"
   },

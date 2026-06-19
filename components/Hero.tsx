@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, FileText } from "lucide-react";
+import { ArrowRight, FileText, Star } from "lucide-react";
 import { imageLibrary, siteConfig } from "@/data/site";
 
 type HeroProps = {
@@ -10,6 +10,10 @@ type HeroProps = {
   imageKey: keyof typeof imageLibrary;
   primaryCta?: string;
   secondaryCta?: string;
+  proof?: {
+    label: string;
+    mentions: string[];
+  };
 };
 
 function ctaHref(label?: string) {
@@ -24,7 +28,7 @@ function ctaHref(label?: string) {
   return "/termin-buchen";
 }
 
-export function Hero({ eyebrow, title, text, imageKey, primaryCta, secondaryCta }: HeroProps) {
+export function Hero({ eyebrow, title, text, imageKey, primaryCta, secondaryCta, proof }: HeroProps) {
   const image = imageLibrary[imageKey];
 
   return (
@@ -56,6 +60,24 @@ export function Hero({ eyebrow, title, text, imageKey, primaryCta, secondaryCta 
             </Link>
           ) : null}
         </div>
+        {proof ? (
+          <div className="hero-proof">
+            <div className="hero-rating">
+              <span>{proof.label}</span>
+              <span aria-label="Bewertung">
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <Star aria-hidden="true" fill="currentColor" key={index} size={14} />
+                ))}
+              </span>
+            </div>
+            <div className="hero-mentions" aria-label="Bekannt aus">
+              <span>Bekannt aus:</span>
+              {proof.mentions.map((mention) => (
+                <strong key={mention}>{mention}</strong>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
     </section>
   );

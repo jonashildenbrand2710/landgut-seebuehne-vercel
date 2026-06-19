@@ -135,6 +135,7 @@ img {
 
 .hero-image {
   object-fit: cover;
+  object-position: center center;
 }
 
 .hero-shade {
@@ -205,6 +206,45 @@ h2 {
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 34px;
+}
+
+.hero-proof {
+  display: grid;
+  gap: 16px;
+  max-width: 660px;
+  margin-top: 32px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.88rem;
+}
+
+.hero-rating {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  font-weight: 800;
+}
+
+.hero-rating span:last-child {
+  display: inline-flex;
+  gap: 3px;
+  color: var(--gold);
+}
+
+.hero-mentions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
+.hero-mentions span {
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.hero-mentions strong {
+  font-size: 0.78rem;
+  font-weight: 900;
 }
 
 .button {
@@ -445,69 +485,101 @@ h2 {
   font-weight: 800;
 }
 
+.hero-image-strip {
+  position: relative;
+  z-index: 1;
+  padding: 34px 0;
+  background: var(--bg);
+}
+
+.hero-image-strip::before {
+  position: absolute;
+  z-index: -1;
+  top: -54px;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  background: var(--bg);
+  content: "";
+}
+
+.hero-strip-inner {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+  width: min(1180px, calc(100% - 36px));
+  margin: 0 auto;
+}
+
+.hero-strip-item {
+  position: relative;
+  min-height: 210px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--sage);
+}
+
+.hero-strip-item img {
+  object-fit: cover;
+}
+
 .lead-magnet-section {
+  position: relative;
   padding: clamp(70px, 8vw, 112px) 0;
-  background: var(--mist);
+  overflow: hidden;
+  color: var(--white);
+  background: var(--green);
 }
 
 .lead-magnet-inner {
-  display: grid;
-  grid-template-columns: minmax(260px, 0.82fr) minmax(0, 1fr);
-  gap: clamp(30px, 6vw, 82px);
-  align-items: center;
-}
-
-.mappe-showcase {
   position: relative;
   display: grid;
   place-items: center;
-  min-height: 500px;
-  padding: clamp(20px, 4vw, 46px);
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.1)),
-    var(--green);
+  min-height: 460px;
 }
 
-.mappe-cover-image {
-  width: min(100%, 430px);
-  height: auto;
-  filter: drop-shadow(0 22px 32px rgba(18, 31, 26, 0.34));
+.lead-magnet-image {
+  object-fit: cover;
+  object-position: center center;
 }
 
-.mappe-note {
+.lead-magnet-shade {
   position: absolute;
-  left: 22px;
-  bottom: 22px;
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  max-width: calc(100% - 44px);
-  padding: 10px 13px;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--green);
-  font-weight: 800;
-  line-height: 1.25;
+  inset: 0;
+  background:
+    linear-gradient(0deg, rgba(16, 28, 23, 0.82), rgba(16, 28, 23, 0.42)),
+    radial-gradient(circle at 50% 42%, rgba(216, 199, 162, 0.1), rgba(16, 28, 23, 0.18) 48%);
 }
 
-.badge-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 24px;
+.landing-copy.centered {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.badge-row span {
-  padding: 9px 12px;
-  border: 1px solid rgba(44, 111, 123, 0.28);
-  border-radius: 999px;
-  background: rgba(44, 111, 123, 0.09);
-  color: var(--green);
-  font-size: 0.88rem;
-  font-weight: 850;
+.landing-copy.centered .eyebrow.dark {
+  color: var(--gold);
+}
+
+.landing-copy.centered p:not(.eyebrow) {
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.landing-copy.centered .inline-actions {
+  justify-content: center;
+}
+
+.lead-logo {
+  display: block;
+  margin-top: 22px;
+  color: rgba(255, 255, 255, 0.46);
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 700;
 }
 
 .landing-split-section {
@@ -1098,8 +1170,17 @@ h2 {
     min-height: 390px;
   }
 
-  .mappe-showcase {
-    min-height: 440px;
+  .hero-strip-inner {
+    grid-template-columns: repeat(5, minmax(150px, 1fr));
+    gap: 10px;
+  }
+
+  .hero-strip-item {
+    min-height: 180px;
+  }
+
+  .lead-magnet-inner {
+    min-height: 420px;
   }
 
   .availability-section {
@@ -1205,18 +1286,26 @@ h2 {
     min-height: 310px;
   }
 
-  .mappe-showcase {
-    min-height: 360px;
+  .hero-image-strip {
+    padding: 22px 0;
   }
 
-  .mappe-cover-image {
-    width: min(100%, 320px);
+  .hero-strip-inner {
+    grid-template-columns: 1fr;
+    overflow: visible;
+    padding-bottom: 0;
   }
 
-  .mappe-note {
-    position: static;
-    justify-self: stretch;
-    margin-top: 14px;
+  .hero-strip-item {
+    min-height: 430px;
+  }
+
+  .hero-strip-item:not(:first-child) {
+    display: none;
+  }
+
+  .lead-magnet-inner {
+    min-height: 430px;
   }
 
   .inline-actions,

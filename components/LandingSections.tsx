@@ -2,13 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
-  BookOpen,
   CalendarDays,
   Check,
   Heart,
   Mail,
   MapPin,
-  ShieldCheck,
   Sparkles,
   Star,
   Users,
@@ -70,49 +68,51 @@ export function ProofStrip() {
   );
 }
 
+export function HeroImageStrip() {
+  const images = [
+    imageLibrary.coupleDock,
+    imageLibrary.gettingReady,
+    imageLibrary.location,
+    imageLibrary.mappeCover,
+    imageLibrary.ceremony
+  ];
+
+  return (
+    <section className="hero-image-strip" aria-label="Impressionen der Hauptseite">
+      <div className="hero-strip-inner">
+        {images.map((image) => (
+          <div className="hero-strip-item" key={image.src}>
+            <Image src={image.src} alt={image.alt} fill sizes="(max-width: 680px) 40vw, 19vw" />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export function LeadMagnetSection() {
-  const cover = imageLibrary.mappeCover;
+  const image = imageLibrary.availability;
 
   return (
     <section className="lead-magnet-section">
+      <Image
+        className="lead-magnet-image"
+        src={image.src}
+        alt=""
+        fill
+        sizes="100vw"
+        aria-hidden="true"
+      />
+      <div className="lead-magnet-shade" />
       <div className="section-inner lead-magnet-inner">
-        <div className="mappe-showcase">
-          <Image
-            className="mappe-cover-image"
-            src={cover.src}
-            alt={cover.alt}
-            width={620}
-            height={620}
-            sizes="(max-width: 900px) 82vw, 42vw"
-          />
-          <div className="mappe-note">
-            <BookOpen aria-hidden="true" size={18} />
-            <span>Als PDF-Download erhältlich</span>
-          </div>
-        </div>
-        <div className="landing-copy">
+        <div className="landing-copy centered">
           <p className="eyebrow dark">{landingLeadMagnet.eyebrow}</p>
           <h2>{landingLeadMagnet.title}</h2>
           <p>{landingLeadMagnet.text}</p>
-          <div className="badge-row" aria-label="Inhalte der Hochzeitsmappe">
-            {landingLeadMagnet.badges.map((badge) => (
-              <span key={badge}>{badge}</span>
-            ))}
-          </div>
-          <ul className="check-list compact">
-            {landingLeadMagnet.points.map((point) => (
-              <li key={point}>
-                <ShieldCheck aria-hidden="true" size={18} />
-                <span>{point}</span>
-              </li>
-            ))}
-          </ul>
           <div className="inline-actions">
             <InternalCta href="/hochzeitsmappe">Hochzeitsmappe downloaden</InternalCta>
-            <InternalCta href="/termin-buchen" variant="secondary">
-              Termin anfragen
-            </InternalCta>
           </div>
+          <span className="lead-logo">SB</span>
         </div>
       </div>
     </section>

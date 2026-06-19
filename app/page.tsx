@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import {
   FamilyStory,
+  HeroImageStrip,
   ImpressionSection,
   LeadMagnetSection,
   MiniGallery,
   PersonalCta,
   ProblemSolution,
   PromiseGrid,
-  ProofStrip,
   Testimonials,
   WeddingBundles
 } from "@/components/LandingSections";
@@ -37,8 +37,12 @@ export default function HomePage() {
         imageKey={indexPage.imageKey}
         primaryCta={indexPage.primaryCta}
         secondaryCta={indexPage.secondaryCta}
+        proof={{
+          label: "Von 120 Paaren bewertet",
+          mentions: ["Hochzeit.de", "Bridebook", "Instagram", "Google"]
+        }}
       />
-      <ProofStrip />
+      <HeroImageStrip />
       <LeadMagnetSection />
       <PromiseGrid />
       <ImpressionSection />
