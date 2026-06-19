@@ -1,16 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
+  AlertTriangle,
   ArrowRight,
   CalendarDays,
   Check,
   Heart,
   Mail,
   MapPin,
+  Plus,
   Sparkles,
   Star,
-  Users,
-  XCircle
+  Users
 } from "lucide-react";
 import {
   landingAdvantages,
@@ -328,31 +329,66 @@ export function Testimonials() {
 export function ProblemSolution() {
   return (
     <section className="problem-solution-section">
-      <div className="section-inner problem-solution-grid">
-        <div>
-          <p className="eyebrow dark">Warnsignale</p>
-          <h2>Was bei der Locationsuche später Stress macht.</h2>
-          <ul className="signal-list">
-            {landingProblemSigns.map((item) => (
-              <li key={item}>
-                <XCircle aria-hidden="true" size={18} />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
+      <div className="section-inner problem-solution-heading">
+        <p className="eyebrow">{landingProblemSigns.eyebrow}</p>
+        <h2>{landingProblemSigns.title}</h2>
+        <p>{landingProblemSigns.text}</p>
+      </div>
+
+      <div className="section-inner warning-funnel-grid">
+        <div className="warning-accordion-list">
+          {landingProblemSigns.items.map((item, index) => (
+            <details className="warning-item" key={item.title} name="warning-signs" open={index === 0}>
+              <summary>
+                <span className="warning-number">{index + 1}</span>
+                <span className="warning-summary-copy">
+                  <strong>{item.title}</strong>
+                  <small>{item.subtitle}</small>
+                </span>
+                <Plus className="warning-plus" aria-hidden="true" size={19} />
+              </summary>
+              <div className="warning-body">
+                <p className="warning-question">{item.question}</p>
+                <ul>
+                  {item.bullets.map((bullet) => (
+                    <li key={bullet}>
+                      <AlertTriangle aria-hidden="true" size={15} />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="warning-result">
+                  <strong>{item.resultLabel}</strong>
+                  <span>{item.result}</span>
+                </p>
+              </div>
+            </details>
+          ))}
         </div>
-        <div>
-          <p className="eyebrow dark">Antwort der Seebühne</p>
-          <h2>Acht Punkte, die euren Tag tragfähiger machen.</h2>
-          <ul className="advantage-list">
+
+        <aside className="warning-solution-card" aria-label="Antwort der Seebühne">
+          <p className="eyebrow">Problem - Lösung</p>
+          <h3>8 Lösungen für typische Location-Probleme</h3>
+          <p>
+            Warum ihr bei uns nicht die typischen Location-Probleme haben werdet
+            und was uns von anderen unterscheidet.
+          </p>
+          <ol className="solution-list">
             {landingAdvantages.map((item) => (
-              <li key={item}>
-                <Check aria-hidden="true" size={18} />
-                <span>{item}</span>
+              <li key={item.title}>
+                <Check aria-hidden="true" size={17} />
+                <span>
+                  <strong>{item.title}</strong>
+                  <small>{item.text}</small>
+                </span>
               </li>
             ))}
-          </ul>
-        </div>
+          </ol>
+          <Link className="button primary light" href="/termin-buchen">
+            <span>{landingProblemSigns.cta}</span>
+            <ArrowRight aria-hidden="true" size={18} />
+          </Link>
+        </aside>
       </div>
     </section>
   );

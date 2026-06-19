@@ -39,6 +39,20 @@ export type LandingTestimonial = {
   context: string;
 };
 
+export type LandingWarning = {
+  title: string;
+  subtitle: string;
+  question: string;
+  bullets: string[];
+  resultLabel: string;
+  result: string;
+};
+
+export type LandingSolution = {
+  title: string;
+  text: string;
+};
+
 export type LandingGalleryItem = {
   imageKey: ImageKey;
   title: string;
@@ -222,24 +236,146 @@ export const landingTestimonials = [
   }
 ] satisfies LandingTestimonial[];
 
-export const landingProblemSigns = [
-  "mehrere Veranstaltungen oder fremde Gäste am selben Tag",
-  "schöne Bilder, aber kein überzeugender Plan B",
-  "unklare Zuständigkeiten während der Feier",
-  "lange Wege zwischen Trauung, Empfang, Dinner und Party",
-  "Leistungen, Zeiten oder Zusatzkosten bleiben bis spät unklar"
-];
+export const landingProblemSigns = {
+  eyebrow: "Warnsignale",
+  title: "8 bittere Wahrheiten über Hochzeitslocations, die niemand ausspricht",
+  text:
+    "Was euch bei typischen Locations wirklich erwartet - und warum es euch betrifft.",
+  cta: "Jetzt Preise & Details anfragen",
+  items: [
+    {
+      title: "Die Fließband-Hochzeit",
+      subtitle: "Mehrere Hochzeiten parallel - besonders in Hotels & Eventlocations",
+      question: "Teilen wir unseren besonderen Tag mit fremden Gästen?",
+      bullets: [
+        "Geteilte Foyers, Parkplätze und Toilettenanlagen",
+        "akustische Überschneidungen zwischen Veranstaltungsräumen",
+        "Hochzeitsgäste verirren sich in die falsche Feier"
+      ],
+      resultLabel: "Das Gefühl:",
+      result: "Statt exklusiver Mittelpunkt zu sein, seid ihr nur einer von vielen Terminen im Kalender."
+    },
+    {
+      title: "\"Exklusiv\" nur auf dem Papier",
+      subtitle: "\"Exklusiv\" bedeutet bei Schlössern & Gutshöfen oft nur \"separater Raum\"",
+      question: "Warum laufen fremde Menschen durch unsere Hochzeitsfotos?",
+      bullets: [
+        "Öffentliche Bereiche bleiben für andere zugänglich",
+        "Touristen und andere Gäste als ständige Zuschauer",
+        "begrenzte Nutzungsrechte trotz hoher Kosten"
+      ],
+      resultLabel: "Die Realität:",
+      result: "Trotz Premium-Preisen gehört euch der Ort nie wirklich ganz allein."
+    },
+    {
+      title: "Die Fotofalle",
+      subtitle: "Besonders bei beliebten Instagram-Locations",
+      question: "Wir haben nur 15 Minuten für Fotos am See, Weinberg oder Schlossturm?",
+      bullets: [
+        "zeitlich begrenzte Slots für die besten Fotospots",
+        "lange Warteschlangen mit anderen Hochzeitspaaren",
+        "Bildmotive, die bei hunderten anderen Paaren identisch aussehen"
+      ],
+      resultLabel: "Die Ernüchterung:",
+      result: "Eure teuren Hochzeitsfotos sehen genauso aus wie die aller anderen Paare vor euch."
+    },
+    {
+      title: "Die Design-Einschränkungen",
+      subtitle: "Historische Locations & traditionelle Landgasthöfe",
+      question: "Warum dürfen wir hier nichts verändern?",
+      bullets: [
+        "strikte Vorgaben bei Dekoration und Raumgestaltung",
+        "Verbot von Kerzen, Hängedekoration oder Blütenblättern",
+        "vorhandene Möbel und Farben bestimmen euren gesamten Look"
+      ],
+      resultLabel: "Die Frustration:",
+      result: "Eure persönliche Vision muss hinter den Hausregeln zurückstehen."
+    },
+    {
+      title: "Die Wetter-Katastrophe",
+      subtitle: "Landgasthöfe & Locations ohne durchdachten Plan B",
+      question: "Was passiert bei Regen mit unserer Gartenhochzeit?",
+      bullets: [
+        "improvisierte Indoor-Alternativen in unpassenden Räumen",
+        "kurzfristige Umplanung mit hohem Stressfaktor",
+        "Aufpreis für Zelte und Überdachungen, die den Look ruinieren"
+      ],
+      resultLabel: "Die Angst:",
+      result: "Ihr verbringt Wochen damit, Wettervorhersagen zu checken, statt euch auf die Vorfreude zu konzentrieren."
+    },
+    {
+      title: "Die versteckten Extrakosten",
+      subtitle: "Besonders bei Premium-Locations & Schlössern",
+      question: "Warum ist plötzlich alles extra zu bezahlen?",
+      bullets: [
+        "Grundpreis deckt nur das absolute Minimum ab",
+        "jede Kleinigkeit wie Licht, Ton oder Bestuhlung wird separat berechnet",
+        "Zwang zu überteuerten Haus-Caterern ohne Alternativen"
+      ],
+      resultLabel: "Das Ergebnis:",
+      result: "Die anfangs kalkulierten Kosten verdoppeln sich durch unerwartete Zusatzgebühren."
+    },
+    {
+      title: "Die wechselnden Ansprechpartner",
+      subtitle: "Hotels & große Veranstaltungszentren mit Personalmangel",
+      question: "Mit wem sprechen wir eigentlich gerade?",
+      bullets: [
+        "bei jedem Termin ein anderer Mitarbeiter",
+        "euer Wissen geht bei der Personalübergabe verloren",
+        "am Hochzeitstag betreut euch jemand, den ihr noch nie gesehen habt"
+      ],
+      resultLabel: "Die Enttäuschung:",
+      result: "Ihr beginnt jeden Termin bei Null und müsst eure Wünsche immer wieder erklären."
+    },
+    {
+      title: "Die Service-Monotonie",
+      subtitle: "All-inclusive-Pakete in Eventhotels",
+      question: "Warum schmeckt das Essen wie bei jeder anderen Hochzeit?",
+      bullets: [
+        "standardisierte Menüs ohne Individualität",
+        "eingeschränkte Auswahl an Getränken",
+        "routinierter Service ohne persönliche Note"
+      ],
+      resultLabel: "Der Frust:",
+      result: "Ihr zahlt Premium-Preise für eine Massenabfertigung mit Hotelrestaurant-Charakter."
+    }
+  ] satisfies LandingWarning[]
+};
 
 export const landingAdvantages = [
-  "exklusive Nutzung statt Parallelbetrieb",
-  "See, Garten und Landhaus als zusammenhängender Tagesort",
-  "Erstgespräch vor Besichtigung, damit der Rahmen vorher passt",
-  "Plan B und Wetteroptionen werden früh mitgedacht",
-  "Orientierung für Paare, Gäste und Dienstleister",
-  "persönliche Gastgeber statt anonyme Eventfläche",
-  "Hochzeitsmappe als Einstieg für bessere Vorbereitung",
-  "klare CTAs für Telefontermin, Mappe und Kontakt"
-];
+  {
+    title: "Echte Exklusivität statt Fließband",
+    text: "Das gesamte Anwesen gehört nur eurer Gesellschaft - keine Parallelveranstaltungen, keine fremden Gäste im Hintergrund."
+  },
+  {
+    title: "Garantiert privat",
+    text: "See, Park und Außenbereiche sind nicht nur Kulisse, sondern Teil eures geschützten Hochzeitstages."
+  },
+  {
+    title: "Ein fester Ansprechpartner",
+    text: "Eure Wünsche gehen nicht in Übergaben verloren, sondern bleiben von Planung bis Hochzeitstag nachvollziehbar."
+  },
+  {
+    title: "Fotos ohne Zeitdruck",
+    text: "Romantische Seebrücke, Park und Innenräume stehen euch als zusammenhängender Rahmen zur Verfügung."
+  },
+  {
+    title: "Kreative Freiheit",
+    text: "Dekoration, Raumgefühl und Ablauf werden passend zu euch geplant, statt nur in starre Hausregeln gepresst."
+  },
+  {
+    title: "Wettersichere Planung",
+    text: "Outdoor-Atmosphäre bleibt entspannt, weil Regenvarianten und Innenbereiche früh mitgedacht werden."
+  },
+  {
+    title: "Transparente Preisgestaltung",
+    text: "Leistungen, Rahmen und mögliche Zusatzfragen werden persönlich geklärt, bevor ihr euch in Zahlen verliert."
+  },
+  {
+    title: "Individueller Premium-Service",
+    text: "Keine Standardhochzeit, sondern ein Team, das euren Ablauf, eure Gäste und eure Prioritäten kennt."
+  }
+] satisfies LandingSolution[];
 
 export const landingGallery = [
   {
