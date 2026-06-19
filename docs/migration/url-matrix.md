@@ -23,9 +23,7 @@ Arbeitsstand fuer den Vercel-Rebuild. Ziel: Keine bekannte Onepage-URL soll beim
 | `/chatbot` | `/chatbot` | Review | noindex | Alter Funnel/Template; Zweck pruefen |
 | `/zimmerbuchung` | `/zimmerbuchung` | Review | noindex | Operative Seite; Integration pruefen |
 | `/bewerbung` | `/bewerbung` | Review | noindex | Bewerbungsfunnel noch nicht final uebernommen |
-| `/page-j4jy8j2l17` | `/` | 301 | index Ziel | Alte/duplizierte Onepage-Seite |
-| `/page-2i9tl81gd9` | `/` | 301 | index Ziel | Alte/duplizierte Onepage-Seite |
-| `/page-ha0a71x0wl` | `/` | 301 | index Ziel | Alte/duplizierte Onepage-Seite |
+| `/page-*` | `/` | 301 | index Ziel | Alte/duplizierte Onepage-Seiten, inkl. bekannter Pfade `/page-j4jy8j2l17`, `/page-2i9tl81gd9`, `/page-ha0a71x0wl` |
 
 ## Vor Livegang offen
 

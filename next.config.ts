@@ -39,17 +39,7 @@ const nextConfig: NextConfig = {
         statusCode: 301
       },
       {
-        source: "/page-j4jy8j2l17",
-        destination: "/",
-        statusCode: 301
-      },
-      {
-        source: "/page-2i9tl81gd9",
-        destination: "/",
-        statusCode: 301
-      },
-      {
-        source: "/page-ha0a71x0wl",
+        source: "/:legacyPage(page-.+)",
         destination: "/",
         statusCode: 301
       }
