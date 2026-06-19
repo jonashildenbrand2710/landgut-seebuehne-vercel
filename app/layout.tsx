@@ -18,6 +18,13 @@ const notoSerif = Noto_Serif_Georgian({
   display: "swap"
 });
 
+const googleSiteVerification = process.env.NEXT_PUBLIC_GSC_VERIFICATION?.trim();
+const bingSiteVerification = process.env.NEXT_PUBLIC_BING_VERIFICATION?.trim();
+const siteVerification: Metadata["verification"] = {
+  ...(googleSiteVerification ? { google: googleSiteVerification } : {}),
+  ...(bingSiteVerification ? { other: { "msvalidate.01": bingSiteVerification } } : {})
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.domain),
   title: {
@@ -35,7 +42,8 @@ export const metadata: Metadata = {
     locale: "de_DE",
     siteName: "Landgut Seebühne",
     url: siteConfig.domain
-  }
+  },
+  verification: siteVerification
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
