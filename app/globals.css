@@ -623,6 +623,7 @@ h2 {
 
 .landing-copy h2,
 .section-heading-row h2,
+.teamleader-heading h2,
 .impression-section h2,
 .testimonial-section h2,
 .problem-solution-grid h2,
@@ -635,6 +636,10 @@ h2 {
 .promise-card p,
 .bundle-card span,
 .testimonial-card blockquote,
+.family-story-card p,
+.family-facts span,
+.teamleader-heading p,
+.teamleader-caption p,
 .problem-solution-grid li,
 .gallery-item p,
 .personal-cta-section p:not(.eyebrow),
@@ -840,6 +845,129 @@ h2 {
   font-weight: 900;
 }
 
+.family-section {
+  padding: clamp(72px, 8vw, 118px) 0;
+  background: linear-gradient(180deg, var(--bg-soft), var(--mist));
+}
+
+.family-story-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(30px, 6vw, 76px);
+  align-items: start;
+}
+
+.family-intro h2 {
+  max-width: 760px;
+}
+
+.family-facts {
+  display: grid;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.family-facts div {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(31, 49, 43, 0.13);
+}
+
+.family-facts svg {
+  flex: 0 0 auto;
+  margin-top: 3px;
+  color: var(--berry);
+}
+
+.family-story-cards {
+  display: grid;
+  gap: 16px;
+}
+
+.family-story-card {
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.family-story-card > span {
+  display: inline-flex;
+  margin-bottom: 18px;
+  color: var(--clay);
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.family-story-card h3 {
+  font-size: 1.32rem;
+  line-height: 1.22;
+}
+
+.family-story-card p {
+  margin-bottom: 0;
+}
+
+.teamleader-block {
+  margin-top: clamp(56px, 7vw, 90px);
+  padding-top: clamp(40px, 5vw, 60px);
+  border-top: 1px solid rgba(31, 49, 43, 0.14);
+}
+
+.teamleader-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(260px, 0.58fr);
+  gap: clamp(28px, 6vw, 76px);
+  align-items: end;
+}
+
+.teamleader-heading p:not(.eyebrow) {
+  margin: 0 0 8px;
+}
+
+.teamleader-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 34px;
+}
+
+.teamleader-card {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+}
+
+.teamleader-photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background: var(--sage);
+}
+
+.teamleader-photo img {
+  object-fit: cover;
+}
+
+.teamleader-caption {
+  padding: 18px;
+}
+
+.teamleader-caption h3 {
+  font-size: 1.08rem;
+  line-height: 1.18;
+}
+
+.teamleader-caption p {
+  margin: 8px 0 0;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
 .story-points {
   display: grid;
   gap: 12px;
@@ -858,11 +986,33 @@ h2 {
 }
 
 .testimonial-section {
-  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+  color: var(--white);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(216, 199, 162, 0.08), transparent 34%),
+    #17231f;
+}
+
+.testimonial-heading {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.testimonial-heading .eyebrow {
+  color: var(--gold);
 }
 
 .testimonial-section h2 {
-  max-width: 780px;
+  color: var(--white);
+}
+
+.testimonial-heading p:not(.eyebrow) {
+  margin: 12px auto 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.94rem;
+  line-height: 1.6;
 }
 
 .testimonial-grid {
@@ -873,14 +1023,21 @@ h2 {
   display: grid;
   min-height: 310px;
   padding: 28px;
+  border-color: rgba(255, 255, 255, 0.13);
+  background: rgba(255, 255, 255, 0.045);
 }
 
-.testimonial-card svg {
-  color: var(--berry);
+.testimonial-stars {
+  display: flex;
+  gap: 4px;
+  color: var(--gold);
 }
 
 .testimonial-card blockquote {
   margin: 22px 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.98rem;
+  line-height: 1.68;
 }
 
 .testimonial-card p {
@@ -893,9 +1050,13 @@ h2 {
   display: block;
 }
 
+.testimonial-card strong {
+  color: var(--white);
+}
+
 .testimonial-card span {
   margin-top: 4px;
-  color: var(--ink-soft);
+  color: rgba(255, 255, 255, 0.56);
   font-size: 0.9rem;
 }
 
@@ -1146,7 +1307,9 @@ h2 {
   .lead-magnet-inner,
   .landing-split,
   .landing-split.reverse,
+  .family-story-layout,
   .section-heading-row,
+  .teamleader-heading,
   .problem-solution-grid,
   .personal-cta-inner {
     grid-template-columns: 1fr;
@@ -1155,6 +1318,7 @@ h2 {
   .proof-stats,
   .promise-grid,
   .bundle-grid,
+  .teamleader-grid,
   .testimonial-grid,
   .mini-gallery-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1204,6 +1368,7 @@ h2 {
   .subpage-hero h1,
   .landing-copy h2,
   .section-heading-row h2,
+  .teamleader-heading h2,
   .impression-section h2,
   .testimonial-section h2,
   .problem-solution-grid h2,
@@ -1277,6 +1442,10 @@ h2 {
     grid-template-columns: 1fr;
   }
 
+  .teamleader-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .proof-inner {
     padding: 22px 0;
   }
@@ -1320,6 +1489,14 @@ h2 {
     min-height: 0;
   }
 
+  .family-story-card {
+    padding: 24px;
+  }
+
+  .teamleader-caption {
+    padding: 15px;
+  }
+
   .availability-section {
     min-height: 560px;
   }
@@ -1333,6 +1510,7 @@ h2 {
   .subpage-hero h1,
   .landing-copy h2,
   .section-heading-row h2,
+  .teamleader-heading h2,
   .impression-section h2,
   .testimonial-section h2,
   .problem-solution-grid h2,

@@ -22,6 +22,17 @@ export type LandingBundle = {
   cta: string;
 };
 
+export type LandingStoryCard = {
+  title: string;
+  text: string;
+};
+
+export type LandingTeamLeader = {
+  name: string;
+  role: string;
+  imageKey: ImageKey;
+};
+
 export type LandingTestimonial = {
   quote: string;
   name: string;
@@ -143,24 +154,71 @@ export const landingBundles = [
   }
 ] satisfies LandingBundle[];
 
+export const landingFamily = {
+  eyebrow: "Familienunternehmen",
+  title: "Über das Landgut Seebühne",
+  text:
+    "Das Landgut Seebühne ist ein magischer Ort für einzigartige Hochzeiten in idyllischer Umgebung mit See und weitläufigen Gärten. Was 1996 mit der Hochzeit der Gründerfamilie Hildenbrand begann, ist heute eine exklusive Location für Paare, die mehr als nur einen Veranstaltungsort suchen. Hier verbindet sich internationale Gastro-Expertise mit familiärer Herzlichkeit, um jeden Hochzeitstag zu einem unvergesslichen Erlebnis zu machen.",
+  cards: [
+    {
+      title: "Eine Geschichte aus Liebe geboren",
+      text:
+        "Die Seebühne hat ihre eigene Liebesgeschichte: Von der Hochzeit der Gründer über die Feier der Juniorchefin bis zur ersten Freundesanfrage. Wer könnte Hochzeiten besser ausrichten als eine Familie, die hier ihre eigenen schönsten Momente erlebt hat?"
+    },
+    {
+      title: "Familiäre Wärme trifft Professionalität",
+      text:
+        "Zwei Hildenbrand-Kinder bringen internationales Gastro-Know-how ins Team. So bleibt trotz bis zu 70 Hochzeiten jährlich jede Feier ein Herzensprojekt mit spürbarer Exklusivität und persönlicher Betreuung in jedem Detail."
+    },
+    {
+      title: "Ein Zuhause für euren großen Tag",
+      text:
+        "Die Seebühne ist mehr als eine Location - sie ist ein Ort, an dem eure Hochzeitsträume Wirklichkeit werden. Hier verschmelzen Tradition und Innovation zu einem Erlebnis, das sich anfühlt wie nach Hause kommen."
+    }
+  ] satisfies LandingStoryCard[]
+};
+
+export const landingTeamLeaders = [
+  {
+    name: "Christine Hildenbrand",
+    role: "CEO - Creative Director",
+    imageKey: "teamChristine"
+  },
+  {
+    name: "Jonas Hildenbrand",
+    role: "Marketing & Akquise",
+    imageKey: "teamJonas"
+  },
+  {
+    name: "Johanna Protze",
+    role: "Koordinatorin & Korrespondenz",
+    imageKey: "teamJohanna"
+  },
+  {
+    name: "Oliver Hildenbrand",
+    role: "Geschäftsführung - Finanzen",
+    imageKey: "teamOliver"
+  }
+] satisfies LandingTeamLeader[];
+
 export const landingTestimonials = [
   {
     quote:
-      "Die Planung war stressfrei, weil wir früh wussten, welche Fragen wichtig sind und wer am Tag selbst den Überblick behält.",
-    name: "Paarstimme",
-    context: "Planung und Betreuung"
+      "Wir haben unsere Hochzeit mit freier Trauung an der Seebühne gehabt und waren begeistert. Ein besonderer, magischer Ort mit einem Personal, das sich am Ende für uns wie Familie anfühlte und einem so herzlichen Service. Eine Location, die es so nirgendwo anders gibt.",
+    name: "Justine R.",
+    context: "Freie Trauung an der Seebühne"
   },
   {
     quote:
-      "Der Ort hatte diesen besonderen Seeblick, aber noch wichtiger war, dass der ganze Ablauf zusammengepasst hat.",
-    name: "Paarstimme",
-    context: "Location und Tagesgefühl"
+      "Hatte mein Hochzeitsfeier hier. Das Team war super freundlich, professionell, und alles was Paare braucht, um eine schöne Hochzeit zu haben. Location ist sehr schön und romantisch.",
+    name: "Clara Marianna",
+    context: "Hochzeitsfeier"
   },
   {
     quote:
-      "Vom ersten Gespräch bis zur Besichtigung war klar, welche nächsten Schritte sinnvoll sind.",
-    name: "Paarstimme",
-    context: "Erstgespräch und Besichtigung"
+      "Eine romantische Oase mit herrlichem Garten, einem Weiher und einer liebevoll gestalteten Feierlocation. Wer das gewisse Etwas sucht ist hier genau richtig. Begleite immer wieder gerne Brautpaare als Hochzeitsrednerin.",
+    name: "Sabine Krause",
+    context: "Hochzeitsrednerin"
   }
 ] satisfies LandingTestimonial[];
 

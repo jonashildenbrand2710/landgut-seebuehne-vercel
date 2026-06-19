@@ -49,6 +49,22 @@ export const imageLibrary = {
   team: {
     src: "/images/onepage/raw/80f4aa53-e871-4345-b47e-d96e2e155a8d.jpg",
     alt: "Team und Gastgeber des Landgut Seebühne"
+  },
+  teamChristine: {
+    src: "/images/onepage/raw/fa466928-78bd-4d62-b52d-4c27d6604819.jpg",
+    alt: "Christine Hildenbrand vom Landgut Seebühne"
+  },
+  teamJonas: {
+    src: "/images/onepage/raw/eb3a85f8-a649-44a8-8fc7-1a62b431aae4.jpg",
+    alt: "Jonas Hildenbrand vom Landgut Seebühne"
+  },
+  teamJohanna: {
+    src: "/images/onepage/raw/bee4e9d2-217b-416f-bde5-e12080544202.jpg",
+    alt: "Johanna Protze vom Landgut Seebühne"
+  },
+  teamOliver: {
+    src: "/images/onepage/raw/80f4aa53-e871-4345-b47e-d96e2e155a8d.jpg",
+    alt: "Oliver Hildenbrand vom Landgut Seebühne"
   }
 } as const;
 

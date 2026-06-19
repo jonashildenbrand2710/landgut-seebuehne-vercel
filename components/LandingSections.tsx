@@ -16,11 +16,13 @@ import {
   landingAdvantages,
   landingAvailability,
   landingBundles,
+  landingFamily,
   landingGallery,
   landingLeadMagnet,
   landingProblemSigns,
   landingPromises,
   landingProof,
+  landingTeamLeaders,
   landingTestimonials
 } from "@/data/landing";
 import { imageLibrary, siteConfig } from "@/data/site";
@@ -218,31 +220,25 @@ export function WeddingBundles() {
 }
 
 export function FamilyStory() {
-  const image = imageLibrary.team;
-
   return (
-    <section className="landing-split-section muted">
-      <div className="section-inner landing-split reverse">
-        <div className="landing-copy">
-          <p className="eyebrow dark">Familienunternehmen</p>
-          <h2>Gastgebergefühl ist schön. Verantwortlichkeit ist besser.</h2>
-          <p>
-            Das Landgut Seebühne ist ein persönlicher Ort mit Geschichte,
-            Gastgeberfamilie und Team. Nahbarkeit ist uns wichtig, aber genauso
-            die ruhige Verantwortung für Ablauf, Gäste und viele praktische Details.
-          </p>
-          <div className="story-points">
+    <section className="family-section">
+      <div className="section-inner family-story-layout">
+        <div className="landing-copy family-intro">
+          <p className="eyebrow dark">{landingFamily.eyebrow}</p>
+          <h2>{landingFamily.title}</h2>
+          <p>{landingFamily.text}</p>
+          <div className="family-facts" aria-label="Besonderheiten des Familienunternehmens">
             <div>
               <Heart aria-hidden="true" size={20} />
-              <span>familiär geführt</span>
+              <span>aus echter Familiengeschichte entstanden</span>
             </div>
             <div>
               <Users aria-hidden="true" size={20} />
-              <span>persönliche Ansprechpartner</span>
+              <span>persönliche Ansprechpartner statt anonymer Eventfläche</span>
             </div>
             <div>
               <MapPin aria-hidden="true" size={20} />
-              <span>Vestenbergsgreuth in Mittelfranken</span>
+              <span>See, Gärten und Gastgebererfahrung in Mittelfranken</span>
             </div>
           </div>
           <div className="inline-actions">
@@ -252,8 +248,47 @@ export function FamilyStory() {
             </InternalCta>
           </div>
         </div>
-        <div className="landing-media">
-          <Image src={image.src} alt={image.alt} fill sizes="(max-width: 900px) 100vw, 46vw" />
+        <div className="family-story-cards">
+          {landingFamily.cards.map((card, index) => (
+            <article className="family-story-card" key={card.title}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div className="section-inner teamleader-block">
+        <div className="teamleader-heading">
+          <p className="eyebrow dark">Teamleader - Landgut Seebühne</p>
+          <h2>Preise & Details persönlich anfragen</h2>
+          <p>
+            Diese Ansprechpartner führen euch vom ersten Kontakt über die Einordnung
+            eures Rahmens bis zu den nächsten sinnvollen Schritten.
+          </p>
+        </div>
+        <div className="teamleader-grid">
+          {landingTeamLeaders.map((leader) => {
+            const image = imageLibrary[leader.imageKey];
+
+            return (
+              <article className="teamleader-card" key={leader.name}>
+                <div className="teamleader-photo">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes="(max-width: 680px) 50vw, (max-width: 1100px) 25vw, 260px"
+                  />
+                </div>
+                <div className="teamleader-caption">
+                  <h3>{leader.name}</h3>
+                  <p>{leader.role}</p>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -264,12 +299,19 @@ export function Testimonials() {
   return (
     <section className="section-band testimonial-section">
       <div className="section-inner">
-        <p className="eyebrow dark">Paarstimmen</p>
-        <h2>Was hängen bleibt, ist nicht nur die Kulisse.</h2>
+        <div className="testimonial-heading">
+          <p className="eyebrow">Paarstimmen</p>
+          <h2>Was unsere Paare sagen</h2>
+          <p>Für mehr Rezensionen schaut gerne auf Google vorbei.</p>
+        </div>
         <div className="testimonial-grid">
           {landingTestimonials.map((testimonial) => (
             <article className="testimonial-card" key={testimonial.quote}>
-              <Star aria-hidden="true" size={19} />
+              <div className="testimonial-stars" aria-label="5 von 5 Sternen">
+                {[0, 1, 2, 3, 4].map((star) => (
+                  <Star aria-hidden="true" fill="currentColor" key={star} size={15} />
+                ))}
+              </div>
               <blockquote>{testimonial.quote}</blockquote>
               <p>
                 <strong>{testimonial.name}</strong>
