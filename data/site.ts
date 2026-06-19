@@ -22,6 +22,10 @@ export const imageLibrary = {
     src: "/images/onepage/raw/5c49018f-0803-4d36-b612-6f4b4d01f860.jpg",
     alt: "Seeblick und Außenbereich des Landgut Seebühne"
   },
+  mappeCover: {
+    src: "/images/onepage/raw/1b946b01-a65f-46e8-aed9-8362e098cfbf.png",
+    alt: "Cover der Hochzeitsmappe des Landgut Seebühne"
+  },
   ceremony: {
     src: "/images/onepage/raw/1c4571ed-5ba3-4882-bdfa-9ca0d8b120e7.png",
     alt: "Freie Trauung im Grünen am See"

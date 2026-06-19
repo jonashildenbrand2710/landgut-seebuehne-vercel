@@ -445,6 +445,71 @@ h2 {
   font-weight: 800;
 }
 
+.lead-magnet-section {
+  padding: clamp(70px, 8vw, 112px) 0;
+  background: var(--mist);
+}
+
+.lead-magnet-inner {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.82fr) minmax(0, 1fr);
+  gap: clamp(30px, 6vw, 82px);
+  align-items: center;
+}
+
+.mappe-showcase {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 500px;
+  padding: clamp(20px, 4vw, 46px);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.1)),
+    var(--green);
+}
+
+.mappe-cover-image {
+  width: min(100%, 430px);
+  height: auto;
+  filter: drop-shadow(0 22px 32px rgba(18, 31, 26, 0.34));
+}
+
+.mappe-note {
+  position: absolute;
+  left: 22px;
+  bottom: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  max-width: calc(100% - 44px);
+  padding: 10px 13px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--green);
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.badge-row span {
+  padding: 9px 12px;
+  border: 1px solid rgba(44, 111, 123, 0.28);
+  border-radius: 999px;
+  background: rgba(44, 111, 123, 0.09);
+  color: var(--green);
+  font-size: 0.88rem;
+  font-weight: 850;
+}
+
 .landing-split-section {
   padding: clamp(72px, 8vw, 118px) 0;
   background: var(--bg);
@@ -961,6 +1026,7 @@ h2 {
   .cta-inner,
   .footer-grid,
   .proof-inner,
+  .lead-magnet-inner,
   .landing-split,
   .landing-split.reverse,
   .section-heading-row,
@@ -985,6 +1051,10 @@ h2 {
   .landing-media,
   .landing-media.tall {
     min-height: 390px;
+  }
+
+  .mappe-showcase {
+    min-height: 440px;
   }
 
   .image-rail {
@@ -1092,6 +1162,20 @@ h2 {
   .landing-media,
   .landing-media.tall {
     min-height: 310px;
+  }
+
+  .mappe-showcase {
+    min-height: 360px;
+  }
+
+  .mappe-cover-image {
+    width: min(100%, 320px);
+  }
+
+  .mappe-note {
+    position: static;
+    justify-self: stretch;
+    margin-top: 14px;
   }
 
   .inline-actions,

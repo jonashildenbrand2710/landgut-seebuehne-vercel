@@ -41,36 +41,55 @@ export const landingProof = {
   mentions: ["Bekannt aus", "Paarstimmen", "Hochzeitsmappe", "Besichtigung"]
 };
 
+export const landingLeadMagnet = {
+  eyebrow: "Hochzeitsmappe",
+  title: "Die perfekte Kulisse für eure Traumhochzeit.",
+  text:
+    "Sichert euch exklusive Infos und einen ersten Überblick, bevor Termine vergeben sind. Die Mappe bündelt Ort, Möglichkeiten und Fragen für den nächsten Schritt.",
+  badges: ["PDF-Download", "Location am See", "Ablauf & Möglichkeiten", "Vorbereitung fürs Erstgespräch"],
+  points: [
+    "umfassender Überblick über die Location am See",
+    "Antworten auf häufige Fragen rund um eure Hochzeit",
+    "Orientierung, bevor ihr Telefontermin oder Besichtigung plant"
+  ]
+};
+
 export const landingPromises = [
   {
     number: "1",
     title: "Echte Exklusivität",
-    text: "Eine Hochzeit pro Tag, volle Aufmerksamkeit und ein privates Gefühl für euch und eure Gäste."
+    text:
+      "Unsere One-Wedding-Policy: eine Hochzeit pro Tag, 100% Aufmerksamkeit und keine fremden Gäste im Hintergrund."
   },
   {
     number: "2",
     title: "Digitale Betreuung",
-    text: "Moderne Planung trifft auf persönliche Hochzeitserfahrung, damit Fragen früh sortiert werden."
+    text:
+      "Moderne Planung trifft traditionelle Hochzeitsexpertise, damit ihr vor und während der Vorbereitung klare Orientierung habt."
   },
   {
     number: "3",
     title: "Individualität",
-    text: "Euer Tag soll nicht nach Paket von der Stange aussehen, sondern nach eurem Rahmen."
+    text:
+      "Maßgeschneiderte Konzepte statt vorgefertigter Hochzeitspakete: euer Tag soll zu euch und eurem Rahmen passen."
   },
   {
     number: "4",
     title: "Naturkulisse mit Sicherheit",
-    text: "See, Garten und Parkanlage wirken leicht, während Wege, Wetteroptionen und Ablauf mitgedacht werden."
+    text:
+      "Idyllischer See und 8.000 qm Park wirken leicht, während Wetter, Wege und Plan B von Anfang an mitgedacht werden."
   },
   {
     number: "5",
     title: "Nachhaltige Partner",
-    text: "Regionale Partner und bewusste Entscheidungen geben dem Tag Substanz statt bloßer Kulisse."
+    text:
+      "Regionale Partner und umweltbewusste Umsetzung geben dem Hochzeitstag Substanz, ohne die Feier schwer zu machen."
   },
   {
     number: "6",
-    title: "Keine Überraschungen",
-    text: "Leistungen, Möglichkeiten und Rahmen werden im Gespräch transparent eingeordnet."
+    title: "Preise ohne Überraschungen",
+    text:
+      "Leistungen, Getränke, Service und Rahmen werden transparent eingeordnet, damit ihr nicht mit Einzelzahlen jongliert."
   }
 ] satisfies LandingPromise[];
 

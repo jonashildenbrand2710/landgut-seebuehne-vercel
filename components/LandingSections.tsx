@@ -18,6 +18,7 @@ import {
   landingAdvantages,
   landingBundles,
   landingGallery,
+  landingLeadMagnet,
   landingProblemSigns,
   landingPromises,
   landingProof,
@@ -69,38 +70,44 @@ export function ProofStrip() {
 }
 
 export function LeadMagnetSection() {
-  const image = imageLibrary.lake;
+  const cover = imageLibrary.mappeCover;
 
   return (
-    <section className="landing-split-section">
-      <div className="section-inner landing-split">
-        <div className="landing-media tall">
-          <Image src={image.src} alt={image.alt} fill sizes="(max-width: 900px) 100vw, 46vw" />
+    <section className="lead-magnet-section">
+      <div className="section-inner lead-magnet-inner">
+        <div className="mappe-showcase">
+          <Image
+            className="mappe-cover-image"
+            src={cover.src}
+            alt={cover.alt}
+            width={620}
+            height={620}
+            sizes="(max-width: 900px) 82vw, 42vw"
+          />
+          <div className="mappe-note">
+            <BookOpen aria-hidden="true" size={18} />
+            <span>Als PDF-Download erhältlich</span>
+          </div>
         </div>
         <div className="landing-copy">
-          <p className="eyebrow dark">Hochzeitsmappe</p>
-          <h2>Erst Orientierung bekommen, dann den passenden Termin klären.</h2>
-          <p>
-            Die Hochzeitsmappe hilft euch, Ort, Ablauf und wichtige Fragen
-            schnell einzuordnen. So bekommt ihr ein Gefühl dafür, ob die
-            Seebühne zu eurem Datum, eurer Gästezahl und eurem Tageswunsch passt.
-          </p>
+          <p className="eyebrow dark">{landingLeadMagnet.eyebrow}</p>
+          <h2>{landingLeadMagnet.title}</h2>
+          <p>{landingLeadMagnet.text}</p>
+          <div className="badge-row" aria-label="Inhalte der Hochzeitsmappe">
+            {landingLeadMagnet.badges.map((badge) => (
+              <span key={badge}>{badge}</span>
+            ))}
+          </div>
           <ul className="check-list compact">
-            <li>
-              <BookOpen aria-hidden="true" size={18} />
-              <span>Überblick zu Location, Ablauf und Möglichkeiten</span>
-            </li>
-            <li>
-              <CalendarDays aria-hidden="true" size={18} />
-              <span>Guter Einstieg vor Telefontermin oder Besichtigung</span>
-            </li>
-            <li>
-              <ShieldCheck aria-hidden="true" size={18} />
-              <span>Keine öffentlichen Preisdetails, keine unklaren Versprechen</span>
-            </li>
+            {landingLeadMagnet.points.map((point) => (
+              <li key={point}>
+                <ShieldCheck aria-hidden="true" size={18} />
+                <span>{point}</span>
+              </li>
+            ))}
           </ul>
           <div className="inline-actions">
-            <InternalCta href="/hochzeitsmappe">Hochzeitsmappe ansehen</InternalCta>
+            <InternalCta href="/hochzeitsmappe">Hochzeitsmappe downloaden</InternalCta>
             <InternalCta href="/termin-buchen" variant="secondary">
               Termin anfragen
             </InternalCta>
