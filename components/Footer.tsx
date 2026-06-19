@@ -24,7 +24,7 @@ export function Footer() {
               </li>
             ))}
             <li>
-              <Link href="/hochzeitsmappe">Hochzeitsmappe</Link>
+              <Link href="/datenschutz">Datenschutz</Link>
             </li>
             <li>
               <Link href="/impressum">Impressum</Link>
@@ -49,8 +49,7 @@ export function Footer() {
         </div>
       </div>
       <p className="footer-note">
-        © {new Date().getFullYear()} Landgut Seebühne. Vor Livegang: Datenschutz,
-        Tracking und finale Rechtsdaten prüfen.
+        © {new Date().getFullYear()} Landgut Seebühne. Alle Rechte vorbehalten.
       </p>
     </footer>
   );

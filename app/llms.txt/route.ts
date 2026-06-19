@@ -1,8 +1,8 @@
 import { articles } from "@/data/articles";
-import { allPages, siteConfig } from "@/data/site";
+import { allPages, isPublicSitePageSlug, siteConfig } from "@/data/site";
 
 export function GET() {
-  const publicPages = allPages.filter((page) => !page.noindex);
+  const publicPages = allPages.filter((page) => !page.noindex && isPublicSitePageSlug(page.slug));
   const body = [
     "# Landgut Seebühne",
     "",

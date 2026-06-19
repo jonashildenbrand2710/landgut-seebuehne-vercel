@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
 import { articles } from "@/data/articles";
-import { allPages, siteConfig } from "@/data/site";
+import { allPages, isPublicSitePageSlug, siteConfig } from "@/data/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const pages = allPages
-    .filter((page) => !page.noindex)
+    .filter((page) => !page.noindex && isPublicSitePageSlug(page.slug))
     .map((page) => ({
       url: `${siteConfig.domain}${page.slug ? `/${page.slug}` : "/"}`,
       lastModified: now,

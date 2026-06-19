@@ -5,7 +5,7 @@ export const siteConfig = {
   email: "mail@landgut-seebuehne.de",
   phone: "09163 - 1455",
   address: {
-    legal: "Kirchstr. 22, 91487 Vestenbergsgreuth",
+    legal: "Hauptstraße 32, 91487 Vestenbergsgreuth",
     publicRegion: "Vestenbergsgreuth / Mittelfranken / Franken"
   },
   bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL ?? "https://kennenlernen.landgut-seebuehne.de/termin",
@@ -407,7 +407,49 @@ export const sitePages: SitePage[] = [
       {
         title: "Ferien- und Freizeit am See GbR",
         text:
-          "Oliver und Christine Hildenbrand\nKirchstr. 22\n91487 Vestenbergsgreuth\n\nE-Mail: mail@landgut-seebuehne.de\nWebsite: www.landgut-seebuehne.de\nTel. 09163 - 1455\nFax 09163 - 1476\n\nInhaltlich Verantwortliche: Oliver und Christine Hildenbrand"
+          "Oliver und Christine Hildenbrand\nHauptstraße 32\n91487 Vestenbergsgreuth\n\nE-Mail: mail@landgut-seebuehne.de\nWebsite: www.landgut-seebuehne.de\nTel. 09163 - 1455\nFax 09163 - 1476\n\nInhaltlich Verantwortliche: Oliver und Christine Hildenbrand"
+      }
+    ]
+  },
+  {
+    slug: "datenschutz",
+    title: "Datenschutz",
+    description: "Datenschutzhinweise des Landgut Seebühne.",
+    heroEyebrow: "Datenschutz",
+    heroTitle: "Datenschutz",
+    heroText:
+      "Hinweise dazu, welche Daten beim Besuch dieser Website und bei Anfragen verarbeitet werden.",
+    imageKey: "lake",
+    sections: [
+      {
+        title: "Verantwortliche Stelle",
+        text:
+          "Ferien- und Freizeit am See GbR\nOliver und Christine Hildenbrand\nHauptstraße 32\n91487 Vestenbergsgreuth\n\nE-Mail: mail@landgut-seebuehne.de\nWebsite: www.landgut-seebuehne.de"
+      },
+      {
+        title: "Besuch der Website",
+        text:
+          "Beim Aufruf dieser Website werden technisch notwendige Daten verarbeitet, damit die Seiten ausgeliefert, stabil betrieben und gegen Missbrauch geschützt werden können. Dazu können IP-Adresse, Datum und Uhrzeit des Zugriffs, aufgerufene URL, Browserinformationen und technische Protokolldaten gehören."
+      },
+      {
+        title: "Hosting und technische Bereitstellung",
+        text:
+          "Die Website wird als Next.js/Vercel-Seite betrieben. Beim Hosting können technische Zugriffs- und Serverdaten verarbeitet werden, die für Auslieferung, Sicherheit und Fehleranalyse erforderlich sind."
+      },
+      {
+        title: "Kontakt und Hochzeitsmappe",
+        text:
+          "Wenn ihr uns per E-Mail kontaktiert, einen Termin anfragt oder die Hochzeitsmappe anfordert, verarbeiten wir die von euch angegebenen Kontaktdaten und Nachrichteninhalte, um eure Anfrage zu beantworten und den passenden nächsten Schritt zu organisieren."
+      },
+      {
+        title: "Tracking und externe Dienste",
+        text:
+          "Tracking- und Marketingdienste werden im Neubau nur über bewusst gesetzte Environment-Variablen und nach finaler Cookie-/Consent-Prüfung aktiviert. Echte Tracking-IDs und Tokens werden nicht im Code gespeichert."
+      },
+      {
+        title: "Eure Rechte",
+        text:
+          "Ihr könnt Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und weitere gesetzliche Betroffenenrechte geltend machen. Wendet euch dafür bitte an mail@landgut-seebuehne.de."
       }
     ]
   },
@@ -549,15 +591,18 @@ export const sitePages: SitePage[] = [
 
 export const allPages: SitePage[] = [indexPage, ...sitePages];
 
+export const publicSitePageSlugs = ["", "hochzeitsmappe", "datenschutz", "impressum"] as const;
+
+export function isPublicSitePageSlug(slug: string) {
+  return publicSitePageSlugs.includes(slug as (typeof publicSitePageSlugs)[number]);
+}
+
 export function getPageBySlug(slug: string) {
   return sitePages.find((page) => page.slug === slug);
 }
 
 export const mainNavigation = [
-  { label: "Location", href: "/location" },
-  { label: "Trauung", href: "/trauung" },
-  { label: "Getting Ready", href: "/getting-ready" },
-  { label: "Über uns", href: "/uber-uns" },
+  { label: "Startseite", href: "/" },
   { label: "Journal", href: "/blog" },
-  { label: "Termin", href: "/termin-buchen" }
+  { label: "Hochzeitsmappe", href: "/hochzeitsmappe" }
 ];

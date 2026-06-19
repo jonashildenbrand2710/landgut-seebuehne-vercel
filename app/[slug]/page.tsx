@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CTASection, FAQ, SectionBand } from "@/components/PageSections";
 import { Hero } from "@/components/Hero";
-import { getPageBySlug, sitePages } from "@/data/site";
+import { getPageBySlug, isPublicSitePageSlug, sitePages } from "@/data/site";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       url: `/${page.slug}`
     },
-    robots: page.noindex
+    robots: page.noindex || !isPublicSitePageSlug(page.slug)
       ? {
           index: false,
           follow: true
@@ -67,7 +67,7 @@ export default async function DynamicPage({ params }: PageProps) {
         <SectionBand section={section} index={index} key={section.title} />
       ))}
       <FAQ items={page.faqs} />
-      {page.slug !== "impressum" ? <CTASection /> : null}
+      {!["datenschutz", "impressum"].includes(page.slug) ? <CTASection /> : null}
     </>
   );
 }
