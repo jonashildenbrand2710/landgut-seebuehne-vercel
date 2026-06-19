@@ -34,7 +34,7 @@ export type LandingGalleryItem = {
 
 export const landingProof = {
   stats: [
-    { value: "4,9", label: "Bewertung aus Paarstimmen" },
+    { value: "4,9", label: "aus Paarbewertungen" },
     { value: "120+", label: "Paare als sichtbares Vertrauenssignal" },
     { value: "1", label: "Hochzeit pro Tag, keine Parallelveranstaltung" }
   ] satisfies LandingStat[],

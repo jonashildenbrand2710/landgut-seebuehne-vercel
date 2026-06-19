@@ -48,7 +48,7 @@ export function ProofStrip() {
       <div className="section-inner proof-inner">
         <div className="proof-copy">
           <Star aria-hidden="true" size={22} />
-          <span>Von Paaren empfohlen und als Hochzeitsort am See gesucht.</span>
+          <span>Bestbewertet von Paaren und als Hochzeitsort am See gesucht.</span>
         </div>
         <dl className="proof-stats">
           {landingProof.stats.map((stat) => (
