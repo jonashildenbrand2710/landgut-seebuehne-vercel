@@ -17,7 +17,9 @@ export type LandingBundle = {
   title: string;
   kicker: string;
   text: string;
+  badge?: string;
   points: string[];
+  cta: string;
 };
 
 export type LandingTestimonial = {
@@ -52,6 +54,14 @@ export const landingLeadMagnet = {
     "Antworten auf häufige Fragen rund um eure Hochzeit",
     "Orientierung, bevor ihr Telefontermin oder Besichtigung plant"
   ]
+};
+
+export const landingAvailability = {
+  eyebrow: "Freie Hochzeitstermine",
+  title: "Jetzt anfragen, bevor euer Wunschdatum vergeben ist.",
+  text:
+    "Wir sortieren mit euch Datum, Gästezahl, Paket-Richtung und die Frage, ob ein Erstgespräch der passende nächste Schritt ist.",
+  cta: "Preise & Details anfragen"
 };
 
 export const landingPromises = [
@@ -96,21 +106,40 @@ export const landingPromises = [
 export const landingBundles = [
   {
     title: "Tiny Wedding",
-    kicker: "Klein und bewusst",
-    text: "Für Paare, die eine intime Feier mit Seegefühl, gutem Ablauf und persönlicher Nähe suchen.",
-    points: ["kleinere Gesellschaft", "klarer Tagesrahmen", "viel Raum für persönliche Momente"]
+    kicker: "Klein, aber oho",
+    text: "Für eure 15-35 liebsten Menschen: Qualität statt Quantität, viel Nähe und ein privater Rahmen am See.",
+    points: [
+      "privater Seezugang nur für eure kleine Gruppe",
+      "auch kurzfristig und spontan planbar",
+      "authentische Momente statt Massenabfertigung"
+    ],
+    cta: "Preise & Details anfragen"
   },
   {
     title: "Classic Wedding",
-    kicker: "Der stimmige Hochzeitstag",
-    text: "Für Paare, die Trauung, Empfang, Dinner und Feier an einem zusammenhängenden Ort erleben möchten.",
-    points: ["Trauung und Feier vor Ort", "private Location-Nutzung", "Planung mit Orientierung"]
+    kicker: "Stilvoll feiern",
+    text: "Für Paare, die exklusiv feiern und einen stimmigen Tagesort mit Gartenbereich, Team und Gästekomfort suchen.",
+    points: [
+      "komplett für euch allein",
+      "eigener Gartenbereich mit Seeblick",
+      "professionelles Team für reibungslosen Ablauf",
+      "Übernachtungsmöglichkeiten für Gäste zum Vorzugspreis"
+    ],
+    cta: "Preise & Details anfragen"
   },
   {
     title: "Signature Wedding",
-    kicker: "Mehr Begleitung, mehr Erlebnis",
-    text: "Für Hochzeiten, bei denen Atmosphäre, Komfort, Gästeerlebnis und Ablauf besonders rund greifen sollen.",
-    points: ["hochwertiger Gesamtauftritt", "starke Außen- und Innenbereiche", "intensive Abstimmung"]
+    kicker: "Kompromisslos einzigartig",
+    badge: "Besonders beliebt",
+    text:
+      "Für Paare, die Prime-Wochenendtermine, mehr Begleitung und ein besonders rundes Erlebnis suchen.",
+    points: [
+      "alles aus Classic Wedding plus zusätzliche Vorteile",
+      "freie Trauung am See für euren großen Moment",
+      "VIP-Betreuung während der Planungsphase",
+      "Hochzeitssuite direkt vor Ort"
+    ],
+    cta: "Preise & Details anfragen"
   }
 ] satisfies LandingBundle[];
 

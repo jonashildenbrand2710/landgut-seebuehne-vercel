@@ -642,31 +642,46 @@ h2 {
   line-height: 1.22;
 }
 
-.impression-section {
-  padding: 88px 0;
-  overflow: hidden;
-  background: var(--green);
-  color: var(--white);
-}
-
-.impression-section h2 {
-  max-width: 760px;
-}
-
-.image-rail {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(280px, 1fr));
-  gap: 18px;
-  width: min(1280px, calc(100% - 36px));
-  margin: 42px auto 0;
-}
-
-.rail-image {
+.availability-section {
   position: relative;
-  min-height: 420px;
+  min-height: 680px;
+  display: grid;
+  align-items: end;
   overflow: hidden;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.12);
+  color: var(--white);
+  background: var(--green);
+}
+
+.availability-image {
+  object-fit: cover;
+}
+
+.availability-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(16, 28, 23, 0.78), rgba(16, 28, 23, 0.28) 56%, rgba(16, 28, 23, 0.12)),
+    linear-gradient(0deg, rgba(16, 28, 23, 0.82), rgba(16, 28, 23, 0.12) 62%);
+}
+
+.availability-content {
+  position: relative;
+  padding: 120px 0 76px;
+}
+
+.availability-content h2 {
+  max-width: 820px;
+}
+
+.availability-content p:not(.eyebrow) {
+  max-width: 620px;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+.availability-content .button {
+  margin-top: 24px;
 }
 
 .bundle-section {
@@ -686,10 +701,29 @@ h2 {
 }
 
 .bundle-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 430px;
+  min-height: 520px;
   padding: 30px;
+}
+
+.bundle-card.featured {
+  border-color: rgba(127, 73, 97, 0.36);
+  box-shadow: 0 22px 50px rgba(31, 49, 43, 0.12);
+}
+
+.bundle-badge {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  max-width: calc(100% - 36px);
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: var(--berry);
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 900;
 }
 
 .bundle-card > p {
@@ -703,7 +737,7 @@ h2 {
 .bundle-card ul {
   display: grid;
   gap: 12px;
-  margin: auto 0 0;
+  margin: 24px 0 0;
   padding: 28px 0 0;
   list-style: none;
 }
@@ -721,6 +755,17 @@ h2 {
   flex: 0 0 auto;
   margin-top: 3px;
   color: var(--lake);
+}
+
+.bundle-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin-top: auto;
+  padding-top: 26px;
+  color: var(--green-2);
+  font-weight: 900;
 }
 
 .story-points {
@@ -1057,12 +1102,8 @@ h2 {
     min-height: 440px;
   }
 
-  .image-rail {
-    grid-template-columns: 1fr;
-  }
-
-  .rail-image {
-    min-height: 360px;
+  .availability-section {
+    min-height: 600px;
   }
 
   .personal-cta-actions {
@@ -1190,8 +1231,8 @@ h2 {
     min-height: 0;
   }
 
-  .rail-image {
-    min-height: 300px;
+  .availability-section {
+    min-height: 560px;
   }
 
   .gallery-item > div {

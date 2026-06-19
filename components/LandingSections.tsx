@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import {
   landingAdvantages,
+  landingAvailability,
   landingBundles,
   landingGallery,
   landingLeadMagnet,
@@ -147,20 +148,26 @@ export function PromiseGrid() {
 }
 
 export function ImpressionSection() {
-  const images = [imageLibrary.ceremony, imageLibrary.location, imageLibrary.gettingReady];
+  const image = imageLibrary.availability;
 
   return (
-    <section className="impression-section">
-      <div className="section-inner">
-        <p className="eyebrow">Impressionen</p>
-        <h2>Ein Tagesort statt einzelner Programmpunkte.</h2>
-      </div>
-      <div className="image-rail" aria-label="Impressionen vom Landgut Seebühne">
-        {images.map((image) => (
-          <div className="rail-image" key={image.src}>
-            <Image src={image.src} alt={image.alt} fill sizes="(max-width: 900px) 86vw, 31vw" />
-          </div>
-        ))}
+    <section className="availability-section">
+      <Image
+        className="availability-image"
+        src={image.src}
+        alt={image.alt}
+        fill
+        sizes="100vw"
+      />
+      <div className="availability-shade" />
+      <div className="section-inner availability-content">
+        <p className="eyebrow">{landingAvailability.eyebrow}</p>
+        <h2>{landingAvailability.title}</h2>
+        <p>{landingAvailability.text}</p>
+        <Link className="button primary light" href="/termin-buchen">
+          <span>{landingAvailability.cta}</span>
+          <ArrowRight aria-hidden="true" size={18} />
+        </Link>
       </div>
     </section>
   );
@@ -182,7 +189,8 @@ export function WeddingBundles() {
         </div>
         <div className="bundle-grid">
           {landingBundles.map((bundle) => (
-            <article className="bundle-card" key={bundle.title}>
+            <article className={bundle.badge ? "bundle-card featured" : "bundle-card"} key={bundle.title}>
+              {bundle.badge ? <span className="bundle-badge">{bundle.badge}</span> : null}
               <p>{bundle.kicker}</p>
               <h3>{bundle.title}</h3>
               <span>{bundle.text}</span>
@@ -194,6 +202,10 @@ export function WeddingBundles() {
                   </li>
                 ))}
               </ul>
+              <Link className="bundle-link" href="/termin-buchen">
+                <span>{bundle.cta}</span>
+                <ArrowRight aria-hidden="true" size={16} />
+              </Link>
             </article>
           ))}
         </div>
