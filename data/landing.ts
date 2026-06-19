@@ -36,7 +36,7 @@ export type LandingTeamLeader = {
 export type LandingTestimonial = {
   quote: string;
   name: string;
-  context: string;
+  context?: string;
 };
 
 export type LandingWarning = {
@@ -70,9 +70,8 @@ export const landingProof = {
 
 export const landingLeadMagnet = {
   eyebrow: "Hochzeitsmappe",
-  title: "Die perfekte Kulisse für eure Traumhochzeit.",
-  text:
-    "Sichert euch exklusive Infos und einen ersten Überblick, bevor Termine vergeben sind. Die Mappe bündelt Ort, Möglichkeiten und Fragen für den nächsten Schritt.",
+  title: "Die perfekte Kulisse für eure Traumhochzeit",
+  text: "Sichert euch jetzt exklusive Infos und Termine, bevor sie vergeben sind.",
   badges: ["PDF-Download", "Location am See", "Ablauf & Möglichkeiten", "Vorbereitung fürs Erstgespräch"],
   points: [
     "umfassender Überblick über die Location am See",
@@ -93,83 +92,78 @@ export const landingPromises = [
   {
     number: "1",
     title: "Echte Exklusivität",
-    text:
-      "Unsere One-Wedding-Policy: eine Hochzeit pro Tag, 100% Aufmerksamkeit und keine fremden Gäste im Hintergrund."
+    text: "Unsere One-Wedding-Policy: Eine Hochzeit pro Tag, 100% Aufmerksamkeit"
   },
   {
     number: "2",
     title: "Digitale Betreuung",
-    text:
-      "Moderne Planung trifft traditionelle Hochzeitsexpertise, damit ihr vor und während der Vorbereitung klare Orientierung habt."
+    text: "Moderne Planung trifft traditionelle Hochzeitsexpertise - Unser Wedding Consulting Service"
   },
   {
     number: "3",
     title: "Individualität",
-    text:
-      "Maßgeschneiderte Konzepte statt vorgefertigter Hochzeitspakete: euer Tag soll zu euch und eurem Rahmen passen."
+    text: "Maßgeschneiderte Konzepte statt vorgefertigter Hochzeitspakete"
   },
   {
     number: "4",
     title: "Naturkulisse mit Sicherheit",
-    text:
-      "Idyllischer See und 8.000 qm Park wirken leicht, während Wetter, Wege und Plan B von Anfang an mitgedacht werden."
+    text: "Idyllischer See und 8.000qm Park – mit Plan B bei jedem Wetter"
   },
   {
     number: "5",
-    title: "Nachhaltige Partner",
-    text:
-      "Regionale Partner und umweltbewusste Umsetzung geben dem Hochzeitstag Substanz, ohne die Feier schwer zu machen."
+    title: "Nachhaltigkeit",
+    text: "Regionale Partner und umweltbewusste Umsetzung ohne Kompromisse"
   },
   {
     number: "6",
     title: "Preise ohne Überraschungen",
-    text:
-      "Leistungen, Getränke, Service und Rahmen werden transparent eingeordnet, damit ihr nicht mit Einzelzahlen jongliert."
+    text: "Klare Pauschalen für Getränke und Service – transparent und fair"
   }
 ] satisfies LandingPromise[];
 
 export const landingBundles = [
   {
     title: "Tiny Wedding",
-    kicker: "Klein, aber oho",
-    text: "Für eure 15-35 liebsten Menschen: Qualität statt Quantität, viel Nähe und ein privater Rahmen am See.",
+    kicker: "Klein, aber oho – für eure 15-35 liebsten Menschen",
+    text: "Qualität statt Quantität (Sonntags-Donnerstags buchbar)",
     points: [
-      "privater Seezugang nur für eure kleine Gruppe",
-      "auch kurzfristig und spontan planbar",
-      "authentische Momente statt Massenabfertigung"
+      "Privater Seezugang - nur für eure kleine Gruppe",
+      "Spontan umsetzbar - auch kurzfristig planbar",
+      "Authentische Momente - echte Nähe statt Massenabfertigung",
+      "… und vieles mehr für euren perfekten Tag"
     ],
     cta: "Preise & Details anfragen"
   },
   {
     title: "Classic Wedding",
-    kicker: "Stilvoll feiern",
-    text: "Für Paare, die exklusiv feiern und einen stimmigen Tagesort mit Gartenbereich, Team und Gästekomfort suchen.",
+    kicker: "Stilvoll feiern mit intelligentem Preiskonzept",
+    text: "Komplett für euch allein (Sonntags-Donnerstags buchbar)",
     points: [
-      "komplett für euch allein",
-      "eigener Gartenbereich mit Seeblick",
-      "professionelles Team für reibungslosen Ablauf",
-      "Übernachtungsmöglichkeiten für Gäste zum Vorzugspreis"
+      "Eigener Gartenbereich - mit Seeblick",
+      "Professionelles Team für reibungslosen Ablauf",
+      "Übernachtungsmöglichkeiten - für Gäste zum Vorzugspreis",
+      "… und vieles mehr für euren perfekten Tag"
     ],
     cta: "Preise & Details anfragen"
   },
   {
     title: "Signature Wedding",
     kicker: "Kompromisslos einzigartig",
-    badge: "Besonders beliebt",
-    text:
-      "Für Paare, die Prime-Wochenendtermine, mehr Begleitung und ein besonders rundes Erlebnis suchen.",
+    badge: "Besonders beliebt!",
+    text: "Prime Wochenend-Termine",
     points: [
-      "alles aus Classic Wedding plus zusätzliche Vorteile",
-      "freie Trauung am See für euren großen Moment",
-      "VIP-Betreuung während der Planungsphase",
-      "Hochzeitssuite direkt vor Ort"
+      "Alles In 'Classic Wedding' – plus:",
+      "Freie Trauung am See - für euren großen Moment",
+      "VIP-Betreuung während der gesamten Planungsphase",
+      "Gratis Hochzeitssuite komfortable Übernachtung direkt vor Ort",
+      "… und vieles mehr für euren perfekten Tag"
     ],
     cta: "Preise & Details anfragen"
   }
 ] satisfies LandingBundle[];
 
 export const landingFamily = {
-  eyebrow: "Familienunternehmen",
+  eyebrow: "FAMILIEN-unternehmen",
   title: "Über das Landgut Seebühne",
   text:
     "Das Landgut Seebühne ist ein magischer Ort für einzigartige Hochzeiten in idyllischer Umgebung mit See und weitläufigen Gärten. Was 1996 mit der Hochzeit der Gründerfamilie Hildenbrand begann, ist heute eine exklusive Location für Paare, die mehr als nur einen Veranstaltungsort suchen. Hier verbindet sich internationale Gastro-Expertise mit familiärer Herzlichkeit, um jeden Hochzeitstag zu einem unvergesslichen Erlebnis zu machen.",
@@ -187,7 +181,7 @@ export const landingFamily = {
     {
       title: "Ein Zuhause für euren großen Tag",
       text:
-        "Die Seebühne ist mehr als eine Location - sie ist ein Ort, an dem eure Hochzeitsträume Wirklichkeit werden. Hier verschmelzen Tradition und Innovation zu einem Erlebnis, das sich anfühlt wie nach Hause kommen."
+        "Die Seebühne ist mehr als eine Location – sie ist ein Ort, an dem eure Hochzeitsträume Wirklichkeit werden. Hier verschmelzen Tradition und Innovation zu einem Erlebnis, das sich anfühlt wie nach Hause kommen."
     }
   ] satisfies LandingStoryCard[]
 };
@@ -215,41 +209,38 @@ export const landingTeamLeaders = [
   }
 ] satisfies LandingTeamLeader[];
 
-export const landingTestimonials = [
+export const landingTestimonials: LandingTestimonial[] = [
   {
     quote:
-      "Wir haben unsere Hochzeit mit freier Trauung an der Seebühne gehabt und waren begeistert. Ein besonderer, magischer Ort mit einem Personal, das sich am Ende für uns wie Familie anfühlte und einem so herzlichen Service. Eine Location, die es so nirgendwo anders gibt.",
-    name: "Justine R.",
-    context: "Freie Trauung an der Seebühne"
+      "Wir haben unsere Hochzeit mit freier Trauung an der Seebühne gehabt und waren begeistert. Ein besonderer, magischer Ort mit einem Personal, das sich am Ende für uns wie Familie anfühlte und einem so herzlichen Service. Eine Location, die es so nirgendwo anders gibt. Wir haben uns rundum wohlgefühlt und würden jedem Brautpaar die Seebühne wärmstens empfehlen. Vor allem, wenn man eine Gartenhochzeit mit Seeblick haben möchte. :) Danke liebes Seebühnen-Team für all eure Mühen, ihr seid wirklich etwas Besonderes!",
+    name: "Justine R."
   },
   {
     quote:
-      "Hatte mein Hochzeitsfeier hier. Das Team war super freundlich, professionell, und alles was Paare braucht, um eine schöne Hochzeit zu haben. Location ist sehr schön und romantisch.",
-    name: "Clara Marianna",
-    context: "Hochzeitsfeier"
+      "Hatte mein Hochzeitsfeier hier. Das Team war super! freundlich, professionell, und alles was Paare braucht, um eine schöne Hochzeit zu haben. Location ist sehr schön und romantisch. Alle Gäste hatten auch sehr tolle Zeit bei der Zeremonie und Party. Ganz lieben Dank an Christina und ihr Team!",
+    name: "Clara Marianna"
   },
   {
     quote:
-      "Eine romantische Oase mit herrlichem Garten, einem Weiher und einer liebevoll gestalteten Feierlocation. Wer das gewisse Etwas sucht ist hier genau richtig. Begleite immer wieder gerne Brautpaare als Hochzeitsrednerin.",
-    name: "Sabine Krause",
-    context: "Hochzeitsrednerin"
+      "Eine romantische Oase mit herrlichem Garten, einem Weiher und einer liebevoll gestalteten Feierlocation. Wer das gewisse Etwas sucht ist hier genau richtig. Begleite immer wieder gerne Brautpaare als Hochzeitsrednerin und genieße die außergewöhnliche Atmosphäre. Man spürt erfrischende Leichtigkeit, Herzlichkeit und Professionalität zugleich. Tolles Team!",
+    name: "Sabine Krause"
   }
-] satisfies LandingTestimonial[];
+];
 
 export const landingProblemSigns = {
   eyebrow: "Warnsignale",
   title: "8 bittere Wahrheiten über Hochzeitslocations, die niemand ausspricht",
   text:
-    "Was euch bei typischen Locations wirklich erwartet - und warum es euch betrifft.",
+    "Was euch bei typischen Locations wirklich erwartet – und warum es euch betrifft",
   cta: "Jetzt Preise & Details anfragen",
   items: [
     {
       title: "Die Fließband-Hochzeit",
       subtitle: "Mehrere Hochzeiten parallel - besonders in Hotels & Eventlocations",
-      question: "Teilen wir unseren besonderen Tag mit fremden Gästen?",
+      question: "\"Teilen wir unseren besonderen Tag mit fremden Gästen?\"",
       bullets: [
         "Geteilte Foyers, Parkplätze und Toilettenanlagen",
-        "akustische Überschneidungen zwischen Veranstaltungsräumen",
+        "Akustische Überschneidungen zwischen Veranstaltungsräumen",
         "Hochzeitsgäste verirren sich in die falsche Feier"
       ],
       resultLabel: "Das Gefühl:",
@@ -258,11 +249,11 @@ export const landingProblemSigns = {
     {
       title: "\"Exklusiv\" nur auf dem Papier",
       subtitle: "\"Exklusiv\" bedeutet bei Schlössern & Gutshöfen oft nur \"separater Raum\"",
-      question: "Warum laufen fremde Menschen durch unsere Hochzeitsfotos?",
+      question: "\"Warum laufen fremde Menschen durch unsere Hochzeitsfotos?\"",
       bullets: [
         "Öffentliche Bereiche bleiben für andere zugänglich",
         "Touristen und andere Gäste als ständige Zuschauer",
-        "begrenzte Nutzungsrechte trotz hoher Kosten"
+        "Begrenzte Nutzungsrechte trotz hoher Kosten"
       ],
       resultLabel: "Die Realität:",
       result: "Trotz Premium-Preisen gehört euch der Ort nie wirklich ganz allein."
@@ -270,10 +261,10 @@ export const landingProblemSigns = {
     {
       title: "Die Fotofalle",
       subtitle: "Besonders bei beliebten Instagram-Locations",
-      question: "Wir haben nur 15 Minuten für Fotos am See, Weinberg oder Schlossturm?",
+      question: "\"Wir haben nur 15 Minuten für Fotos am See/Weinberg/Schlossturm?\"",
       bullets: [
-        "zeitlich begrenzte Slots für die besten Fotospots",
-        "lange Warteschlangen mit anderen Hochzeitspaaren",
+        "Zeitlich begrenzte Slots für die besten Fotospots",
+        "Lange Warteschlangen mit anderen Hochzeitspaaren",
         "Bildmotive, die bei hunderten anderen Paaren identisch aussehen"
       ],
       resultLabel: "Die Ernüchterung:",
@@ -282,11 +273,11 @@ export const landingProblemSigns = {
     {
       title: "Die Design-Einschränkungen",
       subtitle: "Historische Locations & traditionelle Landgasthöfe",
-      question: "Warum dürfen wir hier nichts verändern?",
+      question: "\"Warum dürfen wir hier nichts verändern?\"",
       bullets: [
-        "strikte Vorgaben bei Dekoration und Raumgestaltung",
+        "Strikte Vorgaben bei Dekoration und Raumgestaltung",
         "Verbot von Kerzen, Hängedekoration oder Blütenblättern",
-        "vorhandene Möbel und Farben bestimmen euren gesamten Look"
+        "Vorhandene Möbel und Farben bestimmen euren gesamten Look"
       ],
       resultLabel: "Die Frustration:",
       result: "Eure persönliche Vision muss hinter den Hausregeln zurückstehen."
@@ -294,10 +285,10 @@ export const landingProblemSigns = {
     {
       title: "Die Wetter-Katastrophe",
       subtitle: "Landgasthöfe & Locations ohne durchdachten Plan B",
-      question: "Was passiert bei Regen mit unserer Gartenhochzeit?",
+      question: "\"Was passiert bei Regen mit unserer Gartenhochzeit?\"",
       bullets: [
-        "improvisierte Indoor-Alternativen in unpassenden Räumen",
-        "kurzfristige Umplanung mit hohem Stressfaktor",
+        "Improvisierte Indoor-Alternativen in unpassenden Räumen",
+        "Kurzfristige Umplanung mit hohem Stressfaktor",
         "Aufpreis für Zelte und Überdachungen, die den Look ruinieren"
       ],
       resultLabel: "Die Angst:",
@@ -306,10 +297,10 @@ export const landingProblemSigns = {
     {
       title: "Die versteckten Extrakosten",
       subtitle: "Besonders bei Premium-Locations & Schlössern",
-      question: "Warum ist plötzlich alles extra zu bezahlen?",
+      question: "\"Warum ist plötzlich alles extra zu bezahlen?\"",
       bullets: [
         "Grundpreis deckt nur das absolute Minimum ab",
-        "jede Kleinigkeit wie Licht, Ton oder Bestuhlung wird separat berechnet",
+        "Jede Kleinigkeit (Licht, Ton, Bestuhlung) wird separat berechnet",
         "Zwang zu überteuerten Haus-Caterern ohne Alternativen"
       ],
       resultLabel: "Das Ergebnis:",
@@ -318,11 +309,11 @@ export const landingProblemSigns = {
     {
       title: "Die wechselnden Ansprechpartner",
       subtitle: "Hotels & große Veranstaltungszentren mit Personalmangel",
-      question: "Mit wem sprechen wir eigentlich gerade?",
+      question: "\"Mit wem sprechen wir eigentlich gerade?\"",
       bullets: [
-        "bei jedem Termin ein anderer Mitarbeiter",
-        "euer Wissen geht bei der Personalübergabe verloren",
-        "am Hochzeitstag betreut euch jemand, den ihr noch nie gesehen habt"
+        "Bei jedem Termin ein anderer Mitarbeiter",
+        "Euer Wissen geht bei der Personalübergabe verloren",
+        "Am Hochzeitstag betreut euch jemand, den ihr noch nie gesehen habt"
       ],
       resultLabel: "Die Enttäuschung:",
       result: "Ihr beginnt jeden Termin bei Null und müsst eure Wünsche immer wieder erklären."
@@ -330,11 +321,11 @@ export const landingProblemSigns = {
     {
       title: "Die Service-Monotonie",
       subtitle: "All-inclusive-Pakete in Eventhotels",
-      question: "Warum schmeckt das Essen wie bei jeder anderen Hochzeit?",
+      question: "\"Warum schmeckt das Essen wie bei jeder anderen Hochzeit?\"",
       bullets: [
-        "standardisierte Menüs ohne Individualität",
-        "eingeschränkte Auswahl an Getränken",
-        "routinierter Service ohne persönliche Note"
+        "Standardisierte Menüs ohne Individualität",
+        "Eingeschränkte Auswahl an Getränken",
+        "Routinierter Service ohne persönliche Note"
       ],
       resultLabel: "Der Frust:",
       result: "Ihr zahlt Premium-Preise für eine Massenabfertigung mit Hotelrestaurant-Charakter."
@@ -345,35 +336,35 @@ export const landingProblemSigns = {
 export const landingAdvantages = [
   {
     title: "Echte Exklusivität statt Fließband",
-    text: "Das gesamte Anwesen gehört nur eurer Gesellschaft - keine Parallelveranstaltungen, keine fremden Gäste im Hintergrund."
+    text: "Bei uns bedeutet exklusiv wirklich exklusiv"
   },
   {
-    title: "Garantiert privat",
-    text: "See, Park und Außenbereiche sind nicht nur Kulisse, sondern Teil eures geschützten Hochzeitstages."
+    title: "Garantiert 100% privat",
+    text: "Kompromisslose Exklusivität bei Park-Ambiente"
   },
   {
     title: "Ein fester Ansprechpartner",
-    text: "Eure Wünsche gehen nicht in Übergaben verloren, sondern bleiben von Planung bis Hochzeitstag nachvollziehbar."
+    text: "Kontinuität von der Planung bis zur Feier"
   },
   {
-    title: "Fotos ohne Zeitdruck",
-    text: "Romantische Seebrücke, Park und Innenräume stehen euch als zusammenhängender Rahmen zur Verfügung."
+    title: "Perfekte Fotos - überall",
+    text: "Unbegrenzte Fotomöglichkeiten ohne Zeitdruck"
   },
   {
     title: "Kreative Freiheit",
-    text: "Dekoration, Raumgefühl und Ablauf werden passend zu euch geplant, statt nur in starre Hausregeln gepresst."
+    text: "Gestaltet euren Tag nach euren Vorstellungen"
   },
   {
     title: "Wettersichere Planung",
-    text: "Outdoor-Atmosphäre bleibt entspannt, weil Regenvarianten und Innenbereiche früh mitgedacht werden."
+    text: "Perfekt vorbereitet für jedes Wetter"
   },
   {
     title: "Transparente Preisgestaltung",
-    text: "Leistungen, Rahmen und mögliche Zusatzfragen werden persönlich geklärt, bevor ihr euch in Zahlen verliert."
+    text: "Keine versteckten Kosten oder Überraschungen"
   },
   {
     title: "Individueller Premium-Service",
-    text: "Keine Standardhochzeit, sondern ein Team, das euren Ablauf, eure Gäste und eure Prioritäten kennt."
+    text: "Persönlich statt standardisiert"
   }
 ] satisfies LandingSolution[];
 

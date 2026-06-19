@@ -97,12 +97,10 @@ export const indexPage = {
   description:
     "Landgut Seebühne ist eine exklusive Hochzeitslocation in Mittelfranken - natürlich heiraten zwischen Wiesen, Wald und See, mit persönlicher Begleitung und klaren nächsten Schritten.",
   heroEyebrow: "Exklusive Location in Mittelfranken",
-  heroTitle: "Natürlich heiraten inmitten von Wiesen, Wald und See.",
-  heroText:
-    "Genießt euren Hochzeitstag an einem privaten Ort, der Kulisse, Ablauf und Begleitung zusammenbringt: vom ersten Ankommen über die Trauung bis zur Feier am Abend.",
+  heroTitle: "Natürlich heiraten inmitten von Wiesen, Wald und See",
+  heroText: "Genießt sorgenfrei – eure Traumhochzeit ist in besten Händen!",
   imageKey: "hero",
-  primaryCta: "Preise & Verfügbarkeit anfragen",
-  secondaryCta: "Hochzeitsmappe ansehen",
+  primaryCta: "Preise & Verfügbarkeit",
   sections: [
     {
       eyebrow: "Der Ort",

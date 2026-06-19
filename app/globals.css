@@ -790,10 +790,10 @@ h2 {
 }
 
 .bundle-badge {
-  position: absolute;
-  top: 18px;
-  right: 18px;
+  display: inline-flex;
+  align-self: flex-end;
   max-width: calc(100% - 36px);
+  margin: 0 0 12px auto;
   padding: 7px 10px;
   border-radius: 999px;
   background: var(--berry);
@@ -1242,7 +1242,9 @@ h2 {
   font-family: var(--font-serif), Georgia, serif;
   font-size: 2.32rem;
   font-weight: 600;
+  hyphens: none;
   line-height: 1.08;
+  overflow-wrap: break-word;
 }
 
 .warning-solution-card > p:not(.eyebrow) {

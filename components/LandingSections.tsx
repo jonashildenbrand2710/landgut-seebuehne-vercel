@@ -129,12 +129,9 @@ export function PromiseGrid() {
         <div className="section-heading-row">
           <div>
             <p className="eyebrow dark">6 Versprechen</p>
-            <h2>Warum Paare nicht nur den See buchen, sondern den sicheren Rahmen.</h2>
+            <h2>Unsere 6 Versprechen für eure perfekte Hochzeit</h2>
           </div>
-          <p>
-            Schönheit zieht euch an. Sicherheit, Begleitung und klare Abläufe
-            sorgen dafür, dass ihr euch am Hochzeitstag wirklich fallen lassen könnt.
-          </p>
+          <p>Genießt sorgenfrei – eure Traumhochzeit ist in besten Händen!</p>
         </div>
         <div className="promise-grid">
           {landingPromises.map((promise) => (
@@ -182,12 +179,12 @@ export function WeddingBundles() {
       <div className="section-inner">
         <div className="section-heading-row">
           <div>
-            <p className="eyebrow dark">Wedding Bundles</p>
-            <h2>Drei Einstiege, ein Ziel: euer Hochzeitstag soll zusammenpassen.</h2>
+            <p className="eyebrow dark">Wedding - Bundles - Selection</p>
+            <h2>Entdeckt unsere Location-Pakete</h2>
           </div>
           <p>
-            Die Pakete geben eine erste Richtung. Welche Leistungen und welcher
-            Rahmen zu euch passen, klären wir persönlich.
+            Für mehr Details zu unseren Leistungen und Preisen bieten wir euch
+            unser kostenloses & unverbindliches 15-minütiges Kennenlerngespräch an.
           </p>
         </div>
         <div className="bundle-grid">
@@ -262,12 +259,8 @@ export function FamilyStory() {
 
       <div className="section-inner teamleader-block">
         <div className="teamleader-heading">
-          <p className="eyebrow dark">Teamleader - Landgut Seebühne</p>
-          <h2>Preise & Details persönlich anfragen</h2>
-          <p>
-            Diese Ansprechpartner führen euch vom ersten Kontakt über die Einordnung
-            eures Rahmens bis zu den nächsten sinnvollen Schritten.
-          </p>
+          <p className="eyebrow dark">Teamleader - Landgut Seebühne:</p>
+          <h2>Preise & Details anfragen</h2>
         </div>
         <div className="teamleader-grid">
           {landingTeamLeaders.map((leader) => {
@@ -316,7 +309,7 @@ export function Testimonials() {
               <blockquote>{testimonial.quote}</blockquote>
               <p>
                 <strong>{testimonial.name}</strong>
-                <span>{testimonial.context}</span>
+                {testimonial.context ? <span>{testimonial.context}</span> : null}
               </p>
             </article>
           ))}
@@ -368,10 +361,10 @@ export function ProblemSolution() {
 
         <aside className="warning-solution-card" aria-label="Antwort der Seebühne">
           <p className="eyebrow">Problem - Lösung</p>
-          <h3>8 Lösungen für typische Location-Probleme</h3>
+          <h3>8 Lösungen für typische Hochzeits-Location-Probleme</h3>
           <p>
             Warum ihr bei uns nicht die typischen Location-Probleme haben werdet
-            und was uns von anderen unterscheidet.
+            & was uns von anderen unterscheidet.
           </p>
           <ol className="solution-list">
             {landingAdvantages.map((item) => (

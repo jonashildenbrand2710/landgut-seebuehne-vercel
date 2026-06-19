@@ -36,9 +36,8 @@ export default function HomePage() {
         text={indexPage.heroText}
         imageKey={indexPage.imageKey}
         primaryCta={indexPage.primaryCta}
-        secondaryCta={indexPage.secondaryCta}
         proof={{
-          label: "Von 120 Paaren bewertet",
+          label: "Von 120 Paaren bestbewertet",
           mentions: ["Hochzeit.de", "Bridebook", "Instagram", "Google"]
         }}
       />
