@@ -4,10 +4,11 @@
 
 - Die Website verwendet nur die kuratierten Bilder, die in `data/site.ts` in
   `imageLibrary` verknuepft sind.
-- Das grosse Onepage-Roharchiv soll nicht dauerhaft im Projekt liegen. Wenn es
-  fuer eine gezielte Entscheidung erneut gebraucht wird, kann es aus dem
+- Die aktuell verwendeten Website-Bilder liegen als sprechend benannte,
+  komprimierte Motive unter `public/images/site/`.
+- Das grosse Onepage-Roharchiv liegt nicht mehr dauerhaft in `public/images/`.
+  Wenn es fuer eine gezielte Entscheidung erneut gebraucht wird, kann es aus dem
   Onepage-Inventar und den Scripts wieder aufgebaut werden.
-- Die aktuell verwendeten Website-Bilder sind in `data/site.ts` in `imageLibrary` verknuepft.
 - Die Kontaktuebersicht der gecrawlten Bilder liegt in `docs/migration/onepage-contact-sheet.jpg`.
 
 ## Arbeitsweise
