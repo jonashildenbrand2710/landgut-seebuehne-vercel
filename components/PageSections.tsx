@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Check, Mail } from "lucide-react";
+import { ArrowRight, CalendarDays, Check, Mail } from "lucide-react";
 import type { PageSection, SitePage } from "@/data/site";
 import { siteConfig } from "@/data/site";
 
@@ -54,7 +54,7 @@ export function FAQ({ items }: { items?: SitePage["faqs"] }) {
   );
 }
 
-export function CTASection() {
+export function CTASection({ allowDirectActions = false }: { allowDirectActions?: boolean }) {
   return (
     <section className="cta-section">
       <div className="section-inner cta-inner">
@@ -67,14 +67,23 @@ export function CTASection() {
           </p>
         </div>
         <div className="cta-actions">
-          <Link className="button primary light" href="/termin-buchen">
-            <span>Erstgespräch anfragen</span>
-            <ArrowRight aria-hidden="true" size={18} />
-          </Link>
-          <a className="button ghost-light" href={`mailto:${siteConfig.email}`}>
-            <Mail aria-hidden="true" size={18} />
-            <span>E-Mail schreiben</span>
-          </a>
+          {allowDirectActions ? (
+            <>
+              <a className="button primary light" href={siteConfig.bookingUrl}>
+                <CalendarDays aria-hidden="true" size={18} />
+                <span>Kalender öffnen</span>
+              </a>
+              <a className="button ghost-light" href={`mailto:${siteConfig.email}`}>
+                <Mail aria-hidden="true" size={18} />
+                <span>E-Mail schreiben</span>
+              </a>
+            </>
+          ) : (
+            <Link className="button primary light" href="/termin-buchen">
+              <span>Erstgespräch anfragen</span>
+              <ArrowRight aria-hidden="true" size={18} />
+            </Link>
+          )}
         </div>
       </div>
     </section>

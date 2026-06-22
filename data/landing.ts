@@ -107,7 +107,7 @@ export const landingPromises = [
   {
     number: "4",
     title: "Naturkulisse mit Sicherheit",
-    text: "Idyllischer See und 8.000qm Park – mit Plan B bei jedem Wetter"
+    text: "Idyllischer See und 8.000 qm Park - mit Plan B bei jedem Wetter"
   },
   {
     number: "5",

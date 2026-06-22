@@ -6,7 +6,6 @@ import {
   CalendarDays,
   Check,
   Heart,
-  Mail,
   MapPin,
   Plus,
   Sparkles,
@@ -27,7 +26,28 @@ import {
   landingTestimonials
 } from "@/data/landing";
 import { BrandLogo } from "@/components/BrandLogo";
-import { imageLibrary, siteConfig } from "@/data/site";
+import { imageLibrary } from "@/data/site";
+
+type ImageKey = keyof typeof imageLibrary;
+
+const imageFocus: Partial<Record<ImageKey, string>> = {
+  ceremony: "50% 46%",
+  coupleDock: "50% 45%",
+  coupleFence: "50% 42%",
+  gettingReady: "50% 22%",
+  hero: "50% 56%",
+  lake: "50% 50%",
+  location: "50% 46%",
+  team: "50% 25%",
+  teamChristine: "50% 24%",
+  teamJohanna: "50% 24%",
+  teamJonas: "50% 22%",
+  teamOliver: "50% 25%"
+};
+
+function focalPoint(imageKey: ImageKey) {
+  return imageFocus[imageKey] ?? "center center";
+}
 
 function InternalCta({
   href,
@@ -73,21 +93,39 @@ export function ProofStrip() {
 }
 
 export function HeroImageStrip() {
-  const images = [
-    imageLibrary.coupleDock,
-    imageLibrary.gettingReady,
-    imageLibrary.location,
-    imageLibrary.mappeCover,
-    imageLibrary.ceremony
+  const images: ImageKey[] = [
+    "coupleFence",
+    "coupleDock",
+    "lake",
+    "location",
+    "gettingReady",
+    "ceremony",
+    "hero"
   ];
 
   return (
     <section className="hero-image-strip" aria-label="Impressionen der Hauptseite">
       <div className="hero-strip-inner">
-        {images.map((image) => (
-          <div className="hero-strip-item" key={image.src}>
-            <Image src={image.src} alt={image.alt} fill sizes="(max-width: 680px) 40vw, 19vw" />
-          </div>
+        {images.map((imageKey, index) => {
+          const image = imageLibrary[imageKey];
+
+          return (
+            <div className="hero-strip-item" key={image.src}>
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes="(max-width: 680px) 78vw, (max-width: 1100px) 42vw, 24vw"
+                style={{ objectPosition: focalPoint(imageKey) }}
+              />
+              <span>{String(index + 1).padStart(2, "0")}</span>
+            </div>
+          );
+        })}
+      </div>
+      <div className="hero-strip-dots" aria-hidden="true">
+        {images.map((imageKey, index) => (
+          <span className={index === 1 ? "active" : undefined} key={`${imageKey}-dot`} />
         ))}
       </div>
     </section>
@@ -124,24 +162,59 @@ export function LeadMagnetSection() {
 }
 
 export function PromiseGrid() {
+  const images: ImageKey[] = [
+    "ceremony",
+    "coupleFence",
+    "coupleDock",
+    "lake",
+    "gettingReady",
+    "location"
+  ];
+
   return (
-    <section className="section-band promise-section">
-      <div className="section-inner">
-        <div className="section-heading-row">
-          <div>
-            <p className="eyebrow dark">6 Versprechen</p>
-            <h2>Unsere 6 Versprechen für eure perfekte Hochzeit</h2>
+    <section className="promise-section">
+      <Image
+        className="promise-bg"
+        src={imageLibrary.hero.src}
+        alt=""
+        fill
+        sizes="100vw"
+        aria-hidden="true"
+      />
+      <div className="promise-shade" />
+      <div className="section-inner promise-layout">
+        <div className="promise-copy">
+          <p className="eyebrow">6 Versprechen</p>
+          <h2>Sechs Versprechen für eure perfekte Hochzeit</h2>
+          <p>Genießt sorgenfrei - eure Traumhochzeit ist in besten Händen.</p>
+          <div className="promise-list">
+            {landingPromises.map((promise) => (
+              <article className="promise-card" key={promise.number}>
+                <span>{promise.number}</span>
+                <div>
+                  <h3>{promise.title}</h3>
+                  <p>{promise.text}</p>
+                </div>
+              </article>
+            ))}
           </div>
-          <p>Genießt sorgenfrei – eure Traumhochzeit ist in besten Händen!</p>
         </div>
-        <div className="promise-grid">
-          {landingPromises.map((promise) => (
-            <article className="promise-card" key={promise.number}>
-              <span>{promise.number}</span>
-              <h3>{promise.title}</h3>
-              <p>{promise.text}</p>
-            </article>
-          ))}
+        <div className="promise-visual-grid" aria-label="Hochzeitsimpressionen">
+          {images.map((imageKey) => {
+            const image = imageLibrary[imageKey];
+
+            return (
+              <div className="promise-visual" key={image.src}>
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  sizes="(max-width: 920px) 80vw, 22vw"
+                  style={{ objectPosition: focalPoint(imageKey) }}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -181,7 +254,9 @@ export function WeddingBundles() {
         <div className="section-heading-row">
           <div>
             <p className="eyebrow dark">Wedding - Bundles - Selection</p>
-            <h2>Entdeckt unsere Location-Pakete</h2>
+            <h2>
+              Entdeckt unsere <span className="no-break">Location-Pakete</span>
+            </h2>
           </div>
           <p>
             Für mehr Details zu unseren Leistungen und Preisen bieten wir euch
@@ -241,9 +316,9 @@ export function FamilyStory() {
             </div>
           </div>
           <div className="inline-actions">
-            <InternalCta href="/uber-uns">Mehr über uns</InternalCta>
-            <InternalCta href="/location" variant="secondary">
-              Location ansehen
+            <InternalCta href="/termin-buchen">Erstgespräch anfragen</InternalCta>
+            <InternalCta href="/termin-buchen" variant="secondary">
+              Location im Termin klären
             </InternalCta>
           </div>
         </div>
@@ -275,6 +350,7 @@ export function FamilyStory() {
                     alt={image.alt}
                     fill
                     sizes="(max-width: 680px) 50vw, (max-width: 1100px) 25vw, 260px"
+                    style={{ objectPosition: focalPoint(leader.imageKey) }}
                   />
                 </div>
                 <div className="teamleader-caption">
@@ -413,6 +489,7 @@ export function MiniGallery() {
                     alt={image.alt}
                     fill
                     sizes="(max-width: 680px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                    style={{ objectPosition: focalPoint(item.imageKey) }}
                   />
                 </div>
                 <h3>{item.title}</h3>
@@ -445,10 +522,6 @@ export function PersonalCta() {
             <CalendarDays aria-hidden="true" size={18} />
             <span>Erstgespräch sichern</span>
           </Link>
-          <a className="button ghost-light" href={`mailto:${siteConfig.email}`}>
-            <Mail aria-hidden="true" size={18} />
-            <span>E-Mail schreiben</span>
-          </a>
         </div>
       </div>
     </section>

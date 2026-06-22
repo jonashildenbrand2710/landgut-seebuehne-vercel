@@ -51,6 +51,7 @@ export default async function DynamicPage({ params }: PageProps) {
         imageKey={page.imageKey}
         primaryCta={page.primaryCta}
         secondaryCta={page.secondaryCta}
+        allowDirectActions={page.slug === "termin-buchen"}
       />
       {page.noindex ? (
         <section className="notice-band">
@@ -67,7 +68,9 @@ export default async function DynamicPage({ params }: PageProps) {
         <SectionBand section={section} index={index} key={section.title} />
       ))}
       <FAQ items={page.faqs} />
-      {!["datenschutz", "impressum"].includes(page.slug) ? <CTASection /> : null}
+      {!["datenschutz", "impressum"].includes(page.slug) ? (
+        <CTASection allowDirectActions={page.slug === "termin-buchen"} />
+      ) : null}
     </>
   );
 }

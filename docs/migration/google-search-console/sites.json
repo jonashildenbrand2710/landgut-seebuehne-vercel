@@ -1,0 +1,12 @@
+{
+  "siteEntry": [
+    {
+      "siteUrl": "https://www.landgut-seebuehne.de/",
+      "permissionLevel": "siteOwner"
+    },
+    {
+      "siteUrl": "sc-domain:landgut-seebuehne.de",
+      "permissionLevel": "siteOwner"
+    }
+  ]
+}

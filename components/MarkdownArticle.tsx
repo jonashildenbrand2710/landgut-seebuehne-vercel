@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { ArrowRight, Mail } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 import type { ArticleBlock } from "@/data/articles";
-import { siteConfig } from "@/data/site";
 
 export function ArticleMarkdown({ blocks }: { blocks: ArticleBlock[] }) {
   return <div className="article-body">{blocks.map((block, index) => renderBlock(block, index))}</div>;
@@ -22,10 +21,6 @@ export function ArticleFinalCta({ blocks }: { blocks: ArticleBlock[] }) {
           <span>Erstgespräch anfragen</span>
           <ArrowRight aria-hidden="true" size={18} />
         </Link>
-        <a className="button secondary" href={`mailto:${siteConfig.email}`}>
-          <Mail aria-hidden="true" size={18} />
-          <span>E-Mail schreiben</span>
-        </a>
       </div>
     </section>
   );

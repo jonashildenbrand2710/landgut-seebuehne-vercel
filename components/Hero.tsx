@@ -10,25 +10,34 @@ type HeroProps = {
   imageKey: keyof typeof imageLibrary;
   primaryCta?: string;
   secondaryCta?: string;
+  allowDirectActions?: boolean;
   proof?: {
     label: string;
     mentions: string[];
   };
 };
 
-function ctaHref(label?: string) {
+function ctaHref(label?: string, allowDirectActions = false) {
   if (!label) return "/termin-buchen";
   const normalized = label.toLowerCase();
   if (normalized.includes("mappe")) return "/hochzeitsmappe";
-  if (normalized.includes("e-mail") || normalized.includes("mail")) return `mailto:${siteConfig.email}`;
-  if (normalized.includes("ratgeber")) return "/blog/freie-trauung-am-see";
-  if (normalized.includes("location")) return "/location";
-  if (normalized.includes("kontakt")) return "/kontaktformular";
-  if (normalized.includes("kalender")) return siteConfig.bookingUrl;
+  if (allowDirectActions && normalized.includes("kalender")) return siteConfig.bookingUrl;
+  if (allowDirectActions && (normalized.includes("e-mail") || normalized.includes("mail"))) {
+    return `mailto:${siteConfig.email}`;
+  }
   return "/termin-buchen";
 }
 
-export function Hero({ eyebrow, title, text, imageKey, primaryCta, secondaryCta, proof }: HeroProps) {
+export function Hero({
+  eyebrow,
+  title,
+  text,
+  imageKey,
+  primaryCta,
+  secondaryCta,
+  allowDirectActions = false,
+  proof
+}: HeroProps) {
   const image = imageLibrary[imageKey];
 
   return (
@@ -38,7 +47,8 @@ export function Hero({ eyebrow, title, text, imageKey, primaryCta, secondaryCta,
         src={image.src}
         alt={image.alt}
         fill
-        priority
+        preload
+        loading="eager"
         sizes="100vw"
       />
       <div className="hero-shade" />
@@ -48,13 +58,13 @@ export function Hero({ eyebrow, title, text, imageKey, primaryCta, secondaryCta,
         <p>{text}</p>
         <div className="hero-actions">
           {primaryCta ? (
-            <Link className="button primary" href={ctaHref(primaryCta)}>
+            <Link className="button primary" href={ctaHref(primaryCta, allowDirectActions)}>
               <span>{primaryCta}</span>
               <ArrowRight aria-hidden="true" size={18} />
             </Link>
           ) : null}
           {secondaryCta ? (
-            <Link className="button secondary" href={ctaHref(secondaryCta)}>
+            <Link className="button secondary" href={ctaHref(secondaryCta, allowDirectActions)}>
               <FileText aria-hidden="true" size={18} />
               <span>{secondaryCta}</span>
             </Link>
@@ -71,10 +81,19 @@ export function Hero({ eyebrow, title, text, imageKey, primaryCta, secondaryCta,
               </span>
             </div>
             <div className="hero-mentions" aria-label="Bekannt aus">
-              <span>Bekannt aus:</span>
-              {proof.mentions.map((mention) => (
-                <strong key={mention}>{mention}</strong>
-              ))}
+              <span className="hero-mentions-label">Bekannt aus:</span>
+              <div className="hero-mentions-viewport">
+                <div className="hero-mentions-track">
+                  {proof.mentions.map((mention) => (
+                    <strong key={mention}>{mention}</strong>
+                  ))}
+                  {proof.mentions.map((mention) => (
+                    <strong aria-hidden="true" key={`${mention}-duplicate`}>
+                      {mention}
+                    </strong>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         ) : null}

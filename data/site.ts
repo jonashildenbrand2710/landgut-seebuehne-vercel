@@ -32,6 +32,10 @@ export const imageLibrary = {
     src: "/images/onepage/raw/ceba4def-e52b-41c0-8966-5b7a43290051.png",
     alt: "Brautpaar mit Schirm auf einem Holzsteg am See des Landgut Seebühne"
   },
+  coupleFence: {
+    src: "/images/onepage/raw/08191015-d122-4ef5-add7-bd811ba846ec.png",
+    alt: "Brautpaar am Seeufer des Landgut Seebühne"
+  },
   coupleDock: {
     src: "/images/onepage/raw/792a3014-5d0b-418d-ab7a-63c0bdad5d81.jpg",
     alt: "Brautpaar auf einem Holzsteg am See des Landgut Seebühne mit viel Grün"
@@ -177,7 +181,7 @@ export const sitePages: SitePage[] = [
       "Der See ist ein besonderer Mittelpunkt für euer Ja-Wort. Damit der Moment leicht wirkt, denken wir Wege, Akustik, Licht, Wetter und den Übergang zum Empfang mit.",
     imageKey: "ceremony",
     primaryCta: "Erstgespräch anfragen",
-    secondaryCta: "Ratgeber zur Trauung lesen",
+    secondaryCta: "Telefontermin vereinbaren",
     sections: [
       {
         title: "Der Trauplatz muss mehr können als schön aussehen",
@@ -243,7 +247,7 @@ export const sitePages: SitePage[] = [
       "Getting Ready vor Ort kann Wege, Übergaben und Zeitdruck reduzieren. Ihr kommt früher im Gefühl des Tages an und startet nicht aus dem Auto heraus.",
     imageKey: "gettingReady",
     primaryCta: "Erstgespräch anfragen",
-    secondaryCta: "Mehr zur Location",
+    secondaryCta: "Telefontermin vereinbaren",
     sections: [
       {
         title: "Ein Start mit weniger Reibung",
@@ -270,7 +274,7 @@ export const sitePages: SitePage[] = [
       "Die Seebühne steht für Gastgebergefühl, Erfahrung und die ruhige Sicherheit, dass ein Hochzeitstag viele schöne und viele praktische Details braucht.",
     imageKey: "team",
     primaryCta: "Erstgespräch anfragen",
-    secondaryCta: "Location ansehen",
+    secondaryCta: "Telefontermin vereinbaren",
     sections: [
       {
         title: "Herzlichkeit mit Struktur",
@@ -358,14 +362,13 @@ export const sitePages: SitePage[] = [
     slug: "kontaktformular",
     title: "Kontakt",
     description:
-      "Kontakt zum Landgut Seebühne: Startet mit einem Erstgespräch oder schreibt uns eure wichtigsten Fragen per E-Mail.",
+      "Kontakt zum Landgut Seebühne: Startet mit einem Erstgespräch, damit Datum, Gästezahl und Rahmen sauber sortiert werden.",
     heroEyebrow: "Kontakt",
     heroTitle: "Schreibt uns oder startet direkt mit einem Erstgespräch.",
     heroText:
-      "Wenn ihr schon konkrete Eckpunkte habt, ist ein Telefontermin meist der schnellste Weg. Für erste Fragen könnt ihr uns auch direkt per E-Mail erreichen.",
+      "Wenn ihr schon konkrete Eckpunkte habt, ist ein Telefontermin meist der schnellste Weg. Dort klären wir, ob der Rahmen passt und welcher nächste Schritt sinnvoll ist.",
     imageKey: "lake",
     primaryCta: "Telefontermin vereinbaren",
-    secondaryCta: "E-Mail schreiben",
     sections: [
       {
         title: "Damit wir gut einordnen können, worum es geht",
@@ -385,7 +388,7 @@ export const sitePages: SitePage[] = [
       "Der erste Austausch gibt euch Orientierung und hilft uns, Datum, Gästezahl und Vorstellungen realistisch einzuordnen.",
     imageKey: "ceremony",
     primaryCta: "Telefontermin vereinbaren",
-    secondaryCta: "Kontakt aufnehmen",
+    secondaryCta: "Telefontermin vereinbaren",
     sections: [
       {
         title: "Was euch erwartet",
@@ -558,7 +561,7 @@ export const sitePages: SitePage[] = [
     heroText:
       "Diese Seite bleibt im Rebuild kontrolliert erreichbar, wird aber nicht als öffentliche SEO-Seite für Hochzeiten geführt.",
     imageKey: "location",
-    primaryCta: "E-Mail schreiben",
+    primaryCta: "Terminseite öffnen",
     sections: [
       {
         title: "Kontakt",
@@ -577,7 +580,7 @@ export const sitePages: SitePage[] = [
     heroText:
       "Diese Seite bleibt zunächst als schlanke Kontaktseite bestehen. Der vollständige Bewerbungsfunnel sollte vor Livegang aus Onepage übernommen oder neu angebunden werden.",
     imageKey: "team",
-    primaryCta: "Per E-Mail bewerben",
+    primaryCta: "Terminseite öffnen",
     sections: [
       {
         title: "Bewerbung und Rückfragen",

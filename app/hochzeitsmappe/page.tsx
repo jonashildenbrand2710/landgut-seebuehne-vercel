@@ -12,7 +12,7 @@ import {
   Star,
   Users
 } from "lucide-react";
-import { imageLibrary, siteConfig } from "@/data/site";
+import { imageLibrary } from "@/data/site";
 
 const mappeBenefits = [
   "was euch einen umfassenden Überblick über unsere Location am See gibt und euch direkt in Hochzeitsstimmung versetzt.",
@@ -233,9 +233,6 @@ export default function HochzeitsmappePage() {
               Wir verwenden eure Angaben nur für eure Anfrage zur Hochzeitsmappe
               und melden uns persönlich, wenn noch etwas offen ist.
             </p>
-            <a className="mappe-mail-link" href={`mailto:${siteConfig.email}`}>
-              Direkt per E-Mail schreiben
-            </a>
           </form>
         </div>
       </section>
