@@ -47,8 +47,10 @@ export function Hero({
         src={image.src}
         alt={image.alt}
         fill
+        fetchPriority="high"
         preload
         loading="eager"
+        quality={72}
         sizes="100vw"
       />
       <div className="hero-shade" />

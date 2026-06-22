@@ -33,59 +33,59 @@ export const siteConfig = {
 
 export const imageLibrary = {
   hero: {
-    src: "/images/onepage/raw/ceba4def-e52b-41c0-8966-5b7a43290051.png",
+    src: "/images/site/hero-brautpaar-steg-am-see.jpg",
     alt: "Brautpaar mit Schirm auf einem Holzsteg am See des Landgut Seebühne"
   },
   coupleFence: {
-    src: "/images/onepage/raw/08191015-d122-4ef5-add7-bd811ba846ec.png",
+    src: "/images/site/brautpaar-am-seeufer.jpg",
     alt: "Brautpaar am Seeufer des Landgut Seebühne"
   },
   coupleDock: {
-    src: "/images/onepage/raw/792a3014-5d0b-418d-ab7a-63c0bdad5d81.jpg",
+    src: "/images/site/brautpaar-holzsteg-see-gruen.jpg",
     alt: "Brautpaar auf einem Holzsteg am See des Landgut Seebühne mit viel Grün"
   },
   lake: {
-    src: "/images/onepage/raw/5c49018f-0803-4d36-b612-6f4b4d01f860.jpg",
+    src: "/images/site/seeblick-aussenbereich.jpg",
     alt: "Seeblick und Außenbereich des Landgut Seebühne"
   },
   mappeCover: {
-    src: "/images/onepage/raw/1b946b01-a65f-46e8-aed9-8362e098cfbf.png",
+    src: "/images/site/hochzeitsmappe-cover.jpg",
     alt: "Cover der Hochzeitsmappe des Landgut Seebühne"
   },
   availability: {
-    src: "/images/onepage/raw/ceba4def-e52b-41c0-8966-5b7a43290051.png",
+    src: "/images/site/hero-brautpaar-steg-am-see.jpg",
     alt: "Brautpaar mit Schirm auf einem Steg am See des Landgut Seebühne"
   },
   ceremony: {
-    src: "/images/onepage/raw/1c4571ed-5ba3-4882-bdfa-9ca0d8b120e7.png",
+    src: "/images/site/freie-trauung-am-see.jpg",
     alt: "Freie Trauung im Grünen am See"
   },
   location: {
-    src: "/images/onepage/raw/14d3a6e6-2594-44f1-9801-9a1365978dbb.jpg",
+    src: "/images/site/festsaal-landgut-seebuehne.jpg",
     alt: "Festlich gedeckter Innenraum des Landgut Seebühne"
   },
   gettingReady: {
-    src: "/images/onepage/raw/7bc4a04d-bdae-4726-9d21-05ba4ba3ebd8.png",
+    src: "/images/site/getting-ready-braut.jpg",
     alt: "Braut beim Getting Ready mit Blumenstrauß"
   },
   team: {
-    src: "/images/onepage/raw/80f4aa53-e871-4345-b47e-d96e2e155a8d.jpg",
+    src: "/images/site/team-landgut-seebuehne.jpg",
     alt: "Team und Gastgeber des Landgut Seebühne"
   },
   teamChristine: {
-    src: "/images/onepage/raw/fa466928-78bd-4d62-b52d-4c27d6604819.jpg",
+    src: "/images/site/christine-hildenbrand.jpg",
     alt: "Christine Hildenbrand vom Landgut Seebühne"
   },
   teamJonas: {
-    src: "/images/onepage/raw/eb3a85f8-a649-44a8-8fc7-1a62b431aae4.jpg",
+    src: "/images/site/jonas-hildenbrand.jpg",
     alt: "Jonas Hildenbrand vom Landgut Seebühne"
   },
   teamJohanna: {
-    src: "/images/onepage/raw/bee4e9d2-217b-416f-bde5-e12080544202.jpg",
+    src: "/images/site/johanna-protze.jpg",
     alt: "Johanna Protze vom Landgut Seebühne"
   },
   teamOliver: {
-    src: "/images/onepage/raw/80f4aa53-e871-4345-b47e-d96e2e155a8d.jpg",
+    src: "/images/site/team-landgut-seebuehne.jpg",
     alt: "Oliver Hildenbrand vom Landgut Seebühne"
   }
 } as const;

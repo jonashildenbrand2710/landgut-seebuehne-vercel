@@ -7,7 +7,7 @@ export function Header() {
   return (
     <header className="site-header">
       <Link className="brand" href="/" aria-label="Landgut Seebühne Startseite">
-        <BrandLogo className="brand-logo brand-logo-header" decorative priority />
+        <BrandLogo className="brand-logo brand-logo-header" decorative />
       </Link>
       <nav className="main-nav" aria-label="Hauptnavigation">
         {mainNavigation.map((item) => (

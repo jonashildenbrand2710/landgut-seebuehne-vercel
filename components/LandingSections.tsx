@@ -49,6 +49,9 @@ function focalPoint(imageKey: ImageKey) {
   return imageFocus[imageKey] ?? "center center";
 }
 
+const BACKGROUND_IMAGE_QUALITY = 60;
+const CONTENT_IMAGE_QUALITY = 70;
+
 function InternalCta({
   href,
   children,
@@ -115,6 +118,7 @@ export function HeroImageStrip() {
                 src={image.src}
                 alt={image.alt}
                 fill
+                quality={CONTENT_IMAGE_QUALITY}
                 sizes="(max-width: 680px) 78vw, (max-width: 1100px) 42vw, 24vw"
                 style={{ objectPosition: focalPoint(imageKey) }}
               />
@@ -142,6 +146,7 @@ export function LeadMagnetSection() {
         src={image.src}
         alt=""
         fill
+        quality={BACKGROUND_IMAGE_QUALITY}
         sizes="100vw"
         aria-hidden="true"
       />
@@ -178,6 +183,7 @@ export function PromiseGrid() {
         src={imageLibrary.hero.src}
         alt=""
         fill
+        quality={BACKGROUND_IMAGE_QUALITY}
         sizes="100vw"
         aria-hidden="true"
       />
@@ -209,6 +215,7 @@ export function PromiseGrid() {
                   src={image.src}
                   alt={image.alt}
                   fill
+                  quality={CONTENT_IMAGE_QUALITY}
                   sizes="(max-width: 920px) 80vw, 22vw"
                   style={{ objectPosition: focalPoint(imageKey) }}
                 />
@@ -231,6 +238,7 @@ export function ImpressionSection() {
         src={image.src}
         alt={image.alt}
         fill
+        quality={BACKGROUND_IMAGE_QUALITY}
         sizes="100vw"
       />
       <div className="availability-shade" />
@@ -349,6 +357,7 @@ export function FamilyStory() {
                     src={image.src}
                     alt={image.alt}
                     fill
+                    quality={CONTENT_IMAGE_QUALITY}
                     sizes="(max-width: 680px) 50vw, (max-width: 1100px) 25vw, 260px"
                     style={{ objectPosition: focalPoint(leader.imageKey) }}
                   />
@@ -488,6 +497,7 @@ export function MiniGallery() {
                     src={image.src}
                     alt={image.alt}
                     fill
+                    quality={CONTENT_IMAGE_QUALITY}
                     sizes="(max-width: 680px) 100vw, (max-width: 1100px) 50vw, 33vw"
                     style={{ objectPosition: focalPoint(item.imageKey) }}
                   />

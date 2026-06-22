@@ -123,7 +123,9 @@ export default function HochzeitsmappePage() {
               src={cover.src}
               alt={cover.alt}
               fill
-              priority
+              fetchPriority="high"
+              preload
+              quality={72}
               sizes="(max-width: 920px) 90vw, 520px"
             />
           </div>
@@ -181,6 +183,7 @@ export default function HochzeitsmappePage() {
           src={background.src}
           alt=""
           fill
+          quality={60}
           sizes="100vw"
           aria-hidden="true"
         />
