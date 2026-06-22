@@ -3,6 +3,14 @@ import { Mail, Phone } from "lucide-react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { mainNavigation, siteConfig } from "@/data/site";
 
+const footerSecondaryLinks = [
+  { label: "Getting Ready", href: "/getting-ready" },
+  { label: "Besichtigung", href: "/besichtigung" },
+  { label: "Termin buchen", href: "/termin-buchen" },
+  { label: "Kontaktformular", href: "/kontaktformular" },
+  { label: "Kennenlernen", href: "/formular" }
+];
+
 export function Footer() {
   return (
     <footer className="site-footer">
@@ -19,6 +27,11 @@ export function Footer() {
           <h3>Seiten</h3>
           <ul>
             {mainNavigation.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href}>{item.label}</Link>
+              </li>
+            ))}
+            {footerSecondaryLinks.map((item) => (
               <li key={item.href}>
                 <Link href={item.href}>{item.label}</Link>
               </li>

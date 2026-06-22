@@ -12,6 +12,7 @@ import {
   Star,
   Users
 } from "lucide-react";
+import { PageJsonLd } from "@/components/StructuredData";
 import { imageLibrary } from "@/data/site";
 
 const mappeBenefits = [
@@ -79,6 +80,15 @@ export default function HochzeitsmappePage() {
 
   return (
     <article className="mappe-page">
+      <PageJsonLd
+        path="/hochzeitsmappe"
+        title="Hochzeitsmappe"
+        description="Detaillierter PDF-Guide für Hochzeiten an der Seebühne: Location, Ablauf, Ideen und wichtige Fragen für euren Planungsstart."
+        breadcrumbs={[
+          { name: "Startseite", path: "/" },
+          { name: "Hochzeitsmappe", path: "/hochzeitsmappe" }
+        ]}
+      />
       <section className="mappe-hero">
         <div className="section-inner mappe-hero-intro">
           <StarRating />

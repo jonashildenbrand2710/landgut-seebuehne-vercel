@@ -17,6 +17,22 @@
 - Impressum und Datenschutz final freigeben.
 - DNS TTL vor Umzug senken.
 
+## Rebuild-Check 2026-06-22
+
+- Lokal geprueft: `npm run lint`, `npm run build` und Production-Server auf Port 3130.
+- P1-Seiten aus `AGENTS.md` liefern lokal 200, sind indexierbar und haben Canonicals auf die finale Domain.
+- `/hochzeitsratgeber` und die Ratgeberartikel sind wieder primaere indexierbare URLs; `/blog`, `/ratgeber` und `/journal` leiten per 301 darauf.
+- P2-/Review-Seiten liefern kontrolliert 200 mit `noindex, follow` und stehen nicht in der Sitemap.
+- Bekannte alte `page-*` URLs leiten per 301 auf `/`.
+- `sitemap.xml`, `robots.txt` und `llms.txt` sind lokal konsistent mit den indexierbaren Zielseiten.
+
+## Offene Risiken fuer den Domain-Umzug
+
+- Kein Backlink-Export im Projekt gefunden; externe Linkziele muessen nach Livegang ueber 404-/Redirect-Monitoring und Search Console beobachtet werden.
+- Vercel-Preview, finale Domain-Zuordnung, DNS und Search-Console-Verifizierung koennen erst mit Projektzugriff bzw. gesetzten Environment Variables final geprueft werden.
+- Formular-, Kalender-, CRM-, Tracking- und Consent-Wege brauchen echte Secrets/IDs in Vercel und einen End-to-End-Test in der Preview.
+- Impressum und Datenschutz bleiben vor Livegang rechtlich final freizugeben.
+
 ## Direkt nach DNS-Umzug
 
 - Startseite und Kernseiten mit `curl -I` pruefen.

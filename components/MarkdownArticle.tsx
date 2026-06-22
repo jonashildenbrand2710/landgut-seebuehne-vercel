@@ -3,6 +3,12 @@ import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 import type { ArticleBlock } from "@/data/articles";
 
+export type ArticleRelatedLink = {
+  href: string;
+  label: string;
+  description: string;
+};
+
 export function ArticleMarkdown({ blocks }: { blocks: ArticleBlock[] }) {
   return <div className="article-body">{blocks.map((block, index) => renderBlock(block, index))}</div>;
 }
@@ -21,6 +27,30 @@ export function ArticleFinalCta({ blocks }: { blocks: ArticleBlock[] }) {
           <span>Erstgespräch anfragen</span>
           <ArrowRight aria-hidden="true" size={18} />
         </Link>
+      </div>
+    </section>
+  );
+}
+
+export function ArticleRelatedLinks({ links }: { links: ArticleRelatedLink[] }) {
+  if (!links.length) return null;
+
+  return (
+    <section className="section-band muted article-related-section">
+      <div className="section-inner">
+        <p className="eyebrow dark">Weiterführend</p>
+        <h2>Passende Seiten zum nächsten Schritt</h2>
+        <div className="article-grid">
+          {links.map((link) => (
+            <article className="article-card" key={link.href}>
+              <h3>{link.label}</h3>
+              <span>{link.description}</span>
+              <Link href={link.href}>
+                Seite öffnen <ArrowRight aria-hidden="true" size={16} />
+              </Link>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -15,13 +15,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const articlePages = [
     {
-      url: `${siteConfig.domain}/blog`,
+      url: `${siteConfig.domain}/hochzeitsratgeber`,
       lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.7
     },
     ...articles.map((article) => ({
-      url: `${siteConfig.domain}/blog/${article.slug}`,
+      url: `${siteConfig.domain}/hochzeitsratgeber/${article.slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.65

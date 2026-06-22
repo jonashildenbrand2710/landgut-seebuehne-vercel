@@ -2,13 +2,108 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import { ArticleFinalCta, ArticleMarkdown } from "@/components/MarkdownArticle";
+import {
+  ArticleFinalCta,
+  ArticleMarkdown,
+  ArticleRelatedLinks,
+  type ArticleRelatedLink
+} from "@/components/MarkdownArticle";
 import { FAQ } from "@/components/PageSections";
+import { ArticleJsonLd } from "@/components/StructuredData";
 import { articles, getArticle } from "@/data/articles";
 
 type ArticlePageProps = {
   params: Promise<{ slug: string }>;
 };
+
+const defaultRelatedLinks: ArticleRelatedLink[] = [
+  {
+    href: "/location",
+    label: "Hochzeitslocation am See",
+    description: "See, Garten, Landhaus und Außenbereiche als Rahmen für euren Hochzeitstag."
+  },
+  {
+    href: "/hochzeitsmappe",
+    label: "Hochzeitsmappe",
+    description: "PDF-Guide mit Überblick, Ablaufideen und Fragen für euren Planungsstart."
+  },
+  {
+    href: "/termin-buchen",
+    label: "Erstgespräch",
+    description: "Datum, Gästezahl, Rahmen und offene Fragen persönlich einordnen."
+  }
+];
+
+const relatedLinksBySlug: Record<string, ArticleRelatedLink[]> = {
+  "freie-trauung-am-see": [
+    {
+      href: "/trauung",
+      label: "Freie Trauung am See",
+      description: "Was am Wasser emotional wirkt und organisatorisch gut vorbereitet wird."
+    },
+    {
+      href: "/besichtigung",
+      label: "Besichtigung",
+      description: "Warum die Besichtigung nach einem ersten Rahmencheck hilfreicher wird."
+    },
+    defaultRelatedLinks[2]
+  ],
+  "hochzeitslocation-besichtigen-fragen": [
+    {
+      href: "/besichtigung",
+      label: "Besichtigung",
+      description: "Der passende Ablauf vom Erstgespräch zur Besichtigung vor Ort."
+    },
+    defaultRelatedLinks[1],
+    defaultRelatedLinks[2]
+  ],
+  "getting-ready-vor-ort": [
+    {
+      href: "/getting-ready",
+      label: "Getting Ready vor Ort",
+      description: "Ruhiger in den Hochzeitstag starten und unnötige Wege vermeiden."
+    },
+    defaultRelatedLinks[0],
+    defaultRelatedLinks[2]
+  ],
+  "plan-b-regen-gartenhochzeit": [
+    {
+      href: "/trauung",
+      label: "Freie Trauung am See",
+      description: "Outdoor-Trauung mit Atmosphäre, Wegen, Technik und Wetteroptionen."
+    },
+    defaultRelatedLinks[0],
+    defaultRelatedLinks[2]
+  ],
+  "hochzeitslocation-aus-gaestesicht": [
+    defaultRelatedLinks[0],
+    {
+      href: "/besichtigung",
+      label: "Besichtigung",
+      description: "Vor Ort prüfen, ob Wege, Ablauf und Gästekomfort zusammenpassen."
+    },
+    defaultRelatedLinks[2]
+  ],
+  "gastgeber-sein-am-hochzeitstag": [
+    {
+      href: "/uber-uns",
+      label: "Über uns",
+      description: "Mehr über die Gastgeber und die persönliche Begleitung der Seebühne."
+    },
+    defaultRelatedLinks[0],
+    defaultRelatedLinks[2]
+  ],
+  "eine-hochzeit-pro-tag-exklusivitaet": [
+    defaultRelatedLinks[0],
+    defaultRelatedLinks[1],
+    defaultRelatedLinks[2]
+  ],
+  "hochzeitslocation-vergleichen-ohne-nur-auf-preise-zu-schauen": defaultRelatedLinks
+};
+
+function relatedLinksForArticle(slug: string) {
+  return relatedLinksBySlug[slug] ?? defaultRelatedLinks;
+}
 
 export function generateStaticParams() {
   return articles.map((article) => ({ slug: article.slug }));
@@ -38,9 +133,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) notFound();
+  const relatedLinks = relatedLinksForArticle(article.slug);
 
   return (
     <>
+      <ArticleJsonLd article={article} />
       <article className="article-page">
         <div className="article-header">
           <Link href="/hochzeitsratgeber">
@@ -57,6 +154,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         </div>
         <ArticleMarkdown blocks={article.blocks} />
       </article>
+      <ArticleRelatedLinks links={relatedLinks} />
       <ArticleFinalCta blocks={article.ctaBlocks} />
       <FAQ items={article.faq} />
     </>

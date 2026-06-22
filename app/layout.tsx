@@ -3,6 +3,7 @@ import { Inclusive_Sans, Noto_Serif_Georgian } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { SiteJsonLd } from "@/components/StructuredData";
 import { siteConfig } from "@/data/site";
 import "./globals.css";
 
@@ -35,13 +36,13 @@ export const metadata: Metadata = {
     "Naturnahe Hochzeitslocation am See in Mittelfranken: privat, herzlich und professionell begleitet.",
   applicationName: "Landgut Seebühne",
   alternates: {
-    canonical: "/"
+    canonical: `${siteConfig.domain}/`
   },
   openGraph: {
     type: "website",
     locale: "de_DE",
     siteName: "Landgut Seebühne",
-    url: siteConfig.domain
+    url: `${siteConfig.domain}/`
   },
   verification: siteVerification
 };
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="de" className={`${inclusiveSans.variable} ${notoSerif.variable}`}>
       <body>
+        <SiteJsonLd />
         <Header />
         <main>{children}</main>
         <Footer />

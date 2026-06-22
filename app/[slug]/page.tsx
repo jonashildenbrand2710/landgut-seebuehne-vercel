@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CTASection, FAQ, SectionBand } from "@/components/PageSections";
 import { Hero } from "@/components/Hero";
+import { PageJsonLd } from "@/components/StructuredData";
 import { getPageBySlug, isPublicSitePageSlug, sitePages } from "@/data/site";
 
 type PageProps = {
@@ -41,9 +42,22 @@ export default async function DynamicPage({ params }: PageProps) {
   const { slug } = await params;
   const page = getPageBySlug(slug);
   if (!page) notFound();
+  const isIndexablePage = !page.noindex && isPublicSitePageSlug(page.slug);
 
   return (
     <>
+      {isIndexablePage ? (
+        <PageJsonLd
+          path={`/${page.slug}`}
+          title={page.title}
+          description={page.description}
+          breadcrumbs={[
+            { name: "Startseite", path: "/" },
+            { name: page.navTitle ?? page.title, path: `/${page.slug}` }
+          ]}
+          faq={page.faqs}
+        />
+      ) : null}
       <Hero
         eyebrow={page.heroEyebrow}
         title={page.heroTitle}

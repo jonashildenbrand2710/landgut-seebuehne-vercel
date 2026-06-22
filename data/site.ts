@@ -6,6 +6,10 @@ export const siteConfig = {
   phone: "09163 - 1455",
   address: {
     legal: "Hauptstraße 32, 91487 Vestenbergsgreuth",
+    streetAddress: "Hauptstraße 32",
+    postalCode: "91487",
+    addressLocality: "Vestenbergsgreuth",
+    addressCountry: "DE",
     publicRegion: "Vestenbergsgreuth / Mittelfranken / Franken"
   },
   bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL ?? "https://kennenlernen.landgut-seebuehne.de/termin",
@@ -111,12 +115,12 @@ export type SitePage = {
 
 export const indexPage = {
   slug: "",
-  title: "Natürlich heiraten am See in Mittelfranken",
+  title: "Hochzeitslocation am See in Mittelfranken",
   description:
     "Landgut Seebühne ist eine exklusive Hochzeitslocation in Mittelfranken - natürlich heiraten zwischen Wiesen, Wald und See, mit persönlicher Begleitung und klaren nächsten Schritten.",
   heroEyebrow: "Exklusive Location in Mittelfranken",
-  heroTitle: "Natürlich heiraten inmitten von Wiesen, Wald und See",
-  heroText: "Genießt sorgenfrei – eure Traumhochzeit ist in besten Händen!",
+  heroTitle: "Landgut Seebühne: Hochzeitslocation am See in Mittelfranken",
+  heroText: "Natürlich heiraten zwischen Wiesen, Wald und See - persönlich begleitet vom ersten Gespräch bis zum Hochzeitstag.",
   imageKey: "hero",
   primaryCta: "Preise & Verfügbarkeit",
   sections: [
@@ -172,11 +176,11 @@ export const sitePages: SitePage[] = [
   {
     slug: "trauung",
     navTitle: "Trauung",
-    title: "Freie Trauung am See",
+    title: "Freie Trauung am See in Mittelfranken",
     description:
       "Freie Trauung am See in Mittelfranken: Was am Landgut Seebühne emotional wirkt und organisatorisch gut geplant wird.",
     heroEyebrow: "Trauung am Wasser",
-    heroTitle: "Eine freie Trauung am See braucht Atmosphäre und einen guten Plan.",
+    heroTitle: "Freie Trauung am See in Mittelfranken - mit Atmosphäre und gutem Plan.",
     heroText:
       "Der See ist ein besonderer Mittelpunkt für euer Ja-Wort. Damit der Moment leicht wirkt, denken wir Wege, Akustik, Licht, Wetter und den Übergang zum Empfang mit.",
     imageKey: "ceremony",
@@ -211,11 +215,11 @@ export const sitePages: SitePage[] = [
   {
     slug: "location",
     navTitle: "Location",
-    title: "Hochzeitslocation am See",
+    title: "Hochzeitslocation am See in Mittelfranken",
     description:
       "See, Garten, Landhaus und Außenbereiche: Das Landgut Seebühne als Hochzeitslocation für einen ganzen Tag in Mittelfranken.",
     heroEyebrow: "Location",
-    heroTitle: "Ein Ort, an dem euer Hochzeitstag nicht ständig neu starten muss.",
+    heroTitle: "Hochzeitslocation am See in Mittelfranken für einen ganzen Hochzeitstag.",
     heroText:
       "Ankommen, Trauung, Empfang, Fotos, Dinner und Party liegen nicht als lose Stationen nebeneinander, sondern bilden einen Tagesablauf mit Orientierung.",
     imageKey: "location",
@@ -242,7 +246,7 @@ export const sitePages: SitePage[] = [
     description:
       "Getting Ready am Landgut Seebühne: entspannt in den Hochzeitstag starten und ohne unnötige Wege im Tag ankommen.",
     heroEyebrow: "Getting Ready",
-    heroTitle: "Der Hochzeitstag beginnt ruhiger, wenn ihr schon am richtigen Ort seid.",
+    heroTitle: "Getting Ready am Landgut Seebühne: ruhiger in den Hochzeitstag starten.",
     heroText:
       "Getting Ready vor Ort kann Wege, Übergaben und Zeitdruck reduzieren. Ihr kommt früher im Gefühl des Tages an und startet nicht aus dem Auto heraus.",
     imageKey: "gettingReady",
@@ -269,7 +273,7 @@ export const sitePages: SitePage[] = [
     description:
       "Das Landgut Seebühne ist eine familiengeführte Hochzeitslocation in Mittelfranken: persönlich, erfahren und mit Blick für klare Abläufe.",
     heroEyebrow: "Über uns",
-    heroTitle: "Persönlich geführt, aber nicht dem Zufall überlassen.",
+    heroTitle: "Landgut Seebühne ist familiengeführt und persönlich begleitet.",
     heroText:
       "Die Seebühne steht für Gastgebergefühl, Erfahrung und die ruhige Sicherheit, dass ein Hochzeitstag viele schöne und viele praktische Details braucht.",
     imageKey: "team",
@@ -317,7 +321,7 @@ export const sitePages: SitePage[] = [
     description:
       "Eine Besichtigung des Landgut Seebühne ist sinnvoll, wenn im Erstgespräch Datum, Gästezahl und Rahmen grundsätzlich passen.",
     heroEyebrow: "Besichtigung",
-    heroTitle: "Erst klären wir den Rahmen, dann wird der Ort vor Ort greifbar.",
+    heroTitle: "Besichtigung des Landgut Seebühne: erst den Rahmen klären, dann den Ort erleben.",
     heroText:
       "Eine Besichtigung ist am wertvollsten, wenn ihr schon wisst, welche Fragen für eure Hochzeit wichtig sind. Deshalb startet der Weg bei uns mit einem Erstgespräch.",
     imageKey: "location",
@@ -343,7 +347,7 @@ export const sitePages: SitePage[] = [
     description:
       "Bucht ein unverbindliches Erstgespräch, um Datum, Gästezahl, Rahmen und offene Fragen zum Landgut Seebühne zu klären.",
     heroEyebrow: "Erstgespräch",
-    heroTitle: "Der einfachste Start ist ein persönlicher Telefontermin.",
+    heroTitle: "Telefontermin zum Landgut Seebühne buchen und eure Eckpunkte klären.",
     heroText:
       "Im Gespräch sortieren wir eure wichtigsten Fragen und schauen gemeinsam, ob das Landgut Seebühne grundsätzlich zu eurem Datum, eurer Gästezahl und euren Vorstellungen passt.",
     imageKey: "hero",
@@ -364,7 +368,7 @@ export const sitePages: SitePage[] = [
     description:
       "Kontakt zum Landgut Seebühne: Startet mit einem Erstgespräch, damit Datum, Gästezahl und Rahmen sauber sortiert werden.",
     heroEyebrow: "Kontakt",
-    heroTitle: "Schreibt uns oder startet direkt mit einem Erstgespräch.",
+    heroTitle: "Kontakt zum Landgut Seebühne: Anfrage stellen oder Erstgespräch starten.",
     heroText:
       "Wenn ihr schon konkrete Eckpunkte habt, ist ein Telefontermin meist der schnellste Weg. Dort klären wir, ob der Rahmen passt und welcher nächste Schritt sinnvoll ist.",
     imageKey: "lake",
@@ -383,7 +387,7 @@ export const sitePages: SitePage[] = [
     description:
       "Kennenlernen mit dem Landgut Seebühne: eure Eckpunkte sammeln und ein unverbindliches Erstgespräch starten.",
     heroEyebrow: "Kennenlernen",
-    heroTitle: "Lasst uns herausfinden, ob der Rahmen zu eurer Hochzeit passt.",
+    heroTitle: "Kennenlernen mit dem Landgut Seebühne: passt der Rahmen zu eurer Hochzeit?",
     heroText:
       "Der erste Austausch gibt euch Orientierung und hilft uns, Datum, Gästezahl und Vorstellungen realistisch einzuordnen.",
     imageKey: "ceremony",
@@ -594,7 +598,20 @@ export const sitePages: SitePage[] = [
 
 export const allPages: SitePage[] = [indexPage, ...sitePages];
 
-export const publicSitePageSlugs = ["", "hochzeitsmappe", "datenschutz", "impressum"] as const;
+export const publicSitePageSlugs = [
+  "",
+  "location",
+  "trauung",
+  "getting-ready",
+  "uber-uns",
+  "hochzeitsmappe",
+  "besichtigung",
+  "termin-buchen",
+  "kontaktformular",
+  "formular",
+  "impressum",
+  "datenschutz"
+] as const;
 
 export function isPublicSitePageSlug(slug: string) {
   return publicSitePageSlugs.includes(slug as (typeof publicSitePageSlugs)[number]);
@@ -606,6 +623,9 @@ export function getPageBySlug(slug: string) {
 
 export const mainNavigation = [
   { label: "Startseite", href: "/" },
-  { label: "Journal", href: "/blog" },
+  { label: "Location", href: "/location" },
+  { label: "Trauung", href: "/trauung" },
+  { label: "Über uns", href: "/uber-uns" },
+  { label: "Ratgeber", href: "/hochzeitsratgeber" },
   { label: "Hochzeitsmappe", href: "/hochzeitsmappe" }
 ];

@@ -9,28 +9,28 @@ const nextConfig: NextConfig = {
         statusCode: 301
       },
       {
-        source: "/hochzeitsratgeber",
-        destination: "/blog",
-        statusCode: 301
-      },
-      {
-        source: "/hochzeitsratgeber/:slug",
-        destination: "/blog/:slug",
-        statusCode: 301
-      },
-      {
         source: "/ratgeber",
-        destination: "/blog",
+        destination: "/hochzeitsratgeber",
         statusCode: 301
       },
       {
         source: "/journal",
-        destination: "/blog",
+        destination: "/hochzeitsratgeber",
         statusCode: 301
       },
       {
         source: "/journal/:slug",
-        destination: "/blog/:slug",
+        destination: "/hochzeitsratgeber/:slug",
+        statusCode: 301
+      },
+      {
+        source: "/blog",
+        destination: "/hochzeitsratgeber",
+        statusCode: 301
+      },
+      {
+        source: "/blog/:slug",
+        destination: "/hochzeitsratgeber/:slug",
         statusCode: 301
       },
       {

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { PageJsonLd } from "@/components/StructuredData";
 import { articles } from "@/data/articles";
 
 export const metadata: Metadata = {
@@ -18,6 +19,15 @@ export const metadata: Metadata = {
 export default function RatgeberIndexPage() {
   return (
     <>
+      <PageJsonLd
+        path="/hochzeitsratgeber"
+        title="Hochzeitsratgeber"
+        description="Ratgeber des Landgut Seebühne zu Location-Entscheidung, freier Trauung, Outdoor-Hochzeit und Planung ohne Stress."
+        breadcrumbs={[
+          { name: "Startseite", path: "/" },
+          { name: "Hochzeitsratgeber", path: "/hochzeitsratgeber" }
+        ]}
+      />
       <section className="subpage-hero">
         <div className="section-inner">
           <p className="eyebrow dark">Hochzeitsratgeber</p>

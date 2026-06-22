@@ -13,23 +13,31 @@ import {
 } from "@/components/LandingSections";
 import { FAQ } from "@/components/PageSections";
 import { Hero } from "@/components/Hero";
+import { PageJsonLd } from "@/components/StructuredData";
 import { landingFaq } from "@/data/landing";
-import { indexPage } from "@/data/site";
+import { indexPage, siteConfig } from "@/data/site";
 
 export const metadata: Metadata = {
   title: indexPage.title,
   description: indexPage.description,
   alternates: {
-    canonical: "/"
+    canonical: `${siteConfig.domain}/`
   },
   openGraph: {
-    url: "/"
+    url: `${siteConfig.domain}/`
   }
 };
 
 export default function HomePage() {
   return (
     <>
+      <PageJsonLd
+        path="/"
+        title={indexPage.title}
+        description={indexPage.description}
+        breadcrumbs={[{ name: "Startseite", path: "/" }]}
+        faq={landingFaq}
+      />
       <Hero
         eyebrow={indexPage.heroEyebrow}
         title={indexPage.heroTitle}
