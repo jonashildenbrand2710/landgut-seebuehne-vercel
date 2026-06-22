@@ -53,17 +53,6 @@ export default async function DynamicPage({ params }: PageProps) {
         secondaryCta={page.secondaryCta}
         allowDirectActions={page.slug === "termin-buchen"}
       />
-      {page.noindex ? (
-        <section className="notice-band">
-          <div className="section-inner">
-            <p>
-              Diese URL bleibt bewusst erreichbar, wird aber aktuell nicht als
-              öffentliche SEO-Seite geführt. Vor Livegang bitte Zweck, Tracking
-              und mögliche Weiterleitung final prüfen.
-            </p>
-          </div>
-        </section>
-      ) : null}
       {page.sections.map((section, index) => (
         <SectionBand section={section} index={index} key={section.title} />
       ))}
