@@ -177,7 +177,7 @@ export default function HochzeitsmappePage() {
         </div>
       </section>
 
-      <section className="mappe-form-section" id="mappe-form">
+      <section className="mappe-form-section">
         <Image
           className="mappe-form-bg"
           src={background.src}
@@ -205,7 +205,7 @@ export default function HochzeitsmappePage() {
             </div>
           </div>
 
-          <form className="mappe-form-card" action="/api/hochzeitsmappe" method="post">
+          <form className="mappe-form-card" id="mappe-form" action="/api/hochzeitsmappe" method="post">
             <FileText aria-hidden="true" size={24} />
             <h3>Hochzeitsmappe sichern</h3>
             <p>

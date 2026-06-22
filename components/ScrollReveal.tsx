@@ -28,6 +28,7 @@ const REVEAL_SELECTORS = [
   ".cta-inner > *",
   ".faq-item",
   ".article-card",
+  ".article-inline-cta",
   ".subpage-hero .section-inner > *",
   ".article-header > *",
   ".article-body section",
@@ -57,14 +58,14 @@ export function ScrollReveal() {
         });
       },
       {
-        rootMargin: "0px 0px -12% 0px",
-        threshold: 0.16
+        rootMargin: "0px 0px -6% 0px",
+        threshold: 0.08
       }
     );
 
     targets.forEach((target, index) => {
       target.classList.add("reveal-target");
-      target.style.setProperty("--reveal-delay", `${Math.min(index % 6, 5) * 70}ms`);
+      target.style.setProperty("--reveal-delay", `${Math.min(index % 5, 4) * 40}ms`);
       observer.observe(target);
     });
 

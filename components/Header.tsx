@@ -1,12 +1,31 @@
+"use client";
+
+import { useId, useState } from "react";
 import Link from "next/link";
-import { CalendarDays } from "lucide-react";
+import { CalendarDays, Menu, X } from "lucide-react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { mainNavigation } from "@/data/site";
 
+const mobileNavigation = [
+  ...mainNavigation,
+  { label: "Getting Ready", href: "/getting-ready" },
+  { label: "Besichtigung", href: "/besichtigung" },
+  { label: "Termin buchen", href: "/termin-buchen" },
+  { label: "Kontakt", href: "/kontaktformular" }
+];
+
 export function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const mobileMenuId = useId();
+
   return (
     <header className="site-header">
-      <Link className="brand" href="/" aria-label="Landgut Seebühne Startseite">
+      <Link
+        className="brand"
+        href="/"
+        aria-label="Landgut Seebühne Startseite"
+        onClick={() => setIsMenuOpen(false)}
+      >
         <BrandLogo className="brand-logo brand-logo-header" decorative />
       </Link>
       <nav className="main-nav" aria-label="Hauptnavigation">
@@ -16,10 +35,33 @@ export function Header() {
           </Link>
         ))}
       </nav>
-      <Link className="header-cta" href="/termin-buchen">
+      <Link
+        className="header-cta"
+        href="/termin-buchen"
+        aria-label="Telefontermin zum Erstgespräch buchen"
+        onClick={() => setIsMenuOpen(false)}
+      >
         <CalendarDays aria-hidden="true" size={18} />
-        <span>Erstgespräch</span>
+        <span className="header-cta-label-full">Erstgespräch</span>
+        <span className="header-cta-label-short">Termin</span>
       </Link>
+      <button
+        className="mobile-menu-button"
+        type="button"
+        aria-controls={mobileMenuId}
+        aria-expanded={isMenuOpen}
+        aria-label={isMenuOpen ? "Navigation schließen" : "Navigation öffnen"}
+        onClick={() => setIsMenuOpen((open) => !open)}
+      >
+        {isMenuOpen ? <X aria-hidden="true" size={20} /> : <Menu aria-hidden="true" size={20} />}
+      </button>
+      <nav className="mobile-nav-panel" id={mobileMenuId} aria-label="Mobile Navigation" hidden={!isMenuOpen}>
+        {mobileNavigation.map((item) => (
+          <Link href={item.href} key={item.href} onClick={() => setIsMenuOpen(false)}>
+            {item.label}
+          </Link>
+        ))}
+      </nav>
     </header>
   );
 }

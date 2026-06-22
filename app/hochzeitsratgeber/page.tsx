@@ -28,7 +28,7 @@ export default function RatgeberIndexPage() {
           { name: "Hochzeitsratgeber", path: "/hochzeitsratgeber" }
         ]}
       />
-      <section className="subpage-hero">
+      <section className="subpage-hero ratgeber-hero">
         <div className="section-inner">
           <p className="eyebrow dark">Hochzeitsratgeber</p>
           <h1>Antworten aus der Perspektive einer erfahrenen Hochzeitslocation.</h1>
@@ -38,7 +38,7 @@ export default function RatgeberIndexPage() {
           </p>
         </div>
       </section>
-      <section className="section-band">
+      <section className="section-band article-index-section">
         <div className="section-inner">
           <div className="article-grid">
             {articles.map((article) => (

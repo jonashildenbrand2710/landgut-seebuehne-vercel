@@ -17,7 +17,7 @@ export function GET() {
     "- Kann man dort freie Trauungen am See feiern? Eine freie Trauung am See oder auf dem Gelände ist möglich, wenn Wege, Technik, Wetteroption und Gästezahl zum Ablauf passen.",
     "- Wie läuft eine Besichtigung ab? Der empfohlene Weg startet mit einem Erstgespräch; danach kann eine Besichtigung gezielt geplant werden, wenn Datum, Gästezahl und Rahmen grundsätzlich passen.",
     "- Was enthält die Hochzeitsmappe? Sie gibt einen Überblick über Location, Ablauf, Ideen und typische Fragen für den Planungsstart, ohne öffentliche Preisdetails zu nennen.",
-    "- Wie startet eine Anfrage? Über den Telefontermin, die Hochzeitsmappe, das Kontaktformular oder das Kennenlernformular.",
+    "- Wie startet eine Anfrage? Über den Telefontermin, die Hochzeitsmappe, die Kontaktseite oder die Kennenlernseite.",
     "- Was macht die Location besonders? See, Garten, Landhaus, naturnahe Außenbereiche und persönliche Begleitung bilden einen zusammenhängenden Tagesort.",
     "",
     "## Öffentliche Hauptseiten",

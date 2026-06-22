@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 import type { ArticleBlock } from "@/data/articles";
 
 export type ArticleRelatedLink = {
@@ -10,7 +10,38 @@ export type ArticleRelatedLink = {
 };
 
 export function ArticleMarkdown({ blocks }: { blocks: ArticleBlock[] }) {
-  return <div className="article-body">{blocks.map((block, index) => renderBlock(block, index))}</div>;
+  const summaryIndex = blocks.findIndex((block) => block.type === "panel");
+  const inlineCtaIndex = summaryIndex >= 0 ? summaryIndex : Math.min(2, blocks.length - 1);
+
+  return (
+    <div className="article-body">
+      {blocks.map((block, index) => (
+        <Fragment key={`${block.type}-${index}`}>
+          {renderBlock(block, index)}
+          {index === inlineCtaIndex ? <ArticleInlineCta /> : null}
+        </Fragment>
+      ))}
+    </div>
+  );
+}
+
+function ArticleInlineCta() {
+  return (
+    <aside className="article-inline-cta" aria-label="Nächster Schritt">
+      <div>
+        <p className="eyebrow dark">Nächster Schritt</p>
+        <p className="article-inline-cta-title">Passt der Rahmen zu eurer Hochzeit?</p>
+        <p>
+          Im Erstgespräch sortieren wir Datum, Gästezahl und offene Fragen, bevor
+          eine Besichtigung sinnvoll geplant wird.
+        </p>
+      </div>
+      <Link className="button primary" href="/termin-buchen">
+        <span>Erstgespräch anfragen</span>
+        <ArrowRight aria-hidden="true" size={18} />
+      </Link>
+    </aside>
+  );
 }
 
 export function ArticleFinalCta({ blocks }: { blocks: ArticleBlock[] }) {

@@ -241,7 +241,7 @@ Bilder lokal sichern, passende Motive auswaehlen, Rechte pruefen, finale Dateina
 
 Vorhanden:
 
-- Kuratierte, aktuell verwendete Bilder unter `public/images/onepage/raw/`
+- Kuratierte, aktuell verwendete Bilder unter `public/images/site/`
 - Kontaktuebersicht: `docs/migration/onepage-contact-sheet.jpg`
 - Bildverknuepfung in `data/site.ts`
 - Bild-Workflow in `docs/migration/image-workflow.md`

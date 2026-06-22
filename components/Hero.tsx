@@ -17,6 +17,28 @@ type HeroProps = {
   };
 };
 
+type ImageKey = keyof typeof imageLibrary;
+
+const imageFocus: Partial<Record<ImageKey, string>> = {
+  ceremony: "50% 46%",
+  coupleDock: "50% 45%",
+  coupleFence: "50% 42%",
+  gettingReady: "50% 22%",
+  hero: "50% 56%",
+  lake: "50% 50%",
+  location: "50% 46%",
+  mappeCover: "50% 50%",
+  team: "50% 25%",
+  teamChristine: "50% 24%",
+  teamJohanna: "50% 24%",
+  teamJonas: "50% 22%",
+  teamOliver: "50% 25%"
+};
+
+function focalPoint(imageKey: ImageKey) {
+  return imageFocus[imageKey] ?? "center center";
+}
+
 function ctaHref(label?: string, allowDirectActions = false) {
   if (!label) return "/termin-buchen";
   const normalized = label.toLowerCase();
@@ -50,8 +72,9 @@ export function Hero({
         fetchPriority="high"
         preload
         loading="eager"
-        quality={72}
+        quality={60}
         sizes="100vw"
+        style={{ objectPosition: focalPoint(imageKey) }}
       />
       <div className="hero-shade" />
       <div className="hero-content">
