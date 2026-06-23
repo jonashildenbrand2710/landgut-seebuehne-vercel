@@ -286,7 +286,7 @@ export function WeddingBundles() {
                   </li>
                 ))}
               </ul>
-              <Link className="bundle-link" href="/termin-buchen">
+              <Link className="button primary bundle-link" href="/termin-buchen">
                 <span>{bundle.cta}</span>
                 <ArrowRight aria-hidden="true" size={16} />
               </Link>
