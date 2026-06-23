@@ -74,8 +74,8 @@ export function Hero({
         fetchPriority="high"
         preload
         loading="eager"
-        quality={60}
-        sizes="100vw"
+        quality={85}
+        sizes="(max-width: 680px) 1920px, 100vw"
         style={imageStyle}
       />
       <div className="hero-shade" />

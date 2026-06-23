@@ -2967,8 +2967,10 @@ h2 {
   }
 
   .hero.hero-with-proof .hero-image {
-    object-position: 35% center;
+    object-position: 42.5% center;
+    transform: none;
     transform-origin: 64% 56%;
+    animation: none;
   }
 
   .hero.hero-with-proof h1 {
