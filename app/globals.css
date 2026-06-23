@@ -27,6 +27,8 @@
   --surface-dark-soft: linear-gradient(145deg, rgba(28, 29, 32, 0.98) 0%, rgba(38, 26, 18, 0.96) 58%, rgba(49, 73, 64, 0.92) 100%);
   --surface-cta: linear-gradient(135deg, #1c1d20 0%, #263932 48%, #261a12 100%);
   --surface-cta-light: linear-gradient(135deg, #f9f3e9 0%, #ebe3d3 62%, #d4cbdf 100%);
+  --surface-cta-button: linear-gradient(135deg, #67a490 0%, #8bb8a8 46%, #b9accc 100%);
+  --surface-cta-button-hover: linear-gradient(135deg, #7eb4a2 0%, #d4cbdf 56%, #9e8db7 100%);
   --accent-gradient: linear-gradient(135deg, #67a490 0%, #b9accc 54%, #9e8db7 100%);
   --onepage-sage: #67a490;
   --onepage-mauve: #9e8db7;
@@ -190,10 +192,10 @@ img {
 }
 
 .header-cta:hover {
-  border-color: var(--green);
-  background: var(--accent-gradient);
+  border-color: rgba(158, 141, 183, 0.68);
+  background: var(--surface-cta-button-hover);
   color: var(--ink);
-  box-shadow: 0 16px 36px rgba(28, 29, 32, 0.2);
+  box-shadow: 0 18px 38px rgba(103, 164, 144, 0.3);
 }
 
 .header-cta,
@@ -279,9 +281,10 @@ img {
 
 .header-cta {
   padding: 0 16px;
-  border: 1px solid var(--ink);
-  background: var(--surface-dark);
-  color: var(--bg);
+  border: 1px solid rgba(28, 29, 32, 0.14);
+  background: var(--surface-cta-button);
+  color: var(--ink);
+  box-shadow: 0 14px 34px rgba(103, 164, 144, 0.22);
 }
 
 .hero {
@@ -521,9 +524,10 @@ h2 {
 }
 
 .button.primary {
-  background: var(--surface-dark);
-  color: var(--bg);
-  box-shadow: 0 18px 42px rgba(28, 29, 32, 0.18);
+  border-color: rgba(249, 243, 233, 0.48);
+  background: var(--surface-cta-button);
+  color: var(--ink);
+  box-shadow: 0 18px 42px rgba(103, 164, 144, 0.28);
 }
 
 .button.secondary {
@@ -534,9 +538,10 @@ h2 {
 }
 
 .button.primary.light {
-  background: var(--surface-cta-light);
+  border-color: rgba(249, 243, 233, 0.58);
+  background: var(--surface-cta-button);
   color: var(--ink);
-  box-shadow: 0 18px 42px rgba(28, 29, 32, 0.22);
+  box-shadow: 0 18px 42px rgba(103, 164, 144, 0.28);
 }
 
 .button.ghost-light {
@@ -546,7 +551,9 @@ h2 {
 
 .button.primary:hover,
 .button.primary.light:hover {
-  box-shadow: 0 24px 52px rgba(28, 29, 32, 0.24);
+  border-color: rgba(158, 141, 183, 0.68);
+  background: var(--surface-cta-button-hover);
+  box-shadow: 0 24px 52px rgba(103, 164, 144, 0.34);
 }
 
 .button.secondary:hover,
