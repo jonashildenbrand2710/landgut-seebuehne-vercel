@@ -18,14 +18,14 @@ type ArticlePageProps = {
 
 const defaultRelatedLinks: ArticleRelatedLink[] = [
   {
-    href: "/location",
-    label: "Hochzeitslocation am See",
-    description: "See, Garten, Landhaus und Außenbereiche als Rahmen für euren Hochzeitstag."
-  },
-  {
     href: "/hochzeitsmappe",
     label: "Hochzeitsmappe",
     description: "PDF-Guide mit Überblick, Ablaufideen und Fragen für euren Planungsstart."
+  },
+  {
+    href: "/besichtigung",
+    label: "Besichtigung",
+    description: "Warum die Besichtigung nach einem ersten Rahmencheck hilfreicher wird."
   },
   {
     href: "/termin-buchen",
@@ -36,16 +36,8 @@ const defaultRelatedLinks: ArticleRelatedLink[] = [
 
 const relatedLinksBySlug: Record<string, ArticleRelatedLink[]> = {
   "freie-trauung-am-see": [
-    {
-      href: "/trauung",
-      label: "Freie Trauung am See",
-      description: "Was am Wasser emotional wirkt und organisatorisch gut vorbereitet wird."
-    },
-    {
-      href: "/besichtigung",
-      label: "Besichtigung",
-      description: "Warum die Besichtigung nach einem ersten Rahmencheck hilfreicher wird."
-    },
+    defaultRelatedLinks[0],
+    defaultRelatedLinks[1],
     defaultRelatedLinks[2]
   ],
   "hochzeitslocation-besichtigen-fragen": [
@@ -67,30 +59,18 @@ const relatedLinksBySlug: Record<string, ArticleRelatedLink[]> = {
     defaultRelatedLinks[2]
   ],
   "plan-b-regen-gartenhochzeit": [
-    {
-      href: "/trauung",
-      label: "Freie Trauung am See",
-      description: "Outdoor-Trauung mit Atmosphäre, Wegen, Technik und Wetteroptionen."
-    },
+    defaultRelatedLinks[1],
     defaultRelatedLinks[0],
     defaultRelatedLinks[2]
   ],
   "hochzeitslocation-aus-gaestesicht": [
+    defaultRelatedLinks[1],
     defaultRelatedLinks[0],
-    {
-      href: "/besichtigung",
-      label: "Besichtigung",
-      description: "Vor Ort prüfen, ob Wege, Ablauf und Gästekomfort zusammenpassen."
-    },
     defaultRelatedLinks[2]
   ],
   "gastgeber-sein-am-hochzeitstag": [
-    {
-      href: "/uber-uns",
-      label: "Über uns",
-      description: "Mehr über die Gastgeber und die persönliche Begleitung der Seebühne."
-    },
     defaultRelatedLinks[0],
+    defaultRelatedLinks[1],
     defaultRelatedLinks[2]
   ],
   "eine-hochzeit-pro-tag-exklusivitaet": [

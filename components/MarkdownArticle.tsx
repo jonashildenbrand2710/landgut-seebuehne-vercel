@@ -103,9 +103,14 @@ function renderBlock(block: ArticleBlock, index: number): ReactNode {
 
   if (block.type === "list") {
     return (
-      <ul key={`list-${index}`}>
-        {block.items.map((item) => (
-          <li key={item}>{renderInline(item)}</li>
+      <ul className="article-list" key={`list-${index}`}>
+        {block.items.map((item, itemIndex) => (
+          <li className="article-list-item" key={`${item}-${itemIndex}`}>
+            <span className="article-list-marker" aria-hidden="true">
+              {String(itemIndex + 1).padStart(2, "0")}
+            </span>
+            <span className="article-list-text">{renderInline(item)}</span>
+          </li>
         ))}
       </ul>
     );

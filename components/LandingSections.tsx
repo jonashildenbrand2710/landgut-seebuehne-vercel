@@ -344,7 +344,6 @@ export function FamilyStory() {
       <div className="section-inner teamleader-block">
         <div className="teamleader-heading">
           <p className="eyebrow dark">Teamleader - Landgut Seebühne:</p>
-          <h2>Preise & Details anfragen</h2>
         </div>
         <div className="teamleader-grid">
           {landingTeamLeaders.map((leader) => {
@@ -369,6 +368,9 @@ export function FamilyStory() {
               </article>
             );
           })}
+        </div>
+        <div className="teamleader-actions">
+          <InternalCta href="/termin-buchen">Preise & Details anfragen</InternalCta>
         </div>
       </div>
     </section>

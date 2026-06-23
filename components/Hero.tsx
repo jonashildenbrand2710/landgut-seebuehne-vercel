@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { ArrowRight, FileText, Star } from "lucide-react";
 import { imageLibrary, siteConfig } from "@/data/site";
 
@@ -61,9 +62,10 @@ export function Hero({
   proof
 }: HeroProps) {
   const image = imageLibrary[imageKey];
+  const imageStyle = { "--hero-image-position": focalPoint(imageKey) } as CSSProperties;
 
   return (
-    <section className="hero">
+    <section className={proof ? "hero hero-with-proof" : "hero"}>
       <Image
         className="hero-image"
         src={image.src}
@@ -74,7 +76,7 @@ export function Hero({
         loading="eager"
         quality={60}
         sizes="100vw"
-        style={{ objectPosition: focalPoint(imageKey) }}
+        style={imageStyle}
       />
       <div className="hero-shade" />
       <div className="hero-content">
@@ -109,14 +111,16 @@ export function Hero({
               <span className="hero-mentions-label">Bekannt aus:</span>
               <div className="hero-mentions-viewport">
                 <div className="hero-mentions-track">
-                  {proof.mentions.map((mention) => (
-                    <strong key={mention}>{mention}</strong>
-                  ))}
-                  {proof.mentions.map((mention) => (
-                    <strong aria-hidden="true" key={`${mention}-duplicate`}>
-                      {mention}
-                    </strong>
-                  ))}
+                  <div className="hero-mentions-group">
+                    {proof.mentions.map((mention) => (
+                      <strong key={mention}>{mention}</strong>
+                    ))}
+                  </div>
+                  <div aria-hidden="true" className="hero-mentions-group">
+                    {proof.mentions.map((mention) => (
+                      <strong key={`${mention}-duplicate`}>{mention}</strong>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
