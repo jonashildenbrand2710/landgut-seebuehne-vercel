@@ -4,28 +4,28 @@
       "keys": [
         "MOBILE"
       ],
-      "clicks": 1560,
-      "impressions": 9675,
-      "ctr": 0.16124031007751938,
-      "position": 7.319896640826873
+      "clicks": 1565,
+      "impressions": 9736,
+      "ctr": 0.16074363188167626,
+      "position": 7.335661462612983
     },
     {
       "keys": [
         "DESKTOP"
       ],
-      "clicks": 480,
-      "impressions": 4547,
-      "ctr": 0.10556410820321091,
-      "position": 22.722454365515723
+      "clicks": 479,
+      "impressions": 4586,
+      "ctr": 0.10444832097688618,
+      "position": 22.75534234627126
     },
     {
       "keys": [
         "TABLET"
       ],
       "clicks": 24,
-      "impressions": 171,
-      "ctr": 0.14035087719298245,
-      "position": 3.7076023391812867
+      "impressions": 170,
+      "ctr": 0.1411764705882353,
+      "position": 3.7705882352941176
     }
   ],
   "responseAggregationType": "byProperty"

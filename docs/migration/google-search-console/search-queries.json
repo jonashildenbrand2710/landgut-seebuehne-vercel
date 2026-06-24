@@ -4,28 +4,19 @@
       "keys": [
         "landgut seebühne"
       ],
-      "clicks": 606,
+      "clicks": 607,
       "impressions": 1714,
-      "ctr": 0.35355892648774795,
+      "ctr": 0.3541423570595099,
       "position": 1.0921820303383898
     },
     {
       "keys": [
         "seebühne vestenbergsgreuth"
       ],
-      "clicks": 437,
-      "impressions": 1141,
-      "ctr": 0.38299737072743206,
-      "position": 1.0552147239263803
-    },
-    {
-      "keys": [
-        "kulturcafe seebühne"
-      ],
-      "clicks": 63,
-      "impressions": 148,
-      "ctr": 0.42567567567567566,
-      "position": 1.0405405405405406
+      "clicks": 435,
+      "impressions": 1140,
+      "ctr": 0.3815789473684211,
+      "position": 1.055263157894737
     },
     {
       "keys": [
@@ -35,6 +26,15 @@
       "impressions": 205,
       "ctr": 0.3073170731707317,
       "position": 1.1170731707317074
+    },
+    {
+      "keys": [
+        "kulturcafe seebühne"
+      ],
+      "clicks": 62,
+      "impressions": 147,
+      "ctr": 0.4217687074829932,
+      "position": 1.0408163265306123
     },
     {
       "keys": [
@@ -50,9 +50,9 @@
         "seebühne"
       ],
       "clicks": 30,
-      "impressions": 1308,
-      "ctr": 0.022935779816513763,
-      "position": 10.36085626911315
+      "impressions": 1322,
+      "ctr": 0.0226928895612708,
+      "position": 10.333585476550681
     },
     {
       "keys": [
@@ -95,9 +95,9 @@
         "landgut seebühne vestenbergsgreuth"
       ],
       "clicks": 8,
-      "impressions": 10,
-      "ctr": 0.8,
-      "position": 1.6
+      "impressions": 11,
+      "ctr": 0.7272727272727273,
+      "position": 1.5454545454545454
     },
     {
       "keys": [
@@ -113,18 +113,18 @@
         "rezensionen für landgut seebühne"
       ],
       "clicks": 6,
-      "impressions": 161,
-      "ctr": 0.037267080745341616,
-      "position": 2.4161490683229814
+      "impressions": 164,
+      "ctr": 0.036585365853658534,
+      "position": 2.4451219512195124
     },
     {
       "keys": [
         "hochzeitslocation in der nähe"
       ],
       "clicks": 5,
-      "impressions": 116,
-      "ctr": 0.04310344827586207,
-      "position": 2.6293103448275863
+      "impressions": 115,
+      "ctr": 0.043478260869565216,
+      "position": 2.6347826086956525
     },
     {
       "keys": [
@@ -140,36 +140,36 @@
         "hochzeitslocation mittelfranken"
       ],
       "clicks": 4,
-      "impressions": 429,
-      "ctr": 0.009324009324009324,
-      "position": 18.263403263403262
+      "impressions": 431,
+      "ctr": 0.009280742459396751,
+      "position": 18.245939675174014
     },
     {
       "keys": [
         "vestenbergsgreuth cafe"
       ],
       "clicks": 4,
-      "impressions": 93,
-      "ctr": 0.043010752688172046,
-      "position": 1.5913978494623655
+      "impressions": 92,
+      "ctr": 0.043478260869565216,
+      "position": 1.5869565217391304
     },
     {
       "keys": [
         "hochzeitslocation"
       ],
       "clicks": 3,
-      "impressions": 137,
-      "ctr": 0.021897810218978103,
-      "position": 4.08029197080292
+      "impressions": 136,
+      "ctr": 0.022058823529411766,
+      "position": 4.095588235294118
     },
     {
       "keys": [
         "landgut seebühne rezensionen"
       ],
       "clicks": 3,
-      "impressions": 40,
-      "ctr": 0.075,
-      "position": 1.775
+      "impressions": 41,
+      "ctr": 0.07317073170731707,
+      "position": 1.8292682926829267
     },
     {
       "keys": [
@@ -203,9 +203,9 @@
         "hochzeitslocation erlangen"
       ],
       "clicks": 2,
-      "impressions": 35,
-      "ctr": 0.05714285714285714,
-      "position": 16.57142857142857
+      "impressions": 37,
+      "ctr": 0.05405405405405406,
+      "position": 17
     },
     {
       "keys": [
@@ -266,18 +266,18 @@
         "hochzeit am see"
       ],
       "clicks": 1,
-      "impressions": 44,
-      "ctr": 0.022727272727272728,
-      "position": 4.113636363636363
+      "impressions": 43,
+      "ctr": 0.023255813953488372,
+      "position": 4.162790697674419
     },
     {
       "keys": [
         "hochzeit am see in der nähe"
       ],
       "clicks": 1,
-      "impressions": 31,
-      "ctr": 0.03225806451612903,
-      "position": 4.129032258064516
+      "impressions": 30,
+      "ctr": 0.03333333333333333,
+      "position": 4.233333333333333
     },
     {
       "keys": [
@@ -338,9 +338,9 @@
         "hochzeitslocation see"
       ],
       "clicks": 1,
-      "impressions": 21,
-      "ctr": 0.047619047619047616,
-      "position": 27.857142857142858
+      "impressions": 20,
+      "ctr": 0.05,
+      "position": 29.2
     },
     {
       "keys": [
@@ -446,9 +446,9 @@
         "vestenbergsgreuth gaststätte"
       ],
       "clicks": 1,
-      "impressions": 99,
-      "ctr": 0.010101010101010102,
-      "position": 12.090909090909092
+      "impressions": 97,
+      "ctr": 0.010309278350515464,
+      "position": 12.154639175257731
     },
     {
       "keys": [
@@ -473,9 +473,9 @@
         "after wedding am see"
       ],
       "clicks": 0,
-      "impressions": 86,
+      "impressions": 90,
       "ctr": 0,
-      "position": 11.465116279069768
+      "position": 11.477777777777778
     },
     {
       "keys": [
@@ -536,9 +536,9 @@
         "buchhaltung hochzeitslocation"
       ],
       "clicks": 0,
-      "impressions": 12,
+      "impressions": 19,
       "ctr": 0,
-      "position": 10.75
+      "position": 10.736842105263158
     },
     {
       "keys": [
@@ -623,6 +623,15 @@
     },
     {
       "keys": [
+        "dj"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 1
+    },
+    {
+      "keys": [
         "erlangen-höchstadt hochzeitskleider"
       ],
       "clicks": 0,
@@ -680,7 +689,7 @@
         "eventlocation hochzeit"
       ],
       "clicks": 0,
-      "impressions": 1,
+      "impressions": 3,
       "ctr": 0,
       "position": 22
     },
@@ -761,9 +770,9 @@
         "exklusive hochzeitslocation"
       ],
       "clicks": 0,
-      "impressions": 44,
+      "impressions": 43,
       "ctr": 0,
-      "position": 59.95454545454545
+      "position": 60.2093023255814
     },
     {
       "keys": [
@@ -974,12 +983,21 @@
     },
     {
       "keys": [
+        "gartenhochzeit location"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 20
+    },
+    {
+      "keys": [
         "gartenhochzeit nürnberg"
       ],
       "clicks": 0,
-      "impressions": 64,
+      "impressions": 65,
       "ctr": 0,
-      "position": 33.125
+      "position": 32.892307692307696
     },
     {
       "keys": [
@@ -989,6 +1007,15 @@
       "impressions": 1,
       "ctr": 0,
       "position": 1
+    },
+    {
+      "keys": [
+        "geburtstags location"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 2
     },
     {
       "keys": [
@@ -1226,15 +1253,6 @@
     },
     {
       "keys": [
-        "hochzeit gasthaus"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 4
-    },
-    {
-      "keys": [
         "hochzeit gerhardshofen"
       ],
       "clicks": 0,
@@ -1292,9 +1310,9 @@
         "hochzeit neustadt am rübenberge"
       ],
       "clicks": 0,
-      "impressions": 3,
+      "impressions": 4,
       "ctr": 0,
-      "position": 63.666666666666664
+      "position": 64.25
     },
     {
       "keys": [
@@ -1346,9 +1364,9 @@
         "hochzeit scheune st georg"
       ],
       "clicks": 0,
-      "impressions": 4,
+      "impressions": 6,
       "ctr": 0,
-      "position": 72.5
+      "position": 71.83333333333333
     },
     {
       "keys": [
@@ -1382,9 +1400,9 @@
         "hochzeit uehlfeld"
       ],
       "clicks": 0,
-      "impressions": 129,
+      "impressions": 128,
       "ctr": 0,
-      "position": 1.8217054263565893
+      "position": 1.8203125
     },
     {
       "keys": [
@@ -1418,9 +1436,9 @@
         "hochzeitsfeier"
       ],
       "clicks": 0,
-      "impressions": 1,
+      "impressions": 3,
       "ctr": 0,
-      "position": 5
+      "position": 4.666666666666666
     },
     {
       "keys": [
@@ -1490,9 +1508,18 @@
         "hochzeitslocation am see bayern"
       ],
       "clicks": 0,
-      "impressions": 103,
+      "impressions": 102,
       "ctr": 0,
-      "position": 41.640776699029125
+      "position": 42.029411764705884
+    },
+    {
+      "keys": [
+        "hochzeitslocation am see deutschland"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 20
     },
     {
       "keys": [
@@ -1571,9 +1598,9 @@
         "hochzeitslocation filderstadt"
       ],
       "clicks": 0,
-      "impressions": 2,
+      "impressions": 4,
       "ctr": 0,
-      "position": 33
+      "position": 39
     },
     {
       "keys": [
@@ -1613,6 +1640,15 @@
     },
     {
       "keys": [
+        "hochzeitslocation geheimtipp"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 12
+    },
+    {
+      "keys": [
         "hochzeitslocation im freien"
       ],
       "clicks": 0,
@@ -1631,12 +1667,21 @@
     },
     {
       "keys": [
+        "hochzeitslocation lamplstätt"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 35
+    },
+    {
+      "keys": [
         "hochzeitslocation lauf"
       ],
       "clicks": 0,
-      "impressions": 9,
+      "impressions": 12,
       "ctr": 0,
-      "position": 126.22222222222223
+      "position": 103.08333333333333
     },
     {
       "keys": [
@@ -1652,27 +1697,27 @@
         "hochzeitslocation nach postleitzahl"
       ],
       "clicks": 0,
-      "impressions": 7,
+      "impressions": 6,
       "ctr": 0,
-      "position": 89
+      "position": 87.16666666666667
     },
     {
       "keys": [
         "hochzeitslocation neustadt"
       ],
       "clicks": 0,
-      "impressions": 4,
+      "impressions": 6,
       "ctr": 0,
-      "position": 31
+      "position": 32.5
     },
     {
       "keys": [
         "hochzeitslocation neustadt am rübenberge"
       ],
       "clicks": 0,
-      "impressions": 2,
+      "impressions": 3,
       "ctr": 0,
-      "position": 52.5
+      "position": 53.333333333333336
     },
     {
       "keys": [
@@ -1697,9 +1742,9 @@
         "hochzeitslocation oberfranken"
       ],
       "clicks": 0,
-      "impressions": 4,
+      "impressions": 5,
       "ctr": 0,
-      "position": 22
+      "position": 17.8
     },
     {
       "keys": [
@@ -1769,9 +1814,9 @@
         "hochzeitslocation unterfranken"
       ],
       "clicks": 0,
-      "impressions": 3,
+      "impressions": 4,
       "ctr": 0,
-      "position": 40
+      "position": 40.75
     },
     {
       "keys": [
@@ -1814,9 +1859,9 @@
         "hochzeitslocations am see"
       ],
       "clicks": 0,
-      "impressions": 81,
+      "impressions": 80,
       "ctr": 0,
-      "position": 64.90123456790124
+      "position": 64.975
     },
     {
       "keys": [
@@ -2027,6 +2072,15 @@
     },
     {
       "keys": [
+        "hofgut lamplstätt"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 59
+    },
+    {
+      "keys": [
         "hofgut übersberg hochzeit"
       ],
       "clicks": 0,
@@ -2057,9 +2111,9 @@
         "kleine hochzeit am see"
       ],
       "clicks": 0,
-      "impressions": 6,
+      "impressions": 5,
       "ctr": 0,
-      "position": 1.5
+      "position": 1.4
     },
     {
       "keys": [
@@ -2135,6 +2189,15 @@
     },
     {
       "keys": [
+        "lamplstätt"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 36
+    },
+    {
+      "keys": [
         "landgut"
       ],
       "clicks": 0,
@@ -2174,7 +2237,7 @@
         "landgut seebühne fotos"
       ],
       "clicks": 0,
-      "impressions": 11,
+      "impressions": 12,
       "ctr": 0,
       "position": 1
     },
@@ -2183,27 +2246,27 @@
         "landgut seebühne preise"
       ],
       "clicks": 0,
-      "impressions": 2,
+      "impressions": 4,
       "ctr": 0,
-      "position": 1.5
+      "position": 1.25
     },
     {
       "keys": [
         "landhaus friedrichsfehn hochzeit"
       ],
       "clicks": 0,
-      "impressions": 6,
+      "impressions": 9,
       "ctr": 0,
-      "position": 36
+      "position": 37.333333333333336
     },
     {
       "keys": [
         "landhaus hochzeit"
       ],
       "clicks": 0,
-      "impressions": 5,
+      "impressions": 6,
       "ctr": 0,
-      "position": 18
+      "position": 19.833333333333332
     },
     {
       "keys": [
@@ -2369,6 +2432,15 @@
     },
     {
       "keys": [
+        "neustadt hochzeitssaal"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 47
+    },
+    {
+      "keys": [
         "outdoor hochzeit"
       ],
       "clicks": 0,
@@ -2390,9 +2462,9 @@
         "pflugsmühle hochzeit"
       ],
       "clicks": 0,
-      "impressions": 2,
+      "impressions": 3,
       "ctr": 0,
-      "position": 56.5
+      "position": 56
     },
     {
       "keys": [
@@ -2459,6 +2531,15 @@
     },
     {
       "keys": [
+        "rockig"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 1
+    },
+    {
+      "keys": [
         "räume mieten"
       ],
       "clicks": 0,
@@ -2516,9 +2597,9 @@
         "scherauer hof hochzeit"
       ],
       "clicks": 0,
-      "impressions": 1,
+      "impressions": 2,
       "ctr": 0,
-      "position": 72
+      "position": 69.5
     },
     {
       "keys": [
@@ -2723,9 +2804,9 @@
         "seebuehne"
       ],
       "clicks": 0,
-      "impressions": 22,
+      "impressions": 21,
       "ctr": 0,
-      "position": 36.31818181818182
+      "position": 36.04761904761905
     },
     {
       "keys": [
@@ -2741,9 +2822,9 @@
         "seebühnen deutschland"
       ],
       "clicks": 0,
-      "impressions": 3,
+      "impressions": 2,
       "ctr": 0,
-      "position": 2.333333333333333
+      "position": 2
     },
     {
       "keys": [
@@ -2810,6 +2891,15 @@
     },
     {
       "keys": [
+        "seminarhaus lamplstätt"
+      ],
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 51
+    },
+    {
+      "keys": [
         "sommerrodelbahn"
       ],
       "clicks": 0,
@@ -2846,12 +2936,21 @@
     },
     {
       "keys": [
+        "traurednerin"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 1
+    },
+    {
+      "keys": [
         "trauung am see"
       ],
       "clicks": 0,
-      "impressions": 2,
+      "impressions": 3,
       "ctr": 0,
-      "position": 41
+      "position": 29.333333333333332
     },
     {
       "keys": [

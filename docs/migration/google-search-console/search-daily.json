@@ -2,15 +2,6 @@
   "rows": [
     {
       "keys": [
-        "2025-02-19"
-      ],
-      "clicks": 6,
-      "impressions": 65,
-      "ctr": 0.09230769230769231,
-      "position": 7.061538461538461
-    },
-    {
-      "keys": [
         "2025-02-20"
       ],
       "clicks": 16,
@@ -1133,6 +1124,15 @@
       "impressions": 215,
       "ctr": 0.08837209302325581,
       "position": 9.35813953488372
+    },
+    {
+      "keys": [
+        "2026-06-20"
+      ],
+      "clicks": 10,
+      "impressions": 164,
+      "ctr": 0.06097560975609756,
+      "position": 12.823170731707316
     }
   ],
   "responseAggregationType": "byProperty"

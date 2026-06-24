@@ -1,42 +1,42 @@
 query,clicks,impressions,ctr,position
-landgut seebühne,606,1714,0.35355892648774795,1.0921820303383898
-seebühne vestenbergsgreuth,437,1141,0.38299737072743206,1.0552147239263803
-kulturcafe seebühne,63,148,0.42567567567567566,1.0405405405405406
+landgut seebühne,607,1714,0.3541423570595099,1.0921820303383898
+seebühne vestenbergsgreuth,435,1140,0.3815789473684211,1.055263157894737
 vestenbergsgreuth seebühne,63,205,0.3073170731707317,1.1170731707317074
+kulturcafe seebühne,62,147,0.4217687074829932,1.0408163265306123
 vestenbergsgreuth hochzeit,35,119,0.29411764705882354,1.1176470588235294
-seebühne,30,1308,0.022935779816513763,10.36085626911315
+seebühne,30,1322,0.0226928895612708,10.333585476550681
 seebühne hochzeit,27,95,0.28421052631578947,1.1052631578947367
 seebühne landgut,15,29,0.5172413793103449,1.0689655172413792
 bilder von landgut seebühne,11,144,0.0763888888888889,1.9930555555555556
 cafe vestenbergsgreuth,10,238,0.04201680672268908,2.428571428571429
-landgut seebühne vestenbergsgreuth,8,10,0.8,1.6
+landgut seebühne vestenbergsgreuth,8,11,0.7272727272727273,1.5454545454545454
 hochzeitsmappe,7,170,0.041176470588235294,5.476470588235294
-rezensionen für landgut seebühne,6,161,0.037267080745341616,2.4161490683229814
-hochzeitslocation in der nähe,5,116,0.04310344827586207,2.6293103448275863
+rezensionen für landgut seebühne,6,164,0.036585365853658534,2.4451219512195124
+hochzeitslocation in der nähe,5,115,0.043478260869565216,2.6347826086956525
 hochzeitslocation franken,4,48,0.08333333333333333,5.1875
-hochzeitslocation mittelfranken,4,429,0.009324009324009324,18.263403263403262
-vestenbergsgreuth cafe,4,93,0.043010752688172046,1.5913978494623655
-hochzeitslocation,3,137,0.021897810218978103,4.08029197080292
-landgut seebühne rezensionen,3,40,0.075,1.775
+hochzeitslocation mittelfranken,4,431,0.009280742459396751,18.245939675174014
+vestenbergsgreuth cafe,4,92,0.043478260869565216,1.5869565217391304
+hochzeitslocation,3,136,0.022058823529411766,4.095588235294118
+landgut seebühne rezensionen,3,41,0.07317073170731707,1.8292682926829267
 geheimtipp hochzeitslocation franken,2,52,0.038461538461538464,6.230769230769231
 hochzeit am see franken,2,35,0.05714285714285714,2.3714285714285714
 hochzeit feiern in der nähe,2,17,0.11764705882352941,2.5882352941176467
-hochzeitslocation erlangen,2,35,0.05714285714285714,16.57142857142857
+hochzeitslocation erlangen,2,37,0.05405405405405406,17
 krimidinner in der nähe,2,16,0.125,4.625
 vestenbergsgreuth,2,3,0.6666666666666666,1
 vestenbergsgreuth restaurant,2,54,0.037037037037037035,12.12962962962963
 bauernhof hochzeit,1,1,1,2
 eventscheune,1,5,0.2,2.8
 freie trauung am see,1,2,0.5,3
-hochzeit am see,1,44,0.022727272727272728,4.113636363636363
-hochzeit am see in der nähe,1,31,0.03225806451612903,4.129032258064516
+hochzeit am see,1,43,0.023255813953488372,4.162790697674419
+hochzeit am see in der nähe,1,30,0.03333333333333333,4.233333333333333
 hochzeit feiern location,1,2,0.5,2
 hochzeitslocation am see,1,122,0.00819672131147541,38.35245901639344
 hochzeitslocation im freien in der nähe,1,1,1,2
 hochzeitslocation landkreis bamberg,1,6,0.16666666666666666,12.833333333333334
 hochzeitslocation mit garten,1,2,0.5,2
 hochzeitslocation mit see,1,3,0.3333333333333333,1.3333333333333333
-hochzeitslocation see,1,21,0.047619047619047616,27.857142857142858
+hochzeitslocation see,1,20,0.05,29.2
 hochzeitsscheune,1,7,0.14285714285714285,2.571428571428571
 landgut seebühne hochzeit,1,1,1,1
 neustadt aisch cafe,1,1,1,1
@@ -48,17 +48,17 @@ scheune mieten,1,2,0.5,3.5
 scheunenhochzeit in der nähe,1,1,1,2
 seebuhne,1,9,0.1111111111111111,7.333333333333333
 seebühnen,1,4,0.25,2
-vestenbergsgreuth gaststätte,1,99,0.010101010101010102,12.090909090909092
+vestenbergsgreuth gaststätte,1,97,0.010309278350515464,12.154639175257731
 91487,0,2,0,97
 91487 vestenbergsgreuth,0,1,0,42
-after wedding am see,0,86,0,11.465116279069768
+after wedding am see,0,90,0,11.477777777777778
 ahrenshof hochzeit,0,3,0,70.33333333333333
 am see heiraten,0,2,0,1
 außergewöhnliche hochzeitslocation,0,2,0,9.5
 besondere hochzeitslocation,0,1,0,3
 biergarten vestenbergsgreuth,0,1,0,1
 bowlingbahn,0,1,0,5
-buchhaltung hochzeitslocation,0,12,0,10.75
+buchhaltung hochzeitslocation,0,19,0,10.736842105263158
 buffet hochzeit,0,1,0,10
 burghaslach,0,1,0,1
 bühne,0,2,0,9
@@ -68,13 +68,14 @@ cafe,0,1,0,1
 cafe in der nähe,0,3,0,4
 café am see in der nähe,0,1,0,4
 die hochzeit,0,1,0,11
+dj,0,1,0,1
 erlangen-höchstadt hochzeitskleider,0,32,0,71.6875
 essen für hochzeit,0,1,0,1
 event location in der nähe,0,4,0,1.75
 event location würzburg,0,1,0,2
 eventlocation,0,1,0,4
 eventlocation berge see,0,2,0,28
-eventlocation hochzeit,0,1,0,22
+eventlocation hochzeit,0,3,0,22
 eventlocation hochzeit in der nähe,0,1,0,2
 eventlocation in der nähe,0,3,0,15.333333333333334
 eventlocation mit garten,0,1,0,2
@@ -83,7 +84,7 @@ eventscheune in der nähe,0,8,0,2
 exklusive eventlocation,0,1,0,21
 exklusive hochzeiten oldenburg,0,15,0,98.66666666666667
 exklusive hochzeitsfotografie landshut,0,1,0,84
-exklusive hochzeitslocation,0,44,0,59.95454545454545
+exklusive hochzeitslocation,0,43,0,60.2093023255814
 farm wedding venues,0,1,0,4
 feier am see,0,3,0,26
 feier location in der nähe,0,1,0,3
@@ -107,8 +108,10 @@ freizeit mittelfranken,0,7,0,93.42857142857143
 garten für hochzeit mieten,0,1,0,2
 garten location mieten,0,1,0,2
 gartenhochzeit bayern,0,9,0,70
-gartenhochzeit nürnberg,0,64,0,33.125
+gartenhochzeit location,0,1,0,20
+gartenhochzeit nürnberg,0,65,0,32.892307692307696
 geburtstag feiern in der nähe,0,1,0,1
+geburtstags location,0,1,0,2
 gut oestergaard hochzeit,0,1,0,34
 gut wolfgangshof hochzeit,0,1,0,67
 hauptstraße 32 erlangen,0,1,0,58
@@ -135,28 +138,27 @@ hochzeit feiern erlangen,0,102,0,71.99019607843137
 hochzeit feiern mit übernachtung,0,1,0,3
 hochzeit franken,0,4,0,3
 hochzeit fränkische schweiz,0,1,0,4
-hochzeit gasthaus,0,1,0,4
 hochzeit gerhardshofen,0,1,0,13
 hochzeit haus am see,0,1,0,95
 hochzeit in der nähe,0,4,0,1.5
 hochzeit in franken,0,2,0,2
 hochzeit location,0,3,0,6.333333333333333
 hochzeit neustadt aisch,0,31,0,85.64516129032258
-hochzeit neustadt am rübenberge,0,3,0,63.666666666666664
+hochzeit neustadt am rübenberge,0,4,0,64.25
 hochzeit oase weil,0,1,0,99
 hochzeit oaseweil,0,70,0,24.271428571428572
 hochzeit platz finden,0,1,0,2
 hochzeit restaurant,0,1,0,3
 hochzeit scheune,0,2,0,2.5
-hochzeit scheune st georg,0,4,0,72.5
+hochzeit scheune st georg,0,6,0,71.83333333333333
 hochzeit see,0,2,0,2
 hochzeit see bayern,0,7,0,70
 hochzeit stuhlhussen nürnberg,0,2,0,93
-hochzeit uehlfeld,0,129,0,1.8217054263565893
+hochzeit uehlfeld,0,128,0,1.8203125
 hochzeiten am see,0,118,0,58.16101694915254
 hochzeitlocation,0,3,0,3.3333333333333335
 hochzeits locations,0,1,0,2
-hochzeitsfeier,0,1,0,5
+hochzeitsfeier,0,3,0,4.666666666666666
 hochzeitsfeier erlangen,0,70,0,71.81428571428572
 hochzeitsfeier in der nähe,0,3,0,2.666666666666667
 hochzeitsfeier location in der nähe,0,2,0,2
@@ -164,7 +166,8 @@ hochzeitsfotos see,0,4,0,46
 hochzeitshalle in der nähe,0,2,0,2
 hochzeitskleid erlangen-höchstadt,0,31,0,70.09677419354838
 hochzeitskleider erlangen-höchstadt,0,34,0,73.29411764705883
-hochzeitslocation am see bayern,0,103,0,41.640776699029125
+hochzeitslocation am see bayern,0,102,0,42.029411764705884
+hochzeitslocation am see deutschland,0,1,0,20
 hochzeitslocation am see in der nähe,0,7,0,8.142857142857142
 hochzeitslocation am wasser,0,10,0,2.7
 hochzeitslocation ansbach,0,1,0,1
@@ -173,21 +176,23 @@ hochzeitslocation bayern am see,0,7,0,12.428571428571429
 hochzeitslocation bayern see,0,5,0,48.6
 hochzeitslocation deutschland see,0,4,0,6.25
 hochzeitslocation erlangen-nürnberg,0,16,0,57.5
-hochzeitslocation filderstadt,0,2,0,33
+hochzeitslocation filderstadt,0,4,0,39
 hochzeitslocation finden,0,2,0,1
 hochzeitslocation franken scheune,0,1,0,4
 hochzeitslocation fränkische schweiz,0,2,0,8.5
 hochzeitslocation garten,0,1,0,4
+hochzeitslocation geheimtipp,0,1,0,12
 hochzeitslocation im freien,0,2,0,2
 hochzeitslocation in der nähe scheune,0,1,0,2
-hochzeitslocation lauf,0,9,0,126.22222222222223
+hochzeitslocation lamplstätt,0,1,0,35
+hochzeitslocation lauf,0,12,0,103.08333333333333
 hochzeitslocation mediterran,0,1,0,1
-hochzeitslocation nach postleitzahl,0,7,0,89
-hochzeitslocation neustadt,0,4,0,31
-hochzeitslocation neustadt am rübenberge,0,2,0,52.5
+hochzeitslocation nach postleitzahl,0,6,0,87.16666666666667
+hochzeitslocation neustadt,0,6,0,32.5
+hochzeitslocation neustadt am rübenberge,0,3,0,53.333333333333336
 hochzeitslocation nürnberg,0,1,0,21
 hochzeitslocation nürnberger land,0,2,0,9
-hochzeitslocation oberfranken,0,4,0,22
+hochzeitslocation oberfranken,0,5,0,17.8
 hochzeitslocation ohne catering,0,1,0,31
 hochzeitslocation orangerie,0,1,0,24
 hochzeitslocation outdoor,0,1,0,2
@@ -195,12 +200,12 @@ hochzeitslocation scheune,0,2,0,2.5
 hochzeitslocation scheune in der nähe,0,2,0,2.5
 hochzeitslocation see bayern,0,4,0,7.75
 hochzeitslocation umgebung,0,1,0,2
-hochzeitslocation unterfranken,0,3,0,40
+hochzeitslocation unterfranken,0,4,0,40.75
 hochzeitslocation wald,0,1,0,3
 hochzeitslocation wessobrunn,0,22,0,75.22727272727273
 hochzeitslocation würzburg,0,2,0,1
 hochzeitslocations,0,5,0,3.8
-hochzeitslocations am see,0,81,0,64.90123456790124
+hochzeitslocations am see,0,80,0,64.975
 hochzeitslocations franken,0,5,0,5.2
 hochzeitslocations in der nähe,0,3,0,2.666666666666667
 hochzeitslocations in meiner nähe,0,1,0,2
@@ -224,10 +229,11 @@ hochzeitsvideo in der nähe,0,113,0,43.36283185840708
 hochzeitsvilla am see,0,1,0,68
 hochzwit,0,1,0,2
 hofgut hochzeit,0,1,0,81
+hofgut lamplstätt,0,1,0,59
 hofgut übersberg hochzeit,0,1,0,44
 horzeit,0,1,0,8
 kaffee am see in der nähe,0,1,0,1
-kleine hochzeit am see,0,6,0,1.5
+kleine hochzeit am see,0,5,0,1.4
 kleine hochzeitslocation,0,1,0,1
 kleine hochzeitslocation in der nähe,0,1,0,4
 kleine saal mieten in der nähe,0,1,0,3
@@ -236,14 +242,15 @@ krimidinner,0,2,0,15
 kulturcafe,0,32,0,77.40625
 kulturcafe nürnberg,0,5,0,16.4
 kulturcafé,0,12,0,81
+lamplstätt,0,1,0,36
 landgut,0,52,0,6.096153846153846
 landgut hochzeit,0,14,0,18.071428571428573
 landgut marienhöhe,0,1,0,27
 landgut neustadt,0,1,0,33
-landgut seebühne fotos,0,11,0,1
-landgut seebühne preise,0,2,0,1.5
-landhaus friedrichsfehn hochzeit,0,6,0,36
-landhaus hochzeit,0,5,0,18
+landgut seebühne fotos,0,12,0,1
+landgut seebühne preise,0,4,0,1.25
+landhaus friedrichsfehn hochzeit,0,9,0,37.333333333333336
+landhaus hochzeit,0,6,0,19.833333333333332
 location am see,0,1,0,4
 location erlangen,0,9,0,88.66666666666667
 location für hochzeit in der nähe,0,3,0,2
@@ -262,9 +269,10 @@ mediterrane hochzeitslocation,0,1,0,12
 mieten für geburtstag,0,1,0,12
 muckensee lorch hochzeit,0,1,0,94
 natürliche hochzeiten,0,10,0,91.2
+neustadt hochzeitssaal,0,1,0,47
 outdoor hochzeit,0,1,0,2
 outdoor location mieten,0,1,0,5
-pflugsmühle hochzeit,0,2,0,56.5
+pflugsmühle hochzeit,0,3,0,56
 raum für geburtstag mieten,0,1,0,1
 raum mieten geburtstag,0,1,0,7
 raum mieten hochzeit,0,1,0,7
@@ -272,13 +280,14 @@ raum zum feiern mieten,0,1,0,4
 rednermappe hochzeit,0,10,0,12
 restaurant hochzeit,0,2,0,1.5
 restaurants für hochzeiten,0,1,0,3
+rockig,0,1,0,1
 räume mieten,0,1,0,13
 räume mieten in der nähe,0,2,0,3
 räume zu mieten,0,1,0,4
 saal mieten,0,3,0,2.333333333333333
 schaukelweg vestenbergsgreuth,0,1,0,2
 scheinfeld maps,0,1,0,1
-scherauer hof hochzeit,0,1,0,72
+scherauer hof hochzeit,0,2,0,69.5
 scheune für hochzeit,0,2,0,3.5
 scheune heiraten,0,1,0,2
 scheune hochzeit,0,3,0,3
@@ -301,9 +310,9 @@ see mittelfranken,0,3,0,17
 seeblick sondern,0,2,0,31.5
 seebphne,0,44,0,7.5227272727272725
 seebrücke sellin heiraten kosten,0,1,0,74
-seebuehne,0,22,0,36.31818181818182
+seebuehne,0,21,0,36.04761904761905
 seebühne 2025,0,1,0,4
-seebühnen deutschland,0,3,0,2.333333333333333
+seebühnen deutschland,0,2,0,2
 seebühnr,0,1,0,1
 seecafe nürnberg,0,1,0,30
 seeglühen hof,0,1,0,4
@@ -311,11 +320,13 @@ seehaus hochzeit,0,2,0,63
 seehaus nürnberg,0,1,0,36
 seen mittelfranken,0,4,0,20.75
 seewirts strandhaus hochzeit,0,1,0,57
+seminarhaus lamplstätt,0,2,0,51
 sommerrodelbahn,0,1,0,2
 standesamtliche trauung am see bayern,0,1,0,54
 taufe feiern restaurant,0,6,0,3.1666666666666665
 tipi hochzeit bayern,0,1,0,38
-trauung am see,0,2,0,41
+traurednerin,0,1,0,1
+trauung am see,0,3,0,29.333333333333332
 uehlfeld hotels,0,5,0,62.2
 uehlfeld übernachtung,0,2,0,5.5
 veranstaltungsraum erlangen,0,7,0,102.14285714285714
