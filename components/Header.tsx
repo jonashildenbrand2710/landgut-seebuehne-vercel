@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import Link from "next/link";
 import { CalendarDays, Menu, X } from "lucide-react";
 import { BrandLogo } from "@/components/BrandLogo";
@@ -16,10 +16,22 @@ const mobileNavigation = [
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const mobileMenuId = useId();
 
+  useEffect(() => {
+    const updateHeaderState = () => {
+      setIsScrolled(window.scrollY > 18);
+    };
+
+    updateHeaderState();
+    window.addEventListener("scroll", updateHeaderState, { passive: true });
+
+    return () => window.removeEventListener("scroll", updateHeaderState);
+  }, []);
+
   return (
-    <header className="site-header">
+    <header className={isScrolled ? "site-header is-scrolled" : "site-header"}>
       <Link
         className="brand"
         href="/"

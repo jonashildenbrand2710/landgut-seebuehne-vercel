@@ -1,3 +1,13 @@
+function publicBookingUrl(value: string | undefined, fallback: string) {
+  const trimmed = value?.trim();
+
+  if (!trimmed || trimmed.includes("kennenlernen.landgut-seebuehne.de")) {
+    return fallback;
+  }
+
+  return trimmed;
+}
+
 export const siteConfig = {
   name: "Landgut Seebuehne",
   displayName: "Landgut Seebühne",
@@ -12,9 +22,8 @@ export const siteConfig = {
     addressCountry: "DE",
     publicRegion: "Vestenbergsgreuth / Mittelfranken / Franken"
   },
-  bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL ?? "https://kennenlernen.landgut-seebuehne.de/termin",
-  alternateBookingUrl:
-    process.env.NEXT_PUBLIC_ALT_BOOKING_URL ?? "https://kennenlernen.landgut-seebuehne.de/terminb",
+  bookingUrl: publicBookingUrl(process.env.NEXT_PUBLIC_BOOKING_URL, "/termin-buchen"),
+  alternateBookingUrl: publicBookingUrl(process.env.NEXT_PUBLIC_ALT_BOOKING_URL, "/besichtigungstermin-buchen"),
   brand: {
     logo: {
       src: "/images/brand/landgut-seebuehne-logo.svg",
