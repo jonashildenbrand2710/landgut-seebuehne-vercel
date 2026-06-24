@@ -4000,3 +4000,478 @@ h2 {
     font-size: 2.2rem;
   }
 }
+
+body:has(.bewerbung-page) {
+  background: #77aa96;
+}
+
+body:has(.bewerbung-page) .site-header,
+body:has(.bewerbung-page) .site-footer {
+  display: none;
+}
+
+.bewerbung-page {
+  --bewerbung-green: #77aa96;
+  --bewerbung-green-dark: #5f977f;
+  --bewerbung-cream: #f6f0e8;
+  --bewerbung-ink: #1c1d20;
+  --bewerbung-muted: rgba(28, 29, 32, 0.58);
+  min-height: 100svh;
+  padding: clamp(28px, 5vw, 58px) clamp(24px, 5vw, 44px) clamp(42px, 6vw, 76px);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+.bewerbung-page-intro,
+.bewerbung-page-form,
+.bewerbung-page-success {
+  color: var(--white);
+  background: var(--bewerbung-green);
+}
+
+.bewerbung-page-job {
+  color: var(--bewerbung-ink);
+  background: var(--bewerbung-cream);
+}
+
+.bewerbung-progress {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  width: min(180px, 44vw);
+  margin: 0 auto clamp(28px, 5vw, 44px);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.bewerbung-progress > div {
+  width: 100%;
+  height: 9px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.bewerbung-page-job .bewerbung-progress > div {
+  background: rgba(28, 29, 32, 0.1);
+}
+
+.bewerbung-progress i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #1c1d20;
+}
+
+.bewerbung-page-job .bewerbung-progress i {
+  background: var(--bewerbung-green);
+}
+
+.bewerbung-intro,
+.bewerbung-job,
+.bewerbung-form-section,
+.bewerbung-success {
+  width: min(100%, 676px);
+  margin: 0 auto;
+}
+
+.bewerbung-intro-image {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 1 / 1.08;
+  border-radius: 8px;
+  background: rgba(28, 29, 32, 0.12);
+}
+
+.bewerbung-intro-image img,
+.bewerbung-job-image img {
+  object-fit: cover;
+}
+
+.bewerbung-intro-copy {
+  margin-top: clamp(34px, 6vw, 48px);
+}
+
+.bewerbung-intro h1,
+.bewerbung-job h1,
+.bewerbung-job h2,
+.bewerbung-form-heading h1,
+.bewerbung-success h1 {
+  margin: 0;
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 800;
+  line-height: 1.16;
+  letter-spacing: 0;
+}
+
+.bewerbung-intro h1 {
+  max-width: 640px;
+  font-size: clamp(2.7rem, 8vw, 4.25rem);
+}
+
+.bewerbung-intro p,
+.bewerbung-form-heading p,
+.bewerbung-success p {
+  font-size: clamp(1.12rem, 3.1vw, 1.55rem);
+  line-height: 1.65;
+}
+
+.bewerbung-intro p {
+  max-width: 650px;
+  margin: 28px 0 0;
+}
+
+.bewerbung-pill-button,
+.bewerbung-submit-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 58px;
+  border: 0;
+  color: var(--white);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 1.06rem;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.bewerbung-pill-button:hover,
+.bewerbung-submit-button:hover {
+  transform: translateY(-2px);
+}
+
+.bewerbung-dark-button {
+  width: min(100%, 430px);
+  margin-top: 34px;
+  padding: 0 24px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #464b4f 0%, #27282b 100%);
+  box-shadow: 0 14px 26px rgba(28, 29, 32, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  font-size: clamp(0.94rem, 2.4vw, 1.02rem);
+}
+
+.bewerbung-dark-button span {
+  white-space: nowrap;
+}
+
+.bewerbung-green-button {
+  width: min(100%, 248px);
+  margin: 30px auto 36px;
+  padding: 0 28px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #94c9ae 0%, #67a490 100%);
+  box-shadow: 0 13px 28px rgba(90, 151, 131, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.bewerbung-job {
+  padding-bottom: 24px;
+}
+
+.bewerbung-job-image {
+  position: relative;
+  overflow: hidden;
+  width: min(224px, 52vw);
+  aspect-ratio: 1 / 1.72;
+  margin: 0 auto 34px;
+  background: rgba(28, 29, 32, 0.08);
+}
+
+.bewerbung-job-image img {
+  object-position: 50% 8%;
+}
+
+.bewerbung-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 24px;
+  margin: 0 0 22px;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.08rem, 3vw, 1.35rem);
+  font-weight: 800;
+}
+
+.bewerbung-chip-list span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bewerbung-chip-list svg,
+.bewerbung-input-shell svg,
+.bewerbung-upload-drop svg {
+  flex: 0 0 auto;
+}
+
+.bewerbung-chip-list-compact {
+  display: grid;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.bewerbung-job h1 {
+  font-size: clamp(2rem, 5.8vw, 3.25rem);
+}
+
+.bewerbung-job h2 {
+  margin: clamp(48px, 8vw, 76px) 0 28px;
+  text-align: center;
+  font-size: clamp(2.05rem, 6vw, 3rem);
+}
+
+.bewerbung-job-intro {
+  margin: 0 0 30px;
+  font-size: clamp(1rem, 2.4vw, 1.15rem);
+  line-height: 1.75;
+}
+
+.bewerbung-qualifications p {
+  display: inline-flex;
+  margin: 0 0 24px;
+  padding: 8px 14px;
+  border-radius: 4px;
+  background: #efe3c8;
+  font-size: 0.83rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.bewerbung-qualifications ul {
+  display: grid;
+  gap: 24px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-weight: 800;
+}
+
+.bewerbung-duty-list,
+.bewerbung-expectations {
+  display: grid;
+  gap: 22px;
+}
+
+.bewerbung-duty-card,
+.bewerbung-expectations article {
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 1px 0 rgba(28, 29, 32, 0.04);
+}
+
+.bewerbung-duty-card {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  padding: clamp(42px, 8vw, 62px) clamp(24px, 8vw, 56px);
+  text-align: center;
+}
+
+.bewerbung-duty-card h3,
+.bewerbung-expectations h3,
+.bewerbung-upload-group p {
+  margin: 0;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.35rem, 4.1vw, 1.9rem);
+  line-height: 1.22;
+}
+
+.bewerbung-upload-group p {
+  font-size: clamp(1.25rem, 2.4vw, 1.45rem);
+}
+
+.bewerbung-duty-card p,
+.bewerbung-expectations p {
+  max-width: 580px;
+  margin: 0;
+  color: rgba(28, 29, 32, 0.52);
+  font-size: clamp(1rem, 2.6vw, 1.18rem);
+  line-height: 1.8;
+}
+
+.bewerbung-expectations article {
+  display: grid;
+  gap: 12px;
+  padding: 28px;
+}
+
+.bewerbung-form-heading {
+  max-width: 620px;
+  margin: 0 auto 42px;
+  text-align: center;
+}
+
+.bewerbung-form-heading h1 {
+  font-size: clamp(2rem, 5vw, 2.85rem);
+}
+
+.bewerbung-form-card {
+  display: grid;
+  gap: 22px;
+  padding: clamp(24px, 5.5vw, 36px);
+  border-radius: 8px;
+  color: var(--bewerbung-ink);
+  background: #ffffff;
+  box-shadow: 0 18px 38px rgba(28, 29, 32, 0.16);
+}
+
+.bewerbung-form-message {
+  margin: 0;
+  padding: 13px 14px;
+  border-radius: 6px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.bewerbung-form-message-error {
+  color: #7c2d24;
+  background: #f8e8e3;
+}
+
+.bewerbung-form-message-success {
+  color: #285e4a;
+  background: #e6f3ec;
+}
+
+.bewerbung-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.bewerbung-form-card label {
+  display: grid;
+  gap: 10px;
+  font-weight: 800;
+}
+
+.bewerbung-form-card input {
+  width: 100%;
+  min-width: 0;
+  min-height: 66px;
+  border: 1px solid rgba(28, 29, 32, 0.16);
+  border-radius: 6px;
+  color: var(--bewerbung-ink);
+  background: #ffffff;
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+
+.bewerbung-form-card input::placeholder {
+  color: rgba(28, 29, 32, 0.3);
+}
+
+.bewerbung-form-card label > input {
+  padding: 0 18px;
+}
+
+.bewerbung-input-shell {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 66px;
+  padding: 0 18px;
+  border: 1px solid rgba(28, 29, 32, 0.16);
+  border-radius: 6px;
+  background: #ffffff;
+}
+
+.bewerbung-input-shell input {
+  min-height: 62px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+}
+
+.bewerbung-form-card small {
+  color: rgba(28, 29, 32, 0.42);
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.bewerbung-upload-group {
+  display: grid;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.bewerbung-upload-drop {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  min-height: 160px;
+  padding: 32px 18px;
+  border: 1px dashed rgba(28, 29, 32, 0.18);
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.bewerbung-upload-drop span {
+  font-size: clamp(1rem, 3vw, 1.18rem);
+  font-weight: 500;
+}
+
+.bewerbung-upload-drop input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.bewerbung-submit-button {
+  width: 100%;
+  margin-top: 16px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #94c9ae 0%, #67a490 100%);
+  box-shadow: 0 14px 28px rgba(90, 151, 131, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.bewerbung-honeypot {
+  position: absolute;
+  left: -9999px;
+}
+
+.bewerbung-success {
+  display: grid;
+  justify-items: center;
+  gap: 22px;
+  padding-top: clamp(70px, 14vw, 140px);
+  text-align: center;
+}
+
+.bewerbung-success h1 {
+  font-size: clamp(2.3rem, 7vw, 4rem);
+}
+
+@media (max-width: 640px) {
+  .bewerbung-page {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  .bewerbung-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bewerbung-dark-button,
+  .bewerbung-green-button {
+    width: 100%;
+  }
+
+  .bewerbung-chip-list {
+    display: grid;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 430px) {
+  .bewerbung-dark-button span {
+    white-space: normal;
+  }
+}
