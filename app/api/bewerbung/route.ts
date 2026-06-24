@@ -1,3 +1,5 @@
+import nodemailer from "nodemailer";
+
 const maxCvSize = 10 * 1024 * 1024;
 const allowedCvTypes = new Set([
   "application/pdf",
@@ -6,6 +8,8 @@ const allowedCvTypes = new Set([
 ]);
 const allowedCvExtensions = [".pdf", ".docx", ".jpg", ".jpeg"];
 const resendEmailApiUrl = "https://api.resend.com/emails";
+
+export const runtime = "nodejs";
 
 function clean(value: FormDataEntryValue | null) {
   return typeof value === "string" ? value.trim() : "";
@@ -50,6 +54,14 @@ function splitEmails(value: string | undefined) {
     .split(",")
     .map((item) => item.trim())
     .filter(Boolean);
+}
+
+function parseBoolean(value: string | undefined, fallback: boolean) {
+  if (!value) {
+    return fallback;
+  }
+
+  return ["1", "true", "yes", "on"].includes(value.trim().toLowerCase());
 }
 
 function escapeHtml(value: string) {
@@ -119,6 +131,62 @@ async function getCvAttachment(cv: File | null) {
     content: buffer.toString("base64"),
     filename: cv.name
   };
+}
+
+async function getSmtpAttachment(cv: File | null) {
+  if (!cv) {
+    return null;
+  }
+
+  return {
+    content: Buffer.from(await cv.arrayBuffer()),
+    contentType: cv.type || undefined,
+    filename: cv.name
+  };
+}
+
+async function forwardToSmtpDelivery(payload: Record<string, string>, cv: File | null) {
+  const host = process.env.SMTP_HOST?.trim();
+  const port = Number.parseInt(process.env.SMTP_PORT ?? "465", 10);
+  const user = process.env.SMTP_USER?.trim();
+  const pass = process.env.SMTP_PASSWORD?.trim();
+  const from = process.env.APPLICATION_MAIL_FROM?.trim() || user;
+  const to = splitEmails(process.env.APPLICATION_MAIL_TO);
+
+  if (!host || !Number.isFinite(port) || !user || !pass || !from || !to.length) {
+    return false;
+  }
+
+  const secure = parseBoolean(process.env.SMTP_SECURE, port === 465);
+  const attachment = await getSmtpAttachment(cv);
+  const attachments = attachment ? [attachment] : undefined;
+  const bcc = splitEmails(process.env.APPLICATION_MAIL_BCC);
+  const replyTo = payload.email || undefined;
+  const subjectName = [payload.firstName, payload.lastName].filter(Boolean).join(" ");
+
+  const transporter = nodemailer.createTransport({
+    auth: {
+      pass,
+      user
+    },
+    host,
+    port,
+    requireTLS: !secure,
+    secure
+  });
+
+  await transporter.sendMail({
+    attachments,
+    bcc: bcc.length ? bcc : undefined,
+    from,
+    html: formatApplicationHtml(payload),
+    replyTo,
+    subject: `Neue Bewerbung${subjectName ? `: ${subjectName}` : ""}`,
+    text: formatApplicationText(payload),
+    to
+  });
+
+  return true;
 }
 
 async function forwardToEmailDelivery(payload: Record<string, string>, cv: File | null) {
@@ -268,10 +336,11 @@ export async function POST(request: Request) {
 
   try {
     const applicationOk = await forwardToApplicationEndpoint(payload, cv);
-    const emailOk = applicationOk ? false : await forwardToEmailDelivery(payload, cv);
-    const fallbackOk = applicationOk || emailOk ? false : await forwardToContactFallback(payload, cv);
+    const smtpOk = applicationOk ? false : await forwardToSmtpDelivery(payload, cv);
+    const emailOk = applicationOk || smtpOk ? false : await forwardToEmailDelivery(payload, cv);
+    const fallbackOk = applicationOk || smtpOk || emailOk ? false : await forwardToContactFallback(payload, cv);
 
-    if (!applicationOk && !emailOk && !fallbackOk) {
+    if (!applicationOk && !smtpOk && !emailOk && !fallbackOk) {
       return redirect(request, "integration-missing");
     }
   } catch (error) {

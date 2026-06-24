@@ -33,6 +33,19 @@ wechselt von warmer Team-Ansprache zu einem klaren Kontaktformular.
 - `/bewerbung` bleibt eine kontrollierte `noindex, follow`-Seite und gehört
   nicht in die Sitemap.
 
+## Integrationsstand
+
+Stand: 2026-06-24
+
+Der Bewerbungsfunnel versendet Bewerbungen serverseitig per IONOS-SMTP. Die
+Produktivwerte liegen als Vercel Environment Variables, nicht im Code:
+`SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASSWORD`,
+`APPLICATION_MAIL_FROM` und `APPLICATION_MAIL_TO`.
+
+Live getestet wurde eine Dummy-Bewerbung mit Anhang gegen
+`https://www.landgut-seebuehne.de/api/bewerbung`; die Route antwortete mit
+`303` auf `/bewerbung?status=success#bewerbungsformular`.
+
 ## Wiederverwendbarer Goal-Prompt
 
 ```text
