@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
+  ArrowLeft,
   Building2,
   CalendarDays,
   CalendarPlus,
@@ -91,6 +92,17 @@ function StepStatus({ label }: { label: string }) {
   return <p className="sr-only" role="status">{label}</p>;
 }
 
+function BackLink({ href, label }: { href: string; label: string }) {
+  return (
+    <div className="bewerbung-step-nav">
+      <Link className="bewerbung-back-link" href={href}>
+        <ArrowLeft aria-hidden="true" size={18} />
+        <span>{label}</span>
+      </Link>
+    </div>
+  );
+}
+
 function resolveStep(status?: string, step?: string): FunnelStep {
   if (status === "success") return "success";
   if (status) return "form";
@@ -143,6 +155,7 @@ export function BewerbungFunnel({ status, step: stepParam }: BewerbungFunnelProp
 
       {step === "job" ? (
         <section className="bewerbung-job" aria-labelledby="bewerbung-job-title">
+          <BackLink href="/bewerbung" label="Zurück zum Einstieg" />
           <div className="bewerbung-job-image">
             <Image
               alt={applicationFunnel.job.image.alt}
@@ -223,6 +236,7 @@ export function BewerbungFunnel({ status, step: stepParam }: BewerbungFunnelProp
 
       {step === "form" ? (
         <section className="bewerbung-form-section" id="bewerbungsformular" aria-labelledby="bewerbung-form-title">
+          <BackLink href="/bewerbung?step=job" label="Zurück zur Stelle" />
           <div className="bewerbung-form-heading">
             <h1 id="bewerbung-form-title">{applicationFunnel.form.title}</h1>
             <p>{applicationFunnel.form.text}</p>

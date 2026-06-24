@@ -4066,6 +4066,44 @@ body:has(.bewerbung-page) .site-footer {
   background: var(--bewerbung-green);
 }
 
+.bewerbung-step-nav {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0 0 24px;
+}
+
+.bewerbung-back-link {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.bewerbung-back-link:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+.bewerbung-page-job .bewerbung-back-link {
+  border-color: rgba(28, 29, 32, 0.18);
+  background: rgba(255, 255, 255, 0.56);
+}
+
+.bewerbung-page-job .bewerbung-back-link:hover {
+  background: rgba(255, 255, 255, 0.86);
+}
+
 .bewerbung-intro,
 .bewerbung-job,
 .bewerbung-form-section,
