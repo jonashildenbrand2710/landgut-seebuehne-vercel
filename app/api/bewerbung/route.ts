@@ -5,6 +5,7 @@ const allowedCvTypes = new Set([
   "image/jpeg"
 ]);
 const allowedCvExtensions = [".pdf", ".docx", ".jpg", ".jpeg"];
+const resendEmailApiUrl = "https://api.resend.com/emails";
 
 function clean(value: FormDataEntryValue | null) {
   return typeof value === "string" ? value.trim() : "";
@@ -42,6 +43,123 @@ function isValidCvFile(file: File) {
   const hasAllowedType = !file.type || allowedCvTypes.has(file.type);
 
   return hasAllowedExtension && hasAllowedType;
+}
+
+function splitEmails(value: string | undefined) {
+  return (value ?? "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function formatApplicationText(payload: Record<string, string>) {
+  return [
+    "Neue Bewerbung über landgut-seebuehne.de/bewerbung",
+    "",
+    `Position: ${payload.position || "-"}`,
+    `Name: ${payload.firstName} ${payload.lastName}`,
+    `E-Mail: ${payload.email}`,
+    `Telefon: ${payload.phone}`,
+    `Startdatum: ${payload.startDate || "-"}`,
+    `Lebenslauf hochgeladen: ${payload.hasCv === "true" ? "ja" : "nein"}`,
+    `Eingereicht am: ${payload.submittedAt}`,
+    "",
+    "Bitte direkt persönlich melden."
+  ].join("\n");
+}
+
+function formatApplicationHtml(payload: Record<string, string>) {
+  const rows = [
+    ["Position", payload.position || "-"],
+    ["Name", `${payload.firstName} ${payload.lastName}`],
+    ["E-Mail", payload.email],
+    ["Telefon", payload.phone],
+    ["Startdatum", payload.startDate || "-"],
+    ["Lebenslauf hochgeladen", payload.hasCv === "true" ? "ja" : "nein"],
+    ["Eingereicht am", payload.submittedAt]
+  ];
+
+  return `
+    <div style="font-family:Arial,sans-serif;line-height:1.5;color:#1c1d20">
+      <h1 style="font-size:22px;margin:0 0 18px">Neue Bewerbung über landgut-seebuehne.de/bewerbung</h1>
+      <table style="border-collapse:collapse;width:100%;max-width:640px">
+        ${rows
+          .map(
+            ([label, value]) => `
+              <tr>
+                <th style="padding:10px 12px;border:1px solid #e7e2d8;text-align:left;background:#f6f0e8;width:180px">${escapeHtml(label)}</th>
+                <td style="padding:10px 12px;border:1px solid #e7e2d8">${escapeHtml(value)}</td>
+              </tr>
+            `
+          )
+          .join("")}
+      </table>
+      <p style="margin-top:18px">Bitte direkt persönlich melden.</p>
+    </div>
+  `;
+}
+
+async function getCvAttachment(cv: File | null) {
+  if (!cv) {
+    return null;
+  }
+
+  const buffer = Buffer.from(await cv.arrayBuffer());
+
+  return {
+    content: buffer.toString("base64"),
+    filename: cv.name
+  };
+}
+
+async function forwardToEmailDelivery(payload: Record<string, string>, cv: File | null) {
+  const apiKey = process.env.EMAIL_DELIVERY_API_KEY?.trim();
+  const from = process.env.APPLICATION_MAIL_FROM?.trim();
+  const to = splitEmails(process.env.APPLICATION_MAIL_TO);
+
+  if (!apiKey || !from || !to.length) {
+    return false;
+  }
+
+  const attachment = await getCvAttachment(cv);
+  const attachments = attachment ? [attachment] : undefined;
+  const subjectName = [payload.firstName, payload.lastName].filter(Boolean).join(" ");
+  const replyTo = payload.email ? [payload.email] : undefined;
+  const bcc = splitEmails(process.env.APPLICATION_MAIL_BCC);
+
+  const response = await fetch(resendEmailApiUrl, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${apiKey}`,
+      "content-type": "application/json"
+    },
+    body: JSON.stringify({
+      attachments,
+      bcc: bcc.length ? bcc : undefined,
+      from,
+      html: formatApplicationHtml(payload),
+      reply_to: replyTo,
+      subject: `Neue Bewerbung${subjectName ? `: ${subjectName}` : ""}`,
+      text: formatApplicationText(payload),
+      to
+    })
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Application email delivery failed with status ${response.status}: ${errorText.slice(0, 220)}`);
+  }
+
+  return true;
 }
 
 async function forwardToApplicationEndpoint(payload: Record<string, string>, cv: File | null) {
@@ -150,9 +268,10 @@ export async function POST(request: Request) {
 
   try {
     const applicationOk = await forwardToApplicationEndpoint(payload, cv);
-    const fallbackOk = applicationOk ? false : await forwardToContactFallback(payload, cv);
+    const emailOk = applicationOk ? false : await forwardToEmailDelivery(payload, cv);
+    const fallbackOk = applicationOk || emailOk ? false : await forwardToContactFallback(payload, cv);
 
-    if (!applicationOk && !fallbackOk) {
+    if (!applicationOk && !emailOk && !fallbackOk) {
       return redirect(request, "integration-missing");
     }
   } catch (error) {
