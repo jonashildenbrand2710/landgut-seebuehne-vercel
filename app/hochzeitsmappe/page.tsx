@@ -12,6 +12,7 @@ import {
   Star,
   Users
 } from "lucide-react";
+import { MetaTrackingFields } from "@/components/MetaConversionTracking";
 import { PageJsonLd } from "@/components/StructuredData";
 import { imageLibrary } from "@/data/site";
 
@@ -220,6 +221,7 @@ export default function HochzeitsmappePage() {
               tabIndex={-1}
               type="text"
             />
+            <MetaTrackingFields funnel="hochzeitsmappe" />
             <div className="mappe-field-grid">
               <label className="mappe-field">
                 <span>Vorname</span>

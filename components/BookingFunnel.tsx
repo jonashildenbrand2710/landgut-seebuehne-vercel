@@ -12,6 +12,7 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import type { BookingFlowField } from "@/data/booking-flow";
 import type { BookingAppointmentType, BookingResponse, BookingSlot } from "@/lib/booking-api";
+import { createMetaEventId, trackMetaCompleteRegistrationWhenReady } from "@/components/MetaConversionTracking";
 
 type BookingFunnelProps = {
   appointmentType: BookingAppointmentType;
@@ -64,10 +65,25 @@ function trackingPayload() {
     fbc,
     fbclid,
     fbp,
+    meta_ad_id: params.get("meta_ad_id") || "",
+    meta_adset_id: params.get("meta_adset_id") || "",
+    meta_campaign_id: params.get("meta_campaign_id") || "",
+    meta_placement: params.get("meta_placement") || "",
     landingPageUrl: window.location.href,
     pageUrl: window.location.href,
     referrer: document.referrer,
     userAgent: navigator.userAgent,
+    utm_campaign: params.get("utm_campaign") || "",
+    utm_content: params.get("utm_content") || "",
+    utm_medium: params.get("utm_medium") || "",
+    utm_source: params.get("utm_source") || "",
+    utm_term: params.get("utm_term") || "",
+    meta: {
+      ad_id: params.get("meta_ad_id") || "",
+      adset_id: params.get("meta_adset_id") || "",
+      campaign_id: params.get("meta_campaign_id") || "",
+      placement: params.get("meta_placement") || ""
+    },
     utm: {
       campaign: params.get("utm_campaign") || "",
       content: params.get("utm_content") || "",
@@ -79,6 +95,10 @@ function trackingPayload() {
 }
 
 function eventIdFor(appointmentType: BookingAppointmentType) {
+  if (appointmentType === "phone") {
+    return createMetaEventId("erstgespraech");
+  }
+
   if (window.crypto?.randomUUID) {
     return `website_booking_${appointmentType}_${window.crypto.randomUUID()}`;
   }
@@ -331,6 +351,7 @@ export function BookingFunnel({
     setError("");
 
     try {
+      const eventId = eventIdFor(appointmentType);
       const booking = await postJson<BookingResponse>("/api/booking/book", {
         answers,
         booking: {
@@ -347,7 +368,7 @@ export function BookingFunnel({
           weddingType: answers.weddingType
         },
         contact,
-        eventId: eventIdFor(appointmentType),
+        eventId,
         flowId,
         flowVersion,
         source: {
@@ -358,6 +379,10 @@ export function BookingFunnel({
       });
       setBookingResult(booking);
       setBookingState("success");
+
+      if (appointmentType === "phone") {
+        trackMetaCompleteRegistrationWhenReady("erstgespraech", eventId, { guard: true });
+      }
     } catch (submitError) {
       setBookingState("error");
       setError(submitError instanceof Error ? submitError.message : "Termin konnte nicht gebucht werden.");

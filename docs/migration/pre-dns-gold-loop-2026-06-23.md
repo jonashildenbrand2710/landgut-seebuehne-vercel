@@ -83,7 +83,7 @@ entscheiden:
 - `NEXT_PUBLIC_META_PIXEL_ID`
 - `NEXT_PUBLIC_GSC_VERIFICATION`
 - `NEXT_PUBLIC_BING_VERIFICATION`
-- `META_CONVERSION_API_ACCESS_TOKEN`
+- `META_CAPI_ACCESS_TOKEN`
 - `INDEXNOW_KEY`
 
 `NEXT_PUBLIC_SITE_URL` war nicht sichtbar, ist aber im Code mit korrektem
@@ -251,7 +251,7 @@ Aufgaben:
   - NEXT_PUBLIC_META_PIXEL_ID
   - NEXT_PUBLIC_GSC_VERIFICATION
   - NEXT_PUBLIC_BING_VERIFICATION
-  - META_CONVERSION_API_ACCESS_TOKEN
+  - META_CAPI_ACCESS_TOKEN
 
 6. Nicht-destruktive Integrationstests
 - `POST /api/booking/availability` gegen Vercel testen. Erwartung: 200,

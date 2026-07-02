@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inclusive_Sans, Noto_Serif_Georgian } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { MetaConversionFromQuery } from "@/components/MetaConversionTracking";
+import { MetaPixel } from "@/components/MetaPixel";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { SiteJsonLd } from "@/components/StructuredData";
 import { siteConfig } from "@/data/site";
@@ -51,6 +53,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="de" className={`${inclusiveSans.variable} ${notoSerif.variable}`}>
       <body>
+        <MetaPixel />
+        <MetaConversionFromQuery />
         <SiteJsonLd />
         <Header />
         <main>{children}</main>

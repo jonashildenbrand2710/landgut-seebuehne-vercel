@@ -56,8 +56,11 @@ Vorhandene bzw. sinnvolle Variablennamen:
 - `NEXT_PUBLIC_GTM_ID`
 - `NEXT_PUBLIC_GOOGLE_ADS_ID`
 - `NEXT_PUBLIC_META_PIXEL_ID`
-- `META_CONVERSION_API_ACCESS_TOKEN`
+- `META_CAPI_ACCESS_TOKEN`
+- `META_TEST_EVENT_CODE`
 - `NEXT_PUBLIC_GSC_VERIFICATION`
 - `NEXT_PUBLIC_BING_VERIFICATION`
 
-Keine echten Werte in `.env.example`, Code oder Dokumentation eintragen.
+Keine echten Secret-Werte in `.env.example`, Code oder Dokumentation eintragen.
+Die Meta-Pixel-ID ist oeffentlich und wurde am 2026-07-02 im CAPI-Brief
+freigegeben; der CAPI-Token bleibt ausschliesslich serverseitiges Secret.
