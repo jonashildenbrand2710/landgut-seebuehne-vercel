@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Suspense } from "react";
 import { FormStatusMessage } from "@/components/FormStatusMessage";
+import { GoogleAdsLeadUserData } from "@/components/GoogleAdsTracking";
 import { MetaTrackingFields } from "@/components/MetaConversionTracking";
 import { PageJsonLd } from "@/components/StructuredData";
 import { imageLibrary } from "@/data/site";
@@ -233,6 +234,7 @@ export default function HochzeitsmappePage() {
               type="text"
             />
             <MetaTrackingFields funnel="hochzeitsmappe" />
+            <GoogleAdsLeadUserData />
             <div className="mappe-field-grid">
               <label className="mappe-field">
                 <span>Vorname</span>

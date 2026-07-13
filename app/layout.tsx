@@ -2,9 +2,12 @@ import type { Metadata, Viewport } from "next";
 import { Inclusive_Sans, Noto_Serif_Georgian } from "next/font/google";
 import { ConsentBanner } from "@/components/ConsentBanner";
 import { Footer } from "@/components/Footer";
+import { GoogleAdsTag } from "@/components/GoogleAdsTag";
+import { GoogleAdsLeadConversionFromQuery } from "@/components/GoogleAdsTracking";
 import { Header } from "@/components/Header";
 import { MetaConversionFromQuery } from "@/components/MetaConversionTracking";
 import { MetaPixel } from "@/components/MetaPixel";
+import { GOOGLE_CONSENT_BOOTSTRAP_SCRIPT } from "@/lib/google-ads";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { SiteJsonLd } from "@/components/StructuredData";
 import { imageLibrary, siteConfig } from "@/data/site";
@@ -71,11 +74,19 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="de" className={`${inclusiveSans.variable} ${notoSerif.variable}`}>
       <body>
+        {/* Muss vor allen Google-Kommandos laufen: gtag-Stub + Consent Mode v2
+            Default (alle vier Signale denied). gtag.js lädt erst nach Opt-in. */}
+        <script
+          dangerouslySetInnerHTML={{ __html: GOOGLE_CONSENT_BOOTSTRAP_SCRIPT }}
+          id="google-consent-bootstrap"
+        />
         <a className="skip-link" href="#inhalt">
           Zum Inhalt springen
         </a>
         <MetaPixel />
         <MetaConversionFromQuery />
+        <GoogleAdsTag />
+        <GoogleAdsLeadConversionFromQuery />
         <SiteJsonLd />
         <Header />
         <main id="inhalt">{children}</main>

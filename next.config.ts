@@ -24,6 +24,20 @@ const nextConfig: NextConfig = {
             value: "public, max-age=31536000, immutable"
           }
         ]
+      },
+      {
+        // Öffentlicher Tracking-Handshake für die Ads-Orchestrierung (SB_Werbung).
+        source: "/.well-known/advertising-tracking.json",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=300"
+          },
+          {
+            key: "Content-Type",
+            value: "application/json"
+          }
+        ]
       }
     ];
   },

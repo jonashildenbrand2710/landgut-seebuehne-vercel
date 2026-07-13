@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "provider": "google-ads",
+  "implementation": "gtag",
+  "tagId": "AW-16778828961",
+  "noPiiInDiagnostics": true,
+  "consentMode": {
+    "version": 2,
+    "default": {
+      "ad_storage": "denied",
+      "analytics_storage": "denied",
+      "ad_user_data": "denied",
+      "ad_personalization": "denied"
+    },
+    "marketingGranted": {
+      "ad_storage": "granted",
+      "analytics_storage": "granted",
+      "ad_user_data": "granted",
+      "ad_personalization": "granted"
+    },
+    "revocationSupported": true
+  },
+  "conversionEvents": [
+    {
+      "key": "generate_lead",
+      "conversionActionName": "generate_leads_conv",
+      "trigger": "confirmed_lead_submission",
+      "sendTo": "AW-16778828961/BvNBCOHEqbcaEKG54sA-",
+      "enhancedConversions": true,
+      "deduplicateWithTransactionId": true
+    },
+    {
+      "key": "book_appointment",
+      "conversionActionName": "Termin erfolgreich gebucht",
+      "trigger": "confirmed_calendar_booking",
+      "sendTo": "AW-16778828961/8y4TCI6h0ckcEKG54sA-",
+      "enhancedConversions": true,
+      "deduplicateWithTransactionId": true
+    }
+  ]
+}

@@ -15,6 +15,7 @@ import { useEffect, useMemo, useState, type KeyboardEvent } from "react";
 import type { BookingFlowField } from "@/data/booking-flow";
 import type { BookingAppointmentType, BookingResponse, BookingSlot } from "@/lib/booking-api";
 import { createMetaEventId, trackMetaCompleteRegistrationWhenReady } from "@/components/MetaConversionTracking";
+import { buildEnhancedConversionUserData, trackGoogleAdsConversion } from "@/lib/google-ads-gtag";
 
 type BookingFunnelProps = {
   appointmentType: BookingAppointmentType;
@@ -461,6 +462,20 @@ export function BookingFunnel({
 
       if (appointmentType === "phone") {
         trackMetaCompleteRegistrationWhenReady("erstgespraech", eventId, { guard: true });
+      }
+
+      // Google Ads "Termin erfolgreich gebucht": nur nach serverseitig
+      // bestätigter, im Kalender gespeicherter Buchung. Die persistierte
+      // Lead-ID dient als stabile transaction_id (dedupliziert Reloads und
+      // Umbuchungen); Kalender-Fehler liefern von der Booking-API kein 2xx.
+      const confirmedBookingId = booking.lead?.id?.trim() || booking.google_calendar?.eventId?.trim() || "";
+      const calendarConfirmed =
+        booking.google_calendar?.synced === true || Boolean(booking.google_calendar?.eventId);
+
+      if (confirmedBookingId && calendarConfirmed) {
+        void buildEnhancedConversionUserData(contact).then((userData) => {
+          trackGoogleAdsConversion("book_appointment", confirmedBookingId, userData || undefined);
+        });
       }
     } catch (submitError) {
       setBookingState("error");

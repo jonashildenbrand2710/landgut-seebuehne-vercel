@@ -20,13 +20,20 @@ function redirect(request: Request, path: string) {
   return Response.redirect(new URL(path, request.url), 303);
 }
 
-function dankePath(eventId: string) {
+function dankePath(eventId: string, leadId?: string) {
   const params = new URLSearchParams({
     event_id: eventId,
     funnel: "hochzeitsmappe",
     meta_event: "CompleteRegistration",
     source: "hochzeitsmappe"
   });
+
+  // Signal für die Google-Ads-Lead-Conversion auf /danke: wird nur gesetzt,
+  // wenn der Lead tatsächlich in der CRM-Datenbank persistiert wurde. Die
+  // Lead-ID ist eine opake Kennung ohne personenbezogene Daten.
+  if (leadId) {
+    params.set("lead_id", leadId);
+  }
 
   return `/danke?${params.toString()}`;
 }
@@ -182,7 +189,7 @@ export async function POST(request: Request) {
 
       await sendHochzeitsmappeConversion(request, formData, payload, metaEventId);
 
-      return redirect(request, dankePath(metaEventId));
+      return redirect(request, dankePath(metaEventId, crmLead.lead_id));
     }
 
     await updateActiveCampaignStatus({
@@ -210,5 +217,5 @@ export async function POST(request: Request) {
 
   await sendHochzeitsmappeConversion(request, formData, payload, metaEventId);
 
-  return redirect(request, dankePath(metaEventId));
+  return redirect(request, dankePath(metaEventId, crmLead.lead_id));
 }

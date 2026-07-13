@@ -15,3 +15,5 @@ pnpm-debug.log*
 .vercel
 tsconfig.tsbuildinfo
 tmp
+test-results
+playwright-report
