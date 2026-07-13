@@ -57,6 +57,8 @@ Exklusivität zeigt sich im Betrieb: am Ablauf, an Wegen und an der Aufmerksamke
 
 ## 2. Wo können Trauung, Empfang, Dinner und Party stattfinden?
 
+![Trauplatz am See mit Stuhlreihen](/images/site/freie-trauung-am-see.jpg "Bei der Besichtigung lohnt der Blick auf alle Stationen des Tages.")
+
 Eine Hochzeit besteht nicht aus einem einzigen schönen Moment. Sie ist ein ganzer Tag mit Stationen. Gäste kommen an, orientieren sich, wechseln von der Trauung zum Empfang, später zum Dinner und irgendwann zur Party. Wenn diese Übergänge nicht logisch sind, fühlt sich selbst ein schöner Ort schnell unruhig an.
 
 Typische Stationen sind:
@@ -84,6 +86,8 @@ Gerade bei naturnahen Locations lohnt sich dieser Blick. Wiesen, Gärten und Au�
 Die besten Wege fallen nicht auf. Schlechte Wege werden zum Gesprächsthema. Und am Hochzeitstag sollte nicht der Weg zur Toilette die heimliche Dramaturgie übernehmen.
 
 ## 4. Gibt es einen guten Plan B bei Regen?
+
+![Festsaal als wettersicherer Plan B](/images/site/festsaal-landgut-seebuehne.jpg "Ein Plan B überzeugt, wenn er sich nicht nach Ausweichfläche anfühlt.")
 
 Wenn ihr euch eine Trauung im Freien oder einen Empfang draußen wünscht, gehört der Plan B zur eigentlichen Planung. Er sollte nicht erst in dem Moment erfunden werden, in dem alle gleichzeitig auf drei Wetter-Apps schauen.
 

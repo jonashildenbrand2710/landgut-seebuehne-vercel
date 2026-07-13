@@ -58,6 +58,8 @@ Aus unserer Erfahrung sind es selten die großen Ideen, die eine Trauung unruhig
 
 ## Der Trauplatz muss praktisch funktionieren
 
+![Freie Trauung mit Stuhlreihen und Traubogen am See](/images/site/freie-trauung-am-see.jpg "Ein Trauplatz am Wasser braucht Blickachse, Technik und kurze Wege.")
+
 Viele Paare beginnen mit der Vorstellung: Wir möchten uns am Wasser das Ja-Wort geben.
 
 Das ist ein starker Ausgangspunkt. Trotzdem sollte ein Trauplatz nicht allein nach Fotowirkung ausgewählt werden. Der schönste Blick hilft wenig, wenn die hinteren Reihen nur Lippenlesen üben oder der Einzug quer durch eine unsichere Wiesenlogistik führt.
@@ -157,6 +159,8 @@ Gute Fragen sind:
 Eine freie Trauung am See lebt vom Ort. Aber der Ort verändert sich über den Tag. Eine erfahrene Location kann euch helfen, diese Veränderung realistisch einzuordnen.
 
 ## Plan B: Romantik mit ruhiger Absicherung
+
+![Brautpaar mit transparentem Schirm auf dem Steg am See](/images/site/hero-brautpaar-steg-am-see.jpg "Auch mit Schirm ein stimmiger Moment: Regen muss keine Notlösung sein.")
 
 Viele Paare wünschen sich, dass der Plan B nie gebraucht wird. Das ist verständlich. Trotzdem sollte er früh und ernsthaft geplant werden.
 

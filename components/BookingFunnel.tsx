@@ -6,6 +6,8 @@ import {
   CalendarCheck,
   CalendarDays,
   CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
   LoaderCircle,
   RefreshCcw
 } from "lucide-react";
@@ -119,13 +121,35 @@ function localDateKey(value: string | Date) {
   return `${record.year}-${record.month}-${record.day}`;
 }
 
-function formatDay(value: Date) {
+const weekdayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+function weekdayIndex(date: Date) {
+  const name = new Intl.DateTimeFormat("en-US", { timeZone, weekday: "short" }).format(date);
+  return Math.max(0, weekdayNames.indexOf(name));
+}
+
+function formatDayNumber(date: Date) {
+  return new Intl.DateTimeFormat("de-DE", { day: "numeric", timeZone }).format(date);
+}
+
+function formatWeekRange(start: Date, end: Date) {
+  const dayMonth = new Intl.DateTimeFormat("de-DE", { day: "numeric", month: "long", timeZone });
+  const monthOf = new Intl.DateTimeFormat("de-DE", { month: "numeric", timeZone });
+
+  if (monthOf.format(start) === monthOf.format(end)) {
+    return `${formatDayNumber(start)}. – ${dayMonth.format(end)}`;
+  }
+
+  return `${dayMonth.format(start)} – ${dayMonth.format(end)}`;
+}
+
+function formatFullDay(date: Date) {
   return new Intl.DateTimeFormat("de-DE", {
-    day: "2-digit",
-    month: "2-digit",
+    day: "numeric",
+    month: "long",
     timeZone,
-    weekday: "short"
-  }).format(value);
+    weekday: "long"
+  }).format(date);
 }
 
 function formatSlotDate(value: string) {
@@ -208,6 +232,7 @@ export function BookingFunnel({
   const [slots, setSlots] = useState<BookingSlot[]>([]);
   const [selectedDayKey, setSelectedDayKey] = useState("");
   const [selectedSlotId, setSelectedSlotId] = useState("");
+  const [weekIndex, setWeekIndex] = useState(0);
   const [contact, setContact] = useState<BookingContact>({
     email: "",
     name: "",
@@ -244,12 +269,36 @@ export function BookingFunnel({
         return {
           date,
           key,
-          label: formatDay(date),
           slots: slotsByDay.get(key) || []
         };
       }),
     [rangeDays, slotsByDay]
   );
+  // Wochenuebersicht wie bei Calendly: der buchbare Zeitraum wird auf volle
+  // Montag-Sonntag-Wochen aufgefuellt, Tage ausserhalb bleiben ausgegraut.
+  const weeks = useMemo(() => {
+    if (!days.length) return [];
+
+    const inRange = new Map(days.map((day) => [day.key, day]));
+    const monday = addDays(days[0].date, -weekdayIndex(days[0].date));
+    const totalCells = Math.ceil((weekdayIndex(days[0].date) + days.length) / 7) * 7;
+    const cells = Array.from({ length: totalCells }, (_, index) => {
+      const date = addDays(monday, index);
+      const key = localDateKey(date);
+      const day = inRange.get(key);
+
+      return {
+        date,
+        hasSlots: Boolean(day?.slots.length),
+        inRange: Boolean(day),
+        key
+      };
+    });
+
+    return Array.from({ length: totalCells / 7 }, (_, index) => cells.slice(index * 7, index * 7 + 7));
+  }, [days]);
+  const currentWeek = weeks[Math.min(weekIndex, Math.max(0, weeks.length - 1))] || [];
+  const selectedDay = selectedDayKey ? days.find((day) => day.key === selectedDayKey) || null : null;
   const visibleSlots = selectedDayKey ? slotsByDay.get(selectedDayKey) || [] : [];
   const activeStepIndex = steps.findIndex((step) => step.id === activeStep);
   const contactValidation = useMemo(() => {
@@ -294,7 +343,9 @@ export function BookingFunnel({
       const nextSlots = availability.slots ?? [];
       setSlots(nextSlots);
       setSelectedSlotId("");
-      setSelectedDayKey(nextSlots[0] ? localDateKey(nextSlots[0].start) : localDateKey(from));
+      // Bewusst kein Tag vorausgewaehlt: erst Tag waehlen, dann erscheinen die Slots.
+      setSelectedDayKey("");
+      setWeekIndex(0);
       setAvailabilityState("success");
     } catch (loadError) {
       setAvailabilityState("error");
@@ -519,43 +570,90 @@ export function BookingFunnel({
             </p>
           ) : null}
 
-          {days.length && availabilityState !== "error" ? (
-            <div className="booking-day-strip" aria-label="Nächste zehn Tage">
-              {days.map((day) => (
+          {currentWeek.length && availabilityState !== "error" ? (
+            <div className="booking-calendar" aria-label="Tag wählen">
+              <div className="booking-week-nav">
                 <button
-                  className={day.key === selectedDayKey ? "booking-day is-selected" : "booking-day"}
-                  disabled={!day.slots.length && availabilityState === "success"}
-                  key={day.key}
-                  onClick={() => {
-                    setSelectedDayKey(day.key);
-                    setSelectedSlotId("");
-                  }}
+                  aria-label="Vorherige Woche"
+                  className="booking-week-arrow"
+                  disabled={weekIndex === 0}
+                  onClick={() => setWeekIndex((index) => Math.max(0, index - 1))}
                   type="button"
                 >
-                  <span>{day.label}</span>
-                  <small>{day.slots.length ? `${day.slots.length} frei` : "kein Termin"}</small>
+                  <ChevronLeft aria-hidden="true" size={18} />
                 </button>
-              ))}
+                <p aria-live="polite">{formatWeekRange(currentWeek[0].date, currentWeek[6].date)}</p>
+                <button
+                  aria-label="Nächste Woche"
+                  className="booking-week-arrow"
+                  disabled={weekIndex >= weeks.length - 1}
+                  onClick={() => setWeekIndex((index) => Math.min(weeks.length - 1, index + 1))}
+                  type="button"
+                >
+                  <ChevronRight aria-hidden="true" size={18} />
+                </button>
+              </div>
+              <div className="booking-week-head" aria-hidden="true">
+                {["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"].map((weekday) => (
+                  <span key={weekday}>{weekday}</span>
+                ))}
+              </div>
+              <div className="booking-week-grid">
+                {currentWeek.map((cell) => {
+                  const selectable = cell.inRange && cell.hasSlots && availabilityState === "success";
+                  const className = [
+                    "booking-week-day",
+                    cell.key === selectedDayKey ? "is-selected" : "",
+                    selectable ? "is-available" : ""
+                  ]
+                    .filter(Boolean)
+                    .join(" ");
+
+                  return (
+                    <button
+                      aria-label={formatFullDay(cell.date)}
+                      aria-pressed={cell.key === selectedDayKey}
+                      className={className}
+                      disabled={!selectable}
+                      key={cell.key}
+                      onClick={() => {
+                        setSelectedDayKey(cell.key);
+                        setSelectedSlotId("");
+                      }}
+                      type="button"
+                    >
+                      {formatDayNumber(cell.date)}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           ) : null}
 
-          {visibleSlots.length ? (
-            <div className="booking-slot-grid compact" role="radiogroup" aria-label="Freie Termine">
-              {visibleSlots.map((slot) => (
-                <label className={slot.id === selectedSlotId ? "booking-slot is-selected" : "booking-slot"} key={slot.id}>
-                  <input
-                    checked={slot.id === selectedSlotId}
-                    name="slot"
-                    onChange={() => setSelectedSlotId(slot.id)}
-                    type="radio"
-                    value={slot.id}
-                  />
-                  <span>{formatSlotTime(slot)} Uhr</span>
-                </label>
-              ))}
-            </div>
-          ) : availabilityState === "success" ? (
-            <p className="booking-note">An diesem Tag ist aktuell kein Termin frei. Wählt einen anderen Tag.</p>
+          {selectedDay ? (
+            visibleSlots.length ? (
+              <div className="booking-slot-block">
+                <p className="booking-slot-day">{formatFullDay(selectedDay.date)}</p>
+                <div className="booking-slot-grid compact" role="radiogroup" aria-label="Freie Uhrzeiten">
+                  {visibleSlots.map((slot) => (
+                    <label className={slot.id === selectedSlotId ? "booking-slot is-selected" : "booking-slot"} key={slot.id}>
+                      <input
+                        checked={slot.id === selectedSlotId}
+                        name="slot"
+                        onChange={() => setSelectedSlotId(slot.id)}
+                        type="radio"
+                        value={slot.id}
+                      />
+                      <span>{formatSlotTime(slot)} Uhr</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            ) : availabilityState === "success" ? (
+              <p className="booking-note">An diesem Tag ist aktuell kein Termin frei. Wählt einen anderen Tag.</p>
+            ) : null
+          ) : availabilityState === "success" && slots.length ? (
+            <p className="booking-hint">Wählt zuerst einen Tag – danach erscheinen die freien Uhrzeiten.</p>
           ) : null}
 
           {selectedSlot ? (

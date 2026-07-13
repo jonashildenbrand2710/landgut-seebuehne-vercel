@@ -24,6 +24,7 @@ import {
   landingTeamLeaders,
   landingTestimonials
 } from "@/data/landing";
+import { AutoScrollCarousel } from "@/components/AutoScrollCarousel";
 import { BrandLogo } from "@/components/BrandLogo";
 import { articles } from "@/data/articles";
 import { imageLibrary } from "@/data/site";
@@ -82,7 +83,7 @@ export function HeroImageStrip() {
 
   return (
     <section className="hero-image-strip" aria-label="Impressionen der Hauptseite">
-      <div className="hero-strip-inner">
+      <AutoScrollCarousel className="hero-strip-inner" ariaLabel="Impressionen, gleiten automatisch weiter">
         {images.map((imageKey, index) => {
           const image = imageLibrary[imageKey];
 
@@ -100,7 +101,7 @@ export function HeroImageStrip() {
             </div>
           );
         })}
-      </div>
+      </AutoScrollCarousel>
     </section>
   );
 }
@@ -458,7 +459,11 @@ export function MiniGallery() {
             Menschen, die euren Tag begleiten.
           </p>
         </div>
-        <div className="mini-gallery-grid">
+        <AutoScrollCarousel
+          className="mini-gallery-strip"
+          ariaLabel="Galerie, gleitet automatisch weiter"
+          intervalMs={5200}
+        >
           {landingGallery.map((item) => {
             const image = imageLibrary[item.imageKey];
             return (
@@ -469,7 +474,7 @@ export function MiniGallery() {
                     alt={image.alt}
                     fill
                     quality={CONTENT_IMAGE_QUALITY}
-                    sizes="(max-width: 680px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                    sizes="(max-width: 680px) 84vw, (max-width: 1100px) 46vw, 360px"
                     style={{ objectPosition: focalPoint(item.imageKey) }}
                   />
                 </div>
@@ -478,7 +483,7 @@ export function MiniGallery() {
               </article>
             );
           })}
-        </div>
+        </AutoScrollCarousel>
       </div>
     </section>
   );

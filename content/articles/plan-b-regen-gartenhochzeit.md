@@ -46,6 +46,8 @@ Man könnte auch sagen: Er ist der Unterschied zwischen "Wir haben eine Alternat
 
 ## Was ein guter Plan B wirklich leisten muss
 
+![Brautpaar mit Schirm auf dem Holzsteg am See](/images/site/hero-brautpaar-steg-am-see.jpg "Regen gehört zur Planung dazu - und kann trotzdem nach Hochzeit aussehen.")
+
 Ein guter Plan B muss Menschen trocken halten und den Tagesablauf weiterführen. Ein Schirm hilft, ersetzt aber kein Konzept.
 
 Er sollte den Tag weiterhin stimmig führen. Gäste sollen wissen, wo sie ankommen, wo die Trauung stattfindet, wie es danach weitergeht und wo sie sich wohlfühlen können. Dienstleister müssen wissen, wo Technik, Musik, Floristik, Fotografie und Service gebraucht werden. Ihr als Paar solltet nicht das Gefühl haben, dass euer Tag plötzlich improvisiert wird.
@@ -67,6 +69,8 @@ Wenn diese Fragen früh beantwortet sind, wird der Plan B nicht zur Paniklösung
 Das ist besonders wichtig, weil ein Wetterwechsel selten nur eine Sache verändert. Wenn die Trauung anders stattfindet, betrifft das fast immer auch Wege, Technik, Blumen, Fotos, Gratulationen und die Frage, wo Gäste in den nächsten zehn Minuten sinnvoll stehen.
 
 ## Geschützte Außenbereiche machen den Unterschied
+
+![Außenbereich am See mit geschützten Zonen](/images/site/seeblick-aussenbereich.jpg "Geschützte Bereiche halten den Tag draußen, auch wenn das Wetter kippt.")
 
 Bei einer naturnahen Hochzeit geht es selten darum, sofort alles nach innen zu verlegen. Viel wertvoller sind Bereiche, die das Gefühl von draußen erhalten und trotzdem Schutz geben.
 

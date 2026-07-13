@@ -77,6 +77,8 @@ Schlanker wirkt ein Angebot nur so lange angenehm, bis Aufgaben auftauchen, die 
 
 ## Warum der Tagesablauf ein Vergleichskriterium ist
 
+![Brautpaar auf dem Holzsteg zwischen Trauung und Feier](/images/site/brautpaar-holzsteg-see-gruen.jpg "Ein stimmiger Tagesablauf ist mehr wert als eine einzelne Preiszeile.")
+
 Viele Locations wirken auf Bildern schön. Der Unterschied zeigt sich aber oft im Ablauf.
 
 Ein Hochzeitstag besteht aus vielen Übergängen: Gäste kommen an, die Trauung beginnt, es gibt Empfang, Fotos, Kaffee, Dinner, Reden, Party und vielleicht Übernachtung. Jeder Wechsel kann leicht wirken oder Reibung erzeugen.
@@ -116,6 +118,8 @@ Ein Plan B gehört früh zur Frage, ob eine Location den Tag wirklich tragen kan
 Wenn Wetter erst nach der Entscheidung ernsthaft besprochen wird, ist das ein bisschen so, als würde man beim Autokauf erst später fragen, ob Bremsen dabei sind. Nicht dramatisch formuliert, aber doch: lieber vorher klären.
 
 ## Betreuung ist ein echter Wert
+
+![Team des Landgut Seebühne als Ansprechpartner](/images/site/team-landgut-seebuehne.jpg "Betreuung sieht man nicht im Angebot - aber am Hochzeitstag.")
 
 Paare planen meist zum ersten Mal eine Hochzeit. Viele Fragen entstehen erst nach und nach.
 

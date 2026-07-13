@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inclusive_Sans, Noto_Serif_Georgian } from "next/font/google";
 import { ConsentBanner } from "@/components/ConsentBanner";
 import { Footer } from "@/components/Footer";
@@ -27,6 +27,15 @@ const bingSiteVerification = process.env.NEXT_PUBLIC_BING_VERIFICATION?.trim();
 const siteVerification: Metadata["verification"] = {
   ...(googleSiteVerification ? { google: googleSiteVerification } : {}),
   ...(bingSiteVerification ? { other: { "msvalidate.01": bingSiteVerification } } : {})
+};
+
+// Pinch-Zoom bewusst deaktiviert (Kundenwunsch): verhindert versehentliches
+// Zoomen auf Mobilgeraeten, Schriftgroessen sind dafuer durchgehend gross genug.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false
 };
 
 export const metadata: Metadata = {

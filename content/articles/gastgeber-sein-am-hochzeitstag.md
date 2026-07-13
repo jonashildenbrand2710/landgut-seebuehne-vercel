@@ -38,6 +38,8 @@ Kurz gesagt: Eure Gäste brauchen Orientierung, Zeit und einen Tag, der sie nich
 
 ## Euer Tag endet nicht bei euch
 
+![Gastgeberteam des Landgut Seebühne](/images/site/team-landgut-seebuehne.jpg "Gastgeber sein heißt: Menschen im Blick behalten - und sich dabei helfen lassen.")
+
 Natürlich ist eure Hochzeit zuerst euer Tag. Ihr entscheidet, wie ihr heiraten möchtet, welche Menschen dabei sind und welche Stimmung zu euch passt.
 
 Gleichzeitig verändert sich etwas, sobald ihr einladet. Aus einem privaten Moment wird ein gemeinsamer Tag. Menschen reisen an, nehmen sich Zeit, organisieren vielleicht Betreuung oder Übernachtung und richten ihren Tag nach eurer Feier aus.
@@ -77,6 +79,8 @@ Weniger Programm gibt echten Momenten mehr Luft. Gäste brauchen keinen Stundenp
 Das klingt auf dem Papier fast zu schlicht. Am Hochzeitstag ist es aber sehr konkret: Gäste brauchen Zeit, um wirklich anzukommen. Das Paar braucht Zeit, um Glückwünsche anzunehmen und zu spüren. Und der Abend braucht irgendwann die Chance, Feier zu werden, statt nur der nächste Punkt nach dem nächsten Punkt zu sein.
 
 ## Der Empfang braucht eigenen Raum
+
+![Festlich eingedeckter Festsaal des Landgut Seebühne](/images/site/festsaal-landgut-seebuehne.jpg "Ein klarer Raum für den Empfang nimmt dem Tag die Hektik.")
 
 Nach der Trauung entsteht einer der wichtigsten Momente des Tages. Die Spannung löst sich. Gäste möchten gratulieren, anstoßen, miteinander sprechen und ankommen. Das Paar ist emotional oft noch ganz im Moment. Gleichzeitig beginnen Fotos, Familien treffen auf Freundeskreise, Kinder brauchen Bewegung und ältere Gäste einen angenehmen Platz.
 

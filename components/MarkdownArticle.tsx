@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Fragment, type ReactNode } from "react";
@@ -99,6 +100,23 @@ function renderBlock(block: ArticleBlock, index: number): ReactNode {
 
   if (block.type === "blockquote") {
     return <blockquote key={`${block.text}-${index}`}>{renderInline(block.text)}</blockquote>;
+  }
+
+  if (block.type === "image") {
+    return (
+      <figure className="article-figure" key={`${block.src}-${index}`}>
+        <div className="article-figure-media">
+          <Image
+            src={block.src}
+            alt={block.alt}
+            fill
+            quality={70}
+            sizes="(max-width: 920px) calc(100vw - 36px), 760px"
+          />
+        </div>
+        {block.caption ? <figcaption>{block.caption}</figcaption> : null}
+      </figure>
+    );
   }
 
   if (block.type === "list") {

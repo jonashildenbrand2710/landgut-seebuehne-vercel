@@ -48,6 +48,8 @@ Aus unserer Erfahrung liegt hier ein großer Unterschied. Ein Raum für euch ist
 
 ## Was eine One Wedding Policy im Alltag verändert
 
+![Ruhiger Seeblick und Außenbereich des Landgut Seebühne ohne fremde Gäste](/images/site/seeblick-aussenbereich.jpg "Ein Gelände, das an eurem Tag nur euch gehört.")
+
 One Wedding Policy klingt zunächst nach einem organisatorischen Prinzip. Am Hochzeitstag ist es aber sehr spürbar.
 
 Wenn nur eine Hochzeit am Tag stattfindet, entsteht ein anderer Rahmen. Das Team muss nicht zwischen mehreren Veranstaltungen wechseln. Gäste müssen nicht überlegen, welche Gruppe zu welcher Feier gehört. Dienstleister arbeiten nicht neben einem zweiten Aufbau. Und ihr als Paar müsst nicht das Gefühl haben, dass euer Tag nur ein Zeitfenster im Veranstaltungskalender ist.
@@ -90,6 +92,8 @@ Bei einer Hochzeit pro Tag kann die Planung ruhiger auf einen Ablauf ausgerichte
 Und Reibung ist am Hochzeitstag selten dramatisch, aber sie sammelt sich. Ein unklarer Aufbau hier, ein geteilter Weg dort, eine Rückfrage zu viel bei den Trauzeugen: Irgendwann fühlt sich ein Tag voller an, als er sein müsste.
 
 ## Warum Fotos und Atmosphäre davon leben
+
+![Brautpaar allein auf dem Holzsteg am See](/images/site/brautpaar-holzsteg-see-gruen.jpg "Fotos ohne Zeitdruck: Der Steg gehört an diesem Tag dem Brautpaar.")
 
 Viele Paare wünschen sich natürliche Fotos, echte Momente und einen Tag, der nicht gestellt wirkt.
 

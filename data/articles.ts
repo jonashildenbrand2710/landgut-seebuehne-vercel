@@ -20,6 +20,12 @@ export type ArticleBlock =
       items: string[];
     }
   | {
+      type: "image";
+      src: string;
+      alt: string;
+      caption?: string;
+    }
+  | {
       type: "panel";
       variant: "summary";
       eyebrow: string;
@@ -233,6 +239,21 @@ function parseBlocks(lines: string[]): ArticleBlock[] {
       continue;
     }
 
+    // Markdown-Bild in eigener Zeile: ![Alt](/pfad.jpg "Optionale Bildunterschrift")
+    const imageMatch = line.match(/^!\[([^\]]*)\]\(([^\s)]+)(?:\s+"([^"]*)")?\)$/);
+    if (imageMatch) {
+      flushParagraph();
+      flushQuote();
+      flushList();
+      blocks.push({
+        type: "image",
+        src: imageMatch[2],
+        alt: imageMatch[1],
+        ...(imageMatch[3] ? { caption: imageMatch[3] } : {})
+      });
+      continue;
+    }
+
     if (line.startsWith("- ")) {
       flushParagraph();
       flushQuote();
@@ -293,6 +314,7 @@ function blocksToText(blocks: ArticleBlock[]): string {
       if (block.type === "paragraph" || block.type === "blockquote") return block.text;
       if (block.type === "list") return block.items.join("\n");
       if (block.type === "heading") return block.text;
+      if (block.type === "image") return "";
       return blocksToText(block.blocks);
     })
     .filter(Boolean)

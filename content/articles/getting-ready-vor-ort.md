@@ -71,6 +71,8 @@ Wer schon am richtigen Ort ist, muss nicht innerlich noch ankommen, während äu
 
 ## Tageslicht, Platz und Atmosphäre zählen
 
+![Braut beim Getting Ready mit Brautstrauß](/images/site/getting-ready-braut.jpg "Ruhe, Tageslicht und Platz: Der Morgen prägt den ganzen Tag.")
+
 Ein guter Getting-Ready-Ort sollte praktisch sein und sich gut anfühlen.
 
 Räume mit Tageslicht helfen beim Styling, bei Fotos und bei der Stimmung. Genug Platz sorgt dafür, dass Kleidung, Taschen, Menschen und Dienstleister nicht durcheinandergeraten. Getränke vor Ort sind eine kleine, aber wichtige Entlastung, weil niemand noch schnell etwas organisieren muss.
@@ -92,6 +94,8 @@ Diese Fragen helfen, den Morgen nicht dem Zufall zu überlassen.
 Und sie verhindern, dass ein eigentlich schöner Raum am Ende gleichzeitig Stylingbereich, Gepäcklager, Snackstation, Blumenübergabe und stille Kommandozentrale wird. Das klingt nach einer charmanten Behind-the-Scenes-Szene, ist in echt aber oft nur zu viel auf einmal.
 
 ## First Look und Fotos werden natürlicher
+
+![Brautpaar beim First Look am Seeufer](/images/site/brautpaar-am-seeufer.jpg "Kurze Wege vom Getting Ready zum First Look am Wasser.")
 
 Getting Ready vor Ort kann auch den First Look verändern.
 

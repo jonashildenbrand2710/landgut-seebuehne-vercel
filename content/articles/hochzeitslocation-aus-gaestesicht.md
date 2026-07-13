@@ -56,6 +56,8 @@ Ein Gast, der sich orientieren kann, ist entspannter. Das klingt banal, ist aber
 
 ## Ankommen ist der erste Eindruck
 
+![Blick über den See und die Außenbereiche beim Ankommen](/images/site/seeblick-aussenbereich.jpg "Der erste Eindruck eurer Gäste: ankommen, durchatmen, orientieren.")
+
 Der Gästeblick beginnt nicht erst bei der Trauung. Er beginnt bei der Anreise.
 
 Gäste möchten wissen, wohin sie fahren, wo sie parken, wo sie aussteigen und wo sie als Nächstes hingehen. Je klarer dieser erste Moment ist, desto ruhiger starten sie in den Tag.
@@ -75,6 +77,8 @@ Ein guter Start nimmt Gästen die kleine Unsicherheit: Bin ich richtig? Wo soll 
 Diese Unsicherheit klingt klein. Sie prägt aber die ersten Minuten. Und erste Minuten sind bei Hochzeiten erstaunlich mächtig. Gastfreundschaft beginnt schon mit der ersten Minute auf dem Gelände, lange vor dem Dinner.
 
 ## Trauung und Empfang brauchen Komfort
+
+![Gedeckte Tafeln im Festsaal des Landgut Seebühne](/images/site/festsaal-landgut-seebuehne.jpg "Komfort heißt: Sitzplätze, Temperatur und Wege, die für alle funktionieren.")
 
 Bei der Trauung achtet das Paar vor allem auf den emotionalen Moment. Gäste erleben zusätzlich sehr praktische Dinge.
 
