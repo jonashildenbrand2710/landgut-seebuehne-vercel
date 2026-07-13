@@ -35,6 +35,11 @@ function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+function isValidPhone(phone: string) {
+  const normalized = phone.replace(/[^\d+]/g, "");
+  return /^\+?\d{6,15}$/.test(normalized);
+}
+
 async function forwardToFallbackEndpoint(payload: Record<string, string>) {
   const endpoint = process.env.CONTACT_FORM_ENDPOINT;
 
@@ -113,7 +118,13 @@ export function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const formData = await request.formData();
+  let formData: FormData;
+
+  try {
+    formData = await request.formData();
+  } catch {
+    return redirect(request, "/hochzeitsmappe?status=missing#mappe-form");
+  }
 
   if (clean(formData.get("website"))) {
     return redirect(request, "/danke?source=hochzeitsmappe");
@@ -136,6 +147,10 @@ export async function POST(request: Request) {
 
   if (!isValidEmail(payload.email)) {
     return redirect(request, "/hochzeitsmappe?status=invalid-email#mappe-form");
+  }
+
+  if (!isValidPhone(payload.phone)) {
+    return redirect(request, "/hochzeitsmappe?status=invalid-phone#mappe-form");
   }
 
   let crmLead;

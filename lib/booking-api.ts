@@ -137,17 +137,31 @@ function responseErrorCode(payload: unknown) {
   return undefined;
 }
 
+const bookingApiTimeoutMs = 15_000;
+
 async function requestBookingApi<T>(endpoint: "availability" | "book", payload: unknown) {
-  const response = await fetch(bookingApiUrl(endpoint), {
-    method: "POST",
-    headers: {
-      accept: "application/json",
-      authorization: `Bearer ${requireEnv("CRM_BOOKING_API_TOKEN")}`,
-      "content-type": "application/json"
-    },
-    body: JSON.stringify(payload),
-    cache: "no-store"
-  });
+  let response: Response;
+
+  try {
+    response = await fetch(bookingApiUrl(endpoint), {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        authorization: `Bearer ${requireEnv("CRM_BOOKING_API_TOKEN")}`,
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(payload),
+      cache: "no-store",
+      signal: AbortSignal.timeout(bookingApiTimeoutMs)
+    });
+  } catch (error) {
+    if (error instanceof BookingApiError) throw error;
+    if (error instanceof DOMException && error.name === "TimeoutError") {
+      throw new BookingApiError("Booking API antwortet nicht.", 504, "timeout");
+    }
+    throw error;
+  }
+
   const responsePayload = await parseJson(response);
 
   if (!response.ok) {

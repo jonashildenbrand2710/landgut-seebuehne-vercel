@@ -15,18 +15,14 @@ import { FAQ } from "@/components/PageSections";
 import { Hero } from "@/components/Hero";
 import { PageJsonLd } from "@/components/StructuredData";
 import { landingFaq } from "@/data/landing";
-import { indexPage, siteConfig } from "@/data/site";
+import { indexPage } from "@/data/site";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: indexPage.title,
   description: indexPage.description,
-  alternates: {
-    canonical: `${siteConfig.domain}/`
-  },
-  openGraph: {
-    url: `${siteConfig.domain}/`
-  }
-};
+  path: "/"
+});
 
 export default function HomePage() {
   return (
@@ -44,6 +40,7 @@ export default function HomePage() {
         text={indexPage.heroText}
         imageKey={indexPage.imageKey}
         primaryCta={indexPage.primaryCta}
+        variant="cinematic"
         proof={{
           label: "Von 120 Paaren bestbewertet",
           mentions: ["Hochzeit.de", "Bridebook", "Instagram", "Google"]

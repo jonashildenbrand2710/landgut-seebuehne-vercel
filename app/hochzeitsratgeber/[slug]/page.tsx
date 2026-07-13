@@ -11,6 +11,7 @@ import {
 import { FAQ } from "@/components/PageSections";
 import { ArticleJsonLd } from "@/components/StructuredData";
 import { articles, getArticle } from "@/data/articles";
+import { pageMetadata } from "@/lib/page-metadata";
 
 type ArticlePageProps = {
   params: Promise<{ slug: string }>;
@@ -94,17 +95,20 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   const article = getArticle(slug);
   if (!article) return {};
 
-  return {
+  const base = pageMetadata({
     title: article.metaTitle,
     description: article.description,
-    alternates: {
-      canonical: `/hochzeitsratgeber/${article.slug}`
-    },
+    path: `/hochzeitsratgeber/${article.slug}`
+  });
+
+  return {
+    ...base,
     openGraph: {
+      ...base.openGraph,
       type: "article",
       title: article.title,
-      description: article.description,
-      url: `/hochzeitsratgeber/${article.slug}`
+      publishedTime: article.datePublished,
+      modifiedTime: article.dateModified
     }
   };
 }
@@ -130,6 +134,18 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           <div className="article-meta" aria-label="Artikelinformationen">
             <span>{article.readingTime}</span>
             <span>{article.wordCount.toLocaleString("de-DE")} Wörter</span>
+            {article.dateModified ? (
+              <span>
+                Aktualisiert am{" "}
+                <time dateTime={article.dateModified}>
+                  {new Date(`${article.dateModified}T12:00:00`).toLocaleDateString("de-DE", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                  })}
+                </time>
+              </span>
+            ) : null}
           </div>
         </div>
         <ArticleMarkdown blocks={article.blocks} />

@@ -21,7 +21,6 @@ import {
   landingLeadMagnet,
   landingProblemSigns,
   landingPromises,
-  landingProof,
   landingTeamLeaders,
   landingTestimonials
 } from "@/data/landing";
@@ -69,32 +68,6 @@ function InternalCta({
   );
 }
 
-export function ProofStrip() {
-  return (
-    <section className="proof-strip" aria-label="Bewertung und Social Proof">
-      <div className="section-inner proof-inner">
-        <div className="proof-copy">
-          <Star aria-hidden="true" size={22} />
-          <span>Bestbewertet von Paaren und als Hochzeitsort am See gesucht.</span>
-        </div>
-        <dl className="proof-stats">
-          {landingProof.stats.map((stat) => (
-            <div key={stat.label}>
-              <dt>{stat.value}</dt>
-              <dd>{stat.label}</dd>
-            </div>
-          ))}
-        </dl>
-        <div className="mention-row" aria-label="Wiederkehrende Einstiegspunkte">
-          {landingProof.mentions.map((mention) => (
-            <span key={mention}>{mention}</span>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export function HeroImageStrip() {
   const images: ImageKey[] = [
     "coupleFence",
@@ -126,11 +99,6 @@ export function HeroImageStrip() {
             </div>
           );
         })}
-      </div>
-      <div className="hero-strip-dots" aria-hidden="true">
-        {images.map((imageKey, index) => (
-          <span className={index === 1 ? "active" : undefined} key={`${imageKey}-dot`} />
-        ))}
       </div>
     </section>
   );
@@ -180,7 +148,7 @@ export function PromiseGrid() {
     <section className="promise-section">
       <Image
         className="promise-bg"
-        src={imageLibrary.hero.src}
+        src={imageLibrary.lake.src}
         alt=""
         fill
         quality={BACKGROUND_IMAGE_QUALITY}

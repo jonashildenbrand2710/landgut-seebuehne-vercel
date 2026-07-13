@@ -5,10 +5,10 @@ import { usePathname } from "next/navigation";
 
 const REVEAL_SELECTORS = [
   ".hero-content > *",
-  ".proof-copy",
-  ".proof-stats div",
-  ".mention-row span",
-  ".hero-strip-item",
+  ".hero-copy > *",
+  ".hero-fact",
+  ".hero-collage-item",
+  ".hero-collage-note",
   ".landing-copy > *",
   ".mappe-hero-intro > *",
   ".mappe-benefit-panel",

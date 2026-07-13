@@ -2,13 +2,13 @@
 
 Meta Title: Freie Trauung am See: Worauf Paare achten sollten
 
-Meta Description: Eine freie Trauung am See braucht mehr als eine schöne Kulisse. Worauf ihr bei Wetter, Wegen, Akustik, Gästen, Ablauf und Plan B achten solltet.
+Meta Description: Eine freie Trauung am See gelingt mit guter Akustik, klarer Sitzordnung, Wettersicherheit und einem Ablauf, der für euch und eure Gäste trägt.
 
 Slug: freie-trauung-am-see
 
 Pillar: Hochzeit in der Natur
 
-Status: Publishing-ready CMS-Fassung / lokale spitze Tone-of-Voice-Fassung am 2026-06-22 / Fact Check freigegeben am 2026-06-19 / Deploy am 2026-06-19
+Status: Publishing-ready CMS-Fassung / lokale spitze Tone-of-Voice-Fassung am 2026-06-22 / KI-Rhetorik-Cleanup am 2026-07-03 / Fact Check freigegeben am 2026-06-19 / Deploy am 2026-06-19
 
 Quelle Draft: `03_articles/drafts/002-freie-trauung-am-see.md`
 
@@ -20,7 +20,7 @@ Und ja, dieser Moment kann sehr besonders sein.
 
 Aber: Gänsehaut löst keine Akustikfrage. Und der schönste Blick aufs Wasser hilft wenig, wenn Reihe fünf freundlich lächelt und innerlich versucht zu erraten, was gerade gesagt wurde.
 
-Aus Sicht einer Hochzeitslocation ist deshalb klar: Damit eine Trauung am See leicht, natürlich und emotional wirkt, muss im Hintergrund einiges gut geplant sein. Nicht, um die Romantik kleinzureden. Sondern damit sie am Hochzeitstag nicht von Wind, Sonne, Technikfragen, langen Wegen oder unklaren Zuständigkeiten gestört wird.
+Aus Sicht einer Hochzeitslocation ist deshalb klar: Damit eine Trauung am See leicht, natürlich und emotional wirkt, muss im Hintergrund einiges gut geplant sein. So bleibt die Romantik am Hochzeitstag geschützt vor Wind, Sonne, Technikfragen, langen Wegen oder unklaren Zuständigkeiten.
 
 Eine gute freie Trauung im Freien entsteht deshalb aus beidem: Atmosphäre und Planung.
 
@@ -28,9 +28,9 @@ Oder etwas weniger feierlich gesagt: Der Blick aufs Wasser darf die Hauptrolle s
 
 ## Kurzantwort
 
-Bei einer freien Trauung am See solltet ihr nicht nur auf die schöne Aussicht achten. Wichtig sind ein geeigneter Trauplatz, klare Wege für eure Gäste, angenehme Sitzplätze, Schatten, gute Akustik, sichere Technik, ein realistischer Wetterplan, passende Uhrzeit, eine klare Betreuung vor Ort und ein stimmiger Übergang zum Empfang.
+Bei einer freien Trauung am See zählt die Aussicht. Ebenso wichtig sind ein geeigneter Trauplatz, klare Wege für eure Gäste, angenehme Sitzplätze, Schatten, gute Akustik, sichere Technik, ein realistischer Wetterplan, passende Uhrzeit, eine klare Betreuung vor Ort und ein stimmiger Übergang zum Empfang.
 
-Kurz gesagt: Der Ort muss nicht nur schön aussehen. Er muss eure Zeremonie tragen können.
+Kurz gesagt: Der Ort muss schön aussehen und eure Zeremonie tragen können.
 
 ## Warum eine Trauung am See anders geplant wird als eine Trauung im Raum
 
@@ -56,11 +56,11 @@ Wenn diese Frage gut beantwortet ist, bleibt Raum für das, worum es wirklich ge
 
 Aus unserer Erfahrung sind es selten die großen Ideen, die eine Trauung unruhig machen. Häufig sind es kleine Dinge: ein Weg, der nicht eindeutig ist, eine Stimme, die hinten nicht ankommt, oder ein Empfang, der gefühlt noch nicht bereit ist, obwohl die Zeremonie schon vorbei ist.
 
-## Der Trauplatz: Mehr als ein schöner Blick
+## Der Trauplatz muss praktisch funktionieren
 
 Viele Paare beginnen mit der Vorstellung: Wir möchten uns am Wasser das Ja-Wort geben.
 
-Das ist ein starker Ausgangspunkt. Trotzdem sollte ein Trauplatz nicht nur nach Fotowirkung ausgewählt werden. Der schönste Blick hilft wenig, wenn die hinteren Reihen nur Lippenlesen üben oder der Einzug quer durch eine unsichere Wiesenlogistik führt.
+Das ist ein starker Ausgangspunkt. Trotzdem sollte ein Trauplatz nicht allein nach Fotowirkung ausgewählt werden. Der schönste Blick hilft wenig, wenn die hinteren Reihen nur Lippenlesen üben oder der Einzug quer durch eine unsichere Wiesenlogistik führt.
 
 Achtet bei einer Location auf diese Punkte:
 
@@ -72,7 +72,7 @@ Achtet bei einer Location auf diese Punkte:
 - Gibt es eine Lösung für Technik, Strom und Ton?
 - Ist der Ort bei Sonne, Wind oder leichtem Wetterwechsel noch angenehm?
 
-Ein guter Trauplatz hat nicht nur Wirkung nach vorne. Er denkt auch die Menschen mit, die dort sitzen, stehen, sprechen, musizieren, fotografieren und begleiten. Romantik ist kein Bühnenbild, das man irgendwo hinstellt. Sie braucht einen Ort, der den Moment halten kann.
+Ein guter Trauplatz wirkt nach vorne und denkt die Menschen mit, die dort sitzen, stehen, sprechen, musizieren, fotografieren und begleiten. Romantik entsteht leichter an einem Ort, der den Moment halten kann.
 
 ## Gästewege: Was oft erst am Hochzeitstag auffällt
 
@@ -133,13 +133,13 @@ Für eure Trauung bedeutet das:
 
 Gerade bei persönlichen Eheversprechen ist dieser Punkt wichtig. Es wäre schade, wenn ein sehr naher Moment nur in den ersten Reihen ankommt.
 
-Fragt eure Location deshalb nicht nur, ob Technik möglich ist. Fragt, wie Technik bei einer Trauung im Freien konkret gedacht wird und wer am Tag selbst darauf achtet.
+Fragt eure Location deshalb, ob Technik möglich ist, wie sie bei einer Trauung im Freien konkret gedacht wird und wer am Tag selbst darauf achtet.
 
-Ein Mikrofon ist bei einer freien Trauung kein kaltes Technikdetail. Es sorgt dafür, dass eure Worte nicht nur bei Reihe eins landen, während Reihe fünf freundlich nickt und innerlich rät, was gerade gesagt wurde.
+Ein Mikrofon wirkt bei einer freien Trauung erst einmal technisch. Am Hochzeitstag sorgt es dafür, dass eure Worte auch Reihe fünf erreichen und dort niemand freundlich nicken muss, während innerlich geraten wird, was gerade gesagt wurde.
 
 ## Licht, Sonne, Wind und Uhrzeit
 
-Die beste Uhrzeit für eine Trauung am See hängt nicht nur vom Tagesplan ab. Sie hängt auch vom Licht, von der Jahreszeit, von Schatten und von der Temperatur ab.
+Die beste Uhrzeit für eine Trauung am See hängt vom Tagesplan, vom Licht, von der Jahreszeit, von Schatten und von der Temperatur ab.
 
 Mittagssonne kann auf Bildern hart wirken und für Gäste anstrengend sein. Späteres Licht kann weicher sein, muss aber in den Ablauf von Empfang, Fotos, Dinner und Party passen. Im Frühjahr und Herbst kann es früher kühler werden. Im Hochsommer kann Schatten wichtiger sein als ein paar Minuten schönes Fotolicht.
 
@@ -156,11 +156,11 @@ Gute Fragen sind:
 
 Eine freie Trauung am See lebt vom Ort. Aber der Ort verändert sich über den Tag. Eine erfahrene Location kann euch helfen, diese Veränderung realistisch einzuordnen.
 
-## Plan B: Nicht das Gegenteil von Romantik
+## Plan B: Romantik mit ruhiger Absicherung
 
 Viele Paare wünschen sich, dass der Plan B nie gebraucht wird. Das ist verständlich. Trotzdem sollte er früh und ernsthaft geplant werden.
 
-Ein guter Plan B ist nicht die unromantische Ecke der Planung. Er ist die erwachsene Seite der Romantik: die Seite, die verhindert, dass bei der ersten dunklen Wolke hektisch Stühle, Blumen und Nerven sortiert werden müssen.
+Ein guter Plan B gehört zur erwachsenen Seite der Romantik: Er verhindert, dass bei der ersten dunklen Wolke hektisch Stühle, Blumen und Nerven sortiert werden müssen.
 
 Er ist auch der Grund, warum am Hochzeitstag nicht plötzlich alle gemeinsam zum Wetter-App-Orakel werden müssen.
 
@@ -176,7 +176,7 @@ Er sollte beantworten:
 
 Der Plan B nimmt euch nicht die Vorfreude auf die Trauung am See. Im Gegenteil: Er gibt euch die Ruhe, euch auf den schönen Wunsch einzulassen, weil ihr wisst, dass der Tag auch bei anderem Wetter gehalten ist.
 
-Gerade Outdoor-Hochzeiten fühlen sich entspannter an, wenn Wetter nicht verdrängt, sondern mitgedacht wird.
+Gerade Outdoor-Hochzeiten fühlen sich entspannter an, wenn Wetter von Anfang an mitgedacht wird.
 
 Das Ziel ist nicht, Regen herbeizureden. Das Ziel ist, dass ihr auch bei wechselhaftem Wetter nicht das Gefühl habt, eure Hochzeit müsse spontan neu erfunden werden.
 
@@ -196,7 +196,7 @@ Darum sollte vorab klar sein:
 - Wann zieht ihr euch kurz zurück?
 - Wer gibt Gästen Orientierung?
 
-Eine Trauung am See wirkt besonders stimmig, wenn der Übergang nicht wie ein Ortswechsel mit Fragezeichen wirkt, sondern wie ein natürlicher nächster Schritt.
+Eine Trauung am See wirkt besonders stimmig, wenn der Übergang natürlich geführt ist und keine Suchbewegung auslöst.
 
 Das ist einer der großen Vorteile einer Location, die Trauung, Empfang und Feier an einem Ort denkt. Der Tag muss nicht immer wieder neu starten. Er kann fließen. Nach der Trauung braucht niemand eine kleine Suchbewegung mit Sektglas in der Hand.
 
@@ -222,13 +222,13 @@ Eine gute Betreuung sieht man am Hochzeitstag oft gerade daran, dass sie nicht l
 
 Das Landgut Seebühne passt besonders gut zu Paaren, die sich Natur und Wasser wünschen, aber nicht alles selbst tragen möchten.
 
-Eine freie Trauung am See wird hier nicht als einzelner Programmpunkt gedacht, sondern als Teil eines ganzen Hochzeitstages: Ankommen, Trauung, Empfang, Fotos, Dinner und Feier sollen sich stimmig verbinden.
+Eine freie Trauung am See wird hier als Teil eines ganzen Hochzeitstages gedacht: Ankommen, Trauung, Empfang, Fotos, Dinner und Feier sollen sich stimmig verbinden.
 
 Der See ist dabei der emotionale Mittelpunkt. Er prägt den ersten Eindruck, den Traumoment, die Fotos und die Atmosphäre des Tages. Die Seebühne bzw. Seeterrasse bildet den Trauplatz am Wasser; angrenzende Bereiche wie der Marktplatz helfen dabei, Schatten, Getränke, Orientierung und den Übergang zum Empfang mitzudenken.
 
-Zur Trauung gehören deshalb nicht nur Blick und Dekoration, sondern auch die praktische Ausstattung: ein klarer Platz für euch, Traurednerin oder Trauredner und Musik, passende Sitzordnung, Mikrofon, Rednerpult, Trautisch und ein technischer Rahmen, der draußen funktioniert. Auch Elemente wie Pavillon oder E-Piano können Teil der Planung sein, wenn sie zu eurem Ablauf und zur Atmosphäre passen.
+Zur Trauung gehören Blick, Dekoration und praktische Ausstattung: ein klarer Platz für euch, Traurednerin oder Trauredner und Musik, passende Sitzordnung, Mikrofon, Rednerpult, Trautisch und ein technischer Rahmen, der draußen funktioniert. Auch Elemente wie Pavillon oder E-Piano können Teil der Planung sein, wenn sie zu eurem Ablauf und zur Atmosphäre passen.
 
-Das Gelände wird exklusiv für eure Hochzeit gedacht. Das ist für eine freie Trauung am See mehr als ein schönes Wort: Eure Gäste kommen nicht in einen anonymen Parallelbetrieb, sondern in einen Ort, der an diesem Tag eurem Ablauf gehört. Dadurch wirken Ankommen, Trauung, Empfang und Feier ruhiger und persönlicher.
+Das Gelände wird exklusiv für eure Hochzeit gedacht. Für eine freie Trauung am See ist das praktisch spürbar: Eure Gäste kommen in einen Ort, der an diesem Tag eurem Ablauf gehört. Dadurch wirken Ankommen, Trauung, Empfang und Feier ruhiger und persönlicher.
 
 Genau hier liegt der Unterschied zwischen einer schönen Kulisse und einem Ort, der euren Tag wirklich tragen kann. Kulisse kann Eindruck machen. Ein guter Hochzeitsort übernimmt Verantwortung.
 
@@ -252,7 +252,7 @@ Wenn ihr Locations vergleicht oder euch auf ein Erstgespräch vorbereitet, helfe
 - Wie geht es nach der Trauung direkt weiter?
 - Wer ist am Hochzeitstag vor Ort verantwortlich?
 
-Diese Fragen helfen euch, den Ort nicht nur nach Gefühl, sondern auch nach Alltagstauglichkeit zu prüfen. Das klingt nüchtern, ist aber genau der Punkt: Eine freie Trauung soll sich leicht anfühlen, nicht leichtsinnig geplant sein.
+Diese Fragen helfen euch, den Ort mit Gefühl und Alltagstauglichkeit zu prüfen. Das klingt nüchtern, ist aber genau der Punkt: Eine freie Trauung soll sich leicht anfühlen, nicht leichtsinnig geplant sein.
 
 ## Fazit
 
@@ -262,7 +262,7 @@ Aber sie wird nicht dadurch schön, dass man alle praktischen Fragen ausblendet 
 
 Dann fühlt sich der Moment leicht an, obwohl im Hintergrund vieles gut vorbereitet ist.
 
-Wenn ihr euch eine Trauung am Wasser wünscht, achtet deshalb nicht nur auf den ersten Blick. Achtet darauf, ob der Ort eure Zeremonie und den Tag danach wirklich tragen kann.
+Wenn ihr euch eine Trauung am Wasser wünscht, achtet auf den ersten Blick und auf die Frage, ob der Ort eure Zeremonie und den Tag danach wirklich tragen kann.
 
 Eine gute Location erkennt man daran, dass sie die Romantik nicht gegen die Planung ausspielt. Sie sorgt dafür, dass beides zusammenarbeiten kann.
 
@@ -282,7 +282,7 @@ Ja, ein Plan B ist bei einer Trauung im Freien sehr sinnvoll. Er sollte früh ge
 
 ### Wann ist die beste Tageszeit für eine Trauung am See?
 
-Die beste Tageszeit hängt von Jahreszeit, Licht, Schatten, Temperatur und Ablauf ab. Wichtig ist, nicht nur an schöne Fotos zu denken, sondern auch an Gästekomfort, Hitze, Wind und den Übergang zu Empfang, Fotos und Dinner.
+Die beste Tageszeit hängt von Jahreszeit, Licht, Schatten, Temperatur und Ablauf ab. Wichtig sind schöne Fotos, Gästekomfort, Hitze, Wind und der Übergang zu Empfang, Fotos und Dinner.
 
 ### Was ist bei Ton und Musik im Freien wichtig?
 

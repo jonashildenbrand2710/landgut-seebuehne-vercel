@@ -2,17 +2,16 @@ import type { Metadata } from "next";
 import { CalendarClock, CheckCircle2, ShieldCheck } from "lucide-react";
 import { BookingFunnel } from "@/components/BookingFunnel";
 import { getBookingFlowConfig } from "@/data/booking-flow";
+import { pageMetadata } from "@/lib/page-metadata";
 
 const flow = getBookingFlowConfig("phone");
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Telefontermin buchen",
   description:
     "Bucht einen freien Telefontermin mit dem Landgut Seebühne. Die Verfügbarkeit wird direkt mit dem Kalender abgeglichen.",
-  alternates: {
-    canonical: "/termin-buchen"
-  }
-};
+  path: "/termin-buchen"
+});
 
 export default function TerminBuchenPage() {
   return (

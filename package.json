@@ -12,6 +12,7 @@
     "validate:articles": "node scripts/validate-articles.mjs",
     "google:auth": "node scripts/google-auth.mjs",
     "audit:google-search": "node scripts/audit-google-search-console.mjs",
+    "google-ads-check": "node scripts/google-ads-check.mjs",
     "crawl:onepage": "node scripts/crawl-onepage.mjs",
     "download:onepage-media": "node scripts/download-onepage-media.mjs"
   },

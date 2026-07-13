@@ -6,11 +6,25 @@ function stringValue(value: unknown) {
 }
 
 export async function POST(request: Request) {
-  try {
-    const payload = (await request.json()) as BookingRequest;
-    const booking = await createBooking(payload);
+  let payload: BookingRequest;
 
-    if (payload.booking?.type === "phone") {
+  try {
+    payload = (await request.json()) as BookingRequest;
+  } catch {
+    return Response.json({ error: "Anfrage enthält kein gültiges JSON." }, { status: 400 });
+  }
+
+  let booking;
+
+  try {
+    booking = await createBooking(payload);
+  } catch (error) {
+    return bookingErrorResponse(error);
+  }
+
+  // Tracking darf eine erfolgreich angelegte Buchung nie in einen Fehler verwandeln.
+  if (payload.booking?.type === "phone") {
+    try {
       const tracking =
         payload.tracking && typeof payload.tracking === "object" && !Array.isArray(payload.tracking)
           ? payload.tracking
@@ -27,10 +41,13 @@ export async function POST(request: Request) {
         request,
         tracking
       });
+    } catch (error) {
+      console.error(
+        "Meta CAPI tracking after booking failed",
+        error instanceof Error ? error.message : "Unknown error"
+      );
     }
-
-    return Response.json(booking, { status: 200 });
-  } catch (error) {
-    return bookingErrorResponse(error);
   }
+
+  return Response.json(booking, { status: 200 });
 }

@@ -3,18 +3,14 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageJsonLd } from "@/components/StructuredData";
 import { articles } from "@/data/articles";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Hochzeitsratgeber",
   description:
     "Ratgeber des Landgut Seebühne zu Location-Entscheidung, freier Trauung, Outdoor-Hochzeit und Planung ohne Stress.",
-  alternates: {
-    canonical: "/hochzeitsratgeber"
-  },
-  openGraph: {
-    url: "/hochzeitsratgeber"
-  }
-};
+  path: "/hochzeitsratgeber"
+});
 
 export default function RatgeberIndexPage() {
   return (

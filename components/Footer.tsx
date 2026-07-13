@@ -53,9 +53,7 @@ export function Footer() {
             </li>
             <li>
               <Phone aria-hidden="true" size={18} />
-              <a href={`tel:${siteConfig.phone.replaceAll(" ", "").replaceAll("-", "")}`}>
-                {siteConfig.phone}
-              </a>
+              <a href={`tel:${siteConfig.phoneInternational}`}>{siteConfig.phone}</a>
             </li>
             <li>{siteConfig.address.legal}</li>
           </ul>

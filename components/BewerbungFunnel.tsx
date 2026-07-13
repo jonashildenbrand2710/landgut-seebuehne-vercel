@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ArrowLeft,
   Building2,
@@ -81,7 +81,7 @@ function Progress({ label, value }: { label: string; value: number }) {
   return (
     <div className="bewerbung-progress" aria-label={label}>
       <span>{value}%</span>
-      <div aria-label="Form progress" aria-valuemax={100} aria-valuemin={0} aria-valuenow={value} role="progressbar">
+      <div aria-label="Formular-Fortschritt" aria-valuemax={100} aria-valuemin={0} aria-valuenow={value} role="progressbar">
         <i style={{ width: `${value}%` }} />
       </div>
     </div>
@@ -113,14 +113,22 @@ function resolveStep(status?: string, step?: string): FunnelStep {
 export function BewerbungFunnel({ status, step: stepParam }: BewerbungFunnelProps) {
   const step = resolveStep(status, stepParam);
   const [selectedFile, setSelectedFile] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Bei Rueckkehr aus dem bfcache (Zurueck-Navigation) darf der Button nicht gesperrt bleiben.
+  useEffect(() => {
+    const resetSubmitState = () => setIsSubmitting(false);
+    window.addEventListener("pageshow", resetSubmitState);
+    return () => window.removeEventListener("pageshow", resetSubmitState);
+  }, []);
 
   const message = status ? statusMessages[status] : undefined;
 
   const progress = useMemo(() => {
-    if (step === "intro") return { label: "Step 1 of 5", value: 20 };
-    if (step === "job") return { label: "Step 2 of 5", value: 40 };
-    if (step === "form") return { label: "Step 6 of 8", value: 75 };
-    return { label: "Step 8 of 8", value: 100 };
+    if (step === "intro") return { label: "Schritt 1 von 5", value: 20 };
+    if (step === "job") return { label: "Schritt 2 von 5", value: 40 };
+    if (step === "form") return { label: "Schritt 6 von 8", value: 75 };
+    return { label: "Schritt 8 von 8", value: 100 };
   }, [step]);
 
   return (
@@ -242,7 +250,13 @@ export function BewerbungFunnel({ status, step: stepParam }: BewerbungFunnelProp
             <p>{applicationFunnel.form.text}</p>
           </div>
 
-          <form action="/api/bewerbung" className="bewerbung-form-card" encType="multipart/form-data" method="post">
+          <form
+            action="/api/bewerbung"
+            className="bewerbung-form-card"
+            encType="multipart/form-data"
+            method="post"
+            onSubmit={() => setIsSubmitting(true)}
+          >
             {message ? (
               <p className={`bewerbung-form-message bewerbung-form-message-${message.tone}`}>{message.text}</p>
             ) : null}
@@ -311,9 +325,9 @@ export function BewerbungFunnel({ status, step: stepParam }: BewerbungFunnelProp
               </label>
             </div>
 
-            <button className="bewerbung-submit-button" type="submit">
+            <button className="bewerbung-submit-button" disabled={isSubmitting} type="submit">
               <Send aria-hidden="true" size={20} />
-              <span>{applicationFunnel.form.submitLabel}</span>
+              <span>{isSubmitting ? "Wird gesendet …" : applicationFunnel.form.submitLabel}</span>
             </button>
           </form>
         </section>

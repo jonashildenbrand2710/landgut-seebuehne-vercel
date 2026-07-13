@@ -34,7 +34,9 @@ Google-OAuth-Zugang mit Leserechten und ein lokaler Token in `.secrets/`.
 4. Google Tag Manager und Google Ads
    - Nur noetig, wenn Tracking, Ads-Conversions oder Pixel final uebernommen
      werden sollen.
-   - Fuer Analyse reicht meist Lesezugriff.
+   - Fuer Analyse reicht meist Lesezugriff. Fuer Google Ads API-Steuerung
+     braucht das lokale Tool zusaetzlich einen Developer Token und den OAuth
+     Scope `https://www.googleapis.com/auth/adwords`.
    - Tag Manager:
      https://support.google.com/tagmanager/answer/6107011
    - Google Ads:
@@ -49,6 +51,8 @@ Google-OAuth-Zugang mit Leserechten und ein lokaler Token in `.secrets/`.
 3. APIs aktivieren:
    - `Google Search Console API`
    - `Google Analytics Data API`
+   - `Google Ads API`, wenn Codex spaeter Ads-Berichte, Monitoring oder
+     Kampagnenverwaltung fuer das eigene Konto ausfuehren soll
    - optional spaeter: `Google Analytics Admin API`, `Tag Manager API`
 
 Search Console API nutzt OAuth 2.0 fuer private Nutzerdaten. Die relevanten
@@ -87,7 +91,7 @@ GOOGLE_CLOUD_PROJECT_ID=
 GOOGLE_OAUTH_CLIENT_ID=
 GOOGLE_OAUTH_CLIENT_SECRET=
 GOOGLE_OAUTH_REDIRECT_URI=http://127.0.0.1:8080/oauth2callback
-GOOGLE_OAUTH_SCOPES=https://www.googleapis.com/auth/webmasters.readonly https://www.googleapis.com/auth/analytics.readonly
+GOOGLE_OAUTH_SCOPES=https://www.googleapis.com/auth/webmasters.readonly https://www.googleapis.com/auth/analytics.readonly https://www.googleapis.com/auth/adwords
 GOOGLE_OAUTH_TOKEN_FILE=.secrets/google-oauth-token.json
 GOOGLE_SEARCH_CONSOLE_SITE_URL=sc-domain:landgut-seebuehne.de
 GOOGLE_GSC_START_DATE=
@@ -96,6 +100,10 @@ GOOGLE_GSC_ROW_LIMIT=25000
 GOOGLE_GA4_PROPERTY_ID=
 GOOGLE_BUSINESS_PROFILE_ACCOUNT_ID=
 GOOGLE_BUSINESS_PROFILE_LOCATION_ID=
+GOOGLE_ADS_API_VERSION=v24
+GOOGLE_ADS_DEVELOPER_TOKEN=
+GOOGLE_ADS_CUSTOMER_ID=
+GOOGLE_ADS_LOGIN_CUSTOMER_ID=
 ```
 
 Wenn Search Console keine Domain-Property hat, sondern nur eine URL-Prefix-
@@ -108,7 +116,33 @@ GOOGLE_SEARCH_CONSOLE_SITE_URL=https://www.landgut-seebuehne.de/
 Wichtig: `.env.local` und `.secrets/` sind lokal und duerfen nicht committed
 werden.
 
-### 5. Token lokal erzeugen
+### 5. Google Ads API nur lokal freischalten
+
+Fuer Google Ads API-Zugriff gehoeren Developer Token, Customer IDs und OAuth
+Token ausschliesslich in `.env.local` bzw. `.secrets/`. Die Website selbst
+bekommt dadurch keine serverseitigen Ads-Secrets und kein Browser-Code darf
+Google-Ads-API-Zugang erhalten.
+
+Das lokale Pruefskript ist bewusst nicht-mutierend:
+
+```bash
+npm run google-ads-check
+```
+
+Es prueft:
+
+- Apex- und `www`-DNS gegen die erwartete Vercel-Konfiguration.
+- `https://landgut-seebuehne.de/`, `https://www.landgut-seebuehne.de/`,
+  `robots.txt`, `sitemap.xml` und `impressum`.
+- Wenn lokale Google-Ads-Secrets vorhanden sind:
+  `customers:listAccessibleCustomers` und eine lesende Customer-Abfrage.
+
+Solange der Developer Token nicht produktiv freigegeben ist, ist die erwartete
+Meldung `WAIT Production API access`. Das ist kein Kampagnenfehler, sondern
+bedeutet: Website/DNS koennen bereit sein, waehrend Googles Compliance Review
+noch aussteht.
+
+### 6. Token lokal erzeugen
 
 Nach dem Eintragen:
 
@@ -123,7 +157,7 @@ Google-Konto anmelden und Zugriff bestaetigen. Danach liegt der Token lokal in:
 .secrets/google-oauth-token.json
 ```
 
-### 6. Search-Console-Export laufen lassen
+### 7. Search-Console-Export laufen lassen
 
 ```bash
 npm run audit:google-search
@@ -151,3 +185,6 @@ Diese Daten nutzen wir danach, um `docs/migration/url-matrix.md` und
   widerrufen werden.
 - OAuth gibt dem Tool nur Zugriff auf die Google-Produkte, fuer die das
   angemeldete Google-Konto selbst berechtigt ist.
+- Der Google Ads Scope `adwords` ist kein reiner Lese-Scope. Kampagnenaenderungen
+  duerfen deshalb erst nach separater Nutzerfreigabe und mit eigenen
+  nicht-destruktiven Checks gebaut werden.

@@ -37,6 +37,8 @@ export type Article = {
   excerpt: string;
   wordCount: number;
   readingTime: string;
+  datePublished?: string;
+  dateModified?: string;
   blocks: ArticleBlock[];
   ctaBlocks: ArticleBlock[];
   faq: { question: string; answer: string }[];
@@ -101,6 +103,7 @@ function parseArticle(filePath: string): Article {
   const excerpt = firstParagraphFromSection(sections.find((section) => normalizeHeading(section.title) === "einstieg"));
   const slug = metadata.Slug || path.basename(filePath, ".md");
   const wordCount = countWords(publicMarkdown);
+  const { datePublished, dateModified } = extractStatusDates(metadata.Status || "");
 
   return {
     slug,
@@ -113,9 +116,21 @@ function parseArticle(filePath: string): Article {
     excerpt,
     wordCount,
     readingTime: readingTime(wordCount),
+    datePublished,
+    dateModified,
     blocks,
     ctaBlocks: ctaSection ? parseBlocks(ctaSection.lines) : [],
     faq: faqSection ? parseFaq(faqSection.lines) : []
+  };
+}
+
+function extractStatusDates(status: string) {
+  const allDates = [...status.matchAll(/\b(\d{4}-\d{2}-\d{2})\b/g)].map((match) => match[1]).sort();
+  const deployDate = status.match(/Deploy[^/]*?(\d{4}-\d{2}-\d{2})/)?.[1];
+
+  return {
+    datePublished: deployDate ?? allDates[0],
+    dateModified: allDates[allDates.length - 1]
   };
 }
 

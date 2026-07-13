@@ -84,7 +84,12 @@ function normalizeEmail(email: string) {
 }
 
 function normalizePhone(phone: string) {
-  return phone.replace(/\D/g, "");
+  const digits = phone.replace(/\D/g, "");
+
+  // Meta erwartet Nummern mit Ländervorwahl; deutsche 0-Präfix-Nummern werden auf +49 normalisiert.
+  if (digits.startsWith("00")) return digits.slice(2);
+  if (digits.startsWith("0")) return `49${digits.slice(1)}`;
+  return digits;
 }
 
 function hashValue(value: string) {
@@ -107,7 +112,11 @@ function eventSourceUrl(input: string, request: Request) {
   try {
     return new URL(input).toString();
   } catch {
-    return new URL(input || "/", request.url).toString();
+    try {
+      return new URL(input || "/", request.url).toString();
+    } catch {
+      return request.url;
+    }
   }
 }
 
@@ -182,7 +191,7 @@ export async function sendMetaCompleteRegistration({
 }: SendMetaCompleteRegistrationInput) {
   const accessToken = process.env.META_CAPI_ACCESS_TOKEN?.trim();
 
-  if (!accessToken) {
+  if (!accessToken || !META_PIXEL_ID) {
     return { ok: false, skipped: true };
   }
 
@@ -226,7 +235,8 @@ export async function sendMetaCompleteRegistration({
         "content-type": "application/json"
       },
       body: JSON.stringify(payload),
-      cache: "no-store"
+      cache: "no-store",
+      signal: AbortSignal.timeout(8_000)
     });
 
     if (!response.ok) {

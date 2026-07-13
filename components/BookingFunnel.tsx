@@ -9,7 +9,7 @@ import {
   LoaderCircle,
   RefreshCcw
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type KeyboardEvent } from "react";
 import type { BookingFlowField } from "@/data/booking-flow";
 import type { BookingAppointmentType, BookingResponse, BookingSlot } from "@/lib/booking-api";
 import { createMetaEventId, trackMetaCompleteRegistrationWhenReady } from "@/components/MetaConversionTracking";
@@ -220,6 +220,7 @@ export function BookingFunnel({
   });
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [error, setError] = useState("");
+  const [availabilityError, setAvailabilityError] = useState("");
   const [bookingResult, setBookingResult] = useState<BookingResponse | null>(null);
 
   const selectedSlot = useMemo(
@@ -275,7 +276,7 @@ export function BookingFunnel({
 
   const loadAvailability = async () => {
     setAvailabilityState("loading");
-    setError("");
+    setAvailabilityError("");
 
     try {
       const from = addDays(new Date(), 1);
@@ -297,7 +298,9 @@ export function BookingFunnel({
       setAvailabilityState("success");
     } catch (loadError) {
       setAvailabilityState("error");
-      setError(loadError instanceof Error ? loadError.message : "Freie Termine konnten nicht geladen werden.");
+      setAvailabilityError(
+        loadError instanceof Error ? loadError.message : "Freie Termine konnten nicht geladen werden."
+      );
     }
   };
 
@@ -332,6 +335,31 @@ export function BookingFunnel({
 
   const updateAnswer = (field: string, value: string) => {
     setAnswers((current) => ({ ...current, [field]: value }));
+  };
+
+  const handleChoiceKeyDown = (
+    event: KeyboardEvent<HTMLButtonElement>,
+    field: BookingFlowField,
+    optionIndex: number
+  ) => {
+    const options = field.options || [];
+    if (!options.length) return;
+
+    let nextIndex = -1;
+    if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+      nextIndex = (optionIndex + 1) % options.length;
+    } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+      nextIndex = (optionIndex - 1 + options.length) % options.length;
+    }
+
+    if (nextIndex < 0) return;
+
+    event.preventDefault();
+    updateAnswer(field.id, options[nextIndex]);
+
+    const group = event.currentTarget.closest('[role="radiogroup"]');
+    const radios = group?.querySelectorAll<HTMLButtonElement>('[role="radio"]');
+    radios?.[nextIndex]?.focus();
   };
 
   const submitBooking = async () => {
@@ -471,11 +499,27 @@ export function BookingFunnel({
             </p>
           ) : null}
 
-          {availabilityState === "success" && !slots.length ? (
-            <p className="booking-note">Aktuell wurden keine freien Termine in den nächsten zehn Tagen gefunden.</p>
+          {availabilityState === "error" ? (
+            <div role="alert">
+              <p className="booking-error">
+                Die freien Termine konnten nicht geladen werden. {availabilityError}
+              </p>
+              <div className="booking-actions">
+                <button className="booking-refresh" type="button" onClick={loadAvailability}>
+                  <RefreshCcw aria-hidden="true" size={16} />
+                  <span>Erneut versuchen</span>
+                </button>
+              </div>
+            </div>
           ) : null}
 
-          {days.length ? (
+          {availabilityState === "success" && !slots.length ? (
+            <p className="booking-note" aria-live="polite">
+              Aktuell wurden keine freien Termine in den nächsten zehn Tagen gefunden.
+            </p>
+          ) : null}
+
+          {days.length && availabilityState !== "error" ? (
             <div className="booking-day-strip" aria-label="Nächste zehn Tage">
               {days.map((day) => (
                 <button
@@ -556,7 +600,9 @@ export function BookingFunnel({
                 value={contact.name}
               />
               {contactTouched.name && !contactValidation.nameValid ? (
-                <small className="booking-field-message">Bitte gebt euren Namen ein.</small>
+                <small aria-live="polite" className="booking-field-message">
+                  Bitte gebt euren Namen ein.
+                </small>
               ) : null}
             </label>
             <label className="booking-field">
@@ -574,7 +620,9 @@ export function BookingFunnel({
                 value={contact.email}
               />
               {contactTouched.email && !contactValidation.emailValid ? (
-                <small className="booking-field-message">Bitte gebt eine gültige E-Mail-Adresse ein.</small>
+                <small aria-live="polite" className="booking-field-message">
+                  Bitte gebt eine gültige E-Mail-Adresse ein.
+                </small>
               ) : null}
             </label>
             <label className="booking-field">
@@ -594,6 +642,7 @@ export function BookingFunnel({
                 value={contact.phone}
               />
               <small
+                aria-live="polite"
                 className={contactTouched.phone && contactValidation.phoneMessage ? "booking-field-message" : ""}
                 id="booking-phone-hint"
               >
@@ -640,8 +689,10 @@ export function BookingFunnel({
                   />
                 ) : field.type === "select" ? (
                   <div className="booking-choice-group" role="radiogroup" aria-label={field.label}>
-                    {field.options?.map((option) => {
+                    {field.options?.map((option, optionIndex) => {
                       const isSelected = answers[field.id] === option;
+                      const selectedIndex = field.options?.indexOf(answers[field.id] || "") ?? -1;
+                      const focusIndex = selectedIndex >= 0 ? selectedIndex : 0;
 
                       return (
                         <button
@@ -649,7 +700,9 @@ export function BookingFunnel({
                           className={isSelected ? "booking-choice is-selected" : "booking-choice"}
                           key={option}
                           onClick={() => updateAnswer(field.id, option)}
+                          onKeyDown={(event) => handleChoiceKeyDown(event, field, optionIndex)}
                           role="radio"
+                          tabIndex={optionIndex === focusIndex ? 0 : -1}
                           type="button"
                         >
                           {option}
@@ -711,7 +764,11 @@ export function BookingFunnel({
             ))}
           </dl>
 
-          {error ? <p className="booking-error">{error}</p> : null}
+          {error ? (
+            <p className="booking-error" role="alert">
+              {error}
+            </p>
+          ) : null}
 
           <div className="booking-actions">
             <button className="button secondary" onClick={() => setActiveStep("questions")} type="button">

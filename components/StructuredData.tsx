@@ -88,8 +88,9 @@ export function SiteJsonLd() {
             name: siteConfig.displayName,
             url: absoluteUrl("/"),
             description: indexPage.description,
+            foundingDate: "1996",
             email: siteConfig.email,
-            telephone: siteConfig.phone,
+            telephone: siteConfig.phoneInternational,
             image: imageUrl(imageLibrary.hero.src),
             logo: imageUrl(siteConfig.brand.logo.src),
             address: {
@@ -97,6 +98,7 @@ export function SiteJsonLd() {
               streetAddress: siteConfig.address.streetAddress,
               postalCode: siteConfig.address.postalCode,
               addressLocality: siteConfig.address.addressLocality,
+              addressRegion: "Bayern",
               addressCountry: siteConfig.address.addressCountry
             },
             areaServed: [
@@ -149,6 +151,17 @@ export function PageJsonLd({
   return <JsonLd data={nodes} />;
 }
 
+const articlePillarImages: Record<string, keyof typeof imageLibrary> = {
+  "Hochzeit in der Natur": "ceremony",
+  "Planung ohne Stress": "gettingReady",
+  "Location-Entscheidung": "location",
+  "Seebühnen-Erfahrung": "coupleDock"
+};
+
+function articleImage(pillar: string) {
+  return imageLibrary[articlePillarImages[pillar] ?? "hero"];
+}
+
 export function ArticleJsonLd({ article }: { article: Article }) {
   const path = `/hochzeitsratgeber/${article.slug}`;
   const nodes = compact([
@@ -169,9 +182,11 @@ export function ArticleJsonLd({ article }: { article: Article }) {
       publisher: {
         "@id": absoluteUrl("/#venue")
       },
+      ...(article.datePublished ? { datePublished: article.datePublished } : {}),
+      ...(article.dateModified ? { dateModified: article.dateModified } : {}),
       wordCount: article.wordCount,
       articleSection: article.pillar,
-      image: imageUrl(imageLibrary.hero.src)
+      image: imageUrl(articleImage(article.pillar).src)
     },
     {
       "@context": "https://schema.org",

@@ -2,13 +2,13 @@
 
 Meta Title: Hochzeitslocation aus Gästesicht: Worauf Paare achten sollten
 
-Meta Description: Gäste erleben eine Hochzeit anders als das Paar. Worauf Paare bei Anreise, Wegen, Empfang, Übernachtung und Tagesfluss achten sollten.
+Meta Description: Gäste spüren vor allem, ob Ankommen, Orientierung, Empfang, Pausen und Übernachtung zusammenspielen. Genau dort wird eine Location im Alltagstest sichtbar.
 
 Slug: hochzeitslocation-aus-gaestesicht
 
 Pillar: Planung ohne Stress
 
-Status: Publishing-ready CMS-Fassung / lokale spitze Tone-of-Voice-Fassung am 2026-06-22 / Editorial Review bestanden am 2026-06-19 / Fact Check aus Freigaben am 2026-06-19 / Deploy freigegeben am 2026-06-19
+Status: Publishing-ready CMS-Fassung / lokale spitze Tone-of-Voice-Fassung am 2026-06-22 / KI-Rhetorik-Cleanup am 2026-07-03 / Editorial Review bestanden am 2026-06-19 / Fact Check aus Freigaben am 2026-06-19 / Deploy freigegeben am 2026-06-19
 
 Quelle Draft: `03_articles/drafts/007-hochzeitslocation-aus-gaestesicht.md`
 
@@ -18,7 +18,7 @@ Paare sehen eine Hochzeitslocation oft zuerst durch die eigene Brille: Gefällt 
 
 Das ist richtig und wichtig.
 
-Aber am Hochzeitstag erlebt nicht nur das Paar diesen Ort. Auch eure Gäste bewegen sich viele Stunden durch die Location. Sie reisen an, suchen Orientierung, warten auf den nächsten Programmpunkt, gehen zur Trauung, wechseln zum Empfang, suchen Getränke, begleiten Kinder, brauchen vielleicht kurz Ruhe und überlegen später, wie sie gut übernachten oder nach Hause kommen.
+Am Hochzeitstag erlebt auch eure Gesellschaft diesen Ort viele Stunden lang. Eure Gäste reisen an, suchen Orientierung, warten auf den nächsten Programmpunkt, gehen zur Trauung, wechseln zum Empfang, suchen Getränke, begleiten Kinder, brauchen vielleicht kurz Ruhe und überlegen später, wie sie gut übernachten oder nach Hause kommen.
 
 Darum lohnt sich ein Perspektivwechsel: Wie fühlt sich die Location aus Gästesicht an?
 
@@ -72,7 +72,7 @@ Hilfreich sind deshalb:
 
 Ein guter Start nimmt Gästen die kleine Unsicherheit: Bin ich richtig? Wo soll ich hin?
 
-Diese Unsicherheit klingt klein. Sie prägt aber die ersten Minuten. Und erste Minuten sind bei Hochzeiten erstaunlich mächtig. Gastfreundschaft beginnt nicht beim Dinner, sondern bei der ersten Minute auf dem Gelände.
+Diese Unsicherheit klingt klein. Sie prägt aber die ersten Minuten. Und erste Minuten sind bei Hochzeiten erstaunlich mächtig. Gastfreundschaft beginnt schon mit der ersten Minute auf dem Gelände, lange vor dem Dinner.
 
 ## Trauung und Empfang brauchen Komfort
 
@@ -135,7 +135,7 @@ Hilfreiche Fragen sind:
 - Wie nah sind Toiletten, Getränke und spätere Aufenthaltsbereiche?
 - Gibt es Übernachtungsmöglichkeiten oder nahe Alternativen?
 
-Diese Fragen zeigen, ob eine Location nicht nur schön ist, sondern gastgeberisch denkt.
+Diese Fragen zeigen, ob eine Location gastgeberisch denkt.
 
 Gerade bei älteren Gästen oder Kindern merkt man schnell, ob ein Ort nur fotografisch gedacht ist oder wirklich als Feierort funktioniert. Beides darf schön sein. Aber nur eines trägt den ganzen Tag.
 
@@ -143,13 +143,13 @@ Gerade bei älteren Gästen oder Kindern merkt man schnell, ob ein Ort nur fotog
 
 Das Landgut Seebühne kann als ganzer Tagesort gedacht werden: Ankommen, Trauung am See, Empfang, Fotos, Dinner im Landhaus, Feier und Übernachtung.
 
-Für Gäste ist dabei besonders wertvoll, dass sich der Tag nicht wie eine Reihe einzelner Stationen anfühlen muss. See, Außenbereiche, Marktplatz, Landhaus, Gästehäuser, Gartenhäuschen und Wege können zusammenwirken. Der Ort gibt nicht nur Kulisse, sondern Orientierung.
+Für Gäste ist dabei besonders wertvoll, dass sich der Tag als zusammenhängender Tagesort anfühlen kann. See, Außenbereiche, Marktplatz, Landhaus, Gästehäuser, Gartenhäuschen und Wege können zusammenwirken. Der Ort gibt Orientierung.
 
-Das passt zu Paaren, die möchten, dass ihre Gäste sich willkommen und geführt fühlen. Nicht steif, nicht überorganisiert, sondern ruhig begleitet.
+Das passt zu Paaren, die möchten, dass ihre Gäste sich willkommen und geführt fühlen: ruhig begleitet, ohne steif oder überorganisiert zu wirken.
 
 Im Erstgespräch lässt sich klären, wie eure Gästeliste aussieht, welche Bedürfnisse ihr mitbringen solltet und welcher Ablauf für eure Gesellschaft sinnvoll ist.
 
-Dabei geht es nicht darum, jede denkbare Sonderfrage vorwegzunehmen. Es geht darum, die Gäste nicht erst am Hochzeitstag als praktische Realität zu entdecken. Eine Gästeliste ist nicht nur eine Zahl. Sie ist eine Gruppe echter Menschen mit Schuhen, Wegen, Durst, Pausenbedarf und sehr unterschiedlichem Orientierungstalent.
+Ziel ist nicht, jede denkbare Sonderfrage vorwegzunehmen. Wichtig ist, die Gäste früh als praktische Realität mitzudenken. Eine Gästeliste besteht aus echten Menschen mit Schuhen, Wegen, Durst, Pausenbedarf und sehr unterschiedlichem Orientierungstalent.
 
 ## Fragen, die ihr aus Gästesicht stellen solltet
 
@@ -168,11 +168,11 @@ Wenn ihr eine Hochzeitslocation prüft, helfen diese Fragen:
 - Wie funktioniert der Übergang vom Dinner zur Party?
 - Wer ist vor Ort ansprechbar, wenn Gäste Fragen haben?
 
-Diese Fragen helfen euch, die Location nicht nur als Paar, sondern als Gastgeber zu betrachten.
+Diese Fragen helfen euch, die Location als Paar und als Gastgeber zu betrachten.
 
 ## Fazit
 
-Eine Hochzeitslocation muss nicht nur euch gefallen. Sie muss auch eure Gäste durch den Tag tragen.
+Eine Hochzeitslocation muss euch gefallen und eure Gäste durch den Tag tragen.
 
 Das bedeutet nicht, dass jeder Moment durchgeplant wirken soll. Im Gegenteil: Je besser Ankommen, Wege, Empfang, Rückzug, Übernachtung und Übergänge vorbereitet sind, desto natürlicher kann der Tag wirken.
 
@@ -204,4 +204,4 @@ Wichtig sind Orientierung, Platz, kurze Wege, sichere Aufenthaltsbereiche und kl
 
 ### Warum sollte man eine Location aus Gästesicht prüfen?
 
-Weil Gäste den ganzen Tag erleben, nicht nur den schönsten Moment. Eine Location passt besser, wenn sie Anreise, Wege, Empfang, Aufenthalt, Dinner, Party und Übernachtung zusammen denkt.
+Weil Gäste den ganzen Tag erleben. Eine Location passt besser, wenn sie Anreise, Wege, Empfang, Aufenthalt, Dinner, Party und Übernachtung zusammen denkt.

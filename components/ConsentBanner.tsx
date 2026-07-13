@@ -1,0 +1,49 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { META_PIXEL_ID } from "@/lib/meta-events";
+import { readStoredConsent, storeConsent, type ConsentChoice } from "@/lib/consent";
+
+export function ConsentBanner() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (!META_PIXEL_ID) return;
+
+    // Nach dem ersten Paint einblenden: vermeidet Hydration-Differenzen,
+    // weil der Server den localStorage-Stand nicht kennen kann.
+    const frame = window.requestAnimationFrame(() => {
+      setIsVisible(readStoredConsent() === null);
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
+
+  if (!isVisible) return null;
+
+  const choose = (choice: ConsentChoice) => {
+    storeConsent(choice);
+    setIsVisible(false);
+  };
+
+  return (
+    <aside className="consent-banner" role="region" aria-label="Cookie- und Tracking-Hinweis">
+      <div className="consent-banner-inner">
+        <p>
+          Wir möchten mit eurem Einverständnis Marketing-Cookies (Meta Pixel) nutzen, um unsere
+          Anzeigen besser zu steuern. Notwendige Funktionen kommen ohne Tracking aus.{" "}
+          <Link href="/datenschutz">Mehr im Datenschutz</Link>
+        </p>
+        <div className="consent-banner-actions">
+          <button className="button primary" onClick={() => choose("granted")} type="button">
+            <span>Einverstanden</span>
+          </button>
+          <button className="button secondary" onClick={() => choose("denied")} type="button">
+            <span>Nur notwendige</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+  );
+}

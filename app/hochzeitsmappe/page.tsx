@@ -12,9 +12,17 @@ import {
   Star,
   Users
 } from "lucide-react";
+import { Suspense } from "react";
+import { FormStatusMessage } from "@/components/FormStatusMessage";
 import { MetaTrackingFields } from "@/components/MetaConversionTracking";
 import { PageJsonLd } from "@/components/StructuredData";
 import { imageLibrary } from "@/data/site";
+
+const statusMessages: Record<string, string> = {
+  missing: "Bitte füllt alle Pflichtfelder aus.",
+  "invalid-email": "Bitte prüft eure E-Mail-Adresse.",
+  "invalid-phone": "Bitte prüft eure Telefonnummer."
+};
 
 const mappeBenefits = [
   "was euch einen umfassenden Überblick über unsere Location am See gibt und euch direkt in Hochzeitsstimmung versetzt.",
@@ -209,6 +217,9 @@ export default function HochzeitsmappePage() {
           <form className="mappe-form-card" id="mappe-form" action="/api/hochzeitsmappe" method="post">
             <FileText aria-hidden="true" size={24} />
             <h3>Hochzeitsmappe sichern</h3>
+            <Suspense fallback={null}>
+              <FormStatusMessage messages={statusMessages} />
+            </Suspense>
             <p>
               Bevor du die Hochzeitsmappe laden kannst, bestätige bitte kurz deine
               Kontaktdaten.

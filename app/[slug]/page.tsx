@@ -4,6 +4,7 @@ import { CTASection, FAQ, SectionBand } from "@/components/PageSections";
 import { Hero } from "@/components/Hero";
 import { PageJsonLd } from "@/components/StructuredData";
 import { getPageBySlug, isPublicSitePageSlug, sitePages } from "@/data/site";
+import { pageMetadata } from "@/lib/page-metadata";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -20,22 +21,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const page = getPageBySlug(slug);
   if (!page) return {};
 
-  return {
+  return pageMetadata({
     title: page.title,
     description: page.description,
-    alternates: {
-      canonical: `/${page.slug}`
-    },
-    openGraph: {
-      url: `/${page.slug}`
-    },
-    robots: page.noindex || !isPublicSitePageSlug(page.slug)
-      ? {
-          index: false,
-          follow: true
-        }
-      : undefined
-  };
+    path: `/${page.slug}`,
+    noindex: page.noindex || !isPublicSitePageSlug(page.slug)
+  });
 }
 
 export default async function DynamicPage({ params }: PageProps) {

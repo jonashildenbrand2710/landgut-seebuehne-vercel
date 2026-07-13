@@ -8,8 +8,8 @@ export default function NotFound() {
         <p className="eyebrow dark">404</p>
         <h1>Diese Seite haben wir nicht gefunden.</h1>
         <p>
-          Wenn du über eine alte Onepage-URL hier gelandet bist, sollte diese URL
-          vor Livegang in der Redirect-Matrix geprüft werden.
+          Der Link ist vermutlich veraltet oder die Adresse wurde vertippt. Auf der
+          Startseite findet ihr Location, Ratgeber und den Weg zum Erstgespräch.
         </p>
         <Link className="button primary" href="/">
           <span>Zur Startseite</span>

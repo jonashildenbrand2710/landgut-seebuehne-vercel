@@ -1,4 +1,4 @@
-export const META_PIXEL_ID = "460177590011393";
+export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim() || "";
 export const META_GRAPH_API_VERSION = "v22.0";
 export const META_EVENT_NAME = "CompleteRegistration";
 

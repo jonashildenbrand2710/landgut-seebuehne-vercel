@@ -14,6 +14,7 @@ export const siteConfig = {
   domain: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.landgut-seebuehne.de").replace(/\/$/, ""),
   email: "mail@landgut-seebuehne.de",
   phone: "09163 - 1455",
+  phoneInternational: "+4991631455",
   address: {
     legal: "Hauptstraße 32, 91487 Vestenbergsgreuth",
     streetAddress: "Hauptstraße 32",
@@ -126,7 +127,7 @@ export const indexPage = {
   slug: "",
   title: "Hochzeitslocation am See in Mittelfranken",
   description:
-    "Landgut Seebühne ist eine exklusive Hochzeitslocation in Mittelfranken - natürlich heiraten zwischen Wiesen, Wald und See, mit persönlicher Begleitung und klaren nächsten Schritten.",
+    "Landgut Seebühne: exklusive Hochzeitslocation am See in Mittelfranken. Natürlich heiraten zwischen Wiesen, Wald und See - persönlich begleitet.",
   heroEyebrow: "Exklusive Location in Mittelfranken",
   heroTitle: "Natürlich heiraten inmitten von Wiesen, Wald und See",
   heroText: "Genießt sorgenfrei - eure Traumhochzeit ist in besten Händen.",
@@ -224,7 +225,7 @@ export const sitePages: SitePage[] = [
   {
     slug: "location",
     navTitle: "Location",
-    title: "Hochzeitslocation am See in Mittelfranken",
+    title: "Hochzeitslocation in Franken: See, Garten und Landhaus",
     description:
       "See, Garten, Landhaus und Außenbereiche: Das Landgut Seebühne als Hochzeitslocation für einen ganzen Tag in Mittelfranken.",
     heroEyebrow: "Location",

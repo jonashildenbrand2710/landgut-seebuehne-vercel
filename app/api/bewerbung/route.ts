@@ -294,7 +294,13 @@ export function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const formData = await request.formData();
+  let formData: FormData;
+
+  try {
+    formData = await request.formData();
+  } catch {
+    return redirect(request, "missing");
+  }
 
   if (clean(formData.get("website"))) {
     return redirect(request, "success");

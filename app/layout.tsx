@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Inclusive_Sans, Noto_Serif_Georgian } from "next/font/google";
+import { ConsentBanner } from "@/components/ConsentBanner";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { MetaConversionFromQuery } from "@/components/MetaConversionTracking";
 import { MetaPixel } from "@/components/MetaPixel";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { SiteJsonLd } from "@/components/StructuredData";
-import { siteConfig } from "@/data/site";
+import { imageLibrary, siteConfig } from "@/data/site";
 import "./globals.css";
 
 const inclusiveSans = Inclusive_Sans({
@@ -37,14 +38,22 @@ export const metadata: Metadata = {
   description:
     "Naturnahe Hochzeitslocation am See in Mittelfranken: privat, herzlich und professionell begleitet.",
   applicationName: "Landgut Seebühne",
-  alternates: {
-    canonical: `${siteConfig.domain}/`
-  },
   openGraph: {
     type: "website",
     locale: "de_DE",
     siteName: "Landgut Seebühne",
-    url: `${siteConfig.domain}/`
+    url: `${siteConfig.domain}/`,
+    images: [
+      {
+        url: `${siteConfig.domain}${imageLibrary.hero.src}`,
+        width: 1920,
+        height: 1277,
+        alt: imageLibrary.hero.alt
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image"
   },
   verification: siteVerification
 };
@@ -53,12 +62,16 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="de" className={`${inclusiveSans.variable} ${notoSerif.variable}`}>
       <body>
+        <a className="skip-link" href="#inhalt">
+          Zum Inhalt springen
+        </a>
         <MetaPixel />
         <MetaConversionFromQuery />
         <SiteJsonLd />
         <Header />
-        <main>{children}</main>
+        <main id="inhalt">{children}</main>
         <Footer />
+        <ConsentBanner />
         <ScrollReveal />
       </body>
     </html>
