@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
 import { BrandLogo } from "@/components/BrandLogo";
+import { CookieSettingsButton } from "@/components/CookieSettingsButton";
 import { mainNavigation, siteConfig } from "@/data/site";
 
 const footerSecondaryLinks = [
@@ -41,6 +42,9 @@ export function Footer() {
             </li>
             <li>
               <Link href="/impressum">Impressum</Link>
+            </li>
+            <li>
+              <CookieSettingsButton />
             </li>
           </ul>
         </div>

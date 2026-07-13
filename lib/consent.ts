@@ -2,6 +2,7 @@ export type ConsentChoice = "granted" | "denied";
 
 export const CONSENT_STORAGE_KEY = "lsb-consent";
 export const CONSENT_EVENT_NAME = "lsb-consent-change";
+export const CONSENT_OPEN_EVENT_NAME = "lsb-consent-open";
 
 export function readStoredConsent(): ConsentChoice | null {
   try {
@@ -20,4 +21,8 @@ export function storeConsent(choice: ConsentChoice) {
   }
 
   window.dispatchEvent(new CustomEvent<ConsentChoice>(CONSENT_EVENT_NAME, { detail: choice }));
+}
+
+export function openConsentBanner() {
+  window.dispatchEvent(new CustomEvent(CONSENT_OPEN_EVENT_NAME));
 }

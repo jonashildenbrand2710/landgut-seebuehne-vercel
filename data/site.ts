@@ -451,22 +451,32 @@ export const sitePages: SitePage[] = [
       {
         title: "Hosting und technische Bereitstellung",
         text:
-          "Die Website wird als Next.js/Vercel-Seite betrieben. Beim Hosting können technische Zugriffs- und Serverdaten verarbeitet werden, die für Auslieferung, Sicherheit und Fehleranalyse erforderlich sind."
+          "Die Website wird bei Vercel Inc. (340 S Lemon Ave #4133, Walnut, CA 91789, USA) gehostet. Beim Hosting werden technische Zugriffs- und Serverdaten verarbeitet, die für Auslieferung, Sicherheit und Fehleranalyse erforderlich sind (Art. 6 Abs. 1 lit. f DSGVO). Vercel kann Daten in den USA verarbeiten; die Übermittlung ist über die EU-Standardvertragsklauseln und die Zertifizierung nach dem EU-US Data Privacy Framework abgesichert."
       },
       {
-        title: "Kontakt und Hochzeitsmappe",
+        title: "Kontakt, Terminbuchung und Bewerbung",
         text:
-          "Wenn ihr uns per E-Mail kontaktiert, einen Termin anfragt oder die Hochzeitsmappe anfordert, verarbeiten wir die von euch angegebenen Kontaktdaten und Nachrichteninhalte, um eure Anfrage zu beantworten und den passenden nächsten Schritt zu organisieren."
+          "Wenn ihr uns per E-Mail kontaktiert, einen Termin anfragt oder euch bewerbt, verarbeiten wir die von euch angegebenen Kontaktdaten und Nachrichteninhalte, um eure Anfrage zu beantworten und den passenden nächsten Schritt zu organisieren (Art. 6 Abs. 1 lit. b DSGVO). Für den Versand von Anfrage- und Bewerbungs-E-Mails nutzen wir den deutschen Anbieter IONOS SE (Elgendorfer Str. 57, 56410 Montabaur); Terminbuchungen werden mit unserem Kalender- und CRM-System abgeglichen."
       },
       {
-        title: "Tracking und externe Dienste",
+        title: "Hochzeitsmappe, CRM und E-Mail-Versand",
         text:
-          "Tracking- und Marketingdienste werden im Neubau nur über bewusst gesetzte Environment-Variablen und nach finaler Cookie-/Consent-Prüfung aktiviert. Echte Tracking-IDs und Tokens werden nicht im Code gespeichert."
+          "Wenn ihr die Hochzeitsmappe anfordert, speichern wir eure Angaben (Name, E-Mail, Telefonnummer) in unserer CRM-Datenbank auf Basis von Supabase, um euch die Mappe zuzusenden und eure Anfrage zu begleiten (Art. 6 Abs. 1 lit. b DSGVO).\nFür den Versand der Mappe und darauf bezogene E-Mails nutzen wir ActiveCampaign LLC (1 North Dearborn Street, Chicago, IL 60602, USA). Dabei können Daten in die USA übermittelt werden; die Übermittlung ist über EU-Standardvertragsklauseln abgesichert. Ihr könnt dem Erhalt weiterer E-Mails jederzeit über den Abmeldelink oder per Nachricht an mail@landgut-seebuehne.de widersprechen."
+      },
+      {
+        title: "Meta Pixel und Conversions API (nur mit Einwilligung)",
+        text:
+          "Nur wenn ihr im Cookie-Banner auf \"Einverstanden\" klickt, laden wir den Meta Pixel der Meta Platforms Ireland Ltd. (Merrion Road, Dublin 4, Irland). Der Pixel setzt Cookies (_fbp, _fbc) und hilft uns, die Wirkung unserer Anzeigen zu messen (Rechtsgrundlage: eure Einwilligung, Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG).\nBei Anfragen über unsere Formulare können zusätzlich über die Meta Conversions API technisch notwendige Ereignisdaten sowie gehashte (verschlüsselt umgewandelte) Kontaktdaten an Meta übertragen werden, um Conversions zuzuordnen. Dabei können Daten in die USA übermittelt werden; Meta ist nach dem EU-US Data Privacy Framework zertifiziert.\nIhr könnt eure Einwilligung jederzeit über den Link \"Cookie-Einstellungen\" im Footer ändern oder widerrufen. Ohne Einwilligung bleibt das Tracking vollständig deaktiviert."
+      },
+      {
+        title: "Speicherdauer",
+        text:
+          "Wir speichern personenbezogene Daten nur so lange, wie es für die Bearbeitung eurer Anfrage, die Planung eurer Hochzeit oder aufgrund gesetzlicher Aufbewahrungspflichten erforderlich ist. Danach werden die Daten gelöscht."
       },
       {
         title: "Eure Rechte",
         text:
-          "Ihr könnt Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und weitere gesetzliche Betroffenenrechte geltend machen. Wendet euch dafür bitte an mail@landgut-seebuehne.de."
+          "Ihr könnt Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch geltend machen sowie erteilte Einwilligungen jederzeit mit Wirkung für die Zukunft widerrufen. Wendet euch dafür bitte an mail@landgut-seebuehne.de.\nIhr habt außerdem das Recht, euch bei einer Datenschutz-Aufsichtsbehörde zu beschweren, zum Beispiel beim Bayerischen Landesamt für Datenschutzaufsicht (BayLDA), Promenade 18, 91522 Ansbach."
       }
     ]
   },

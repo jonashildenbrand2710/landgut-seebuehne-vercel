@@ -3,7 +3,12 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { META_PIXEL_ID } from "@/lib/meta-events";
-import { readStoredConsent, storeConsent, type ConsentChoice } from "@/lib/consent";
+import {
+  CONSENT_OPEN_EVENT_NAME,
+  readStoredConsent,
+  storeConsent,
+  type ConsentChoice
+} from "@/lib/consent";
 
 export function ConsentBanner() {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,7 +22,14 @@ export function ConsentBanner() {
       setIsVisible(readStoredConsent() === null);
     });
 
-    return () => window.cancelAnimationFrame(frame);
+    // "Cookie-Einstellungen" im Footer oeffnet das Banner erneut (Widerruf).
+    const reopen = () => setIsVisible(true);
+    window.addEventListener(CONSENT_OPEN_EVENT_NAME, reopen);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener(CONSENT_OPEN_EVENT_NAME, reopen);
+    };
   }, []);
 
   if (!isVisible) return null;
