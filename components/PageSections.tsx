@@ -62,7 +62,7 @@ export function CTASection({ allowDirectActions = false }: { allowDirectActions?
           <p className="eyebrow">Erster Schritt</p>
           <h2>Lasst uns klären, ob der Rahmen zu eurer Hochzeit passt.</h2>
           <p>
-            Im Erstgespräch sortieren wir Datum, Gästezahl, Vorstellungen und
+            Im Kennenlerngespräch sortieren wir Datum, Gästezahl, Vorstellungen und
             die Fragen, die euch gerade am meisten beschäftigen.
           </p>
         </div>
@@ -80,7 +80,7 @@ export function CTASection({ allowDirectActions = false }: { allowDirectActions?
             </>
           ) : (
             <Link className="button primary light" href="/termin-buchen">
-              <span>Erstgespräch anfragen</span>
+              <span>Kennenlerngespräch anfragen</span>
               <ArrowRight aria-hidden="true" size={18} />
             </Link>
           )}

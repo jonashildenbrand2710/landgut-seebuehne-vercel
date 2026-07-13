@@ -18,10 +18,10 @@ export default function TerminBuchenPage() {
     <article className="booking-page">
       <div className="section-inner booking-page-inner">
         <div className="booking-page-copy">
-          <p className="eyebrow dark">Erstgespräch</p>
+          <p className="eyebrow dark">Kennenlerngespräch</p>
           <h1>Termin buchen</h1>
           <p>
-            Wählt eine freie Terminzeit für euer Erstgespräch aus. Danach
+            Wählt eine freie Terminzeit für euer Kennenlerngespräch aus. Danach
             reichen Kontaktdaten und wenige Eckpunkte, damit der Termin direkt
             im Kalender landet.
           </p>

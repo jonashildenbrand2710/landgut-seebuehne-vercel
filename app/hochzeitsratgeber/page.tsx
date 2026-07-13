@@ -6,9 +6,9 @@ import { articles } from "@/data/articles";
 import { pageMetadata } from "@/lib/page-metadata";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Hochzeitsratgeber",
+  title: "Hochzeits-Journal: Ratgeber rund um eure Hochzeit",
   description:
-    "Ratgeber des Landgut Seebühne zu Location-Entscheidung, freier Trauung, Outdoor-Hochzeit und Planung ohne Stress.",
+    "Das Hochzeits-Journal des Landgut Seebühne: Ratgeber zu Location-Entscheidung, freier Trauung, Outdoor-Hochzeit und Planung ohne Stress.",
   path: "/hochzeitsratgeber"
 });
 
@@ -17,16 +17,16 @@ export default function RatgeberIndexPage() {
     <>
       <PageJsonLd
         path="/hochzeitsratgeber"
-        title="Hochzeitsratgeber"
-        description="Ratgeber des Landgut Seebühne zu Location-Entscheidung, freier Trauung, Outdoor-Hochzeit und Planung ohne Stress."
+        title="Hochzeits-Journal: Ratgeber rund um eure Hochzeit"
+        description="Das Hochzeits-Journal des Landgut Seebühne: Ratgeber zu Location-Entscheidung, freier Trauung, Outdoor-Hochzeit und Planung ohne Stress."
         breadcrumbs={[
           { name: "Startseite", path: "/" },
-          { name: "Hochzeitsratgeber", path: "/hochzeitsratgeber" }
+          { name: "Hochzeits-Journal", path: "/hochzeitsratgeber" }
         ]}
       />
       <section className="subpage-hero ratgeber-hero">
         <div className="section-inner">
-          <p className="eyebrow dark">Hochzeitsratgeber</p>
+          <p className="eyebrow dark">Hochzeits-Journal</p>
           <h1>Antworten aus der Perspektive einer erfahrenen Hochzeitslocation.</h1>
           <p>
             Keine beliebigen Hochzeitstipps, sondern Orientierung zu Entscheidungen,

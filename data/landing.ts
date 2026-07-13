@@ -72,7 +72,7 @@ export const landingLeadMagnet = {
   eyebrow: "Hochzeitsmappe",
   title: "Die perfekte Kulisse für eure Traumhochzeit",
   text: "Sichert euch jetzt exklusive Infos und Termine, bevor sie vergeben sind.",
-  badges: ["PDF-Download", "Location am See", "Ablauf & Möglichkeiten", "Vorbereitung fürs Erstgespräch"],
+  badges: ["PDF-Download", "Location am See", "Ablauf & Möglichkeiten", "Vorbereitung fürs Kennenlerngespräch"],
   points: [
     "umfassender Überblick über die Location am See",
     "Antworten auf häufige Fragen rund um eure Hochzeit",
@@ -84,7 +84,7 @@ export const landingAvailability = {
   eyebrow: "Freie Hochzeitstermine",
   title: "Jetzt anfragen, bevor euer Wunschdatum vergeben ist.",
   text:
-    "Wir sortieren mit euch Datum, Gästezahl, Paket-Richtung und die Frage, ob ein Erstgespräch der passende nächste Schritt ist.",
+    "Wir sortieren mit euch Datum, Gästezahl, Paket-Richtung und die Frage, ob ein Kennenlerngespräch der passende nächste Schritt ist.",
   cta: "Preise & Details anfragen"
 };
 
@@ -405,7 +405,7 @@ export const landingFaq = [
   {
     question: "Was ist der sinnvollste erste Schritt?",
     answer:
-      "Startet mit einem unverbindlichen Erstgespräch. Dort klären wir Datum, Gästezahl, Tagesgefühl und offene Fragen, bevor eine Besichtigung sinnvoll geplant wird."
+      "Startet mit einem unverbindlichen Kennenlerngespräch. Dort klären wir Datum, Gästezahl, Tagesgefühl und offene Fragen, bevor eine Besichtigung sinnvoll geplant wird."
   },
   {
     question: "Warum steht die Hochzeitsmappe so früh auf der Seite?",

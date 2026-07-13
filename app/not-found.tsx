@@ -9,7 +9,7 @@ export default function NotFound() {
         <h1>Diese Seite haben wir nicht gefunden.</h1>
         <p>
           Der Link ist vermutlich veraltet oder die Adresse wurde vertippt. Auf der
-          Startseite findet ihr Location, Ratgeber und den Weg zum Erstgespräch.
+          Startseite findet ihr Location, Hochzeits-Journal und den Weg zum Kennenlerngespräch.
         </p>
         <Link className="button primary" href="/">
           <span>Zur Startseite</span>

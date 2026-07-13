@@ -3,6 +3,7 @@ import {
   FamilyStory,
   HeroImageStrip,
   ImpressionSection,
+  JournalTeaser,
   LeadMagnetSection,
   MiniGallery,
   PersonalCta,
@@ -55,6 +56,7 @@ export default function HomePage() {
       <Testimonials />
       <ProblemSolution />
       <MiniGallery />
+      <JournalTeaser />
       <PersonalCta />
       <FAQ items={landingFaq} />
     </>

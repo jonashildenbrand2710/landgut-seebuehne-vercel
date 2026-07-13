@@ -205,7 +205,7 @@ export default function HochzeitsmappePage() {
             <p>
               Beliebte Termine und Locations sind oft schneller vergeben, als man
               denkt. Mit der kostenlosen Hochzeitsmappe könnt ihr eure Visionen
-              konkretisieren und die nächsten Fragen für euer Erstgespräch sortieren.
+              konkretisieren und die nächsten Fragen für euer Kennenlerngespräch sortieren.
             </p>
             <div className="mappe-mini-proof" aria-label="Inhalte der Hochzeitsmappe">
               <span>PDF-Guide</span>

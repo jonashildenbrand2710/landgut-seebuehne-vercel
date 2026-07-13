@@ -160,7 +160,7 @@ export const indexPage = {
       eyebrow: "Der erste Schritt",
       title: "Erst sprechen, dann sinnvoll besichtigen",
       text:
-        "Der beste Start ist ein persönliches Erstgespräch. Dort klären wir Datum, Gästezahl, Vorstellungen und offene Fragen. Wenn der Rahmen passt, kann eine Besichtigung der nächste sinnvolle Schritt sein."
+        "Der beste Start ist ein persönliches Kennenlerngespräch. Dort klären wir Datum, Gästezahl, Vorstellungen und offene Fragen. Wenn der Rahmen passt, kann eine Besichtigung der nächste sinnvolle Schritt sein."
     }
   ],
   faqs: [
@@ -172,12 +172,12 @@ export const indexPage = {
     {
       question: "Ist eine Besichtigung direkt buchbar?",
       answer:
-        "Wir empfehlen zuerst ein Erstgespräch. Dort klären wir, ob Datum, Gästezahl und Rahmen grundsätzlich passen und ob eine Besichtigung der sinnvolle nächste Schritt ist."
+        "Wir empfehlen zuerst ein Kennenlerngespräch. Dort klären wir, ob Datum, Gästezahl und Rahmen grundsätzlich passen und ob eine Besichtigung der sinnvolle nächste Schritt ist."
     },
     {
       question: "Warum nennt die Website keine Preise?",
       answer:
-        "Der konkrete Rahmen hängt von Datum, Gästezahl und Vorstellungen ab. Deshalb klären wir Leistungen und Möglichkeiten persönlich im Erstgespräch, statt öffentliche Pauschalaussagen zu machen."
+        "Der konkrete Rahmen hängt von Datum, Gästezahl und Vorstellungen ab. Deshalb klären wir Leistungen und Möglichkeiten persönlich im Kennenlerngespräch, statt öffentliche Pauschalaussagen zu machen."
     }
   ]
 } satisfies SitePage;
@@ -194,7 +194,7 @@ export const sitePages: SitePage[] = [
     heroText:
       "Der See ist ein besonderer Mittelpunkt für euer Ja-Wort. Damit der Moment leicht wirkt, denken wir Wege, Akustik, Licht, Wetter und den Übergang zum Empfang mit.",
     imageKey: "ceremony",
-    primaryCta: "Erstgespräch anfragen",
+    primaryCta: "Kennenlerngespräch anfragen",
     secondaryCta: "Telefontermin vereinbaren",
     sections: [
       {
@@ -260,7 +260,7 @@ export const sitePages: SitePage[] = [
     heroText:
       "Getting Ready vor Ort kann Wege, Übergaben und Zeitdruck reduzieren. Ihr kommt früher im Gefühl des Tages an und startet nicht aus dem Auto heraus.",
     imageKey: "gettingReady",
-    primaryCta: "Erstgespräch anfragen",
+    primaryCta: "Kennenlerngespräch anfragen",
     secondaryCta: "Telefontermin vereinbaren",
     sections: [
       {
@@ -287,7 +287,7 @@ export const sitePages: SitePage[] = [
     heroText:
       "Die Seebühne steht für Gastgebergefühl, Erfahrung und die ruhige Sicherheit, dass ein Hochzeitstag viele schöne und viele praktische Details braucht.",
     imageKey: "team",
-    primaryCta: "Erstgespräch anfragen",
+    primaryCta: "Kennenlerngespräch anfragen",
     secondaryCta: "Telefontermin vereinbaren",
     sections: [
       {
@@ -320,22 +320,22 @@ export const sitePages: SitePage[] = [
         title: "Für Paare, die sich erst orientieren möchten",
         text:
           "Viele Fragen entstehen erst, wenn man eine Location wirklich mit dem eigenen Datum, der Gästezahl und dem gewünschten Tagesgefühl verbindet. Die Hochzeitsmappe ist dafür ein guter Startpunkt.",
-        points: ["Eindruck vom Ort", "Ablauf und Möglichkeiten", "Fragen für das Erstgespräch"]
+        points: ["Eindruck vom Ort", "Ablauf und Möglichkeiten", "Fragen für das Kennenlerngespräch"]
       }
     ]
   },
   {
     slug: "besichtigung",
     navTitle: "Besichtigung",
-    title: "Besichtigung nach dem Erstgespräch",
+    title: "Besichtigung nach dem Kennenlerngespräch",
     description:
-      "Eine Besichtigung des Landgut Seebühne ist sinnvoll, wenn im Erstgespräch Datum, Gästezahl und Rahmen grundsätzlich passen.",
+      "Eine Besichtigung des Landgut Seebühne ist sinnvoll, wenn im Kennenlerngespräch Datum, Gästezahl und Rahmen grundsätzlich passen.",
     heroEyebrow: "Besichtigung",
     heroTitle: "Besichtigung des Landgut Seebühne: erst den Rahmen klären, dann den Ort erleben.",
     heroText:
-      "Eine Besichtigung ist am wertvollsten, wenn ihr schon wisst, welche Fragen für eure Hochzeit wichtig sind. Deshalb startet der Weg bei uns mit einem Erstgespräch.",
+      "Eine Besichtigung ist am wertvollsten, wenn ihr schon wisst, welche Fragen für eure Hochzeit wichtig sind. Deshalb startet der Weg bei uns mit einem Kennenlerngespräch.",
     imageKey: "location",
-    primaryCta: "Erstgespräch anfragen",
+    primaryCta: "Kennenlerngespräch anfragen",
     secondaryCta: "Hochzeitsmappe ansehen",
     sections: [
       {
@@ -344,7 +344,7 @@ export const sitePages: SitePage[] = [
           "Damit die Besichtigung nicht nur ein schöner Rundgang wird, klären wir vorher die wichtigsten Eckpunkte: Datum, Gästezahl, Tagesrahmen und eure offenen Fragen."
       },
       {
-        title: "Was ihr im Erstgespräch gewinnt",
+        title: "Was ihr im Kennenlerngespräch gewinnt",
         text:
           "Ihr bekommt eine erste Einordnung, ob der Ort zu euren Vorstellungen passt und welche nächsten Schritte sinnvoll sind."
       }
@@ -355,8 +355,8 @@ export const sitePages: SitePage[] = [
     navTitle: "Termin",
     title: "Telefontermin buchen",
     description:
-      "Bucht ein unverbindliches Erstgespräch, um Datum, Gästezahl, Rahmen und offene Fragen zum Landgut Seebühne zu klären.",
-    heroEyebrow: "Erstgespräch",
+      "Bucht ein unverbindliches Kennenlerngespräch, um Datum, Gästezahl, Rahmen und offene Fragen zum Landgut Seebühne zu klären.",
+    heroEyebrow: "Kennenlerngespräch",
     heroTitle: "Telefontermin zum Landgut Seebühne buchen und eure Eckpunkte klären.",
     heroText:
       "Im Gespräch sortieren wir eure wichtigsten Fragen und schauen gemeinsam, ob das Landgut Seebühne grundsätzlich zu eurem Datum, eurer Gästezahl und euren Vorstellungen passt.",
@@ -376,9 +376,9 @@ export const sitePages: SitePage[] = [
     slug: "kontaktformular",
     title: "Kontakt",
     description:
-      "Kontakt zum Landgut Seebühne: Startet mit einem Erstgespräch, damit Datum, Gästezahl und Rahmen sauber sortiert werden.",
+      "Kontakt zum Landgut Seebühne: Startet mit einem Kennenlerngespräch, damit Datum, Gästezahl und Rahmen sauber sortiert werden.",
     heroEyebrow: "Kontakt",
-    heroTitle: "Kontakt zum Landgut Seebühne: Anfrage stellen oder Erstgespräch starten.",
+    heroTitle: "Kontakt zum Landgut Seebühne: Anfrage stellen oder Kennenlerngespräch starten.",
     heroText:
       "Wenn ihr schon konkrete Eckpunkte habt, ist ein Telefontermin meist der schnellste Weg. Dort klären wir, ob der Rahmen passt und welcher nächste Schritt sinnvoll ist.",
     imageKey: "lake",
@@ -395,7 +395,7 @@ export const sitePages: SitePage[] = [
     slug: "formular",
     title: "Kennenlernen",
     description:
-      "Kennenlernen mit dem Landgut Seebühne: eure Eckpunkte sammeln und ein unverbindliches Erstgespräch starten.",
+      "Kennenlernen mit dem Landgut Seebühne: eure Eckpunkte sammeln und ein unverbindliches Kennenlerngespräch starten.",
     heroEyebrow: "Kennenlernen",
     heroTitle: "Kennenlernen mit dem Landgut Seebühne: passt der Rahmen zu eurer Hochzeit?",
     heroText:
@@ -502,13 +502,13 @@ export const sitePages: SitePage[] = [
     slug: "preise",
     title: "Rahmen persönlich klären",
     description:
-      "Preis- und Verfügbarkeitsfragen zum Landgut Seebühne werden persönlich im Erstgespräch geklärt.",
+      "Preis- und Verfügbarkeitsfragen zum Landgut Seebühne werden persönlich im Kennenlerngespräch geklärt.",
     heroEyebrow: "Rahmen und Verfügbarkeit",
     heroTitle: "Den konkreten Rahmen klären wir am besten persönlich.",
     heroText:
-      "Welche Leistungen und Möglichkeiten zu eurer Hochzeit passen, hängt von Datum, Gästezahl und Tagesrahmen ab. Deshalb führen wir Preis- und Verfügbarkeitsfragen bewusst ins Erstgespräch.",
+      "Welche Leistungen und Möglichkeiten zu eurer Hochzeit passen, hängt von Datum, Gästezahl und Tagesrahmen ab. Deshalb führen wir Preis- und Verfügbarkeitsfragen bewusst ins Kennenlerngespräch.",
     imageKey: "location",
-    primaryCta: "Erstgespräch anfragen",
+    primaryCta: "Kennenlerngespräch anfragen",
     sections: [
       {
         title: "Warum hier keine öffentlichen Preisdetails stehen",
@@ -522,7 +522,7 @@ export const sitePages: SitePage[] = [
     slug: "preise-basis",
     title: "Rahmen persönlich klären",
     description:
-      "Preis- und Paketfragen werden beim Landgut Seebühne nicht öffentlich pauschalisiert, sondern im Erstgespräch eingeordnet.",
+      "Preis- und Paketfragen werden beim Landgut Seebühne nicht öffentlich pauschalisiert, sondern im Kennenlerngespräch eingeordnet.",
     heroEyebrow: "Rahmen und Verfügbarkeit",
     heroTitle: "Lasst uns den passenden Rahmen im Gespräch sortieren.",
     heroText:
@@ -540,10 +540,10 @@ export const sitePages: SitePage[] = [
   },
   {
     slug: "quizz",
-    title: "Erstgespräch",
+    title: "Kennenlerngespräch",
     description: "Weiterleitungspunkt für ältere Quiz- oder Funnel-Seiten des Landgut Seebühne.",
-    heroEyebrow: "Erstgespräch",
-    heroTitle: "Der aktuelle Weg startet mit einem Erstgespräch.",
+    heroEyebrow: "Kennenlerngespräch",
+    heroTitle: "Der aktuelle Weg startet mit einem Kennenlerngespräch.",
     heroText:
       "Diese ältere Funnel-Seite wird im Rebuild nicht als öffentliche SEO-Seite geführt. Für Paare ist der Telefontermin der sinnvollste nächste Schritt.",
     imageKey: "hero",
@@ -564,7 +564,7 @@ export const sitePages: SitePage[] = [
     heroEyebrow: "Kontakt",
     heroTitle: "Lasst uns direkt sprechen.",
     heroText:
-      "Diese ältere Chatbot-Seite wird nicht als öffentliche SEO-Seite geführt. Für konkrete Hochzeitsfragen nutzt bitte das Erstgespräch.",
+      "Diese ältere Chatbot-Seite wird nicht als öffentliche SEO-Seite geführt. Für konkrete Hochzeitsfragen nutzt bitte das Kennenlerngespräch.",
     imageKey: "lake",
     primaryCta: "Telefontermin vereinbaren",
     sections: [
@@ -643,6 +643,6 @@ export function getPageBySlug(slug: string) {
 
 export const mainNavigation = [
   { label: "Startseite", href: "/" },
-  { label: "Ratgeber", href: "/hochzeitsratgeber" },
+  { label: "Hochzeits-Journal", href: "/hochzeitsratgeber" },
   { label: "Hochzeitsmappe", href: "/hochzeitsmappe" }
 ];

@@ -25,6 +25,7 @@ import {
   landingTestimonials
 } from "@/data/landing";
 import { BrandLogo } from "@/components/BrandLogo";
+import { articles } from "@/data/articles";
 import { imageLibrary } from "@/data/site";
 
 type ImageKey = keyof typeof imageLibrary;
@@ -292,7 +293,7 @@ export function FamilyStory() {
             </div>
           </div>
           <div className="inline-actions">
-            <InternalCta href="/termin-buchen">Erstgespräch anfragen</InternalCta>
+            <InternalCta href="/termin-buchen">Kennenlerngespräch anfragen</InternalCta>
             <InternalCta href="/termin-buchen" variant="secondary">
               Location im Termin klären
             </InternalCta>
@@ -483,6 +484,46 @@ export function MiniGallery() {
   );
 }
 
+export function JournalTeaser() {
+  const featured = articles.slice(0, 3);
+
+  return (
+    <section className="section-band journal-section">
+      <div className="section-inner">
+        <div className="section-heading-row">
+          <div>
+            <p className="eyebrow dark">Hochzeits-Journal</p>
+            <h2>Lest euch in Ruhe ein</h2>
+          </div>
+          <p>
+            Manche Fragen klären sich am besten im Gespräch, andere beim Lesen.
+            Im Hochzeits-Journal teilen wir unsere Erfahrung aus vielen
+            Hochzeitsjahren am See - ehrlich, konkret und ohne Zeitdruck.
+          </p>
+        </div>
+        <div className="article-grid journal-grid">
+          {featured.map((article) => (
+            <article className="article-card" key={article.slug}>
+              <p>{article.pillar}</p>
+              <h3>{article.title}</h3>
+              <span>{article.description}</span>
+              <small>{article.readingTime}</small>
+              <Link href={`/hochzeitsratgeber/${article.slug}`}>
+                Artikel lesen <ArrowRight aria-hidden="true" size={16} />
+              </Link>
+            </article>
+          ))}
+        </div>
+        <div className="center-actions">
+          <InternalCta href="/hochzeitsratgeber" variant="secondary">
+            Alle Beiträge im Journal entdecken
+          </InternalCta>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function PersonalCta() {
   return (
     <section className="personal-cta-section">
@@ -500,7 +541,7 @@ export function PersonalCta() {
         <div className="personal-cta-actions">
           <Link className="button primary light" href="/termin-buchen">
             <CalendarDays aria-hidden="true" size={18} />
-            <span>Erstgespräch sichern</span>
+            <span>Kennenlerngespräch sichern</span>
           </Link>
         </div>
       </div>

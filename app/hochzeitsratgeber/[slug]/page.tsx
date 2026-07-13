@@ -30,7 +30,7 @@ const defaultRelatedLinks: ArticleRelatedLink[] = [
   },
   {
     href: "/termin-buchen",
-    label: "Erstgespräch",
+    label: "Kennenlerngespräch",
     description: "Datum, Gästezahl, Rahmen und offene Fragen persönlich einordnen."
   }
 ];
@@ -45,7 +45,7 @@ const relatedLinksBySlug: Record<string, ArticleRelatedLink[]> = {
     {
       href: "/besichtigung",
       label: "Besichtigung",
-      description: "Der passende Ablauf vom Erstgespräch zur Besichtigung vor Ort."
+      description: "Der passende Ablauf vom Kennenlerngespräch zur Besichtigung vor Ort."
     },
     defaultRelatedLinks[1],
     defaultRelatedLinks[2]
@@ -126,7 +126,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         <div className="article-header">
           <Link href="/hochzeitsratgeber">
             <ArrowLeft aria-hidden="true" size={16} />
-            Ratgeber
+            Hochzeits-Journal
           </Link>
           <p className="eyebrow dark">{article.pillar}</p>
           <h1>{article.title}</h1>

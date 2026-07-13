@@ -2,7 +2,8 @@
   --bg: #f9f3e9;
   --bg-soft: #ebe3d3;
   --ink: #1c1d20;
-  --ink-soft: #463428;
+  /* Flaechentext: dunkles Graugruen statt Braun, haelt >=8:1 auf allen Creme-Toenen. */
+  --ink-soft: #3f4e46;
   --green: #67a490;
   --green-2: #4f8b78;
   /* Gruen fuer Text auf hellen Flaechen: erfuellt WCAG AA (>=4.6:1) auf allen Creme-Toenen. */
@@ -10,7 +11,8 @@
   --focus-ring: #386e5f;
   --focus-ring-light: rgba(249, 243, 233, 0.92);
   --lake: #9e8db7;
-  --clay: #695142;
+  /* Tiefes Salbeigruen fuer kleine Bold-Labels (frueher Braunton). */
+  --clay: #44685a;
   --gold: #dbd3c1;
   --line: rgba(28, 29, 32, 0.14);
   --white: #ffffff;
@@ -20,20 +22,21 @@
   --tracking-caps: 0.08em;
   --text-h2: clamp(2.3rem, 3.4vw, 3.35rem);
   --surface-page: linear-gradient(180deg, #f9f3e9 0%, #f4ecdf 42%, #ebe3d3 100%);
-  --surface-header: linear-gradient(95deg, rgba(249, 243, 233, 0.96), rgba(235, 227, 211, 0.93) 58%, rgba(212, 203, 223, 0.56));
+  --surface-header: linear-gradient(95deg, rgba(249, 243, 233, 0.96), rgba(235, 227, 211, 0.93) 58%, rgba(103, 164, 144, 0.3));
   --surface-section: linear-gradient(180deg, rgba(249, 243, 233, 0.98) 0%, rgba(244, 236, 223, 0.94) 55%, rgba(249, 243, 233, 0.98) 100%);
-  --surface-section-alt: linear-gradient(145deg, rgba(235, 227, 211, 0.98) 0%, rgba(249, 243, 233, 0.96) 52%, rgba(212, 203, 223, 0.48) 100%);
-  --surface-section-warm: linear-gradient(145deg, rgba(249, 243, 233, 1) 0%, rgba(219, 211, 193, 0.58) 58%, rgba(235, 227, 211, 0.96) 100%);
+  --surface-section-alt: linear-gradient(145deg, rgba(235, 227, 211, 0.98) 0%, rgba(249, 243, 233, 0.96) 52%, rgba(103, 164, 144, 0.15) 100%);
+  --surface-section-warm: linear-gradient(145deg, rgba(249, 243, 233, 1) 0%, rgba(219, 211, 193, 0.52) 58%, rgba(103, 164, 144, 0.12) 100%);
   --surface-card: linear-gradient(145deg, rgba(255, 255, 255, 0.78) 0%, rgba(249, 243, 233, 0.94) 56%, rgba(235, 227, 211, 0.8) 100%);
   --surface-card-strong: linear-gradient(145deg, rgba(255, 255, 255, 0.92) 0%, rgba(249, 243, 233, 0.98) 52%, rgba(212, 203, 223, 0.42) 100%);
   --surface-card-sage: linear-gradient(145deg, rgba(249, 243, 233, 0.96) 0%, rgba(212, 203, 223, 0.58) 56%, rgba(103, 164, 144, 0.2) 100%);
   --surface-chip: linear-gradient(135deg, rgba(249, 243, 233, 0.96), rgba(219, 211, 193, 0.72) 58%, rgba(212, 203, 223, 0.52));
-  --surface-dark: linear-gradient(135deg, #1c1d20 0%, #261a12 60%, #463428 100%);
-  --surface-dark-soft: linear-gradient(145deg, rgba(28, 29, 32, 0.98) 0%, rgba(38, 26, 18, 0.96) 58%, rgba(49, 73, 64, 0.92) 100%);
-  --surface-cta: linear-gradient(135deg, #1c1d20 0%, #263932 48%, #261a12 100%);
+  /* Dunkle Flaechen: Tiefwasser- und Tannengruen statt Braun. */
+  --surface-dark: linear-gradient(135deg, #14211b 0%, #1d3a2f 55%, #2c5243 100%);
+  --surface-dark-soft: linear-gradient(145deg, rgba(18, 30, 25, 0.98) 0%, rgba(24, 43, 36, 0.96) 58%, rgba(44, 82, 67, 0.92) 100%);
+  --surface-cta: linear-gradient(135deg, #14211b 0%, #23443a 52%, #1a2f27 100%);
   --surface-cta-light: linear-gradient(135deg, #f9f3e9 0%, #ebe3d3 62%, #d4cbdf 100%);
   --surface-cta-button: linear-gradient(135deg, #ffffff 0%, #f9f3e9 54%, #efeaf5 100%);
-  --surface-cta-button-hover: linear-gradient(135deg, #1c1d20 0%, #252525 58%, #37423d 100%);
+  --surface-cta-button-hover: linear-gradient(135deg, #182720 0%, #234439 58%, #2d5547 100%);
   --accent-gradient: linear-gradient(135deg, #67a490 0%, #b9accc 54%, #9e8db7 100%);
   --font-display: var(--font-serif), Georgia, serif;
 }
@@ -80,9 +83,9 @@ img {
   );
   --header-glass-border: rgba(255, 255, 255, 0.24);
   --header-glass-shadow: 0 10px 30px rgba(12, 23, 19, 0.08);
-  display: grid;
-  grid-template-columns: minmax(166px, auto) 1fr auto;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 24px;
   min-height: 78px;
   padding: 14px clamp(18px, 4vw, 56px);
@@ -151,8 +154,6 @@ img {
 
 /* ── Option B: floating islands ────────────────────────────── */
 .site-header--floating-layout {
-  grid-template-columns: auto auto 1fr auto auto;
-  align-items: center;
   gap: 14px;
   padding: 18px clamp(18px, 4vw, 56px);
   border-bottom: 0;
@@ -176,20 +177,6 @@ img {
   display: none;
 }
 
-.site-header--floating-layout .main-nav {
-  padding: 6px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 999px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(249, 243, 233, 0.1));
-  backdrop-filter: blur(12px) saturate(1.08);
-  -webkit-backdrop-filter: blur(12px) saturate(1.08);
-  box-shadow: 0 8px 24px rgba(12, 23, 19, 0.08);
-}
-
-.site-header--floating-layout .main-nav a {
-  text-shadow: 0 1px 8px rgba(249, 243, 233, 0.32);
-}
-
 .site-header--floating-layout .header-cta--floating {
   justify-self: end;
   width: fit-content;
@@ -202,7 +189,6 @@ img {
 }
 
 .site-header--floating-layout.is-scrolled .brand,
-.site-header--floating-layout.is-scrolled .main-nav,
 .site-header--floating-layout.is-scrolled .header-cta--floating {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.42), rgba(249, 243, 233, 0.28));
   border-color: rgba(255, 255, 255, 0.36);
@@ -256,15 +242,6 @@ img {
     brightness(0.84)
     saturate(1.2)
     contrast(1.12);
-}
-
-.site-header--scroll-morph .main-nav a {
-  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.5);
-  transition: text-shadow 260ms ease-out;
-}
-
-.site-header--scroll-morph.is-scrolled .main-nav a {
-  text-shadow: 0 1px 12px rgba(249, 243, 233, 0.44);
 }
 
 .site-header--scroll-morph .header-cta--scroll-morph {
@@ -332,100 +309,8 @@ img {
   margin: 26px auto 0;
 }
 
-.main-nav {
-  display: flex;
-  justify-content: center;
-  gap: clamp(12px, 2vw, 26px);
-  width: fit-content;
-  justify-self: center;
-  font-size: 0.94rem;
-}
-
-.main-nav a {
-  min-height: 34px;
-  padding: 9px 7px 8px;
-  border-radius: 999px;
-  color: rgba(28, 29, 32, 0.92);
-  font-weight: 700;
-  text-shadow: 0 1px 12px rgba(249, 243, 233, 0.6);
-  transition:
-    background 180ms ease-out,
-    color 180ms ease-out;
-}
-
-.main-nav a:hover {
-  background: rgba(249, 243, 233, 0.22);
-  color: var(--ink);
-}
-
-.header-cta-label-short,
-.mobile-menu-button,
-.mobile-nav-panel {
+.header-cta-label-short {
   display: none;
-}
-
-.mobile-menu-button {
-  align-items: center;
-  justify-content: center;
-  width: 46px;
-  height: 46px;
-  border: 1px solid rgba(255, 255, 255, 0.38);
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(249, 243, 233, 0.72), rgba(255, 255, 255, 0.32));
-  color: var(--ink);
-  cursor: pointer;
-  box-shadow: 0 12px 30px rgba(12, 23, 19, 0.1);
-  backdrop-filter: blur(18px) saturate(1.16);
-  -webkit-backdrop-filter: blur(18px) saturate(1.16);
-  transition:
-    background 220ms ease-out,
-    border-color 220ms ease-out,
-    transform 220ms ease-out;
-}
-
-.mobile-menu-button:hover {
-  border-color: rgba(255, 255, 255, 0.62);
-  background: linear-gradient(135deg, rgba(249, 243, 233, 0.84), rgba(255, 255, 255, 0.44));
-  transform: translateY(-1px);
-}
-
-.mobile-menu-button:focus-visible {
-  outline: 3px solid var(--focus-ring);
-  outline-offset: 4px;
-}
-
-.mobile-nav-panel {
-  position: fixed;
-  z-index: 31;
-  top: 78px;
-  right: clamp(12px, 4vw, 24px);
-  left: clamp(12px, 4vw, 24px);
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-  padding: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.36);
-  border-radius: 8px;
-  background: linear-gradient(135deg, rgba(229, 242, 235, 0.78), rgba(249, 243, 233, 0.66));
-  backdrop-filter: blur(24px) saturate(1.24);
-  -webkit-backdrop-filter: blur(24px) saturate(1.24);
-  box-shadow: 0 22px 54px rgba(12, 23, 19, 0.18);
-}
-
-.mobile-nav-panel a {
-  display: flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 0 12px;
-  border: 1px solid rgba(255, 255, 255, 0.32);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.32);
-  color: rgba(28, 29, 32, 0.82);
-  font-weight: 800;
-}
-
-.mobile-nav-panel a:hover {
-  border-color: rgba(103, 164, 144, 0.38);
-  color: var(--ink);
 }
 
 .header-cta:hover {
@@ -571,6 +456,14 @@ img {
   transform-origin: 50% 56%;
   animation: hero-image-drift 22s ease-in-out infinite alternate;
   will-change: transform;
+}
+
+/* Farbkorrektur: nimmt dem See-Foto den kalten Gruen-/Mintstich
+   (Gruen entsaettigen, Hue leicht Richtung warm drehen). */
+.hero-image,
+.lead-magnet-image,
+.availability-image {
+  filter: hue-rotate(-12deg) saturate(0.74) sepia(0.12) saturate(1.08) brightness(1.04) contrast(1.03);
 }
 
 .hero-shade {
@@ -1093,12 +986,20 @@ h2 {
   color: var(--bg);
 }
 
-.button.primary:hover,
-.button.primary.light:hover {
+.button.primary:hover {
   border-color: rgba(249, 243, 233, 0.34);
   background: var(--surface-cta-button-hover);
   color: var(--white);
   box-shadow: 0 24px 52px rgba(28, 29, 32, 0.28);
+}
+
+/* Auf dunklen Sektionen bleibt der helle Primary-Button beim Hover hell,
+   sonst verschwindet er vor dem dunklen Hintergrund. */
+.button.primary.light:hover {
+  border-color: rgba(255, 255, 255, 0.92);
+  background: linear-gradient(135deg, #ffffff 0%, #fdf9f1 58%, #eef5f0 100%);
+  color: var(--ink);
+  box-shadow: 0 26px 56px rgba(0, 0, 0, 0.34);
 }
 
 .button.secondary:hover {
@@ -1117,17 +1018,58 @@ h2 {
   box-shadow: 0 20px 44px rgba(28, 29, 32, 0.16);
 }
 
+/* ── CTA-Schweben: sanfte Levitation mit atmendem Schatten.
+   Nur solange nicht gehovert/fokussiert, damit die Hover-Transition greift. ── */
+@keyframes cta-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    box-shadow: 0 16px 38px rgba(18, 33, 27, 0.2);
+  }
+
+  50% {
+    transform: translate3d(0, -5px, 0);
+    box-shadow: 0 26px 54px rgba(18, 33, 27, 0.3);
+  }
+}
+
+@keyframes cta-shine-sweep {
+  0% {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+
+  22%,
+  100% {
+    transform: translateX(330%) skewX(-18deg);
+  }
+}
+
+.hero-actions .button.primary:not(:hover):not(:focus-visible):not(:active),
+.availability-content .button.primary:not(:hover):not(:focus-visible):not(:active),
+.personal-cta-actions .button.primary:not(:hover):not(:focus-visible):not(:active),
+.lead-magnet-section .inline-actions .button:not(:hover):not(:focus-visible):not(:active),
+.warning-solution-card .button:not(:hover):not(:focus-visible):not(:active),
+.mappe-form-card .button:not(:hover):not(:focus-visible):not(:active) {
+  animation: cta-float 4.2s ease-in-out infinite;
+}
+
+.header-cta:not(:hover):not(:focus-visible)::before,
+.hero-actions .button.primary:not(:hover):not(:focus-visible)::before {
+  animation: cta-shine-sweep 6.8s ease-in-out 2.4s infinite;
+}
+
 .reveal-ready .reveal-target {
   --reveal-x: 0px;
-  --reveal-y: 18px;
+  --reveal-y: 22px;
   --reveal-scale: 1;
+  --reveal-ease: cubic-bezier(0.22, 0.65, 0.25, 1);
   opacity: 0;
   filter: blur(2px);
   transform: translate3d(var(--reveal-x), var(--reveal-y), 0) scale(var(--reveal-scale));
   transition:
-    opacity 520ms ease-out,
-    filter 520ms ease-out,
-    transform 520ms ease-out;
+    opacity 640ms var(--reveal-ease),
+    filter 640ms var(--reveal-ease),
+    transform 640ms var(--reveal-ease);
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, filter, transform;
 }
@@ -1172,6 +1114,7 @@ h2 {
 .reveal-ready .hero-collage-item,
 .reveal-ready .hero-collage-note,
 .reveal-ready .promise-visual,
+.reveal-ready .hero-strip-item,
 .reveal-ready .landing-media,
 .reveal-ready .gallery-item > div {
   --reveal-y: 28px;
@@ -1311,7 +1254,7 @@ h2 {
 }
 
 .article-card small {
-  color: rgba(70, 52, 40, 0.72);
+  color: rgba(63, 78, 70, 0.72);
 }
 
 .article-card a {
@@ -1397,7 +1340,7 @@ h2 {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(28, 29, 32, 0.74), rgba(38, 26, 18, 0.5) 58%, rgba(103, 164, 144, 0.24)),
+    linear-gradient(90deg, rgba(28, 29, 32, 0.74), rgba(20, 35, 29, 0.5) 58%, rgba(103, 164, 144, 0.24)),
     linear-gradient(0deg, rgba(16, 28, 23, 0.84), rgba(16, 28, 23, 0.4));
 }
 
@@ -1727,7 +1670,7 @@ h2 {
 
 .mappe-form-note {
   margin: 18px 0 0;
-  color: rgba(70, 52, 40, 0.74) !important;
+  color: rgba(63, 78, 70, 0.74) !important;
   font-size: 0.84rem;
   line-height: 1.52;
 }
@@ -1881,7 +1824,7 @@ h2 {
   border: 1px solid rgba(28, 29, 32, 0.13);
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.62);
-  color: rgba(70, 52, 40, 0.76);
+  color: rgba(63, 78, 70, 0.76);
   cursor: pointer;
   font: inherit;
   font-size: 0.84rem;
@@ -2033,7 +1976,7 @@ h2 {
 }
 
 .booking-day small {
-  color: rgba(70, 52, 40, 0.7);
+  color: rgba(63, 78, 70, 0.7);
   font-size: 0.74rem;
   font-weight: 800;
 }
@@ -2141,7 +2084,7 @@ h2 {
 
 .booking-field input::placeholder,
 .booking-field textarea::placeholder {
-  color: rgba(70, 52, 40, 0.72);
+  color: rgba(63, 78, 70, 0.72);
 }
 
 .booking-field select {
@@ -2160,7 +2103,7 @@ h2 {
 }
 
 .booking-field small {
-  color: rgba(70, 52, 40, 0.85);
+  color: rgba(63, 78, 70, 0.85);
   font-size: 0.78rem;
   font-weight: 600;
 }
@@ -2460,7 +2403,7 @@ h2 {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(28, 29, 32, 0.88), rgba(38, 26, 18, 0.62) 50%, rgba(103, 164, 144, 0.24)),
+    linear-gradient(90deg, rgba(28, 29, 32, 0.88), rgba(20, 35, 29, 0.62) 50%, rgba(103, 164, 144, 0.24)),
     linear-gradient(0deg, rgba(12, 23, 19, 0.88), rgba(12, 23, 19, 0.34));
 }
 
@@ -2589,7 +2532,7 @@ h2 {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(28, 29, 32, 0.78), rgba(38, 26, 18, 0.36) 56%, rgba(103, 164, 144, 0.16)),
+    linear-gradient(90deg, rgba(28, 29, 32, 0.78), rgba(20, 35, 29, 0.36) 56%, rgba(103, 164, 144, 0.16)),
     linear-gradient(0deg, rgba(16, 28, 23, 0.82), rgba(16, 28, 23, 0.12) 62%);
 }
 
@@ -2716,6 +2659,14 @@ h2 {
   align-self: stretch;
   width: 100%;
   margin-top: auto;
+}
+
+/* Der Button-Text darf nicht von ".bundle-card span" eingefaerbt werden,
+   sonst bleibt er beim Hover dunkel auf dunklem Grund. */
+.bundle-card .button span {
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
 
 .bundle-link svg,
@@ -3184,6 +3135,19 @@ h2 {
   background: var(--surface-section-alt);
 }
 
+/* ── Journal-Teaser auf der Startseite ───────────────────────── */
+.journal-section {
+  background: var(--surface-section-warm);
+}
+
+.journal-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+}
+
+.journal-section .center-actions {
+  margin-top: 38px;
+}
+
 .mini-gallery-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -3473,7 +3437,7 @@ h2 {
   border: 1px solid rgba(28, 29, 32, 0.11);
   border-radius: 999px;
   background: var(--surface-card);
-  color: rgba(70, 52, 40, 0.78);
+  color: rgba(63, 78, 70, 0.78);
   font-size: 0.78rem;
   font-weight: 800;
 }
@@ -3676,9 +3640,25 @@ h2 {
 }
 
 .site-footer {
-  padding: 70px clamp(18px, 4vw, 56px) 32px;
-  background: var(--surface-dark);
+  position: relative;
+  padding: 74px clamp(18px, 4vw, 56px) 32px;
+  /* Markenfarben statt Braun: Tiefwasser-Gruen mit Creme- und Salbei-Schimmer. */
+  background:
+    radial-gradient(130% 100% at 88% -20%, rgba(219, 211, 193, 0.16), transparent 58%),
+    radial-gradient(90% 76% at -8% 112%, rgba(103, 164, 144, 0.3), transparent 62%),
+    linear-gradient(150deg, #16241e 0%, #1e3a30 48%, #2c5243 100%);
   color: var(--white);
+}
+
+.site-footer::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  background: var(--accent-gradient);
+  content: "";
+  opacity: 0.7;
 }
 
 .footer-grid {
@@ -3821,44 +3801,18 @@ h2 {
   }
 
   .site-header,
-  .site-header--glass-refined {
-    grid-template-columns: minmax(0, 1fr) auto auto;
+  .site-header--glass-refined,
+  .site-header--scroll-morph {
     gap: 12px;
   }
 
   .site-header--floating-layout {
-    grid-template-columns: minmax(0, 1fr) auto auto;
     gap: 12px;
     padding: 14px 18px;
   }
 
-  .site-header--floating-layout .main-nav {
-    display: none;
-  }
-
   .site-header--floating-layout .brand {
     padding: 5px 12px 5px 10px;
-  }
-
-  .site-header--scroll-morph {
-    grid-template-columns: minmax(0, 1fr) auto auto;
-    gap: 12px;
-  }
-
-  .main-nav {
-    display: none;
-  }
-
-  .mobile-menu-button {
-    display: inline-flex;
-  }
-
-  .mobile-nav-panel {
-    display: grid;
-  }
-
-  .mobile-nav-panel[hidden] {
-    display: none;
   }
 
   .split,
@@ -4119,16 +4073,6 @@ h2 {
 
   .header-cta-label-short {
     display: inline;
-  }
-
-  .mobile-menu-button {
-    width: 46px;
-    height: 46px;
-  }
-
-  .mobile-nav-panel {
-    grid-template-columns: 1fr;
-    gap: 7px;
   }
 
   .hero {
