@@ -13,7 +13,7 @@ import { normalizeMetaEventId, sendMetaCompleteRegistration } from "@/lib/meta-c
 
 const activeCampaignFlowDetails = {
   automation: "Hochzeitsmappe Opt-in",
-  tags: ["Hochzeitsmappe"]
+  tags: ["Hochzeitsmappe_Optin", "Hochzeitsmappe"]
 };
 
 function clean(value: FormDataEntryValue | null) {

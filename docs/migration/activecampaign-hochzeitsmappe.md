@@ -89,6 +89,11 @@ IDs. Es gibt keine API-Tokens und keine Kontakt-Personendaten aus.
 
 ## ActiveCampaign-Mail
 
+- Die internen Bezeichnungen im Live-Account sind auf den neuen Flow
+  vereinheitlicht: Automation `Hochzeitsmappe Opt-in`, Kampagne
+  `Hochzeitsmappe – Persönlicher Zugang`, Tags `Hochzeitsmappe_Optin` und
+  `Hochzeitsmappe`. Der alte Tippfehler-Tag wurde als
+  `Hochzeitsmappe_Altbestand` kenntlich gemacht.
 - Die Hochzeitsmappen-Automation wird weiterhin ueber die Liste
   `Hochzeitsmappe` gestartet. Alte Report-Bezeichnungen sollen auch im
   ActiveCampaign-Account nicht mehr in Betreff, Vorschautext oder Mail-Inhalt
