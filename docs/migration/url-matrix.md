@@ -11,13 +11,13 @@ Arbeitsstand fuer den Vercel-Rebuild. Ziel: Keine bekannte Onepage-URL soll beim
 | `/uber-uns` | `/uber-uns` | behalten | index | Bestehende Schreibweise behalten |
 | `/ueber-uns` | `/uber-uns` | 301 | index Ziel | Komfort-Redirect fuer Umlautschreibweise |
 | `/hochzeitsmappe` | `/hochzeitsmappe` | behalten | index | Lead-Magnet, keine Preisdetails |
-| `/besichtigung` | `/besichtigung` | behalten | index | Besichtigung nach Erstgespraech framen |
-| `/termin-buchen` | `/termin-buchen` | behalten | index | Telefontermin / Erstgespraech |
+| `/besichtigung` | `/besichtigung` | behalten | index | Direkte Besichtigung als primaeren Einstieg framen |
+| `/termin-buchen` | `/termin-buchen` | behalten | index | Direkte Kalenderbuchung fuer eine 120-minuetige Besichtigung; Google blockiert den einstündigen Startslot |
 | `/kontaktformular` | `/kontaktformular` | behalten | index | Kontakt- und Lead-Einstieg |
-| `/formular` | `/formular` | behalten | index | Kennenlernen-Funnel, Integration pruefen |
+| `/formular` | `/formular` | behalten | index | Besichtigungs-Funnel; CTA fuehrt direkt zur Kalenderbuchung |
 | `/impressum` | `/impressum` | behalten | index | Rechtsdaten vor Livegang final pruefen |
 | `/danke` | `/danke` | behalten | noindex | Danke-Seite, nicht in Sitemap |
-| `/preise` | `/preise` | behalten | noindex | Keine oeffentlichen Preisdetails, CTA ins Erstgespraech |
+| `/preise` | `/preise` | behalten | noindex | Keine oeffentlichen Preisdetails, CTA zur Besichtigung |
 | `/preise-basis` | `/preise-basis` | behalten | noindex | Keine oeffentlichen Preisdetails |
 | `/quizz` | `/quizz` | Review | noindex | Alter Funnel; Zweck pruefen |
 | `/chatbot` | `/chatbot` | Review | noindex | Alter Funnel/Template; Zweck pruefen |

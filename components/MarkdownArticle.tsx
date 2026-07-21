@@ -30,14 +30,14 @@ function ArticleInlineCta() {
     <aside className="article-inline-cta" aria-label="Nächster Schritt">
       <div>
         <p className="eyebrow dark">Nächster Schritt</p>
-        <p className="article-inline-cta-title">Passt der Rahmen zu eurer Hochzeit?</p>
+        <p className="article-inline-cta-title">Erlebt die Seebühne persönlich.</p>
         <p>
-          Im Kennenlerngespräch sortieren wir Datum, Gästezahl und offene Fragen, bevor
-          eine Besichtigung sinnvoll geplant wird.
+          Bucht direkt einen freien Besichtigungstermin. Vor Ort erlebt ihr die
+          Location und könnt eure offenen Fragen persönlich klären.
         </p>
       </div>
       <Link className="button primary" href="/termin-buchen">
-        <span>Kennenlerngespräch anfragen</span>
+        <span>Besichtigungstermin buchen</span>
         <ArrowRight aria-hidden="true" size={18} />
       </Link>
     </aside>
@@ -55,7 +55,7 @@ export function ArticleFinalCta({ blocks }: { blocks: ArticleBlock[] }) {
       </div>
       <div className="article-final-cta-actions">
         <Link className="button primary" href="/termin-buchen">
-          <span>Kennenlerngespräch anfragen</span>
+          <span>Besichtigungstermin buchen</span>
           <ArrowRight aria-hidden="true" size={18} />
         </Link>
       </div>

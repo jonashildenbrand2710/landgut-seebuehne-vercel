@@ -59,11 +59,11 @@ export function CTASection({ allowDirectActions = false }: { allowDirectActions?
     <section className="cta-section">
       <div className="section-inner cta-inner">
         <div>
-          <p className="eyebrow">Erster Schritt</p>
-          <h2>Lasst uns klären, ob der Rahmen zu eurer Hochzeit passt.</h2>
+          <p className="eyebrow">Besichtigung</p>
+          <h2>Erlebt euren möglichen Hochzeitsort persönlich.</h2>
           <p>
-            Im Kennenlerngespräch sortieren wir Datum, Gästezahl, Vorstellungen und
-            die Fragen, die euch gerade am meisten beschäftigen.
+            Bucht direkt einen freien Termin im Kalender. Bei der Besichtigung zeigen
+            wir euch das Landgut und klären die Fragen, die euch gerade beschäftigen.
           </p>
         </div>
         <div className="cta-actions">
@@ -71,7 +71,7 @@ export function CTASection({ allowDirectActions = false }: { allowDirectActions?
             <>
               <a className="button primary light" href={siteConfig.bookingUrl}>
                 <CalendarDays aria-hidden="true" size={18} />
-                <span>Kalender öffnen</span>
+                <span>Besichtigungstermin wählen</span>
               </a>
               <a className="button ghost-light" href={`mailto:${siteConfig.email}`}>
                 <Mail aria-hidden="true" size={18} />
@@ -80,7 +80,7 @@ export function CTASection({ allowDirectActions = false }: { allowDirectActions?
             </>
           ) : (
             <Link className="button primary light" href="/termin-buchen">
-              <span>Kennenlerngespräch anfragen</span>
+              <span>Besichtigungstermin buchen</span>
               <ArrowRight aria-hidden="true" size={18} />
             </Link>
           )}

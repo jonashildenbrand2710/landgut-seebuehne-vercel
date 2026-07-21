@@ -23,7 +23,7 @@ export async function POST(request: Request) {
   }
 
   // Tracking darf eine erfolgreich angelegte Buchung nie in einen Fehler verwandeln.
-  if (payload.booking?.type === "phone") {
+  if (payload.booking?.type === "phone" || payload.booking?.type === "tour") {
     try {
       const tracking =
         payload.tracking && typeof payload.tracking === "object" && !Array.isArray(payload.tracking)
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
         email: payload.contact?.email,
         eventId: payload.eventId,
         eventSourceUrl,
-        funnel: "erstgespraech",
+        funnel: payload.booking.type === "tour" ? "besichtigung" : "erstgespraech",
         phone: payload.contact?.phone,
         request,
         tracking

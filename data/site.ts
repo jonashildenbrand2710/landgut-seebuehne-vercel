@@ -132,7 +132,7 @@ export const indexPage = {
   heroTitle: "Natürlich heiraten inmitten von Wiesen, Wald und See",
   heroText: "Genießt sorgenfrei - eure Traumhochzeit ist in besten Händen.",
   imageKey: "hero",
-  primaryCta: "Preise & Verfügbarkeit",
+  primaryCta: "Besichtigungstermin buchen",
   sections: [
     {
       eyebrow: "Der Ort",
@@ -158,9 +158,9 @@ export const indexPage = {
     },
     {
       eyebrow: "Der erste Schritt",
-      title: "Erst sprechen, dann sinnvoll besichtigen",
+      title: "Direkt besichtigen und den Ort erleben",
       text:
-        "Der beste Start ist ein persönliches Kennenlerngespräch. Dort klären wir Datum, Gästezahl, Vorstellungen und offene Fragen. Wenn der Rahmen passt, kann eine Besichtigung der nächste sinnvolle Schritt sein."
+        "Der beste Start ist eine persönliche Besichtigung vor Ort. Wählt dafür direkt einen freien Termin in unserem Kalender. Beim Rundgang erlebt ihr das Landgut und wir klären eure wichtigsten Fragen zu Datum, Gästezahl und Tagesablauf."
     }
   ],
   faqs: [
@@ -172,12 +172,12 @@ export const indexPage = {
     {
       question: "Ist eine Besichtigung direkt buchbar?",
       answer:
-        "Wir empfehlen zuerst ein Kennenlerngespräch. Dort klären wir, ob Datum, Gästezahl und Rahmen grundsätzlich passen und ob eine Besichtigung der sinnvolle nächste Schritt ist."
+        "Ja. Ihr könnt direkt einen freien Besichtigungstermin in unserem Kalender auswählen. Mit wenigen Angaben zu eurer Hochzeit können wir euren Besuch passend vorbereiten."
     },
     {
       question: "Warum nennt die Website keine Preise?",
       answer:
-        "Der konkrete Rahmen hängt von Datum, Gästezahl und Vorstellungen ab. Deshalb klären wir Leistungen und Möglichkeiten persönlich im Kennenlerngespräch, statt öffentliche Pauschalaussagen zu machen."
+        "Der konkrete Rahmen hängt von Datum, Gästezahl und Vorstellungen ab. Deshalb klären wir Leistungen und Möglichkeiten persönlich bei der Besichtigung, statt öffentliche Pauschalaussagen zu machen."
     }
   ]
 } satisfies SitePage;
@@ -194,8 +194,8 @@ export const sitePages: SitePage[] = [
     heroText:
       "Der See ist ein besonderer Mittelpunkt für euer Ja-Wort. Damit der Moment leicht wirkt, denken wir Wege, Akustik, Licht, Wetter und den Übergang zum Empfang mit.",
     imageKey: "ceremony",
-    primaryCta: "Kennenlerngespräch anfragen",
-    secondaryCta: "Telefontermin vereinbaren",
+    primaryCta: "Besichtigungstermin buchen",
+    secondaryCta: "Hochzeitsmappe ansehen",
     sections: [
       {
         title: "Der Trauplatz muss mehr können als schön aussehen",
@@ -233,7 +233,7 @@ export const sitePages: SitePage[] = [
     heroText:
       "Ankommen, Trauung, Empfang, Fotos, Dinner und Party liegen nicht als lose Stationen nebeneinander, sondern bilden einen Tagesablauf mit Orientierung.",
     imageKey: "location",
-    primaryCta: "Telefontermin vereinbaren",
+    primaryCta: "Besichtigungstermin buchen",
     secondaryCta: "Hochzeitsmappe ansehen",
     sections: [
       {
@@ -260,8 +260,8 @@ export const sitePages: SitePage[] = [
     heroText:
       "Getting Ready vor Ort kann Wege, Übergaben und Zeitdruck reduzieren. Ihr kommt früher im Gefühl des Tages an und startet nicht aus dem Auto heraus.",
     imageKey: "gettingReady",
-    primaryCta: "Kennenlerngespräch anfragen",
-    secondaryCta: "Telefontermin vereinbaren",
+    primaryCta: "Besichtigungstermin buchen",
+    secondaryCta: "Hochzeitsmappe ansehen",
     sections: [
       {
         title: "Ein Start mit weniger Reibung",
@@ -287,8 +287,8 @@ export const sitePages: SitePage[] = [
     heroText:
       "Die Seebühne steht für Gastgebergefühl, Erfahrung und die ruhige Sicherheit, dass ein Hochzeitstag viele schöne und viele praktische Details braucht.",
     imageKey: "team",
-    primaryCta: "Kennenlerngespräch anfragen",
-    secondaryCta: "Telefontermin vereinbaren",
+    primaryCta: "Besichtigungstermin buchen",
+    secondaryCta: "Hochzeitsmappe ansehen",
     sections: [
       {
         title: "Herzlichkeit mit Struktur",
@@ -314,61 +314,61 @@ export const sitePages: SitePage[] = [
       "Detaillierter PDF-Guide für Hochzeiten an der Seebühne, damit ihr Ort, Ablauf und wichtige Fragen besser einordnen könnt.",
     imageKey: "mappeCover",
     primaryCta: "Hochzeitsmappe sichern",
-    secondaryCta: "Telefontermin vereinbaren",
+    secondaryCta: "Besichtigungstermin buchen",
     sections: [
       {
         title: "Für Paare, die sich erst orientieren möchten",
         text:
           "Viele Fragen entstehen erst, wenn man eine Location wirklich mit dem eigenen Datum, der Gästezahl und dem gewünschten Tagesgefühl verbindet. Die Hochzeitsmappe ist dafür ein guter Startpunkt.",
-        points: ["Eindruck vom Ort", "Ablauf und Möglichkeiten", "Fragen für das Kennenlerngespräch"]
+        points: ["Eindruck vom Ort", "Ablauf und Möglichkeiten", "Fragen für eure Besichtigung"]
       }
     ]
   },
   {
     slug: "besichtigung",
     navTitle: "Besichtigung",
-    title: "Besichtigung nach dem Kennenlerngespräch",
+    title: "Besichtigungstermin direkt buchen",
     description:
-      "Eine Besichtigung des Landgut Seebühne ist sinnvoll, wenn im Kennenlerngespräch Datum, Gästezahl und Rahmen grundsätzlich passen.",
+      "Besichtigt das Landgut Seebühne persönlich und bucht euren passenden Termin direkt im Kalender.",
     heroEyebrow: "Besichtigung",
-    heroTitle: "Besichtigung des Landgut Seebühne: erst den Rahmen klären, dann den Ort erleben.",
+    heroTitle: "Besichtigt das Landgut Seebühne und erlebt euren möglichen Hochzeitsort vor Ort.",
     heroText:
-      "Eine Besichtigung ist am wertvollsten, wenn ihr schon wisst, welche Fragen für eure Hochzeit wichtig sind. Deshalb startet der Weg bei uns mit einem Kennenlerngespräch.",
+      "Wählt direkt einen freien Termin in unserem Kalender. Beim Rundgang zeigen wir euch See, Garten und Landhaus und nehmen uns Zeit für eure wichtigsten Fragen.",
     imageKey: "location",
-    primaryCta: "Kennenlerngespräch anfragen",
+    primaryCta: "Besichtigungstermin buchen",
     secondaryCta: "Hochzeitsmappe ansehen",
     sections: [
       {
-        title: "Warum nicht direkt besichtigen?",
+        title: "Direkt einen passenden Termin wählen",
         text:
-          "Damit die Besichtigung nicht nur ein schöner Rundgang wird, klären wir vorher die wichtigsten Eckpunkte: Datum, Gästezahl, Tagesrahmen und eure offenen Fragen."
+          "Über unseren Kalender wählt ihr selbst einen freien Besichtigungstermin. Mit wenigen Angaben zu Datum, Gästezahl und euren Vorstellungen können wir euren Besuch gezielt vorbereiten."
       },
       {
-        title: "Was ihr im Kennenlerngespräch gewinnt",
+        title: "Was ihr bei der Besichtigung gewinnt",
         text:
-          "Ihr bekommt eine erste Einordnung, ob der Ort zu euren Vorstellungen passt und welche nächsten Schritte sinnvoll sind."
+          "Ihr erlebt die Atmosphäre vor Ort, seht die Wege zwischen See, Garten und Landhaus und bekommt konkrete Antworten für eure Hochzeitsplanung."
       }
     ]
   },
   {
     slug: "termin-buchen",
     navTitle: "Termin",
-    title: "Telefontermin buchen",
+    title: "Besichtigungstermin buchen",
     description:
-      "Bucht ein unverbindliches Kennenlerngespräch, um Datum, Gästezahl, Rahmen und offene Fragen zum Landgut Seebühne zu klären.",
-    heroEyebrow: "Kennenlerngespräch",
-    heroTitle: "Telefontermin zum Landgut Seebühne buchen und eure Eckpunkte klären.",
+      "Bucht direkt einen freien Besichtigungstermin am Landgut Seebühne und erlebt die Location persönlich.",
+    heroEyebrow: "Besichtigung",
+    heroTitle: "Besichtigungstermin am Landgut Seebühne direkt im Kalender buchen.",
     heroText:
-      "Im Gespräch sortieren wir eure wichtigsten Fragen und schauen gemeinsam, ob das Landgut Seebühne grundsätzlich zu eurem Datum, eurer Gästezahl und euren Vorstellungen passt.",
+      "Wählt euren passenden Termin. Mit wenigen Angaben zu eurer Hochzeit können wir die Besichtigung vorbereiten und uns vor Ort Zeit für eure Fragen nehmen.",
     imageKey: "hero",
-    primaryCta: "Kalender öffnen",
-    secondaryCta: "Per E-Mail schreiben",
+    primaryCta: "Besichtigungstermin wählen",
+    secondaryCta: "Hochzeitsmappe ansehen",
     sections: [
       {
-        title: "Was wir im Gespräch klären",
+        title: "Was wir für die Besichtigung wissen sollten",
         text:
-          "Ihr müsst noch nicht alles wissen. Wichtig ist, dass wir die Eckpunkte sortieren und euch Orientierung geben, was als Nächstes sinnvoll ist.",
-        points: ["Wunschtermin oder Zeitraum", "ungefähre Gästezahl", "Art der Hochzeit", "offene Fragen und nächste Schritte"]
+          "Ihr müsst noch nicht alles wissen. Gästezahl, Wunschjahr und ein Zeitraum zwischen April und Oktober helfen uns, euren Rundgang passend vorzubereiten.",
+        points: ["ungefähre Gästezahl", "Wunschjahr", "Zeitraum von April bis Oktober", "optional ein konkreter Wunschtermin"]
       }
     ]
   },
@@ -376,39 +376,39 @@ export const sitePages: SitePage[] = [
     slug: "kontaktformular",
     title: "Kontakt",
     description:
-      "Kontakt zum Landgut Seebühne: Startet mit einem Kennenlerngespräch, damit Datum, Gästezahl und Rahmen sauber sortiert werden.",
+      "Kontakt zum Landgut Seebühne: Bucht direkt eine Besichtigung und erlebt die Hochzeitslocation persönlich vor Ort.",
     heroEyebrow: "Kontakt",
-    heroTitle: "Kontakt zum Landgut Seebühne: Anfrage stellen oder Kennenlerngespräch starten.",
+    heroTitle: "Kontakt zum Landgut Seebühne: Besichtigung direkt buchen.",
     heroText:
-      "Wenn ihr schon konkrete Eckpunkte habt, ist ein Telefontermin meist der schnellste Weg. Dort klären wir, ob der Rahmen passt und welcher nächste Schritt sinnvoll ist.",
+      "Der schnellste Weg zum persönlichen Eindruck führt direkt vor Ort: Wählt einen freien Besichtigungstermin im Kalender und bringt eure Fragen einfach mit.",
     imageKey: "lake",
-    primaryCta: "Telefontermin vereinbaren",
+    primaryCta: "Besichtigungstermin buchen",
     sections: [
       {
         title: "Damit wir gut einordnen können, worum es geht",
         text:
-          "Hilfreich sind Wunschtermin oder Zeitraum, ungefähre Gästezahl, Art der Hochzeit und die Fragen, die euch gerade am meisten beschäftigen."
+          "Hilfreich sind eure ungefähre Gästezahl, das Wunschjahr, ein Zeitraum zwischen April und Oktober und – falls schon vorhanden – ein konkreter Wunschtermin."
       }
     ]
   },
   {
     slug: "formular",
-    title: "Kennenlernen",
+    title: "Besichtigung buchen",
     description:
-      "Kennenlernen mit dem Landgut Seebühne: eure Eckpunkte sammeln und ein unverbindliches Kennenlerngespräch starten.",
-    heroEyebrow: "Kennenlernen",
-    heroTitle: "Kennenlernen mit dem Landgut Seebühne: passt der Rahmen zu eurer Hochzeit?",
+      "Besichtigung am Landgut Seebühne: freie Zeit wählen, wenige Eckpunkte angeben und Termin direkt im Kalender buchen.",
+    heroEyebrow: "Besichtigung",
+    heroTitle: "Lernt das Landgut Seebühne bei einer persönlichen Besichtigung kennen.",
     heroText:
-      "Der erste Austausch gibt euch Orientierung und hilft uns, Datum, Gästezahl und Vorstellungen realistisch einzuordnen.",
+      "Wählt direkt einen freien Termin im Kalender. Vor Ort erlebt ihr die Location und könnt eure Fragen persönlich mit uns klären.",
     imageKey: "ceremony",
-    primaryCta: "Telefontermin vereinbaren",
-    secondaryCta: "Telefontermin vereinbaren",
+    primaryCta: "Besichtigungstermin buchen",
+    secondaryCta: "Hochzeitsmappe ansehen",
     sections: [
       {
         title: "Was euch erwartet",
         text:
-          "Ein direkter Austausch, konkrete Antworten auf eure ersten Fragen und eine gemeinsame Einschätzung, ob eine Besichtigung der nächste sinnvolle Schritt ist.",
-        points: ["unverbindlich", "persönlich", "auf eure Eckpunkte bezogen"]
+          "Ein persönlicher Rundgang durch See, Garten und Landhaus, konkrete Antworten auf eure Fragen und ein realistischer Eindruck davon, wie sich euer Hochzeitstag bei uns anfühlen könnte.",
+        points: ["direkt buchbar", "persönlich vor Ort", "auf eure Eckpunkte bezogen"]
       }
     ]
   },
@@ -502,13 +502,13 @@ export const sitePages: SitePage[] = [
     slug: "preise",
     title: "Rahmen persönlich klären",
     description:
-      "Preis- und Verfügbarkeitsfragen zum Landgut Seebühne werden persönlich im Kennenlerngespräch geklärt.",
+      "Preis- und Verfügbarkeitsfragen zum Landgut Seebühne werden persönlich bei der Besichtigung geklärt.",
     heroEyebrow: "Rahmen und Verfügbarkeit",
     heroTitle: "Den konkreten Rahmen klären wir am besten persönlich.",
     heroText:
-      "Welche Leistungen und Möglichkeiten zu eurer Hochzeit passen, hängt von Datum, Gästezahl und Tagesrahmen ab. Deshalb führen wir Preis- und Verfügbarkeitsfragen bewusst ins Kennenlerngespräch.",
+      "Welche Leistungen und Möglichkeiten zu eurer Hochzeit passen, hängt von Datum, Gästezahl und Tagesrahmen ab. Deshalb ordnen wir Preis- und Verfügbarkeitsfragen persönlich bei eurer Besichtigung ein.",
     imageKey: "location",
-    primaryCta: "Kennenlerngespräch anfragen",
+    primaryCta: "Besichtigungstermin buchen",
     sections: [
       {
         title: "Warum hier keine öffentlichen Preisdetails stehen",
@@ -522,37 +522,37 @@ export const sitePages: SitePage[] = [
     slug: "preise-basis",
     title: "Rahmen persönlich klären",
     description:
-      "Preis- und Paketfragen werden beim Landgut Seebühne nicht öffentlich pauschalisiert, sondern im Kennenlerngespräch eingeordnet.",
+      "Preis- und Paketfragen werden beim Landgut Seebühne nicht öffentlich pauschalisiert, sondern persönlich bei der Besichtigung eingeordnet.",
     heroEyebrow: "Rahmen und Verfügbarkeit",
-    heroTitle: "Lasst uns den passenden Rahmen im Gespräch sortieren.",
+    heroTitle: "Lasst uns den passenden Rahmen bei eurer Besichtigung sortieren.",
     heroText:
       "Damit ihr keine unvollständigen Einzelzahlen vergleichen müsst, klären wir Leistungen, Datum und Gästezahl persönlich.",
     imageKey: "location",
-    primaryCta: "Telefontermin vereinbaren",
+    primaryCta: "Besichtigungstermin buchen",
     sections: [
       {
         title: "Nächster Schritt",
         text:
-          "Startet mit einem unverbindlichen Telefontermin. Dort lässt sich deutlich besser einordnen, was für eure Hochzeit sinnvoll ist."
+          "Bucht direkt eine unverbindliche Besichtigung. Vor Ort lässt sich deutlich besser einordnen, was für eure Hochzeit sinnvoll ist."
       }
     ],
     noindex: true
   },
   {
     slug: "quizz",
-    title: "Kennenlerngespräch",
+    title: "Besichtigung",
     description: "Weiterleitungspunkt für ältere Quiz- oder Funnel-Seiten des Landgut Seebühne.",
-    heroEyebrow: "Kennenlerngespräch",
-    heroTitle: "Der aktuelle Weg startet mit einem Kennenlerngespräch.",
+    heroEyebrow: "Besichtigung",
+    heroTitle: "Der aktuelle Weg startet mit einer persönlichen Besichtigung.",
     heroText:
-      "Diese ältere Funnel-Seite wird im Rebuild nicht als öffentliche SEO-Seite geführt. Für Paare ist der Telefontermin der sinnvollste nächste Schritt.",
+      "Diese ältere Funnel-Seite wird im Rebuild nicht als öffentliche SEO-Seite geführt. Für Paare ist die direkt buchbare Besichtigung der sinnvollste nächste Schritt.",
     imageKey: "hero",
-    primaryCta: "Telefontermin vereinbaren",
+    primaryCta: "Besichtigungstermin buchen",
     sections: [
       {
         title: "Aktueller Einstieg",
         text:
-          "Wir klären im Gespräch, ob Datum, Gästezahl und Vorstellungen grundsätzlich zum Landgut Seebühne passen."
+          "Erlebt den Ort persönlich und klärt bei der Besichtigung, wie Datum, Gästezahl und Vorstellungen zum Landgut Seebühne passen."
       }
     ],
     noindex: true
@@ -564,14 +564,14 @@ export const sitePages: SitePage[] = [
     heroEyebrow: "Kontakt",
     heroTitle: "Lasst uns direkt sprechen.",
     heroText:
-      "Diese ältere Chatbot-Seite wird nicht als öffentliche SEO-Seite geführt. Für konkrete Hochzeitsfragen nutzt bitte das Kennenlerngespräch.",
+      "Diese ältere Chatbot-Seite wird nicht als öffentliche SEO-Seite geführt. Für konkrete Hochzeitsfragen bucht bitte direkt eine Besichtigung.",
     imageKey: "lake",
-    primaryCta: "Telefontermin vereinbaren",
+    primaryCta: "Besichtigungstermin buchen",
     sections: [
       {
         title: "Schneller zur passenden Antwort",
         text:
-          "Im persönlichen Gespräch lassen sich Datum, Gästezahl, Rahmen und nächste Schritte zuverlässiger klären."
+          "Bei der persönlichen Besichtigung lassen sich Datum, Gästezahl, Rahmen und nächste Schritte zuverlässig klären."
       }
     ],
     noindex: true

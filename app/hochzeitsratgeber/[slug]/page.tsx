@@ -26,12 +26,12 @@ const defaultRelatedLinks: ArticleRelatedLink[] = [
   {
     href: "/besichtigung",
     label: "Besichtigung",
-    description: "Warum die Besichtigung nach einem ersten Rahmencheck hilfreicher wird."
+    description: "So erlebt ihr See, Garten und Landhaus persönlich vor Ort."
   },
   {
     href: "/termin-buchen",
-    label: "Kennenlerngespräch",
-    description: "Datum, Gästezahl, Rahmen und offene Fragen persönlich einordnen."
+    label: "Besichtigung buchen",
+    description: "Freien Termin wählen und direkt im Kalender eintragen."
   }
 ];
 
@@ -45,7 +45,7 @@ const relatedLinksBySlug: Record<string, ArticleRelatedLink[]> = {
     {
       href: "/besichtigung",
       label: "Besichtigung",
-      description: "Der passende Ablauf vom Kennenlerngespräch zur Besichtigung vor Ort."
+      description: "Der passende Ablauf für euren persönlichen Rundgang vor Ort."
     },
     defaultRelatedLinks[1],
     defaultRelatedLinks[2]

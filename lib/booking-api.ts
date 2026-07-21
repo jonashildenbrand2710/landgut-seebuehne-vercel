@@ -15,6 +15,7 @@ export type BookingAvailabilityRequest = {
   durationMinutes: number;
   flowId: string;
   flowVersion: string;
+  stepMinutes?: number;
   range: {
     from: string;
     to: string;
@@ -25,6 +26,7 @@ export type BookingAvailabilityResponse = {
   appointmentType?: string;
   calendar_checked?: boolean;
   from?: string;
+  preview_mode?: boolean;
   slots: BookingSlot[];
   to?: string;
 };

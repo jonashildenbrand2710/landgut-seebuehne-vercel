@@ -2,9 +2,15 @@ export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim() || ""
 export const META_GRAPH_API_VERSION = "v22.0";
 export const META_EVENT_NAME = "CompleteRegistration";
 
-export type MetaConversionFunnel = "erstgespraech" | "hochzeitsmappe";
+export type MetaConversionFunnel = "besichtigung" | "erstgespraech" | "hochzeitsmappe";
 
 export const metaConversionCustomData = {
+  besichtigung: {
+    content_name: "besichtigung",
+    currency: "EUR",
+    funnel: "besichtigung",
+    lead_type: "appointment"
+  },
   erstgespraech: {
     content_name: "erstgespraech",
     currency: "EUR",
@@ -20,5 +26,5 @@ export const metaConversionCustomData = {
 } satisfies Record<MetaConversionFunnel, Record<string, string>>;
 
 export function isMetaConversionFunnel(value: string | null | undefined): value is MetaConversionFunnel {
-  return value === "erstgespraech" || value === "hochzeitsmappe";
+  return value === "besichtigung" || value === "erstgespraech" || value === "hochzeitsmappe";
 }
