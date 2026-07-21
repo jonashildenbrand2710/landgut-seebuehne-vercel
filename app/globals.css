@@ -4602,7 +4602,7 @@ h2 {
   }
 
   .hero-editorial::before {
-    inset: 96px 14px 28px;
+    display: none;
   }
 
   .hero-editorial .hero-content,
@@ -4687,6 +4687,32 @@ h2 {
   .button {
     min-height: 48px;
     width: 100%;
+  }
+
+  /* Mobile Hero: ohne Kartenrahmen und mit einem kompakten, linksbuendigen
+     CTA, damit das Paarmotiv rechts sichtbar bleibt. */
+  .hero-proof {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .hero-copy .hero-actions {
+    width: fit-content;
+    max-width: 100%;
+    align-items: flex-start;
+  }
+
+  .hero-copy .hero-actions .button {
+    width: fit-content;
+    max-width: 100%;
+    align-self: flex-start;
+    padding-right: 16px;
+    padding-left: 16px;
+    font-size: 0.92rem;
   }
 
   .reveal-ready .split > .reveal-target,
