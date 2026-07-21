@@ -2938,9 +2938,9 @@ h2 {
 
 .availability-section {
   position: relative;
-  min-height: 680px;
+  min-height: 540px;
   display: grid;
-  align-items: end;
+  align-items: center;
   overflow: hidden;
   color: var(--white);
   background: var(--surface-dark);
@@ -2954,13 +2954,18 @@ h2 {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(28, 29, 32, 0.78), rgba(20, 35, 29, 0.36) 56%, rgba(103, 164, 144, 0.16)),
-    linear-gradient(0deg, rgba(16, 28, 23, 0.82), rgba(16, 28, 23, 0.12) 62%);
+    radial-gradient(
+      ellipse 44% 90% at 50% 48%,
+      rgba(249, 243, 233, 0.08) 0%,
+      rgba(28, 29, 32, 0.16) 58%,
+      rgba(28, 29, 32, 0.62) 100%
+    ),
+    linear-gradient(0deg, rgba(28, 29, 32, 0.48), rgba(28, 29, 32, 0.06) 54%, rgba(28, 29, 32, 0.14));
 }
 
 .availability-content {
   position: relative;
-  padding: 120px 0 76px;
+  padding: 72px 0;
 }
 
 .availability-content h2 {
@@ -4356,6 +4361,11 @@ h2 {
 
   .availability-section {
     min-height: 600px;
+    align-items: end;
+  }
+
+  .availability-content {
+    padding: 120px 0 76px;
   }
 
   .personal-cta-actions {
