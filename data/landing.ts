@@ -72,11 +72,11 @@ export const landingLeadMagnet = {
   eyebrow: "Hochzeitsmappe",
   title: "Die perfekte Kulisse für eure Traumhochzeit",
   text: "Sichert euch jetzt exklusive Infos und Termine, bevor sie vergeben sind.",
-  badges: ["PDF-Download", "Location am See", "Ablauf & Möglichkeiten", "Vorbereitung fürs Kennenlerngespräch"],
+  badges: ["PDF-Download", "Location am See", "Ablauf & Möglichkeiten", "Vorbereitung auf die Besichtigung"],
   points: [
     "umfassender Überblick über die Location am See",
     "Antworten auf häufige Fragen rund um eure Hochzeit",
-    "Orientierung, bevor ihr Telefontermin oder Besichtigung plant"
+    "Orientierung, bevor ihr eure Besichtigung plant"
   ]
 };
 
@@ -84,8 +84,8 @@ export const landingAvailability = {
   eyebrow: "Freie Hochzeitstermine",
   title: "Jetzt anfragen, bevor euer Wunschdatum vergeben ist.",
   text:
-    "Wir sortieren mit euch Datum, Gästezahl, Paket-Richtung und die Frage, ob ein Kennenlerngespräch der passende nächste Schritt ist.",
-  cta: "Preise & Details anfragen"
+    "Wählt direkt einen freien Besichtigungstermin. Vor Ort erlebt ihr die Location und wir ordnen Datum, Gästezahl und den passenden Rahmen gemeinsam ein.",
+  cta: "Besichtigungstermin buchen"
 };
 
 export const landingPromises = [
@@ -132,7 +132,7 @@ export const landingBundles = [
       "Authentische Momente - echte Nähe statt Massenabfertigung",
       "… und vieles mehr für euren perfekten Tag"
     ],
-    cta: "Preise & Details anfragen"
+    cta: "Besichtigungstermin buchen"
   },
   {
     title: "Classic Wedding",
@@ -144,7 +144,7 @@ export const landingBundles = [
       "Übernachtungsmöglichkeiten - für Gäste zum Vorzugspreis",
       "… und vieles mehr für euren perfekten Tag"
     ],
-    cta: "Preise & Details anfragen"
+    cta: "Besichtigungstermin buchen"
   },
   {
     title: "Signature Wedding",
@@ -158,7 +158,7 @@ export const landingBundles = [
       "Gratis Hochzeitssuite komfortable Übernachtung direkt vor Ort",
       "… und vieles mehr für euren perfekten Tag"
     ],
-    cta: "Preise & Details anfragen"
+    cta: "Besichtigungstermin buchen"
   }
 ] satisfies LandingBundle[];
 
@@ -232,7 +232,7 @@ export const landingProblemSigns = {
   title: "8 bittere Wahrheiten über Hochzeitslocations, die niemand ausspricht",
   text:
     "Was euch bei typischen Locations wirklich erwartet – und warum es euch betrifft",
-  cta: "Jetzt Preise & Details anfragen",
+  cta: "Besichtigungstermin buchen",
   items: [
     {
       title: "Die Fließband-Hochzeit",
@@ -405,7 +405,7 @@ export const landingFaq = [
   {
     question: "Was ist der sinnvollste erste Schritt?",
     answer:
-      "Startet mit einem unverbindlichen Kennenlerngespräch. Dort klären wir Datum, Gästezahl, Tagesgefühl und offene Fragen, bevor eine Besichtigung sinnvoll geplant wird."
+      "Bucht direkt einen freien Besichtigungstermin. Vor Ort erlebt ihr das Landgut und wir klären Datum, Gästezahl, Tagesgefühl und eure offenen Fragen persönlich."
   },
   {
     question: "Warum steht die Hochzeitsmappe so früh auf der Seite?",

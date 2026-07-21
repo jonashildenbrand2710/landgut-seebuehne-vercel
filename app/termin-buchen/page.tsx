@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import { CalendarClock, CheckCircle2, ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import { CalendarClock, CheckCircle2, MapPin, ShieldCheck } from "lucide-react";
 import { BookingFunnel } from "@/components/BookingFunnel";
 import { getBookingFlowConfig } from "@/data/booking-flow";
+import { siteConfig } from "@/data/site";
 import { pageMetadata } from "@/lib/page-metadata";
 
-const flow = getBookingFlowConfig("phone");
+const flow = getBookingFlowConfig("tour");
 
 export const metadata: Metadata = pageMetadata({
-  title: "Telefontermin buchen",
+  title: "Besichtigungstermin buchen",
   description:
-    "Bucht einen freien Telefontermin mit dem Landgut Seebühne. Die Verfügbarkeit wird direkt mit dem Kalender abgeglichen.",
+    "Bucht direkt einen freien Besichtigungstermin am Landgut Seebühne. Die Verfügbarkeit wird live mit dem Kalender abgeglichen.",
   path: "/termin-buchen"
 });
 
@@ -18,17 +20,27 @@ export default function TerminBuchenPage() {
     <article className="booking-page">
       <div className="section-inner booking-page-inner">
         <div className="booking-page-copy">
-          <p className="eyebrow dark">Kennenlerngespräch</p>
-          <h1>Termin buchen</h1>
+          <p className="eyebrow dark">Landgut vor Ort erleben</p>
+          <h1>Besichtigung buchen</h1>
           <p>
-            Wählt eine freie Terminzeit für euer Kennenlerngespräch aus. Danach
-            reichen Kontaktdaten und wenige Eckpunkte, damit der Termin direkt
-            im Kalender landet.
+            Wählt direkt eine freie Terminzeit für eure Besichtigung aus. Danach
+            reichen Kontaktdaten und wenige Eckpunkte, damit euer Termin sofort
+            im Kalender landet und wir euren Besuch passend vorbereiten können.
+          </p>
+          <p className="booking-page-alternative">
+            Ihr möchtet noch nicht gleich zur Besichtigung kommen oder habt vorab
+            Fragen? Schreibt uns gern eine E-Mail an{" "}
+            <Link href={`mailto:${siteConfig.email}`}>{siteConfig.email}</Link>. Auf
+            Wunsch vereinbaren wir darüber auch einen Telefontermin zum Austausch.
           </p>
           <div className="booking-page-points" aria-label="Was euch erwartet">
             <span>
               <CalendarClock aria-hidden="true" size={16} />
-              30 Minuten
+              120 Minuten vor Ort
+            </span>
+            <span>
+              <MapPin aria-hidden="true" size={16} />
+              {siteConfig.address.legal}
             </span>
             <span>
               <ShieldCheck aria-hidden="true" size={16} />

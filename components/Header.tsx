@@ -48,11 +48,11 @@ export function Header({
       <Link
         className={`header-cta header-cta--${variant}`}
         href="/termin-buchen"
-        aria-label="Telefontermin zum Kennenlerngespräch buchen"
+        aria-label="Besichtigungstermin am Landgut Seebühne buchen"
       >
         <CalendarDays aria-hidden="true" size={18} />
-        <span className="header-cta-label-full">Kennenlerngespräch</span>
-        <span className="header-cta-label-short">Kennenlernen</span>
+        <span className="header-cta-label-full">Besichtigung buchen</span>
+        <span className="header-cta-label-short">Besichtigung</span>
       </Link>
     </header>
   );

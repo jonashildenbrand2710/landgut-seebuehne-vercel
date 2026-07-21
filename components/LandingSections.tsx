@@ -236,8 +236,8 @@ export function WeddingBundles() {
             </h2>
           </div>
           <p>
-            Für mehr Details zu unseren Leistungen und Preisen bieten wir euch
-            unser kostenloses & unverbindliches 15-minütiges Kennenlerngespräch an.
+            Für mehr Details zu unseren Leistungen und Möglichkeiten bucht ihr
+            direkt einen unverbindlichen Besichtigungstermin bei uns vor Ort.
           </p>
         </div>
         <div className="bundle-grid">
@@ -263,7 +263,7 @@ export function WeddingBundles() {
           ))}
         </div>
         <div className="center-actions">
-          <InternalCta href="/termin-buchen">Leistungen persönlich klären</InternalCta>
+          <InternalCta href="/termin-buchen">Besichtigungstermin buchen</InternalCta>
         </div>
       </div>
     </section>
@@ -293,9 +293,9 @@ export function FamilyStory() {
             </div>
           </div>
           <div className="inline-actions">
-            <InternalCta href="/termin-buchen">Kennenlerngespräch anfragen</InternalCta>
+            <InternalCta href="/termin-buchen">Besichtigungstermin buchen</InternalCta>
             <InternalCta href="/termin-buchen" variant="secondary">
-              Location im Termin klären
+              Termin im Kalender wählen
             </InternalCta>
           </div>
         </div>
@@ -339,7 +339,7 @@ export function FamilyStory() {
           })}
         </div>
         <div className="teamleader-actions">
-          <InternalCta href="/termin-buchen">Preise & Details anfragen</InternalCta>
+          <InternalCta href="/termin-buchen">Besichtigungstermin buchen</InternalCta>
         </div>
       </div>
     </section>
@@ -531,17 +531,16 @@ export function PersonalCta() {
         <div>
           <Sparkles aria-hidden="true" size={24} />
           <p className="eyebrow">Offene Fragen</p>
-          <h2>Lasst uns erst den Rahmen sortieren. Dann wird Besichtigung sinnvoll.</h2>
+          <h2>Erlebt die Seebühne persönlich bei einer Besichtigung.</h2>
           <p>
-            Erzählt uns Datum, Gästezahl und eure grobe Vorstellung. Im Gespräch
-            klären wir, ob die Seebühne grundsätzlich passt und welcher nächste
-            Schritt euch wirklich weiterbringt.
+            Wählt direkt einen freien Termin im Kalender. Vor Ort zeigen wir euch
+            See, Garten und Landhaus und nehmen uns Zeit für eure Fragen.
           </p>
         </div>
         <div className="personal-cta-actions">
           <Link className="button primary light" href="/termin-buchen">
             <CalendarDays aria-hidden="true" size={18} />
-            <span>Kennenlerngespräch sichern</span>
+            <span>Besichtigungstermin buchen</span>
           </Link>
         </div>
       </div>

@@ -6,12 +6,19 @@ import {
   CalendarCheck,
   CalendarDays,
   CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
   LoaderCircle,
   RefreshCcw
 } from "lucide-react";
 import { useEffect, useMemo, useState, type KeyboardEvent } from "react";
 import type { BookingFlowField } from "@/data/booking-flow";
-import type { BookingAppointmentType, BookingResponse, BookingSlot } from "@/lib/booking-api";
+import type {
+  BookingAppointmentType,
+  BookingAvailabilityResponse,
+  BookingResponse,
+  BookingSlot
+} from "@/lib/booking-api";
 import { createMetaEventId, trackMetaCompleteRegistrationWhenReady } from "@/components/MetaConversionTracking";
 
 type BookingFunnelProps = {
@@ -24,6 +31,7 @@ type BookingFunnelProps = {
   heading: string;
   rangeDays: number;
   sourceLabel: string;
+  stepMinutes: number;
 };
 
 type BookingContact = {
@@ -37,6 +45,7 @@ type StepId = "slot" | "contact" | "questions" | "review";
 
 const siteName = "landgut-seebuehne-vercel";
 const timeZone = "Europe/Berlin";
+const tourBookingWeekdays = new Set(["Sun", "Mon", "Tue", "Wed", "Thu"]);
 const steps: Array<{ id: StepId; label: string }> = [
   { id: "slot", label: "Termin" },
   { id: "contact", label: "Kontakt" },
@@ -95,15 +104,7 @@ function trackingPayload() {
 }
 
 function eventIdFor(appointmentType: BookingAppointmentType) {
-  if (appointmentType === "phone") {
-    return createMetaEventId("erstgespraech");
-  }
-
-  if (window.crypto?.randomUUID) {
-    return `website_booking_${appointmentType}_${window.crypto.randomUUID()}`;
-  }
-
-  return `website_booking_${appointmentType}_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+  return createMetaEventId(appointmentType === "tour" ? "besichtigung" : "erstgespraech");
 }
 
 function localDateKey(value: string | Date) {
@@ -119,13 +120,40 @@ function localDateKey(value: string | Date) {
   return `${record.year}-${record.month}-${record.day}`;
 }
 
-function formatDay(value: Date) {
+const weekdayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+function weekdayIndex(date: Date) {
+  const name = new Intl.DateTimeFormat("en-US", { timeZone, weekday: "short" }).format(date);
+  return Math.max(0, weekdayNames.indexOf(name));
+}
+
+function isTourBookingDay(value: string) {
+  const weekday = new Intl.DateTimeFormat("en-US", { timeZone, weekday: "short" }).format(new Date(value));
+  return tourBookingWeekdays.has(weekday);
+}
+
+function formatDayNumber(date: Date) {
+  return new Intl.DateTimeFormat("de-DE", { day: "numeric", timeZone }).format(date);
+}
+
+function formatWeekRange(start: Date, end: Date) {
+  const dayMonth = new Intl.DateTimeFormat("de-DE", { day: "numeric", month: "long", timeZone });
+  const monthOf = new Intl.DateTimeFormat("de-DE", { month: "numeric", timeZone });
+
+  if (monthOf.format(start) === monthOf.format(end)) {
+    return `${formatDayNumber(start)}. – ${dayMonth.format(end)}`;
+  }
+
+  return `${dayMonth.format(start)} – ${dayMonth.format(end)}`;
+}
+
+function formatFullDay(date: Date) {
   return new Intl.DateTimeFormat("de-DE", {
-    day: "2-digit",
-    month: "2-digit",
+    day: "numeric",
+    month: "long",
     timeZone,
-    weekday: "short"
-  }).format(value);
+    weekday: "long"
+  }).format(date);
 }
 
 function formatSlotDate(value: string) {
@@ -168,6 +196,12 @@ async function postJson<T>(url: string, payload: unknown) {
 
 function answerLabel(field: BookingFlowField, value: string) {
   if (!value) return "Noch offen";
+  if (field.type === "optional-date") {
+    const date = new Date(`${value}T12:00:00`);
+    if (!Number.isNaN(date.getTime())) {
+      return new Intl.DateTimeFormat("de-DE", { dateStyle: "long", timeZone }).format(date);
+    }
+  }
   return field.options?.find((option) => option === value) || value;
 }
 
@@ -200,7 +234,8 @@ export function BookingFunnel({
   flowVersion,
   heading,
   rangeDays,
-  sourceLabel
+  sourceLabel,
+  stepMinutes
 }: BookingFunnelProps) {
   const [activeStep, setActiveStep] = useState<StepId>("slot");
   const [availabilityState, setAvailabilityState] = useState<LoadingState>("idle");
@@ -208,6 +243,7 @@ export function BookingFunnel({
   const [slots, setSlots] = useState<BookingSlot[]>([]);
   const [selectedDayKey, setSelectedDayKey] = useState("");
   const [selectedSlotId, setSelectedSlotId] = useState("");
+  const [weekIndex, setWeekIndex] = useState(0);
   const [contact, setContact] = useState<BookingContact>({
     email: "",
     name: "",
@@ -221,6 +257,7 @@ export function BookingFunnel({
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [error, setError] = useState("");
   const [availabilityError, setAvailabilityError] = useState("");
+  const [availabilityPreview, setAvailabilityPreview] = useState(false);
   const [bookingResult, setBookingResult] = useState<BookingResponse | null>(null);
 
   const selectedSlot = useMemo(
@@ -244,12 +281,34 @@ export function BookingFunnel({
         return {
           date,
           key,
-          label: formatDay(date),
           slots: slotsByDay.get(key) || []
         };
       }),
     [rangeDays, slotsByDay]
   );
+  const weeks = useMemo(() => {
+    if (!days.length) return [];
+
+    const inRange = new Map(days.map((day) => [day.key, day]));
+    const monday = addDays(days[0].date, -weekdayIndex(days[0].date));
+    const totalCells = Math.ceil((weekdayIndex(days[0].date) + days.length) / 7) * 7;
+    const cells = Array.from({ length: totalCells }, (_, index) => {
+      const date = addDays(monday, index);
+      const key = localDateKey(date);
+      const day = inRange.get(key);
+
+      return {
+        date,
+        hasSlots: Boolean(day?.slots.length),
+        inRange: Boolean(day),
+        key
+      };
+    });
+
+    return Array.from({ length: totalCells / 7 }, (_, index) => cells.slice(index * 7, index * 7 + 7));
+  }, [days]);
+  const currentWeek = weeks[Math.min(weekIndex, Math.max(0, weeks.length - 1))] || [];
+  const selectedDay = selectedDayKey ? days.find((day) => day.key === selectedDayKey) || null : null;
   const visibleSlots = selectedDayKey ? slotsByDay.get(selectedDayKey) || [] : [];
   const activeStepIndex = steps.findIndex((step) => step.id === activeStep);
   const contactValidation = useMemo(() => {
@@ -281,22 +340,28 @@ export function BookingFunnel({
     try {
       const from = addDays(new Date(), 1);
       const to = addDays(from, rangeDays);
-      const availability = await postJson<{ slots?: BookingSlot[] }>("/api/booking/availability", {
+      const availability = await postJson<BookingAvailabilityResponse>("/api/booking/availability", {
         appointmentType,
         durationMinutes,
         flowId,
         flowVersion,
+        stepMinutes,
         range: {
           from: from.toISOString(),
           to: to.toISOString()
         }
       });
-      const nextSlots = availability.slots ?? [];
+      const nextSlots = (availability.slots ?? []).filter(
+        (slot) => appointmentType !== "tour" || isTourBookingDay(slot.start)
+      );
+      setAvailabilityPreview(Boolean(availability.preview_mode));
       setSlots(nextSlots);
       setSelectedSlotId("");
-      setSelectedDayKey(nextSlots[0] ? localDateKey(nextSlots[0].start) : localDateKey(from));
+      setSelectedDayKey("");
+      setWeekIndex(0);
       setAvailabilityState("success");
     } catch (loadError) {
+      setAvailabilityPreview(false);
       setAvailabilityState("error");
       setAvailabilityError(
         loadError instanceof Error ? loadError.message : "Freie Termine konnten nicht geladen werden."
@@ -312,7 +377,7 @@ export function BookingFunnel({
     return () => window.clearTimeout(timeout);
     // loadAvailability intentionally reads the current props listed below.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [appointmentType, durationMinutes, flowId, flowVersion, rangeDays]);
+  }, [appointmentType, durationMinutes, flowId, flowVersion, rangeDays, stepMinutes]);
 
   const goToStep = (step: StepId) => {
     const nextIndex = steps.findIndex((item) => item.id === step);
@@ -383,6 +448,8 @@ export function BookingFunnel({
       const booking = await postJson<BookingResponse>("/api/booking/book", {
         answers,
         booking: {
+          desiredDate: answers.desiredDate,
+          desiredMonth: answers.preferredMonth,
           desiredYear: answers.desiredYear,
           durationMinutes,
           guestRange: answers.guestRange,
@@ -408,9 +475,11 @@ export function BookingFunnel({
       setBookingResult(booking);
       setBookingState("success");
 
-      if (appointmentType === "phone") {
-        trackMetaCompleteRegistrationWhenReady("erstgespraech", eventId, { guard: true });
-      }
+      trackMetaCompleteRegistrationWhenReady(
+        appointmentType === "tour" ? "besichtigung" : "erstgespraech",
+        eventId,
+        { guard: true }
+      );
     } catch (submitError) {
       setBookingState("error");
       setError(submitError instanceof Error ? submitError.message : "Termin konnte nicht gebucht werden.");
@@ -485,6 +554,9 @@ export function BookingFunnel({
             <div>
               <h3>Freie Terminzeit wählen</h3>
               <p>Die Verfügbarkeit wird live mit dem Kalender abgeglichen.</p>
+              {availabilityPreview ? (
+                <p className="booking-preview-note">Lokale Vorschau – noch ohne Live-Kalenderabgleich.</p>
+              ) : null}
             </div>
             <button className="booking-refresh" type="button" onClick={loadAvailability}>
               <RefreshCcw aria-hidden="true" size={16} />
@@ -519,43 +591,99 @@ export function BookingFunnel({
             </p>
           ) : null}
 
-          {days.length && availabilityState !== "error" ? (
-            <div className="booking-day-strip" aria-label="Nächste zehn Tage">
-              {days.map((day) => (
+          {currentWeek.length && availabilityState !== "error" ? (
+            <div className="booking-calendar" aria-label="Tag wählen">
+              <div className="booking-week-nav">
                 <button
-                  className={day.key === selectedDayKey ? "booking-day is-selected" : "booking-day"}
-                  disabled={!day.slots.length && availabilityState === "success"}
-                  key={day.key}
-                  onClick={() => {
-                    setSelectedDayKey(day.key);
-                    setSelectedSlotId("");
-                  }}
+                  aria-label="Vorherige Woche"
+                  className="booking-week-arrow"
+                  disabled={weekIndex === 0}
+                  onClick={() => setWeekIndex((index) => Math.max(0, index - 1))}
                   type="button"
                 >
-                  <span>{day.label}</span>
-                  <small>{day.slots.length ? `${day.slots.length} frei` : "kein Termin"}</small>
+                  <ChevronLeft aria-hidden="true" size={18} />
                 </button>
-              ))}
+                <p aria-live="polite">{formatWeekRange(currentWeek[0].date, currentWeek[6].date)}</p>
+                <button
+                  aria-label="Nächste Woche"
+                  className="booking-week-arrow"
+                  disabled={weekIndex >= weeks.length - 1}
+                  onClick={() => setWeekIndex((index) => Math.min(weeks.length - 1, index + 1))}
+                  type="button"
+                >
+                  <ChevronRight aria-hidden="true" size={18} />
+                </button>
+              </div>
+              <div className="booking-week-head" aria-hidden="true">
+                {["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"].map((weekday) => (
+                  <span key={weekday}>{weekday}</span>
+                ))}
+              </div>
+              <div className="booking-week-grid">
+                {currentWeek.map((cell) => {
+                  const selectable = cell.inRange && cell.hasSlots && availabilityState === "success";
+                  const className = [
+                    "booking-week-day",
+                    cell.key === selectedDayKey ? "is-selected" : "",
+                    selectable ? "is-available" : ""
+                  ]
+                    .filter(Boolean)
+                    .join(" ");
+
+                  return (
+                    <button
+                      aria-label={formatFullDay(cell.date)}
+                      aria-pressed={cell.key === selectedDayKey}
+                      className={className}
+                      disabled={!selectable}
+                      key={cell.key}
+                      onClick={() => {
+                        setSelectedDayKey(cell.key);
+                        setSelectedSlotId("");
+                      }}
+                      type="button"
+                    >
+                      {formatDayNumber(cell.date)}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           ) : null}
 
-          {visibleSlots.length ? (
-            <div className="booking-slot-grid compact" role="radiogroup" aria-label="Freie Termine">
-              {visibleSlots.map((slot) => (
-                <label className={slot.id === selectedSlotId ? "booking-slot is-selected" : "booking-slot"} key={slot.id}>
-                  <input
-                    checked={slot.id === selectedSlotId}
-                    name="slot"
-                    onChange={() => setSelectedSlotId(slot.id)}
-                    type="radio"
-                    value={slot.id}
-                  />
-                  <span>{formatSlotTime(slot)} Uhr</span>
-                </label>
-              ))}
-            </div>
-          ) : availabilityState === "success" ? (
-            <p className="booking-note">An diesem Tag ist aktuell kein Termin frei. Wählt einen anderen Tag.</p>
+          {selectedDay ? (
+            visibleSlots.length ? (
+              <div
+                aria-label={`Freie Uhrzeiten am ${formatFullDay(selectedDay.date)}`}
+                aria-live="polite"
+                className="booking-slot-block"
+                key={selectedDayKey}
+                role="region"
+              >
+                <p className="booking-slot-day">{formatFullDay(selectedDay.date)}</p>
+                <div className="booking-slot-grid compact" role="radiogroup" aria-label="Freie Uhrzeiten">
+                  {visibleSlots.map((slot) => (
+                    <label
+                      className={slot.id === selectedSlotId ? "booking-slot is-selected" : "booking-slot"}
+                      key={slot.id}
+                    >
+                      <input
+                        checked={slot.id === selectedSlotId}
+                        name="slot"
+                        onChange={() => setSelectedSlotId(slot.id)}
+                        type="radio"
+                        value={slot.id}
+                      />
+                      <span>{formatSlotTime(slot)} Uhr</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            ) : availabilityState === "success" ? (
+              <p className="booking-note">An diesem Tag ist aktuell kein Termin frei. Wählt einen anderen Tag.</p>
+            ) : null
+          ) : availabilityState === "success" && slots.length ? (
+            <p className="booking-hint">Wählt zuerst einen Tag – danach erscheinen die freien Uhrzeiten.</p>
           ) : null}
 
           {selectedSlot ? (
@@ -674,21 +802,31 @@ export function BookingFunnel({
           }}
         >
           <h3>Eckpunkte</h3>
-          <p>Nur wenige Angaben, damit das Gespräch direkt sinnvoll startet.</p>
+          <p>
+            {appointmentType === "tour"
+              ? "Nur wenige Angaben, damit wir eure Besichtigung passend vorbereiten können."
+              : "Nur wenige Angaben, damit das Gespräch direkt sinnvoll startet."}
+          </p>
           <div className="booking-field-grid questions">
-            {fields.map((field) => (
-              <label className="booking-field" key={field.id}>
-                <span>{field.label}</span>
-                {field.type === "textarea" ? (
+            {fields.map((field) => {
+              const labelId = `booking-field-${field.id}`;
+              const dateModeKey = `${field.id}Mode`;
+              const dateMode = answers[dateModeKey] || "";
+
+              return (
+                <div className="booking-field" key={field.id}>
+                  <span id={labelId}>{field.label}</span>
+                  {field.type === "textarea" ? (
                   <textarea
+                    aria-labelledby={labelId}
                     name={field.id}
                     onChange={(event) => updateAnswer(field.id, event.target.value)}
                     required={field.required}
                     rows={4}
                     value={answers[field.id] || ""}
                   />
-                ) : field.type === "select" ? (
-                  <div className="booking-choice-group" role="radiogroup" aria-label={field.label}>
+                  ) : field.type === "select" ? (
+                    <div className="booking-choice-group" role="radiogroup" aria-labelledby={labelId}>
                     {field.options?.map((option, optionIndex) => {
                       const isSelected = answers[field.id] === option;
                       const selectedIndex = field.options?.indexOf(answers[field.id] || "") ?? -1;
@@ -710,18 +848,109 @@ export function BookingFunnel({
                       );
                     })}
                   </div>
-                ) : (
-                  <input
-                    name={field.id}
-                    onChange={(event) => updateAnswer(field.id, event.target.value)}
-                    required={field.required}
-                    type="text"
-                    value={answers[field.id] || ""}
-                  />
-                )}
-                {field.helper ? <small>{field.helper}</small> : null}
-              </label>
-            ))}
+                  ) : field.type === "month-slider" ? (
+                    <div className="booking-month-control" role="radiogroup" aria-labelledby={labelId}>
+                      <div className="booking-month-track">
+                        {field.options
+                          ?.filter((option) => option !== "Noch offen")
+                          .map((option, optionIndex) => {
+                            const isSelected = answers[field.id] === option;
+                            const selectedIndex = field.options?.indexOf(answers[field.id] || "") ?? -1;
+                            const focusIndex = selectedIndex >= 0 ? selectedIndex : 0;
+
+                            return (
+                              <button
+                                aria-checked={isSelected}
+                                className={isSelected ? "booking-month-option is-selected" : "booking-month-option"}
+                                key={option}
+                                onClick={() => updateAnswer(field.id, option)}
+                                onKeyDown={(event) => handleChoiceKeyDown(event, field, optionIndex)}
+                                role="radio"
+                                tabIndex={optionIndex === focusIndex ? 0 : -1}
+                                type="button"
+                              >
+                                <span aria-hidden="true" />
+                                {option}
+                              </button>
+                            );
+                          })}
+                      </div>
+                      <button
+                        aria-checked={answers[field.id] === "Noch offen"}
+                        className={
+                          answers[field.id] === "Noch offen"
+                            ? "booking-choice booking-month-open is-selected"
+                            : "booking-choice booking-month-open"
+                        }
+                        onClick={() => updateAnswer(field.id, "Noch offen")}
+                        onKeyDown={(event) =>
+                          handleChoiceKeyDown(event, field, Math.max(0, (field.options?.length || 1) - 1))
+                        }
+                        role="radio"
+                        tabIndex={answers[field.id] === "Noch offen" ? 0 : -1}
+                        type="button"
+                      >
+                        Noch offen
+                      </button>
+                    </div>
+                  ) : field.type === "optional-date" ? (
+                    <div className="booking-optional-date">
+                      <div className="booking-choice-group" role="group" aria-labelledby={labelId}>
+                        <button
+                          aria-pressed={dateMode === "open"}
+                          className={dateMode === "open" ? "booking-choice is-selected" : "booking-choice"}
+                          onClick={() =>
+                            setAnswers((current) => ({
+                              ...current,
+                              [dateModeKey]: "open",
+                              [field.id]: ""
+                            }))
+                          }
+                          type="button"
+                        >
+                          Noch offen
+                        </button>
+                        <button
+                          aria-pressed={dateMode === "date"}
+                          className={dateMode === "date" ? "booking-choice is-selected" : "booking-choice"}
+                          onClick={() =>
+                            setAnswers((current) => ({
+                              ...current,
+                              [dateModeKey]: "date"
+                            }))
+                          }
+                          type="button"
+                        >
+                          Konkretes Datum wählen
+                        </button>
+                      </div>
+                      {dateMode === "date" ? (
+                        <div className="booking-date-reveal">
+                          <label htmlFor={`booking-${field.id}`}>Wunschtermin</label>
+                          <input
+                            id={`booking-${field.id}`}
+                            name={field.id}
+                            onChange={(event) => updateAnswer(field.id, event.target.value)}
+                            type="date"
+                            value={answers[field.id] || ""}
+                          />
+                        </div>
+                      ) : null}
+                    </div>
+                  ) : (
+                    <input
+                      aria-labelledby={labelId}
+                      name={field.id}
+                      onChange={(event) => updateAnswer(field.id, event.target.value)}
+                      required={field.required}
+                      type="text"
+                      value={answers[field.id] || ""}
+                    />
+                  )}
+                  {field.helper ? <small>{field.helper}</small> : null}
+                </div>
+              );
+            })}
           </div>
           <div className="booking-actions">
             <button className="button secondary" onClick={() => setActiveStep("contact")} type="button">
@@ -781,7 +1010,15 @@ export function BookingFunnel({
               ) : (
                 <CalendarCheck aria-hidden="true" size={18} />
               )}
-              <span>{bookingState === "loading" ? "Termin wird gebucht" : "Termin buchen"}</span>
+              <span>
+                {appointmentType === "tour"
+                  ? bookingState === "loading"
+                    ? "Besichtigung wird gebucht"
+                    : "Besichtigungstermin buchen"
+                  : bookingState === "loading"
+                    ? "Termin wird gebucht"
+                    : "Termin buchen"}
+              </span>
             </button>
           </div>
         </div>

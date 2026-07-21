@@ -6,10 +6,10 @@ export function GET() {
   const body = [
     "# Landgut Seebühne",
     "",
-    "> Naturnahe, familiengeführte Hochzeitslocation am See in Vestenbergsgreuth (Mittelfranken, Bayern). Eine Hochzeit pro Tag, See, Garten und Landhaus als zusammenhängender Tagesort - persönlich begleitet vom Kennenlerngespräch bis zur Feier.",
+    "> Naturnahe, familiengeführte Hochzeitslocation am See in Vestenbergsgreuth (Mittelfranken, Bayern). Eine Hochzeit pro Tag, See, Garten und Landhaus als zusammenhängender Tagesort - persönlich begleitet von der ersten Besichtigung bis zur Feier.",
     "",
     "Die Website richtet sich an Paare, die eine persönliche, hochwertige und gut begleitete Hochzeit mit See, Garten, Landhaus und klarer Planung suchen.",
-    "Wichtige Leitlinie: Der sinnvolle erste Schritt ist ein Kennenlerngespräch bzw. Telefontermin. Eine Besichtigung kann danach der nächste passende Schritt sein.",
+    "Wichtige Leitlinie: Der sinnvolle erste Schritt ist eine direkt im Kalender buchbare Besichtigung vor Ort.",
     "",
     "## Direkte Antworten",
     "",
@@ -20,9 +20,9 @@ export function GET() {
     "- Kann man dort freie Trauungen am See feiern? Eine freie Trauung am See oder auf dem Gelände ist möglich, wenn Wege, Technik, Wetteroption und Gästezahl zum Ablauf passen.",
     "- Gibt es einen Plan B bei Regen? Ja, Wetteroptionen und Plan B werden früh in der Planung mitgedacht - inklusive geschützter Bereiche.",
     "- Gibt es Übernachtungsmöglichkeiten? Ja, für Gäste zum Vorzugspreis; je nach Paket auch eine Hochzeitssuite direkt vor Ort.",
-    "- Wie läuft eine Besichtigung ab? Der empfohlene Weg startet mit einem Kennenlerngespräch; danach kann eine Besichtigung gezielt geplant werden, wenn Datum, Gästezahl und Rahmen grundsätzlich passen.",
+    "- Wie läuft eine Besichtigung ab? Paare wählen direkt einen freien Termin im Kalender, geben wenige Eckpunkte an und erleben See, Garten und Landhaus anschließend persönlich vor Ort.",
     "- Was enthält die Hochzeitsmappe? Sie gibt einen Überblick über Location, Ablauf, Ideen und typische Fragen für den Planungsstart, ohne öffentliche Preisdetails zu nennen.",
-    "- Wie startet eine Anfrage? Über den Telefontermin, die Hochzeitsmappe, die Kontaktseite oder die Kennenlernseite.",
+    "- Wie startet eine Anfrage? Über die direkte Besichtigungsbuchung, die Hochzeitsmappe oder die Kontaktseite.",
     "",
     "## Öffentliche Hauptseiten",
     "",
@@ -46,7 +46,7 @@ export function GET() {
     `- Telefon: ${siteConfig.phoneInternational} (${siteConfig.phone})`,
     `- Adresse: ${siteConfig.address.legal}`,
     "",
-    "Konkrete Preise, Vertragsdetails und Zahlungsmodalitäten werden nicht öffentlich in dieser Datei genannt und sollen persönlich im Kennenlerngespräch geklärt werden."
+    "Konkrete Preise, Vertragsdetails und Zahlungsmodalitäten werden nicht öffentlich in dieser Datei genannt und sollen persönlich bei der Besichtigung geklärt werden."
   ].join("\n");
 
   return new Response(body, {
