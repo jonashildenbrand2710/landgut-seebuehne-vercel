@@ -16,7 +16,12 @@ export type HochzeitsmappeLead = {
   submittedAt: string;
 };
 
+export type HochzeitsmappeDeliveryLead = HochzeitsmappeLead & {
+  accessUrl: string;
+};
+
 type HochzeitsmappeFieldIds = {
+  accessUrl?: string;
   leadMagnet?: string;
   page?: string;
   source?: string;
@@ -50,6 +55,7 @@ export function getHochzeitsmappeActiveCampaignConfig(): HochzeitsmappeActiveCam
   const config: HochzeitsmappeActiveCampaignConfig = {
     automationId: clean(process.env.ACTIVECAMPAIGN_HOCHZEITSMAPPE_AUTOMATION_ID),
     fieldIds: {
+      accessUrl: clean(process.env.ACTIVECAMPAIGN_HOCHZEITSMAPPE_FIELD_ACCESS_URL_ID),
       leadMagnet: clean(process.env.ACTIVECAMPAIGN_HOCHZEITSMAPPE_FIELD_LEAD_MAGNET_ID),
       page: clean(process.env.ACTIVECAMPAIGN_HOCHZEITSMAPPE_FIELD_PAGE_ID),
       source: clean(process.env.ACTIVECAMPAIGN_HOCHZEITSMAPPE_FIELD_SOURCE_ID),
@@ -74,8 +80,9 @@ function customField(field: string | undefined, value: string) {
   return { field, value };
 }
 
-function getCustomFields(lead: HochzeitsmappeLead, fieldIds: HochzeitsmappeFieldIds) {
+function getCustomFields(lead: HochzeitsmappeDeliveryLead, fieldIds: HochzeitsmappeFieldIds) {
   return [
+    customField(fieldIds.accessUrl, lead.accessUrl),
     customField(fieldIds.leadMagnet, "Hochzeitsmappe"),
     customField(fieldIds.page, lead.page),
     customField(fieldIds.source, lead.source),
@@ -83,7 +90,7 @@ function getCustomFields(lead: HochzeitsmappeLead, fieldIds: HochzeitsmappeField
   ].filter((field): field is { field: string; value: string } => field !== null);
 }
 
-export async function submitHochzeitsmappeLeadToActiveCampaign(lead: HochzeitsmappeLead) {
+export async function submitHochzeitsmappeLeadToActiveCampaign(lead: HochzeitsmappeDeliveryLead) {
   const activeCampaign = getActiveCampaignConfig();
   const flowConfig = getHochzeitsmappeActiveCampaignConfig();
 
@@ -107,7 +114,11 @@ export async function submitHochzeitsmappeLeadToActiveCampaign(lead: Hochzeitsma
     await subscribeActiveCampaignContactToList(activeCampaign, contactId, flowConfig.listId);
   }
 
-  if (flowConfig.automationId) {
+  // The configured Hochzeitsmappe automation starts when the contact subscribes
+  // to its list. Adding the contact directly as well would create two automation
+  // entries and can send the first email twice. Keep the direct start as a
+  // fallback for setups that intentionally do not use a list trigger.
+  if (flowConfig.automationId && !flowConfig.listId) {
     await addActiveCampaignContactToAutomation(activeCampaign, contactId, flowConfig.automationId);
   }
 

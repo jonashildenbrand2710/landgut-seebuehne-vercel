@@ -307,11 +307,11 @@ export const sitePages: SitePage[] = [
     navTitle: "Hochzeitsmappe",
     title: "Hochzeitsmappe",
     description:
-      "Detaillierter PDF-Guide für Hochzeiten an der Seebühne: Location, Ablauf, Ideen und wichtige Fragen für euren Planungsstart.",
+      "Persönliche Online-Hochzeitsmappe der Seebühne: Location, Ablauf, Ideen und wichtige Fragen für euren Planungsstart.",
     heroEyebrow: "Hochzeitsmappe",
     heroTitle: "Die Hochzeitsmappe",
     heroText:
-      "Detaillierter PDF-Guide für Hochzeiten an der Seebühne, damit ihr Ort, Ablauf und wichtige Fragen besser einordnen könnt.",
+      "Euer persönlicher Online-Hochzeitsbegleiter, damit ihr Ort, Ablauf und wichtige Fragen besser einordnen könnt.",
     imageKey: "mappeCover",
     primaryCta: "Hochzeitsmappe sichern",
     secondaryCta: "Besichtigungstermin buchen",
@@ -461,7 +461,7 @@ export const sitePages: SitePage[] = [
       {
         title: "Hochzeitsmappe, CRM und E-Mail-Versand",
         text:
-          "Wenn ihr die Hochzeitsmappe anfordert, speichern wir eure Angaben (Name, E-Mail, Telefonnummer) in unserer CRM-Datenbank auf Basis von Supabase, um euch die Mappe zuzusenden und eure Anfrage zu begleiten (Art. 6 Abs. 1 lit. b DSGVO).\nFür den Versand der Mappe und darauf bezogene E-Mails nutzen wir ActiveCampaign LLC (1 North Dearborn Street, Chicago, IL 60602, USA). Dabei können Daten in die USA übermittelt werden; die Übermittlung ist über EU-Standardvertragsklauseln abgesichert. Ihr könnt dem Erhalt weiterer E-Mails jederzeit über den Abmeldelink oder per Nachricht an mail@landgut-seebuehne.de widersprechen."
+          "Wenn ihr die Hochzeitsmappe anfordert, speichern wir eure Angaben (Name, E-Mail, Telefonnummer) in unserer CRM-Datenbank auf Basis von Supabase, um euren persönlichen Online-Zugang bereitzustellen und eure Anfrage zu begleiten (Art. 6 Abs. 1 lit. b DSGVO).\nFür den Versand des Zugangslinks und darauf bezogene E-Mails nutzen wir ActiveCampaign LLC (1 North Dearborn Street, Chicago, IL 60602, USA). Dabei können Daten in die USA übermittelt werden; die Übermittlung ist über EU-Standardvertragsklauseln abgesichert. Ihr könnt dem Erhalt weiterer E-Mails jederzeit über den Abmeldelink oder per Nachricht an mail@landgut-seebuehne.de widersprechen."
       },
       {
         title: "Meta Pixel und Conversions API (nur mit Einwilligung)",
