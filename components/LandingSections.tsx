@@ -24,6 +24,7 @@ import {
   landingTeamLeaders,
   landingTestimonials
 } from "@/data/landing";
+import { AutoScrollCarousel } from "@/components/AutoScrollCarousel";
 import { BrandLogo } from "@/components/BrandLogo";
 import { articles } from "@/data/articles";
 import { imageLibrary } from "@/data/site";
@@ -82,12 +83,15 @@ export function HeroImageStrip() {
 
   return (
     <section className="hero-image-strip" aria-label="Impressionen der Hauptseite">
-      <div className="hero-strip-inner">
+      <AutoScrollCarousel
+        ariaLabel="Hochzeitsimpressionen – horizontal wisch- oder scrollbar"
+        className="hero-strip-inner"
+      >
         {images.map((imageKey, index) => {
           const image = imageLibrary[imageKey];
 
           return (
-            <div className="hero-strip-item" key={image.src}>
+            <div className="hero-strip-item" data-carousel-slide key={image.src}>
               <Image
                 src={image.src}
                 alt={image.alt}
@@ -100,7 +104,7 @@ export function HeroImageStrip() {
             </div>
           );
         })}
-      </div>
+      </AutoScrollCarousel>
     </section>
   );
 }
