@@ -12,8 +12,8 @@ import {
 import { normalizeMetaEventId, sendMetaCompleteRegistration } from "@/lib/meta-capi";
 
 const activeCampaignFlowDetails = {
-  automation: "Wedding-Report Optin",
-  tags: ["Report_Hochzeitsmappe", "Hochzeitsmappe"]
+  automation: "Hochzeitsmappe Opt-in",
+  tags: ["Hochzeitsmappe_Optin", "Hochzeitsmappe"]
 };
 
 function clean(value: FormDataEntryValue | null) {

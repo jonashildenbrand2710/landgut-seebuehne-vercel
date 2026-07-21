@@ -42,6 +42,20 @@ function emailSubject(email: string) {
   return createHash("sha256").update(email.trim().toLowerCase()).digest("base64url");
 }
 
+function decodeBase64Url(value: string) {
+  if (!/^[A-Za-z0-9_-]+$/.test(value)) {
+    throw new Error("Invalid base64url value");
+  }
+
+  const decoded = Buffer.from(value, "base64url");
+
+  if (decoded.toString("base64url") !== value) {
+    throw new Error("Non-canonical base64url value");
+  }
+
+  return decoded;
+}
+
 export function createHochzeitsmappeAccessToken(
   email: string,
   now = Math.floor(Date.now() / 1000)
@@ -78,16 +92,24 @@ export function verifyHochzeitsmappeAccessToken(
       return null;
     }
 
+    const iv = decodeBase64Url(rawIv);
+    const authenticationTag = decodeBase64Url(rawAuthenticationTag);
+    const encrypted = decodeBase64Url(rawEncrypted);
+
+    if (iv.length !== 12 || authenticationTag.length !== 16 || !encrypted.length) {
+      return null;
+    }
+
     const decipher = createDecipheriv(
       "aes-256-gcm",
       encryptionKey(),
-      Buffer.from(rawIv, "base64url")
+      iv
     );
 
-    decipher.setAuthTag(Buffer.from(rawAuthenticationTag, "base64url"));
+    decipher.setAuthTag(authenticationTag);
 
     const decrypted = Buffer.concat([
-      decipher.update(Buffer.from(rawEncrypted, "base64url")),
+      decipher.update(encrypted),
       decipher.final()
     ]).toString("utf8");
     const payload = JSON.parse(decrypted) as Partial<AccessPayload>;

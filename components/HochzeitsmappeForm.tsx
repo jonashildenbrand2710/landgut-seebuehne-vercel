@@ -49,13 +49,13 @@ export function HochzeitsmappeForm() {
       onSubmit={handleSubmit}
     >
       <BookOpenCheck aria-hidden="true" size={24} />
-      <h3>Online-Hochzeitsmappe öffnen</h3>
+      <h3>Persönlichen Online-Zugang öffnen</h3>
       <Suspense fallback={null}>
         <FormStatusMessage messages={statusMessages} />
       </Suspense>
       <p>
-        Bestätigt kurz eure Kontaktdaten. Direkt danach öffnet sich euer persönlicher
-        Online-Zugang – und ihr erhaltet den Link zusätzlich per E-Mail.
+        Tragt euch einmal kurz ein. Direkt danach öffnet sich die Hochzeitsmappe im
+        Browser – und ihr erhaltet euren persönlichen Link zusätzlich per E-Mail.
       </p>
       <input
         aria-hidden="true"
@@ -90,7 +90,7 @@ export function HochzeitsmappeForm() {
         ) : (
           <KeyRound aria-hidden="true" size={18} />
         )}
-        <span>{isSubmitting ? "Zugang wird vorbereitet …" : "Online-Hochzeitsmappe öffnen"}</span>
+        <span>{isSubmitting ? "Zugang wird vorbereitet …" : "Jetzt online öffnen"}</span>
       </button>
       <div aria-atomic="true" aria-live="polite" className="mappe-submit-live" role="status">
         {isSubmitting ? (
