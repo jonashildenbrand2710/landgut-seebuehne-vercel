@@ -5,24 +5,14 @@ import {
   ArrowRight,
   BookOpenCheck,
   Check,
-  Download,
-  FileText,
   ShieldCheck,
   Sparkles,
   Star,
   Users
 } from "lucide-react";
-import { Suspense } from "react";
-import { FormStatusMessage } from "@/components/FormStatusMessage";
-import { MetaTrackingFields } from "@/components/MetaConversionTracking";
+import { HochzeitsmappeForm } from "@/components/HochzeitsmappeForm";
 import { PageJsonLd } from "@/components/StructuredData";
 import { imageLibrary } from "@/data/site";
-
-const statusMessages: Record<string, string> = {
-  missing: "Bitte füllt alle Pflichtfelder aus.",
-  "invalid-email": "Bitte prüft eure E-Mail-Adresse.",
-  "invalid-phone": "Bitte prüft eure Telefonnummer."
-};
 
 const mappeBenefits = [
   "was euch einen umfassenden Überblick über unsere Location am See gibt und euch direkt in Hochzeitsstimmung versetzt.",
@@ -42,7 +32,7 @@ const proofCards = [
     icon: BookOpenCheck,
     title: "Praxis-orientiert",
     text:
-      "Über 20 Seiten mit Erfahrungsschatz, praktischen Einblicken und Fragen, die euch bei der Einordnung eurer Location-Entscheidung helfen."
+      "Ein klar gegliederter Online-Begleiter mit Erfahrungsschatz, praktischen Einblicken und Fragen, die euch bei der Einordnung eurer Location-Entscheidung helfen."
   },
   {
     icon: ShieldCheck,
@@ -55,14 +45,14 @@ const proofCards = [
 export const metadata: Metadata = {
   title: "Hochzeitsmappe",
   description:
-    "Detaillierter PDF-Guide für Hochzeiten an der Seebühne: Location, Ablauf, Ideen und wichtige Fragen für euren Planungsstart.",
+    "Persönliche Online-Hochzeitsmappe der Seebühne: Location, Ablauf, Ideen und wichtige Fragen für euren Planungsstart.",
   alternates: {
     canonical: "/hochzeitsmappe"
   },
   openGraph: {
     title: "Hochzeitsmappe",
     description:
-      "Detaillierter PDF-Guide für Hochzeiten an der Seebühne.",
+      "Persönlicher Online-Hochzeitsbegleiter für Hochzeiten an der Seebühne.",
     url: "/hochzeitsmappe",
     images: [
       {
@@ -92,7 +82,7 @@ export default function HochzeitsmappePage() {
       <PageJsonLd
         path="/hochzeitsmappe"
         title="Hochzeitsmappe"
-        description="Detaillierter PDF-Guide für Hochzeiten an der Seebühne: Location, Ablauf, Ideen und wichtige Fragen für euren Planungsstart."
+        description="Persönliche Online-Hochzeitsmappe der Seebühne: Location, Ablauf, Ideen und wichtige Fragen für euren Planungsstart."
         breadcrumbs={[
           { name: "Startseite", path: "/" },
           { name: "Hochzeitsmappe", path: "/hochzeitsmappe" }
@@ -103,22 +93,22 @@ export default function HochzeitsmappePage() {
           <StarRating />
           <h1>Die Hochzeitsmappe</h1>
           <p className="mappe-subtitle">
-            Detaillierter PDF-Guide für Hochzeiten an der Seebühne
+            Euer persönlicher Online-Hochzeitsbegleiter für die Seebühne
           </p>
-          <span className="mappe-label">Als PDF-Download erhältlich</span>
+          <span className="mappe-label">Direkt online entdecken</span>
           <p>
-            Mit dieser umfassenden PDF-Broschüre geben wir euch alles an die Hand,
-            um eure Fragen zu klären, erste Entscheidungen zu treffen und zu
-            erfahren, warum die Seebühne die ideale Location für euren großen Tag ist.
+            In dieser liebevoll gestalteten Online-Hochzeitsmappe führen wir euch durch
+            das Landgut, geben klare Antworten und zeigen, wie sich euer Tag am See
+            anfühlen kann. Nach dem kurzen Opt-in öffnet sie sich sofort im Browser.
           </p>
           <div className="hero-actions mappe-actions">
             <a className="button primary" href="#mappe-form">
-              <Download aria-hidden="true" size={18} />
-              <span>Hol dir die Mappe</span>
+              <BookOpenCheck aria-hidden="true" size={18} />
+              <span>Online-Mappe öffnen</span>
             </a>
             <Link className="button secondary" href="/termin-buchen">
               <ArrowRight aria-hidden="true" size={18} />
-              <span>Telefontermin vereinbaren</span>
+              <span>Besichtigungstermin buchen</span>
             </Link>
           </div>
         </div>
@@ -139,7 +129,7 @@ export default function HochzeitsmappePage() {
             />
           </div>
           <div className="mappe-benefit-panel">
-            <p className="eyebrow dark">PDF-Guide</p>
+            <p className="eyebrow dark">Online-Hochzeitsbegleiter</p>
             <h2>Unsere Hochzeitsmappe ist genau das, ...</h2>
             <ul className="mappe-benefit-list">
               {mappeBenefits.map((benefit) => (
@@ -150,8 +140,8 @@ export default function HochzeitsmappePage() {
               ))}
             </ul>
             <a className="button primary" href="#mappe-form">
-              <Download aria-hidden="true" size={18} />
-              <span>Jetzt Mappe sichern</span>
+              <BookOpenCheck aria-hidden="true" size={18} />
+              <span>Persönlichen Zugang sichern</span>
             </a>
           </div>
         </div>
@@ -205,61 +195,16 @@ export default function HochzeitsmappePage() {
             <p>
               Beliebte Termine und Locations sind oft schneller vergeben, als man
               denkt. Mit der kostenlosen Hochzeitsmappe könnt ihr eure Visionen
-              konkretisieren und die nächsten Fragen für euer Kennenlerngespräch sortieren.
+              konkretisieren und die nächsten Fragen für eure Besichtigung sortieren.
             </p>
             <div className="mappe-mini-proof" aria-label="Inhalte der Hochzeitsmappe">
-              <span>PDF-Guide</span>
+              <span>Persönlicher Online-Zugang</span>
               <span>Location am See</span>
               <span>Ablauf & Ideen</span>
             </div>
           </div>
 
-          <form className="mappe-form-card" id="mappe-form" action="/api/hochzeitsmappe" method="post">
-            <FileText aria-hidden="true" size={24} />
-            <h3>Hochzeitsmappe sichern</h3>
-            <Suspense fallback={null}>
-              <FormStatusMessage messages={statusMessages} />
-            </Suspense>
-            <p>
-              Bevor du die Hochzeitsmappe laden kannst, bestätige bitte kurz deine
-              Kontaktdaten.
-            </p>
-            <input
-              aria-hidden="true"
-              autoComplete="off"
-              className="mappe-honeypot"
-              name="website"
-              tabIndex={-1}
-              type="text"
-            />
-            <MetaTrackingFields funnel="hochzeitsmappe" />
-            <div className="mappe-field-grid">
-              <label className="mappe-field">
-                <span>Vorname</span>
-                <input autoComplete="given-name" name="firstName" required type="text" />
-              </label>
-              <label className="mappe-field">
-                <span>Nachname</span>
-                <input autoComplete="family-name" name="lastName" required type="text" />
-              </label>
-              <label className="mappe-field">
-                <span>E-Mail</span>
-                <input autoComplete="email" name="email" required type="email" />
-              </label>
-              <label className="mappe-field">
-                <span>Telefon</span>
-                <input autoComplete="tel" name="phone" required type="tel" />
-              </label>
-            </div>
-            <button className="button primary" type="submit">
-              <Download aria-hidden="true" size={18} />
-              <span>Jetzt Hochzeitsmappe erhalten</span>
-            </button>
-            <p className="mappe-form-note">
-              Wir verwenden eure Angaben nur für eure Anfrage zur Hochzeitsmappe
-              und melden uns persönlich, wenn noch etwas offen ist.
-            </p>
-          </form>
+          <HochzeitsmappeForm />
         </div>
       </section>
     </article>

@@ -21,7 +21,7 @@ const defaultRelatedLinks: ArticleRelatedLink[] = [
   {
     href: "/hochzeitsmappe",
     label: "Hochzeitsmappe",
-    description: "PDF-Guide mit Überblick, Ablaufideen und Fragen für euren Planungsstart."
+    description: "Persönlicher Online-Begleiter mit Überblick, Ablaufideen und Fragen für euren Planungsstart."
   },
   {
     href: "/besichtigung",

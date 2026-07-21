@@ -72,7 +72,7 @@ export const landingLeadMagnet = {
   eyebrow: "Hochzeitsmappe",
   title: "Die perfekte Kulisse für eure Traumhochzeit",
   text: "Sichert euch jetzt exklusive Infos und Termine, bevor sie vergeben sind.",
-  badges: ["PDF-Download", "Location am See", "Ablauf & Möglichkeiten", "Vorbereitung auf die Besichtigung"],
+  badges: ["Persönlicher Online-Zugang", "Location am See", "Ablauf & Möglichkeiten", "Vorbereitung auf die Besichtigung"],
   points: [
     "umfassender Überblick über die Location am See",
     "Antworten auf häufige Fragen rund um eure Hochzeit",

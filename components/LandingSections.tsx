@@ -126,7 +126,7 @@ export function LeadMagnetSection() {
           <h2>{landingLeadMagnet.title}</h2>
           <p>{landingLeadMagnet.text}</p>
           <div className="inline-actions">
-            <InternalCta href="/hochzeitsmappe">Hochzeitsmappe downloaden</InternalCta>
+            <InternalCta href="/hochzeitsmappe">Online-Hochzeitsmappe öffnen</InternalCta>
           </div>
           <BrandLogo className="brand-logo brand-logo-lead" decorative variant="light" />
         </div>

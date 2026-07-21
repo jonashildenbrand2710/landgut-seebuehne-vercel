@@ -24,6 +24,36 @@ const nextConfig: NextConfig = {
             value: "public, max-age=31536000, immutable"
           }
         ]
+      },
+      {
+        source: "/hochzeitsmappe-dornrose",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "private, no-store, max-age=0"
+          },
+          {
+            key: "Referrer-Policy",
+            value: "no-referrer"
+          },
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, nofollow, noarchive, nosnippet"
+          }
+        ]
+      },
+      {
+        source: "/api/hochzeitsmappe/zugang",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "private, no-store, max-age=0"
+          },
+          {
+            key: "Referrer-Policy",
+            value: "no-referrer"
+          }
+        ]
       }
     ];
   },

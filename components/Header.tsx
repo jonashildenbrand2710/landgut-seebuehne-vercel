@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { CalendarDays } from "lucide-react";
 import { BrandLogo } from "@/components/BrandLogo";
 
@@ -14,7 +15,9 @@ export function Header({
   variant?: HeaderVariant;
   static?: boolean;
 }) {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
+  const isDornrose = pathname === "/hochzeitsmappe-dornrose";
 
   useEffect(() => {
     if (isStatic) return;
@@ -33,7 +36,8 @@ export function Header({
     `site-header--${variant}`,
     isStatic ? "site-header--static" : "",
     isScrolled ? "is-scrolled" : "",
-    variant === "floating" ? "site-header--floating-layout" : ""
+    variant === "floating" ? "site-header--floating-layout" : "",
+    isDornrose ? "site-header--dornrose" : ""
   ]
     .filter(Boolean)
     .join(" ");

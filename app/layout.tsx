@@ -60,7 +60,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="de" className={`${inclusiveSans.variable} ${notoSerif.variable}`}>
+    <html
+      lang="de"
+      className={`${inclusiveSans.variable} ${notoSerif.variable}`}
+      data-scroll-behavior="smooth"
+    >
       <body>
         <a className="skip-link" href="#inhalt">
           Zum Inhalt springen
