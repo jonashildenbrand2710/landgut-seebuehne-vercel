@@ -42,6 +42,13 @@ const proofCards = [
   }
 ];
 
+const previewChapters = [
+  { number: "I", label: "Der erste Blick" },
+  { number: "II", label: "Das Landgut" },
+  { number: "III", label: "Euer Fest" },
+  { number: "IV", label: "Nächster Schritt" }
+] as const;
+
 export const metadata: Metadata = {
   title: "Hochzeitsmappe",
   description:
@@ -56,8 +63,8 @@ export const metadata: Metadata = {
     url: "/hochzeitsmappe",
     images: [
       {
-        url: imageLibrary.mappeCover.src,
-        alt: imageLibrary.mappeCover.alt
+        url: imageLibrary.availability.src,
+        alt: "Einblick in die Online-Hochzeitsmappe des Landgut Seebühne"
       }
     ]
   }
@@ -74,7 +81,6 @@ function StarRating() {
 }
 
 export default function HochzeitsmappePage() {
-  const cover = imageLibrary.mappeCover;
   const background = imageLibrary.lake;
 
   return (
@@ -117,16 +123,59 @@ export default function HochzeitsmappePage() {
       <section className="mappe-overview-section">
         <div className="section-inner mappe-overview-grid">
           <div className="mappe-cover-stage">
-            <Image
-              className="mappe-cover-image"
-              src={cover.src}
-              alt={cover.alt}
-              fill
-              fetchPriority="high"
-              preload
-              quality={72}
-              sizes="(max-width: 920px) 90vw, 520px"
-            />
+            <div className="mappe-browser-bar" aria-hidden="true">
+              <div className="mappe-browser-dots">
+                <span />
+                <span />
+                <span />
+              </div>
+              <span className="mappe-browser-address">
+                landgut-seebuehne.de/hochzeitsmappe
+              </span>
+              <span className="mappe-browser-status">
+                <i /> Online
+              </span>
+            </div>
+
+            <div className="mappe-guide-viewport">
+              <div className="mappe-guide-progress" aria-hidden="true">
+                <span />
+              </div>
+              <div className="mappe-guide-visual">
+                <Image
+                  className="mappe-guide-image"
+                  src={imageLibrary.availability.src}
+                  alt="Vorschau der Online-Hochzeitsmappe mit einem Brautpaar auf dem Steg am See"
+                  fill
+                  fetchPriority="high"
+                  preload
+                  quality={75}
+                  sizes="(max-width: 920px) 90vw, 620px"
+                />
+                <div className="mappe-guide-shade" aria-hidden="true" />
+                <div className="mappe-guide-masthead">
+                  <span>Die Online-Hochzeitsmappe der Seebühne</span>
+                  <strong>Ein Ort für euer eigenes Märchen.</strong>
+                  <small>Leicht geplant, klar erlebt, für immer erinnert</small>
+                </div>
+                <span className="mappe-guide-scroll-cue" aria-hidden="true">
+                  <i />
+                  Scrollen & entdecken
+                </span>
+              </div>
+
+              <div
+                className="mappe-guide-chapters"
+                aria-label="Kapitelvorschau der Online-Hochzeitsmappe"
+              >
+                {previewChapters.map((chapter) => (
+                  <span key={chapter.number}>
+                    <small>{chapter.number}</small>
+                    <strong>{chapter.label}</strong>
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
           <div className="mappe-benefit-panel">
             <p className="eyebrow dark">Online-Hochzeitsbegleiter</p>
