@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   AlertTriangle,
+  ArrowDown,
   ArrowRight,
   CalendarDays,
   Check,
@@ -462,13 +463,20 @@ export function ProblemSolution() {
           ))}
         </div>
 
+        <div className="warning-sequence-bridge" aria-hidden="true">
+          <span>Von den Warnsignalen zu klaren Lösungen</span>
+          <ArrowDown size={18} />
+        </div>
+
         <aside className="warning-solution-card" aria-label="Antwort der Seebühne">
-          <p className="eyebrow">Problem - Lösung</p>
-          <h3>8 Lösungen für typische Hochzeits-Location-Probleme</h3>
-          <p>
-            Warum ihr bei uns nicht die typischen Location-Probleme haben werdet
-            & was uns von anderen unterscheidet.
-          </p>
+          <div className="warning-solution-intro">
+            <p className="eyebrow">Problem - Lösung</p>
+            <h3>8 Lösungen für typische Hochzeits-Location-Probleme</h3>
+            <p>
+              Warum ihr bei uns nicht die typischen Location-Probleme haben werdet
+              & was uns von anderen unterscheidet.
+            </p>
+          </div>
           <ol className="solution-list">
             {landingAdvantages.map((item) => (
               <li key={item.title}>
