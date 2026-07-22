@@ -1,20 +1,12 @@
 {
   "skills": [
     {
-      "name": "evidence-driven-testing",
-      "repository": "michaelshimeles/skills",
-      "path": "evidence-driven-testing",
-      "commit": "280e4e1013a2334189abee4f92e77f34a9f20152",
-      "license": "not-declared",
-      "installation": "fetch-from-source"
-    },
-    {
       "name": "finn-review",
       "repository": "finna/Finn-loop",
       "path": "skills/finn-review",
       "commit": "1d4f940b8f65cde274623454458b59c4734cab1b",
       "license": "MIT",
-      "installation": "fetch-from-source"
+      "installation": "fetch-from-source-with-license"
     }
   ]
 }

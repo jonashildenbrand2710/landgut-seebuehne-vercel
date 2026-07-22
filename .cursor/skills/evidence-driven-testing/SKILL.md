@@ -1,60 +1,63 @@
 ---
 name: evidence-driven-testing
-description: >
-  Records visual proof while testing UI behavior — screen recording with structured
-  test/assertion annotations — then posts the video and a results summary to the PR
-  and tracker issue. Use whenever a UI change needs verifiable evidence that it works,
-  instead of prose claims.
-compatibility: Requires a GUI environment with screen recording, an authenticated browser session for the app under test, and gh (GitHub CLI) or equivalent for posting evidence.
-metadata:
-  version: "1.0"
+description: Erstellt commitgebundene, reproduzierbare Nachweise für sichtbares UI-Verhalten und veröffentlicht einen deutschen Evidence Report für Pull Request und Linear-Issue. Verwenden, wenn eine UI-Änderung anhand ihrer Akzeptanzkriterien mit Preview, Screenshots, Video oder Browser-Beobachtungen belegt werden muss.
 ---
 
-# Evidence-Driven Testing
+# Nachweisorientiert testen
 
-Record annotated screen-recording proof of UI behavior, then attach it to the PR and tracker issue.
+Belege nur, was im tatsächlich geöffneten Build beobachtet wurde. Ein erfolgreicher Build allein ist kein Nachweis für korrektes UI-Verhalten.
 
-## Inputs
+## 1. Prüfvertrag festlegen
 
-- **Test targets** (required): The behaviors/flows to verify, phrased as testable statements.
-- **PR / issue** (optional): Where to post the evidence. If omitted, deliver to the requester only.
+- Lies das verknüpfte Linear-Issue und ordne jedem relevanten `AC-N` mindestens eine prüfbare Aussage `EVD-N` zu.
+- Notiere Repository, Branch, vollständige Commit-SHA und die getestete Preview- oder lokale URL.
+- Beschreibe Ausgangszustand, Aktionen und erwartetes sichtbares Ergebnis so, dass ein Mensch den Lauf wiederholen kann.
+- Prüfe nur den aktuellen Auftrag. Nicht-Ziele `NG-N` bleiben verbindlich.
 
-## Instructions
+## 2. Testumgebung vorbereiten
 
-### 1. Prepare the screen
+- Öffne exakt den Deployment-Stand, der zur notierten Commit-SHA gehört.
+- Stelle nötige Testdaten her, ohne Produktionsdaten oder fremde Konten zu verändern.
+- Verberge Passwörter, Tokens, personenbezogene Daten und Benachrichtigungen vor jeder Aufnahme.
+- Halte fehlende Zugänge, instabile Umgebungen oder nicht verfügbare Aufnahmefunktionen ausdrücklich als Einschränkung fest.
 
-- Maximize the browser/app window; close popups, notifications, and extra panels.
-- Navigate to the starting state (logged in, correct page) BEFORE recording, unless setup itself is under test.
+## 3. Verhalten ausführen und beobachten
 
-### 2. Start recording
+Führe jede Aussage einzeln aus:
 
-- Begin the screen recording before the first meaningful action.
-- Add a `setup` annotation describing the starting context, e.g. "Logged in, navigating to connectors page".
+1. Zeige den relevanten Ausgangszustand.
+2. Führe die notwendigen Nutzerschritte in nachvollziehbarer Reihenfolge aus.
+3. Vergleiche das beobachtete Ergebnis mit `AC-N`.
+4. Vergib genau einen Status: `bestanden`, `fehlgeschlagen` oder `nicht prüfbar`.
+5. Sichere einen geeigneten Beleg: Screenshot für einen Zustand, Video für Bewegung oder mehrstufige Abläufe, Browser-/Testprotokoll für technische Fakten.
 
-### 3. Annotate as you test
+Behaupte keinen Erfolg, wenn das Ergebnis nicht sichtbar oder anderweitig messbar war. Ein fehlender Beleg ist `nicht prüfbar`, nicht `bestanden`.
 
-- At each named test's start, add a `test_start` annotation in Jest style: `It should execute the tool directly when permission is 'always'`.
-- After each check, add an `assertion` annotation with result `passed`, `failed`, or `untested`.
-- Rules for assertions:
-  - One assertion per meaningful state change — consolidate, don't annotate per UI label.
-  - Use "Precondition: ..." assertions to establish starting state.
-  - Keep under ~80 characters, high-signal.
-  - If a test cannot run (missing prerequisite, expired auth window), mark it `untested` with the reason — never skip silently.
+## 4. Evidence Report schreiben
 
-### 4. Stop and review
+Verwende diese Struktur:
 
-- Stop recording after the final assertion.
-- Confirm the recording captured the key moments before sharing.
+```md
+## Evidence Report
 
-### 5. Post the evidence
+- Commit: `<vollständige SHA>`
+- Umgebung: `<Preview- oder lokale URL>`
+- Linear: `<ISSUE-ID + URL>`
+- Ergebnis: `<bestanden | fehlgeschlagen | teilweise/nicht prüfbar>`
 
-- Write a short report: what was tested, environment + exact commit, pass/fail per test, caveats.
-- Post the video + summary as a PR comment (embed in the PR description if it's your PR).
-- Attach the same video to the tracker issue (Linear/Jira) with a one-line result.
-- Send the report + recording to the requester.
+| Evidenz | Vertrag | Schritte | Erwartet | Beobachtet | Beleg | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| EVD-1 | AC-1 | ... | ... | ... | ... | ... |
 
-## Guardrails
+### Einschränkungen
+- Keine, oder konkrete Lücke mit Ursache und nächstem Prüfschritt.
+```
 
-- Never record a half-covered or tiled window — maximize first.
-- When verifying a fix, show or reference the old failure alongside the new success.
-- Always state the exact commit/branch/deployment tested against.
+Jeder Artefakt-Link muss für Reviewer erreichbar sein. Nenne bei Video oder Screenshot kurz, welche Aussage darin an welcher Stelle sichtbar ist.
+
+## 5. Ergebnis veröffentlichen
+
+- Ergänze den Report am aktuellen Pull Request und verlinke ihn im Linear-Issue.
+- Prüfe unmittelbar vorher erneut die PR-Head-SHA. Bei einer neuen SHA ist die alte Evidenz veraltet und der Lauf muss wiederholt werden.
+- Ändere während dieses Prüflaufs keinen Produktcode. Funde werden berichtet und anschließend in einem getrennten Build-Lauf behoben.
+- Merge niemals aufgrund dieses Skills. Evidence ergänzt CI und den unabhängigen Review, ersetzt beides aber nicht.
