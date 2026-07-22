@@ -62,12 +62,12 @@ const SPLIT_PARENTS = ".split, .cta-inner, .personal-cta-inner, .section-heading
 
 function revealStartTransform(target: HTMLElement, useVerticalMotion: boolean) {
   let x = 0;
-  let y = target.matches(CARD_SELECTORS) ? 34 : target.matches(VISUAL_SELECTORS) ? 28 : 22;
-  const scale = target.matches(CARD_SELECTORS) ? 0.985 : target.matches(VISUAL_SELECTORS) ? 0.975 : 1;
+  let y = target.matches(CARD_SELECTORS) ? 20 : target.matches(VISUAL_SELECTORS) ? 16 : 12;
+  const scale = target.matches(CARD_SELECTORS) ? 0.992 : target.matches(VISUAL_SELECTORS) ? 0.988 : 1;
   const parent = target.parentElement;
 
   if (!useVerticalMotion && parent?.matches(SPLIT_PARENTS)) {
-    x = target === parent.firstElementChild ? -12 : 12;
+    x = target === parent.firstElementChild ? -8 : 8;
     y = 0;
   }
 
@@ -85,7 +85,7 @@ export function ScrollReveal() {
 
     const useVerticalMotion = window.matchMedia("(max-width: 680px)").matches;
     const animations = new Set<Animation>();
-    const delays = new Map(targets.map((target, index) => [target, Math.min(index % 4, 3) * 45]));
+    const delays = new Map(targets.map((target, index) => [target, Math.min(index % 4, 3) * 24]));
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -103,8 +103,8 @@ export function ScrollReveal() {
             ],
             {
               delay: delays.get(target) ?? 0,
-              duration: 640,
-              easing: "cubic-bezier(0.22, 0.65, 0.25, 1)",
+              duration: 820,
+              easing: "cubic-bezier(0.2, 0.75, 0.25, 1)",
               fill: "backwards"
             }
           );

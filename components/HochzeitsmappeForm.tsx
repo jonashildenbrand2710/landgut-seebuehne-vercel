@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpenCheck, KeyRound, LoaderCircle } from "lucide-react";
+import { BookOpenCheck, KeyRound } from "lucide-react";
 import { type FormEvent, Suspense, useEffect, useRef, useState } from "react";
 import { FormStatusMessage } from "@/components/FormStatusMessage";
 import { MetaTrackingFields } from "@/components/MetaConversionTracking";
@@ -96,7 +96,7 @@ export function HochzeitsmappeForm() {
       </div>
       <button className="button primary mappe-submit-button" disabled={isSubmitting} type="submit">
         {isSubmitting ? (
-          <LoaderCircle aria-hidden="true" className="mappe-submit-spinner" size={18} />
+          <span aria-hidden="true" className="mappe-submit-spinner" />
         ) : (
           <KeyRound aria-hidden="true" size={18} />
         )}

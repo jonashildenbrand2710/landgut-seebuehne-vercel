@@ -2019,7 +2019,7 @@ h2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
   margin: 24px 0;
-  transition: opacity var(--motion-fast) ease-out;
+  transition: opacity var(--motion-medium) var(--motion-ease-out);
 }
 
 .mappe-field {
@@ -2064,7 +2064,7 @@ h2 {
   border-radius: 999px;
   background: rgba(79, 139, 120, 0.12);
   opacity: 0;
-  transition: opacity var(--motion-fast) ease-out;
+  transition: opacity 280ms ease-out;
 }
 
 .mappe-submit-progress span {
@@ -2074,6 +2074,7 @@ h2 {
   border-radius: inherit;
   background: linear-gradient(90deg, var(--rose, #d9babe), var(--lake), var(--green-2));
   transform: translate3d(-120%, 0, 0);
+  will-change: transform;
 }
 
 .mappe-form-card.is-submitting .mappe-submit-progress {
@@ -2081,12 +2082,31 @@ h2 {
 }
 
 .mappe-form-card.is-submitting .mappe-submit-progress span {
-  animation: mappe-submit-progress 1.35s var(--motion-ease-out) infinite;
+  animation: mappe-submit-progress 1.65s linear infinite;
 }
 
 .mappe-submit-spinner {
+  display: inline-block;
   flex: 0 0 auto;
-  animation: booking-spin 900ms linear infinite;
+  width: 18px;
+  height: 18px;
+  animation: mappe-submit-spinner-in 280ms var(--motion-ease-out) both;
+}
+
+.mappe-submit-spinner::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 2px solid rgba(28, 29, 32, 0.2);
+  border-top-color: currentColor;
+  border-right-color: currentColor;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  content: "";
+  transform: translate3d(0, 0, 0) rotate(0turn);
+  transform-origin: center;
+  animation: mappe-submit-spin 1.1s linear infinite;
+  will-change: transform;
 }
 
 .mappe-submit-live {
@@ -2105,7 +2125,7 @@ h2 {
   font-size: 0.88rem;
   font-weight: 750;
   line-height: 1.45;
-  animation: mappe-submit-state-in 320ms var(--motion-ease-out) both;
+  animation: mappe-submit-state-in 460ms var(--motion-ease-out) both;
 }
 
 .mappe-form-note {
@@ -2918,6 +2938,22 @@ h2 {
   }
 }
 
+@keyframes mappe-submit-spinner-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mappe-submit-spin {
+  to {
+    transform: translate3d(0, 0, 0) rotate(1turn);
+  }
+}
+
 @keyframes mappe-submit-state-in {
   from {
     opacity: 0;
@@ -2984,7 +3020,8 @@ h2 {
     animation: none;
   }
 
-  .mappe-submit-spinner {
+  .mappe-submit-spinner,
+  .mappe-submit-spinner::before {
     animation: none;
   }
 
