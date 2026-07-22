@@ -5460,3 +5460,634 @@ body:has(.bewerbung-page) .site-footer {
   font-family: inherit;
   font-size: 0.95rem;
 }
+
+/* ── Dornenrose A · Site-Transfer v2 ──────────────────────────
+ * Verbindliche Referenz: die geschuetzte Dornenrose-Inhaltsmappe
+ * unter /hochzeitsmappe-dornrose und deren page.module.css.
+ *
+ * Die Inhaltsmappe bleibt als Quelle unangetastet. Der gemeinsame
+ * botanische .site-footer bleibt ebenfalls bewusst ausserhalb aller
+ * nachfolgenden Overrides, damit Farbton, Bildtextur und Overlays
+ * exakt dem bestehenden Footer entsprechen.
+ *
+ * Diese Schicht ist rein visuell. Texte, Bilder, Links, Reihenfolge,
+ * Formulare und Funktionen werden nicht veraendert.
+ */
+body:not(:has(.site-header--dornrose)) {
+  --paper: #fbfaf6;
+  --paper-deep: #f3f0e8;
+  --paper-rose: #f7f0ef;
+  --ink: #2f3934;
+  --text-muted: #667069;
+  --leaf: #748778;
+  --leaf-deep: #40584d;
+  --lake: #a9c8cf;
+  --rose: #d9babe;
+  --rose-deep: #987479;
+  --ivory: #fffefa;
+  --hero-dark: #1e3028;
+  --line: rgba(65, 88, 77, 0.16);
+  --shadow-soft: 0 24px 64px rgba(52, 70, 61, 0.08);
+
+  /* Aliasse fuer die vorhandenen Komponenten. */
+  --bg: var(--paper);
+  --bg-soft: var(--paper-deep);
+  --ink-soft: var(--text-muted);
+  --green: var(--leaf);
+  --green-2: var(--leaf-deep);
+  --green-text: var(--leaf-deep);
+  --focus-ring: var(--leaf-deep);
+  --focus-ring-light: rgba(255, 254, 250, 0.94);
+  --clay: var(--leaf-deep);
+  --gold: var(--rose);
+  --white: var(--ivory);
+  --shadow-sm: 0 8px 22px rgba(52, 70, 61, 0.055);
+  --shadow: var(--shadow-soft);
+  --shadow-lg: 0 30px 84px rgba(30, 48, 40, 0.14);
+  --surface-page:
+    radial-gradient(circle at 8% 10%, rgba(169, 200, 207, 0.12), transparent 28rem),
+    linear-gradient(180deg, var(--paper) 0%, var(--paper-deep) 100%);
+  --surface-header: rgba(251, 250, 246, 0.9);
+  --surface-section: linear-gradient(180deg, var(--ivory), var(--paper));
+  --surface-section-alt: linear-gradient(145deg, var(--paper-deep), rgba(169, 200, 207, 0.14));
+  --surface-section-warm: linear-gradient(145deg, var(--paper), var(--paper-rose));
+  --surface-card: rgba(255, 254, 250, 0.9);
+  --surface-card-strong: var(--ivory);
+  --surface-card-sage: linear-gradient(145deg, var(--ivory), rgba(169, 200, 207, 0.17));
+  --surface-chip: linear-gradient(135deg, var(--paper-rose), rgba(217, 186, 190, 0.18));
+  --surface-dark: linear-gradient(135deg, var(--hero-dark), var(--leaf-deep));
+  --surface-dark-soft: linear-gradient(145deg, var(--hero-dark), #344b42);
+  --surface-cta: linear-gradient(135deg, var(--hero-dark), var(--leaf-deep));
+  --surface-cta-light: linear-gradient(135deg, var(--paper), var(--paper-rose));
+  --surface-cta-button: linear-gradient(135deg, var(--leaf-deep), #344b42);
+  --surface-cta-button-hover: linear-gradient(135deg, #344b42, var(--hero-dark));
+  --accent-gradient: linear-gradient(90deg, var(--rose), var(--lake), var(--leaf));
+
+  background: var(--surface-page);
+  color: var(--ink);
+}
+
+body:not(:has(.site-header--dornrose)) ::selection {
+  background: rgba(217, 186, 190, 0.56);
+  color: var(--hero-dark);
+}
+
+/* Header und Buttons folgen der ruhigen Editorial-Formsprache der Mappe. */
+body:not(:has(.site-header--dornrose)) .site-header {
+  --header-glass-bg: rgba(251, 250, 246, 0.9);
+  --header-glass-border: var(--line);
+  --header-glass-shadow: 0 10px 30px rgba(52, 70, 61, 0.065);
+  backdrop-filter: blur(14px) saturate(1.02);
+  -webkit-backdrop-filter: blur(14px) saturate(1.02);
+}
+
+body:not(:has(.site-header--dornrose)) .site-header.is-scrolled {
+  --header-glass-bg: rgba(251, 250, 246, 0.96);
+  --header-glass-border: rgba(65, 88, 77, 0.2);
+  --header-glass-shadow: 0 14px 36px rgba(52, 70, 61, 0.09);
+}
+
+body:not(:has(.site-header--dornrose)) :is(.header-cta, .button) {
+  border-radius: 8px;
+  box-shadow: none;
+  transition:
+    transform 180ms ease-out,
+    background 180ms ease-out,
+    border-color 180ms ease-out,
+    color 180ms ease-out;
+}
+
+body:not(:has(.site-header--dornrose)) :is(.header-cta, .button.primary) {
+  border-color: var(--leaf-deep);
+  background: var(--surface-cta-button);
+  color: var(--ivory);
+}
+
+body:not(:has(.site-header--dornrose)) :is(.header-cta, .button.primary):hover {
+  border-color: var(--hero-dark);
+  background: var(--surface-cta-button-hover);
+  color: var(--ivory);
+  box-shadow: 0 12px 28px rgba(30, 48, 40, 0.15);
+}
+
+body:not(:has(.site-header--dornrose)) .button.primary.light {
+  border-color: rgba(255, 254, 250, 0.72);
+  background: var(--ivory);
+  color: var(--leaf-deep);
+}
+
+body:not(:has(.site-header--dornrose)) .button.primary.light:hover {
+  border-color: var(--ivory);
+  background: var(--paper-rose);
+  color: var(--hero-dark);
+}
+
+body:not(:has(.site-header--dornrose)) .button.secondary {
+  border-color: rgba(64, 88, 77, 0.34);
+  background: rgba(255, 254, 250, 0.74);
+  color: var(--leaf-deep);
+}
+
+body:not(:has(.site-header--dornrose)) .button.secondary:hover {
+  border-color: var(--leaf-deep);
+  background: var(--paper-rose);
+  color: var(--hero-dark);
+}
+
+body:not(:has(.site-header--dornrose)) :is(.header-cta, .button)::before {
+  display: none;
+}
+
+body:not(:has(.site-header--dornrose)) :is(
+  .header-cta,
+  .hero-actions .button.primary,
+  .availability-section .button,
+  .personal-cta-section .button,
+  .lead-magnet-section .button,
+  .warning-solution-card .button,
+  .mappe-form-section .button
+) {
+  animation: none;
+}
+
+body:not(:has(.site-header--dornrose)) :is(a, button, input, select, textarea):focus-visible {
+  outline-color: var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* Typografie und Grundflaechen. */
+body:not(:has(.site-header--dornrose)) :is(h1, h2) {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+body:not(:has(.site-header--dornrose)) :is(.eyebrow, .eyebrow.dark) {
+  color: var(--leaf-deep);
+  letter-spacing: 0.14em;
+}
+
+body:not(:has(.site-header--dornrose)) :is(
+  .hero,
+  .lead-magnet-section,
+  .promise-section,
+  .availability-section,
+  .problem-solution-section,
+  .personal-cta-section,
+  .cta-section,
+  .mappe-form-section
+) .eyebrow {
+  color: var(--rose);
+}
+
+body:not(:has(.site-header--dornrose)) :is(.section-band, .notice-band) {
+  border-color: var(--line);
+}
+
+body:not(:has(.site-header--dornrose)) .section-band.muted {
+  background: var(--surface-section-alt);
+}
+
+body:not(:has(.site-header--dornrose)) :is(
+  .article-card,
+  .faq-item,
+  .bundle-card,
+  .family-story-card,
+  .teamleader-card,
+  .gallery-item,
+  .promise-card,
+  .mappe-benefit-panel,
+  .mappe-proof-card,
+  .mappe-form-card,
+  .booking-panel,
+  .article-summary,
+  .article-inline-cta,
+  .article-final-cta
+) {
+  border-color: var(--line);
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+body:not(:has(.site-header--dornrose)) :is(
+  .article-card,
+  .faq-item,
+  .family-story-card,
+  .teamleader-card,
+  .gallery-item,
+  .mappe-proof-card
+) {
+  background: var(--surface-card);
+}
+
+/* Bildheros entsprechen dem dunkelgruenen Auftakt der Inhaltsmappe. */
+body:not(:has(.site-header--dornrose)) .hero {
+  background: var(--hero-dark);
+}
+
+body:not(:has(.site-header--dornrose)) .hero-image {
+  filter: saturate(0.88) contrast(0.96) brightness(0.95);
+}
+
+body:not(:has(.site-header--dornrose)) .hero-shade {
+  background:
+    linear-gradient(90deg, rgba(13, 27, 21, 0.86), rgba(17, 31, 25, 0.5) 48%, rgba(17, 31, 25, 0.14) 76%),
+    linear-gradient(0deg, rgba(13, 26, 20, 0.72), transparent 48%);
+}
+
+body:not(:has(.site-header--dornrose)) .hero::after {
+  background:
+    linear-gradient(180deg, rgba(251, 250, 246, 0), rgba(251, 250, 246, 0.96) 34%),
+    var(--surface-section);
+}
+
+body:not(:has(.site-header--dornrose)) :is(.hero-proof, .hero-fact-bar, .hero-collage-note) {
+  border-color: rgba(255, 254, 250, 0.28);
+  background: rgba(30, 48, 40, 0.44);
+  box-shadow: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Landingpage: viel Papier, wenige dunkle Bild- und CTA-Momente. */
+body:not(:has(.site-header--dornrose)) .hero-image-strip {
+  border-color: var(--line);
+  background: var(--paper);
+}
+
+body:not(:has(.site-header--dornrose)) :is(.lead-magnet-section, .promise-section, .availability-section) {
+  background-color: var(--hero-dark);
+}
+
+body:not(:has(.site-header--dornrose)) :is(.lead-magnet-shade, .promise-shade, .availability-shade) {
+  background: linear-gradient(90deg, rgba(30, 48, 40, 0.9), rgba(64, 88, 77, 0.54) 58%, rgba(30, 48, 40, 0.28));
+}
+
+body:not(:has(.site-header--dornrose)) .lead-magnet-section .button.primary {
+  border-color: var(--ivory);
+  background: var(--ivory);
+  color: var(--leaf-deep);
+  box-shadow: none;
+}
+
+body:not(:has(.site-header--dornrose)) .promise-card {
+  border-color: rgba(255, 254, 250, 0.34);
+  background: rgba(255, 254, 250, 0.93);
+  color: var(--ink);
+}
+
+body:not(:has(.site-header--dornrose)) .promise-card > span {
+  background: var(--leaf-deep);
+  color: var(--ivory);
+}
+
+body:not(:has(.site-header--dornrose)) .bundle-section {
+  background:
+    radial-gradient(circle at 92% 10%, rgba(217, 186, 190, 0.16), transparent 25rem),
+    var(--surface-section);
+}
+
+body:not(:has(.site-header--dornrose)) .bundle-card {
+  border-color: var(--line);
+  background: var(--ivory);
+}
+
+body:not(:has(.site-header--dornrose)) .bundle-card:nth-child(1) {
+  background: linear-gradient(145deg, var(--ivory), var(--paper-rose));
+}
+
+body:not(:has(.site-header--dornrose)) .bundle-card:nth-child(2) {
+  background: linear-gradient(145deg, var(--ivory), rgba(169, 200, 207, 0.18));
+}
+
+body:not(:has(.site-header--dornrose)) .bundle-card.featured {
+  border-color: rgba(152, 116, 121, 0.3);
+  background: linear-gradient(145deg, var(--ivory), rgba(217, 186, 190, 0.22));
+  box-shadow: var(--shadow-soft);
+}
+
+body:not(:has(.site-header--dornrose)) .bundle-card.featured::before {
+  background: var(--accent-gradient);
+}
+
+body:not(:has(.site-header--dornrose)) .bundle-badge {
+  border-color: var(--leaf-deep);
+  background: var(--leaf-deep);
+  color: var(--ivory);
+}
+
+body:not(:has(.site-header--dornrose)) .bundle-card > p {
+  color: var(--leaf-deep);
+}
+
+body:not(:has(.site-header--dornrose)) .family-section {
+  background:
+    radial-gradient(circle at 8% 38%, rgba(169, 200, 207, 0.16), transparent 28rem),
+    var(--paper-deep);
+}
+
+body:not(:has(.site-header--dornrose)) .family-facts div {
+  border-color: var(--line);
+  background: rgba(255, 254, 250, 0.7);
+}
+
+body:not(:has(.site-header--dornrose)) .testimonial-section {
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 88% 12%, rgba(217, 186, 190, 0.16), transparent 24rem),
+    var(--paper-rose);
+}
+
+body:not(:has(.site-header--dornrose)) .testimonial-section h2,
+body:not(:has(.site-header--dornrose)) .testimonial-card strong {
+  color: var(--ink);
+}
+
+body:not(:has(.site-header--dornrose)) .testimonial-heading .eyebrow {
+  color: var(--leaf-deep);
+}
+
+body:not(:has(.site-header--dornrose)) .testimonial-heading p:not(.eyebrow),
+body:not(:has(.site-header--dornrose)) .testimonial-card blockquote,
+body:not(:has(.site-header--dornrose)) .testimonial-card span {
+  color: var(--text-muted);
+}
+
+body:not(:has(.site-header--dornrose)) .testimonial-card {
+  border-color: var(--line);
+  border-radius: 4px;
+  background: rgba(255, 254, 250, 0.74);
+}
+
+body:not(:has(.site-header--dornrose)) .testimonial-stars {
+  color: var(--rose-deep);
+}
+
+body:not(:has(.site-header--dornrose)) .problem-solution-section,
+body:not(:has(.site-header--dornrose)) .personal-cta-section {
+  background: var(--surface-dark-soft);
+}
+
+body:not(:has(.site-header--dornrose)) .warning-item,
+body:not(:has(.site-header--dornrose)) .warning-solution-card {
+  border-color: rgba(255, 254, 250, 0.18);
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+body:not(:has(.site-header--dornrose)) .warning-number,
+body:not(:has(.site-header--dornrose)) :is(.warning-plus, .warning-result strong, .solution-list svg) {
+  color: var(--rose);
+}
+
+body:not(:has(.site-header--dornrose)) .gallery-section {
+  background: var(--surface-section-alt);
+}
+
+body:not(:has(.site-header--dornrose)) .journal-section {
+  background:
+    radial-gradient(circle at 88% 10%, rgba(217, 186, 190, 0.18), transparent 25rem),
+    var(--surface-section-warm);
+}
+
+/* Hochzeitsmappen-Einstiegsseite: jetzt Ziel, nicht mehr Referenz. */
+body:not(:has(.site-header--dornrose)) .mappe-page {
+  background: var(--paper);
+}
+
+body:not(:has(.site-header--dornrose)) .mappe-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+body:not(:has(.site-header--dornrose)) .mappe-hero::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(rgba(251, 250, 246, 0.8), rgba(251, 250, 246, 0.94)),
+    url("/images/hochzeitsmappe-concepts/dornrose-rahmen.webp") center / cover no-repeat;
+  content: "";
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+body:not(:has(.site-header--dornrose)) .mappe-stars {
+  color: var(--leaf-deep);
+}
+
+body:not(:has(.site-header--dornrose)) .mappe-hero h1 {
+  color: var(--ink);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+}
+
+body:not(:has(.site-header--dornrose)) .mappe-label {
+  border: 1px solid rgba(152, 116, 121, 0.22);
+  border-radius: 2px;
+  background: rgba(247, 240, 239, 0.78);
+  color: var(--leaf-deep);
+}
+
+body:not(:has(.site-header--dornrose)) .mappe-overview-section {
+  background: var(--paper);
+}
+
+body:not(:has(.site-header--dornrose)) .mappe-cover-stage {
+  border-radius: 2px;
+  background: var(--paper-deep);
+  box-shadow: var(--shadow-soft);
+}
+
+body:not(:has(.site-header--dornrose)) .mappe-cover-stage::after {
+  border-color: var(--line);
+}
+
+body:not(:has(.site-header--dornrose)) .mappe-benefit-panel {
+  background: rgba(255, 254, 250, 0.9);
+}
+
+body:not(:has(.site-header--dornrose)) .mappe-benefit-list svg,
+body:not(:has(.site-header--dornrose)) .mappe-form-card > svg {
+  color: var(--leaf-deep);
+}
+
+body:not(:has(.site-header--dornrose)) .mappe-proof-section {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(169, 200, 207, 0.14), transparent 24rem),
+    var(--paper-deep);
+}
+
+body:not(:has(.site-header--dornrose)) .mappe-proof-card > svg {
+  background: rgba(169, 200, 207, 0.18);
+  color: var(--leaf-deep);
+}
+
+body:not(:has(.site-header--dornrose)) .mappe-form-section {
+  background: var(--hero-dark);
+}
+
+body:not(:has(.site-header--dornrose)) .mappe-form-shade {
+  background:
+    linear-gradient(90deg, rgba(13, 27, 21, 0.9), rgba(30, 48, 40, 0.56) 58%, rgba(30, 48, 40, 0.38)),
+    linear-gradient(0deg, rgba(13, 26, 20, 0.82), rgba(13, 26, 20, 0.3));
+}
+
+body:not(:has(.site-header--dornrose)) .mappe-final-copy > svg {
+  color: var(--rose);
+}
+
+body:not(:has(.site-header--dornrose)) .mappe-form-card {
+  background: linear-gradient(145deg, var(--ivory), var(--paper-rose));
+  color: var(--ink);
+  box-shadow: var(--shadow-soft);
+}
+
+body:not(:has(.site-header--dornrose)) :is(.mappe-field input, .booking-field input, .booking-field select, .booking-field textarea) {
+  border-color: rgba(65, 88, 77, 0.24);
+  background: var(--ivory);
+  color: var(--ink);
+  box-shadow: none;
+}
+
+body:not(:has(.site-header--dornrose)) :is(.mappe-field input, .booking-field input, .booking-field select, .booking-field textarea):focus {
+  border-color: var(--leaf-deep);
+  outline: 3px solid rgba(116, 135, 120, 0.2);
+  outline-offset: 1px;
+}
+
+/* Besichtigungsfunnel: sachlich wie die Klartext-Abschnitte der Mappe. */
+body:not(:has(.site-header--dornrose)) .booking-page {
+  background:
+    radial-gradient(circle at 8% 16%, rgba(169, 200, 207, 0.18), transparent 26rem),
+    radial-gradient(circle at 92% 84%, rgba(217, 186, 190, 0.16), transparent 25rem),
+    var(--paper);
+}
+
+body:not(:has(.site-header--dornrose)) .booking-panel {
+  background: linear-gradient(155deg, var(--ivory), rgba(247, 240, 239, 0.68));
+  box-shadow: var(--shadow-soft);
+}
+
+body:not(:has(.site-header--dornrose)) .booking-panel-phone::before {
+  height: 3px;
+  background: var(--accent-gradient);
+}
+
+body:not(:has(.site-header--dornrose)) :is(.booking-progress button, .booking-week-arrow, .booking-refresh) {
+  border-color: var(--line);
+  background: var(--ivory);
+  color: var(--leaf-deep);
+}
+
+body:not(:has(.site-header--dornrose)) .booking-progress :is(.is-active, .is-complete) button {
+  border-color: rgba(64, 88, 77, 0.42);
+  background: rgba(116, 135, 120, 0.14);
+  color: var(--ink);
+}
+
+body:not(:has(.site-header--dornrose)) .booking-calendar {
+  border-color: var(--line);
+  border-radius: 4px;
+  background: rgba(255, 254, 250, 0.76);
+}
+
+body:not(:has(.site-header--dornrose)) :is(.booking-slot, .booking-choice, .booking-review-list div) {
+  border-color: var(--line);
+  border-radius: 4px;
+  background: rgba(255, 254, 250, 0.86);
+}
+
+body:not(:has(.site-header--dornrose)) :is(.booking-slot, .booking-choice):is(:hover, .is-selected) {
+  border-color: var(--leaf-deep);
+  background: rgba(116, 135, 120, 0.15);
+  box-shadow: none;
+}
+
+body:not(:has(.site-header--dornrose)) :is(.booking-note, .booking-preview-note, .booking-selection-note) {
+  border-color: rgba(169, 200, 207, 0.5);
+  background: rgba(169, 200, 207, 0.16);
+  color: var(--leaf-deep);
+}
+
+/* Journal, Artikel und generische Unterseiten. */
+body:not(:has(.site-header--dornrose)) :is(.subpage-hero, .ratgeber-hero) {
+  border-color: var(--line);
+  background:
+    radial-gradient(circle at 86% 18%, rgba(217, 186, 190, 0.23), transparent 26rem),
+    radial-gradient(circle at 10% 80%, rgba(169, 200, 207, 0.17), transparent 24rem),
+    var(--paper);
+}
+
+body:not(:has(.site-header--dornrose)) .article-page {
+  background:
+    radial-gradient(circle at 90% 5%, rgba(169, 200, 207, 0.13), transparent 24rem),
+    var(--paper);
+}
+
+body:not(:has(.site-header--dornrose)) .article-card > p {
+  color: var(--leaf-deep);
+}
+
+body:not(:has(.site-header--dornrose)) .article-list-item {
+  border-color: var(--line);
+  border-radius: 4px;
+  background: var(--ivory);
+  box-shadow: none;
+}
+
+body:not(:has(.site-header--dornrose)) .article-list-item:hover {
+  border-color: var(--leaf);
+  box-shadow: var(--shadow-soft);
+}
+
+body:not(:has(.site-header--dornrose)) :is(.article-summary, .article-inline-cta, .article-final-cta) {
+  background: var(--surface-card-strong);
+}
+
+body:not(:has(.site-header--dornrose)) .cta-section {
+  background: var(--surface-cta);
+}
+
+/* Cookie-Dialog; der Footer selbst bleibt unveraendert. */
+body:not(:has(.site-header--dornrose)) .consent-banner-inner {
+  border-color: var(--line);
+  border-radius: 8px;
+  background: linear-gradient(155deg, var(--ivory), var(--paper-rose));
+  box-shadow: var(--shadow-soft);
+}
+
+@media (max-width: 680px) {
+  body:not(:has(.site-header--dornrose)) {
+    --surface-page:
+      radial-gradient(circle at 88% 8%, rgba(217, 186, 190, 0.11), transparent 18rem),
+      linear-gradient(180deg, var(--paper), var(--paper-deep));
+  }
+
+  body:not(:has(.site-header--dornrose)) .hero-shade {
+    background: linear-gradient(180deg, rgba(30, 48, 40, 0.3), rgba(30, 48, 40, 0.9) 66%, var(--hero-dark));
+  }
+
+  body:not(:has(.site-header--dornrose)) :is(.button, .header-cta) {
+    min-height: 48px;
+  }
+
+  body:not(:has(.site-header--dornrose)) .mappe-hero::before {
+    background:
+      linear-gradient(rgba(251, 250, 246, 0.86), rgba(251, 250, 246, 0.96)),
+      url("/images/hochzeitsmappe-concepts/dornrose-rahmen.webp") center / cover no-repeat;
+    opacity: 0.58;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body:not(:has(.site-header--dornrose)) *,
+  body:not(:has(.site-header--dornrose)) *::before,
+  body:not(:has(.site-header--dornrose)) *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
