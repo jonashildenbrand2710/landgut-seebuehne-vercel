@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { MetaConversionFromQuery } from "@/components/MetaConversionTracking";
 import { MetaPixel } from "@/components/MetaPixel";
+import { NavigationMotion } from "@/components/NavigationMotion";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { SiteJsonLd } from "@/components/StructuredData";
 import { imageLibrary, siteConfig } from "@/data/site";
@@ -55,6 +56,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image"
   },
+  icons: {
+    icon: "/images/brand/landgut-seebuehne-logo.svg"
+  },
   verification: siteVerification
 };
 
@@ -66,6 +70,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       data-scroll-behavior="smooth"
     >
       <body>
+        <NavigationMotion />
         <a className="skip-link" href="#inhalt">
           Zum Inhalt springen
         </a>

@@ -209,7 +209,7 @@ export function Hero({
         fetchPriority={priority ? "high" : "auto"}
         preload={priority}
         loading={priority ? "eager" : "lazy"}
-        quality={85}
+        quality={75}
         // Im hohen Mobile-Hero braucht das 3:2-Motiv etwa 1,5x Viewport-Hoehe als Slotbreite.
         sizes="(max-width: 680px) 150vh, 100vw"
         style={imageStyle}

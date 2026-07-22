@@ -29,19 +29,27 @@ export function Footer() {
           <ul>
             {mainNavigation.map((item) => (
               <li key={item.href}>
-                <Link href={item.href}>{item.label}</Link>
+                <Link href={item.href} prefetch={false}>
+                  {item.label}
+                </Link>
               </li>
             ))}
             {footerSecondaryLinks.map((item) => (
               <li key={item.href}>
-                <Link href={item.href}>{item.label}</Link>
+                <Link href={item.href} prefetch={false}>
+                  {item.label}
+                </Link>
               </li>
             ))}
             <li>
-              <Link href="/datenschutz">Datenschutz</Link>
+              <Link href="/datenschutz" prefetch={false}>
+                Datenschutz
+              </Link>
             </li>
             <li>
-              <Link href="/impressum">Impressum</Link>
+              <Link href="/impressum" prefetch={false}>
+                Impressum
+              </Link>
             </li>
             <li>
               <CookieSettingsButton />

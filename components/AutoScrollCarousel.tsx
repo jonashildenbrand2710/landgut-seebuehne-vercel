@@ -19,7 +19,9 @@ export function AutoScrollCarousel({
 }: AutoScrollCarouselProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<number | null>(null);
-  const animationFrameRef = useRef<number | null>(null);
+  const completionTimeoutRef = useRef<number | null>(null);
+  const scrollEndHandlerRef = useRef<(() => void) | null>(null);
+  const scheduleAutoplayRef = useRef<() => void>(() => undefined);
   const directionRef = useRef<1 | -1>(1);
   const pausedRef = useRef(false);
 
@@ -31,13 +33,21 @@ export function AutoScrollCarousel({
   }, []);
 
   const stopAnimation = useCallback(() => {
-    if (animationFrameRef.current !== null) {
-      window.cancelAnimationFrame(animationFrameRef.current);
-      animationFrameRef.current = null;
+    const viewport = viewportRef.current;
+
+    if (completionTimeoutRef.current !== null) {
+      window.clearTimeout(completionTimeoutRef.current);
+      completionTimeoutRef.current = null;
     }
 
-    if (viewportRef.current) {
-      delete viewportRef.current.dataset.carouselAnimating;
+    if (viewport && scrollEndHandlerRef.current) {
+      viewport.removeEventListener("scrollend", scrollEndHandlerRef.current);
+      scrollEndHandlerRef.current = null;
+    }
+
+    if (viewport?.dataset.carouselAnimating === "true") {
+      viewport.scrollTo({ behavior: "auto", left: viewport.scrollLeft });
+      delete viewport.dataset.carouselAnimating;
     }
   }, []);
 
@@ -88,26 +98,28 @@ export function AutoScrollCarousel({
       return;
     }
 
-    viewport.dataset.carouselAnimating = "true";
-    const startedAt = window.performance.now();
-
-    const animate = (now: number) => {
-      const progress = Math.min((now - startedAt) / scrollDurationMs, 1);
-      const easedProgress = progress * progress * (3 - 2 * progress);
-
-      viewport.scrollLeft = startScrollLeft + distance * easedProgress;
-
-      if (progress < 1) {
-        animationFrameRef.current = window.requestAnimationFrame(animate);
-        return;
+    const finishAnimation = () => {
+      if (completionTimeoutRef.current !== null) {
+        window.clearTimeout(completionTimeoutRef.current);
+        completionTimeoutRef.current = null;
       }
-
+      if (scrollEndHandlerRef.current) {
+        viewport.removeEventListener("scrollend", scrollEndHandlerRef.current);
+        scrollEndHandlerRef.current = null;
+      }
       viewport.scrollLeft = targetScrollLeft;
-      animationFrameRef.current = null;
       delete viewport.dataset.carouselAnimating;
+      scheduleAutoplayRef.current();
     };
 
-    animationFrameRef.current = window.requestAnimationFrame(animate);
+    viewport.dataset.carouselAnimating = "true";
+    scrollEndHandlerRef.current = finishAnimation;
+    viewport.addEventListener("scrollend", finishAnimation, { once: true });
+    completionTimeoutRef.current = window.setTimeout(
+      finishAnimation,
+      Math.max(800, scrollDurationMs)
+    );
+    viewport.scrollTo({ behavior: "smooth", left: targetScrollLeft });
   }, [scrollDurationMs, stopAnimation]);
 
   const scheduleAutoplay = useCallback(() => {
@@ -121,6 +133,10 @@ export function AutoScrollCarousel({
       scrollOneSlide();
     }, intervalMs);
   }, [clearTimer, intervalMs, scrollOneSlide]);
+
+  useEffect(() => {
+    scheduleAutoplayRef.current = scheduleAutoplay;
+  }, [scheduleAutoplay]);
 
   useEffect(() => {
     const viewport = viewportRef.current;
@@ -140,7 +156,7 @@ export function AutoScrollCarousel({
       scheduleAutoplay();
     };
     const postpone = () => {
-      if (!pausedRef.current) {
+      if (!pausedRef.current && viewport.dataset.carouselAnimating !== "true") {
         scheduleAutoplay();
       }
     };

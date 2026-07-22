@@ -59,7 +59,11 @@ export default async function DynamicPage({ params }: PageProps) {
         allowDirectActions={page.slug === "termin-buchen"}
       />
       {page.sections.map((section, index) => (
-        <SectionBand section={section} index={index} key={section.title} />
+        <SectionBand
+          section={section}
+          index={index}
+          key={`${page.slug}-${index}-${section.title || "section"}`}
+        />
       ))}
       <FAQ items={page.faqs} />
       {!["datenschutz", "impressum"].includes(page.slug) ? (

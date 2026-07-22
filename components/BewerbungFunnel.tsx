@@ -11,6 +11,7 @@ import {
   CheckCircle2,
   Clock3,
   Headphones,
+  LoaderCircle,
   Mail,
   MapPin,
   Megaphone,
@@ -148,7 +149,7 @@ export function BewerbungFunnel({ status, step: stepParam }: BewerbungFunnelProp
               src={applicationFunnel.intro.image.src}
             />
           </div>
-          <BrandLogo className="brand-logo brand-logo-lead" variant="light" />
+          <BrandLogo className="brand-logo brand-logo-lead" priority variant="light" />
           <div className="bewerbung-intro-copy">
             <h1 id="bewerbung-intro-title">{applicationFunnel.intro.title}</h1>
             <p>{applicationFunnel.intro.text}</p>
@@ -252,7 +253,8 @@ export function BewerbungFunnel({ status, step: stepParam }: BewerbungFunnelProp
 
           <form
             action="/api/bewerbung"
-            className="bewerbung-form-card"
+            aria-busy={isSubmitting}
+            className={isSubmitting ? "bewerbung-form-card is-submitting" : "bewerbung-form-card"}
             encType="multipart/form-data"
             method="post"
             onSubmit={() => setIsSubmitting(true)}
@@ -326,7 +328,11 @@ export function BewerbungFunnel({ status, step: stepParam }: BewerbungFunnelProp
             </div>
 
             <button className="bewerbung-submit-button" disabled={isSubmitting} type="submit">
-              <Send aria-hidden="true" size={20} />
+              {isSubmitting ? (
+                <LoaderCircle aria-hidden="true" className="bewerbung-submit-spinner" size={20} />
+              ) : (
+                <Send aria-hidden="true" size={20} />
+              )}
               <span>{isSubmitting ? "Wird gesendet …" : applicationFunnel.form.submitLabel}</span>
             </button>
           </form>

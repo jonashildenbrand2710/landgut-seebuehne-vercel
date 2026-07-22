@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CalendarDays } from "lucide-react";
@@ -17,18 +17,36 @@ export function Header({
 }) {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
+  const isScrolledRef = useRef(false);
+  const scrollFrameRef = useRef<number | null>(null);
   const isDornrose = pathname === "/hochzeitsmappe-dornrose";
 
   useEffect(() => {
     if (isStatic) return;
+
     const updateHeaderState = () => {
-      setIsScrolled(window.scrollY > 18);
+      scrollFrameRef.current = null;
+      const nextIsScrolled = window.scrollY > 18;
+
+      if (nextIsScrolled === isScrolledRef.current) return;
+
+      isScrolledRef.current = nextIsScrolled;
+      setIsScrolled(nextIsScrolled);
+    };
+    const scheduleHeaderUpdate = () => {
+      if (scrollFrameRef.current !== null) return;
+      scrollFrameRef.current = window.requestAnimationFrame(updateHeaderState);
     };
 
     updateHeaderState();
-    window.addEventListener("scroll", updateHeaderState, { passive: true });
+    window.addEventListener("scroll", scheduleHeaderUpdate, { passive: true });
 
-    return () => window.removeEventListener("scroll", updateHeaderState);
+    return () => {
+      window.removeEventListener("scroll", scheduleHeaderUpdate);
+      if (scrollFrameRef.current !== null) {
+        window.cancelAnimationFrame(scrollFrameRef.current);
+      }
+    };
   }, [isStatic]);
 
   const headerClassName = [

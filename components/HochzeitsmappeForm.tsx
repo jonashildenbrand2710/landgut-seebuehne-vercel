@@ -16,6 +16,7 @@ const statusMessages: Record<string, string> = {
 };
 
 export function HochzeitsmappeForm() {
+  const formRef = useRef<HTMLFormElement>(null);
   const submitLocked = useRef(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -24,9 +25,17 @@ export function HochzeitsmappeForm() {
       submitLocked.current = false;
       setIsSubmitting(false);
     };
+    const anchorFrame = window.requestAnimationFrame(() => {
+      if (window.location.hash === "#mappe-form") {
+        formRef.current?.scrollIntoView({ behavior: "auto", block: "start" });
+      }
+    });
 
     window.addEventListener("pageshow", resetSubmission);
-    return () => window.removeEventListener("pageshow", resetSubmission);
+    return () => {
+      window.cancelAnimationFrame(anchorFrame);
+      window.removeEventListener("pageshow", resetSubmission);
+    };
   }, []);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -41,9 +50,10 @@ export function HochzeitsmappeForm() {
 
   return (
     <form
+      ref={formRef}
       action="/api/hochzeitsmappe"
       aria-busy={isSubmitting}
-      className="mappe-form-card"
+      className={isSubmitting ? "mappe-form-card is-submitting" : "mappe-form-card"}
       id="mappe-form"
       method="post"
       onSubmit={handleSubmit}
@@ -92,6 +102,9 @@ export function HochzeitsmappeForm() {
         )}
         <span>{isSubmitting ? "Zugang wird vorbereitet …" : "Online-Hochzeitsmappe öffnen"}</span>
       </button>
+      <div aria-hidden="true" className="mappe-submit-progress">
+        <span />
+      </div>
       <div aria-atomic="true" aria-live="polite" className="mappe-submit-live" role="status">
         {isSubmitting ? (
           <p className="mappe-submit-state">

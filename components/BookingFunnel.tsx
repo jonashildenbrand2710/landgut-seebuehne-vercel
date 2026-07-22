@@ -11,7 +11,7 @@ import {
   LoaderCircle,
   RefreshCcw
 } from "lucide-react";
-import { useEffect, useMemo, useState, type KeyboardEvent } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import type { BookingFlowField } from "@/data/booking-flow";
 import type {
   BookingAppointmentType,
@@ -259,6 +259,8 @@ export function BookingFunnel({
   const [availabilityError, setAvailabilityError] = useState("");
   const [availabilityPreview, setAvailabilityPreview] = useState(false);
   const [bookingResult, setBookingResult] = useState<BookingResponse | null>(null);
+  const panelRef = useRef<HTMLElement>(null);
+  const hasRenderedBookingStepRef = useRef(false);
 
   const selectedSlot = useMemo(
     () => slots.find((slot) => slot.id === selectedSlotId) || null,
@@ -333,7 +335,7 @@ export function BookingFunnel({
     return Boolean(selectedSlot && contactComplete && questionsComplete);
   };
 
-  const loadAvailability = async () => {
+  const loadAvailability = useCallback(async () => {
     setAvailabilityState("loading");
     setAvailabilityError("");
 
@@ -367,7 +369,7 @@ export function BookingFunnel({
         loadError instanceof Error ? loadError.message : "Freie Termine konnten nicht geladen werden."
       );
     }
-  };
+  }, [appointmentType, durationMinutes, flowId, flowVersion, rangeDays, stepMinutes]);
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
@@ -375,9 +377,23 @@ export function BookingFunnel({
     }, 0);
 
     return () => window.clearTimeout(timeout);
-    // loadAvailability intentionally reads the current props listed below.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [appointmentType, durationMinutes, flowId, flowVersion, rangeDays, stepMinutes]);
+  }, [loadAvailability]);
+
+  useEffect(() => {
+    if (!hasRenderedBookingStepRef.current) {
+      hasRenderedBookingStepRef.current = true;
+      return;
+    }
+
+    const scrollFrame = window.requestAnimationFrame(() => {
+      panelRef.current?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        block: "start"
+      });
+    });
+
+    return () => window.cancelAnimationFrame(scrollFrame);
+  }, [activeStep, bookingResult]);
 
   const goToStep = (step: StepId) => {
     const nextIndex = steps.findIndex((item) => item.id === step);
@@ -506,7 +522,11 @@ export function BookingFunnel({
 
   if (bookingResult) {
     return (
-      <section className={`booking-panel booking-panel-${appointmentType}`} aria-labelledby="booking-success-title">
+      <section
+        ref={panelRef}
+        className={`booking-panel booking-panel-${appointmentType}`}
+        aria-labelledby="booking-success-title"
+      >
         <div className="booking-panel-head">
           <CalendarCheck aria-hidden="true" size={24} />
           <div>
@@ -537,7 +557,12 @@ export function BookingFunnel({
   }
 
   return (
-    <section className={`booking-panel booking-panel-${appointmentType}`} aria-labelledby="booking-title">
+    <section
+      ref={panelRef}
+      aria-busy={availabilityState === "loading" || bookingState === "loading"}
+      className={`booking-panel booking-panel-${appointmentType}`}
+      aria-labelledby="booking-title"
+    >
       <div className="booking-panel-head">
         <CalendarDays aria-hidden="true" size={24} />
         <div>
@@ -558,14 +583,19 @@ export function BookingFunnel({
                 <p className="booking-preview-note">Lokale Vorschau – noch ohne Live-Kalenderabgleich.</p>
               ) : null}
             </div>
-            <button className="booking-refresh" type="button" onClick={loadAvailability}>
-              <RefreshCcw aria-hidden="true" size={16} />
+            <button
+              className={availabilityState === "loading" ? "booking-refresh is-loading" : "booking-refresh"}
+              disabled={availabilityState === "loading"}
+              type="button"
+              onClick={loadAvailability}
+            >
+              <RefreshCcw aria-hidden="true" className="booking-refresh-icon" size={16} />
               <span>Neu laden</span>
             </button>
           </div>
 
           {availabilityState === "loading" ? (
-            <p className="booking-inline-state">
+            <p aria-live="polite" className="booking-inline-state">
               <LoaderCircle aria-hidden="true" className="booking-spinner" size={18} />
               Termine werden mit dem Kalender abgeglichen.
             </p>
@@ -578,7 +608,7 @@ export function BookingFunnel({
               </p>
               <div className="booking-actions">
                 <button className="booking-refresh" type="button" onClick={loadAvailability}>
-                  <RefreshCcw aria-hidden="true" size={16} />
+                  <RefreshCcw aria-hidden="true" className="booking-refresh-icon" size={16} />
                   <span>Erneut versuchen</span>
                 </button>
               </div>

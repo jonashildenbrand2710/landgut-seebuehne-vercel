@@ -1,6 +1,6 @@
 # Onepage Animation Audit
 
-Stand: 2026-06-19
+Stand: 2026-07-22
 
 Scope: Hauptseite `https://www.landgut-seebuehne.de/` und lokale Onepage-HTMLs
 unter `docs/migration/onepage-current/pages/`.
@@ -30,12 +30,22 @@ Homepage:
 
 - CTAs nutzen `border-radius: 16px`, Hover-Lift, Shine-Overlay und leichte
   Float-Animation.
-- Scroll-Reveals nutzen `IntersectionObserver`, `680ms ease-out`, Fade,
-  leichter Slide und dezenter Blur.
-- Card-/Text-Elemente bekommen gestaffelte Delays von je `70ms`.
+- Scroll-Reveals nutzen `IntersectionObserver` und die Web Animations API mit
+  `640ms`, Fade und kleinem Slide/Scale. Paint-intensive Blur-Filter wurden
+  entfernt.
+- Card-/Text-Elemente werden dezent gestaffelt; der Gesamtversatz bleibt auf
+  maximal `135ms` begrenzt.
 - Mobile nutzt vertikale Reveals ohne seitlichen Slide, um Proportionen und
   Abstaende stabil zu halten.
-- `prefers-reduced-motion: reduce` deaktiviert Float, Reveal und Hover-Dauern.
+- Oberhalb des Folds liegende Hero- und Seiteneinstiege warten nicht auf den
+  Observer und blockieren dadurch weder LCP noch die erste Interaktion.
+- Interne Seitenwechsel erhalten eine schmale Fortschrittsanzeige und einen
+  kurzen, compositor-freundlichen Seiteneintritt. `app/loading.tsx` deckt echte
+  Ladegrenzen mit einem ruhigen Fallback ab.
+- Hochzeitsmappe, Besichtigungsfunnel und Bewerbung zeigen stabile Lade- und
+  Submit-Zustaende, ohne dass Buttons oder Formulare ihre Groesse springen.
+- `prefers-reduced-motion: reduce` deaktiviert Float, Reveal, Seitenwechsel und
+  Hover-Dauern.
 
 Bewusste Abweichung:
 
@@ -58,3 +68,25 @@ Bewusste Abweichung:
 - Beim Mobile-Test wurde ein 4px-Overflow durch seitliche Reveal-Offsets auf
   unteren CTA-Gruppen gefunden und behoben. Mobile Reveals starten dort jetzt
   vertikal statt horizontal.
+
+## QA 2026-07-22
+
+- Computer-Use-Audit des lokalen Produktions-Builds ueber alle oeffentlichen
+  Kernseiten, acht Ratgeberartikel, kontrollierte Alt-/Funnelseiten sowie die
+  Hochzeitsmappe und den Besichtigungsablauf: 31 Routen beziehungsweise
+  relevante UI-Zustaende ohne sichtbare Renderfehler.
+- Mobile Responsive-Emulation `400x861`: Der Direktlink
+  `/hochzeitsmappe#mappe-form` landet nach dem responsiven Reflow exakt am
+  Formular. Der Besichtigungsfunnel fuehrt nach der Terminwahl weich zum
+  sichtbaren Kontaktformular statt an den Footer.
+- Hochzeitsmappe unter 3G-Throttling mit lokalen, nicht produktiven Testdaten bis
+  zur serverseitigen Telefonnummernvalidierung geprueft. Ladeindikator,
+  Fortschrittslinie, `aria-busy` und Fehlerzustand bleiben stabil.
+- Footer-Prefetch deaktiviert: Im mobilen Besichtigungsablauf sank der sichtbare
+  Netzwerkumfang nach dem Schrittwechsel von 62 auf 29 Requests, ohne den
+  eigentlichen Seitenwechsel zu veraendern.
+- Hero-Qualitaet fuer die Next-Image-Ausgabe von `85` auf `75` reduziert;
+  oberhalb des Folds gibt es keine dauerhaften `will-change`- oder
+  Blur-Reveal-Kosten mehr.
+- `npm run lint`: gruen
+- `npm run build`: gruen, 40 statische Seiten erfolgreich generiert
