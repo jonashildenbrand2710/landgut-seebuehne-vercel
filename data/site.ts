@@ -59,8 +59,8 @@ export const imageLibrary = {
     alt: "Seeblick und Außenbereich des Landgut Seebühne"
   },
   mappeCover: {
-    src: "/images/hochzeitsmappe-curated/neu-trauplatz-birkenbogen.jpg",
-    alt: "Freier Trauplatz am See als Einblick in die Online-Hochzeitsmappe des Landgut Seebühne"
+    src: "/images/site/hochzeitsmappe-cover.jpg",
+    alt: "Cover der Hochzeitsmappe des Landgut Seebühne"
   },
   availability: {
     src: "/images/site/hero-brautpaar-steg-am-see.jpg",
@@ -313,7 +313,7 @@ export const sitePages: SitePage[] = [
     heroText:
       "Euer persönlicher Online-Hochzeitsbegleiter, damit ihr Ort, Ablauf und wichtige Fragen besser einordnen könnt.",
     imageKey: "mappeCover",
-    primaryCta: "Online-Hochzeitsmappe öffnen",
+    primaryCta: "Hochzeitsmappe sichern",
     secondaryCta: "Besichtigungstermin buchen",
     sections: [
       {

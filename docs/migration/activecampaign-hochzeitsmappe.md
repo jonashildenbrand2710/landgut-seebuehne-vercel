@@ -32,7 +32,7 @@ Quelle: `docs/migration/onepage-current/pages/hochzeitsmappe.html`
    `Hochzeitsmappe Zugangslink` (`%HOCHZEITSMAPPE_LINK%`, Feld-ID `5`) schreiben.
 7. Optionale Tags setzen.
 8. Optionale Liste abonnieren. Im aktuellen Account startet diese Anmeldung die
-   Automation fuer den persoenlichen Hochzeitsmappen-Zugang.
+   Automation `Wedding-Report Optin`.
 9. Die Automation nur dann direkt starten, wenn keine Liste konfiguriert ist.
    Liste und direkter Automation-Start duerfen nicht kombiniert werden, weil der
    Kontakt sonst zweimal in dieselbe Automation eintritt und die erste E-Mail
@@ -89,15 +89,8 @@ IDs. Es gibt keine API-Tokens und keine Kontakt-Personendaten aus.
 
 ## ActiveCampaign-Mail
 
-- Die internen Bezeichnungen im Live-Account sind auf den neuen Flow
-  vereinheitlicht: Automation `Hochzeitsmappe Opt-in`, Kampagne
-  `Hochzeitsmappe – Persönlicher Zugang`, Tags `Hochzeitsmappe_Optin` und
-  `Hochzeitsmappe`. Der alte Tippfehler-Tag wurde als
-  `Hochzeitsmappe_Altbestand` kenntlich gemacht.
-- Die Hochzeitsmappen-Automation wird weiterhin ueber die Liste
-  `Hochzeitsmappe` gestartet. Alte Report-Bezeichnungen sollen auch im
-  ActiveCampaign-Account nicht mehr in Betreff, Vorschautext oder Mail-Inhalt
-  erscheinen.
+- Die Automation `Wedding-Report Optin` wird weiterhin ueber die Liste
+  `Hochzeitsmappe` gestartet.
 - Die erste E-Mail verwendet fuer den Button zur Online-Hochzeitsmappe das
   Personalisierungsfeld `%HOCHZEITSMAPPE_LINK%` statt des bisherigen Google-Drive-Links.
 - Bestehende Kontakte ohne Feldwert erhalten keinen geratenen oder oeffentlichen

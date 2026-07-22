@@ -1415,15 +1415,10 @@ h2 {
 
 .mappe-stars {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 9px;
+  gap: 5px;
   margin-bottom: 18px;
   color: var(--clay);
-  font-size: 0.76rem;
-  font-weight: 850;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
 }
 
 .mappe-hero h1 {
@@ -1480,126 +1475,25 @@ h2 {
 .mappe-cover-stage {
   position: relative;
   width: 100%;
-  min-height: 600px;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  border: 1px solid rgba(28, 29, 32, 0.12);
-  border-radius: 14px;
-  background: var(--surface-card-strong);
+  border-radius: 8px;
+  background: var(--surface-card-sage);
   box-shadow: 0 22px 58px rgba(28, 29, 32, 0.17);
 }
 
 .mappe-cover-stage::after {
   position: absolute;
   inset: 0;
-  border: 1px solid rgba(255, 255, 255, 0.34);
+  border: 1px solid rgba(28, 29, 32, 0.12);
   border-radius: inherit;
   content: "";
   pointer-events: none;
 }
 
-.mappe-browser-bar {
-  display: grid;
-  grid-template-columns: repeat(3, 9px) minmax(0, 1fr);
-  gap: 7px;
-  align-items: center;
-  min-height: 42px;
-  padding: 0 14px;
-  border-bottom: 1px solid rgba(28, 29, 32, 0.1);
-  background: rgba(255, 255, 255, 0.92);
-}
-
-.mappe-browser-bar > span {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--surface-chip);
-}
-
-.mappe-browser-bar > span:nth-child(2) {
-  background: #d8c7a5;
-}
-
-.mappe-browser-bar > span:nth-child(3) {
-  background: var(--green);
-}
-
-.mappe-browser-bar small {
-  justify-self: center;
-  margin-right: 48px;
-  color: rgba(63, 78, 70, 0.7);
-  font-size: 0.7rem;
-  font-weight: 750;
-  letter-spacing: 0.02em;
-}
-
-.mappe-guide-visual {
-  position: relative;
-  min-height: 410px;
-  overflow: hidden;
-}
-
 .mappe-cover-image {
   object-fit: cover;
   object-position: center center;
-}
-
-.mappe-guide-shade {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(0deg, rgba(16, 28, 23, 0.76), rgba(16, 28, 23, 0.04) 66%);
-}
-
-.mappe-guide-title {
-  position: absolute;
-  right: 30px;
-  bottom: 30px;
-  left: 30px;
-  color: var(--white);
-}
-
-.mappe-guide-title span {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 0.74rem;
-  font-weight: 850;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.mappe-guide-title strong {
-  display: block;
-  max-width: 460px;
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 300;
-  line-height: 1.05;
-}
-
-.mappe-guide-chapters {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  background: var(--line);
-}
-
-.mappe-guide-chapters > span {
-  display: grid;
-  gap: 7px;
-  min-height: 112px;
-  padding: 20px 16px;
-  background: var(--surface-card-strong);
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: 1.02rem;
-  line-height: 1.2;
-}
-
-.mappe-guide-chapters small {
-  color: var(--clay);
-  font-family: var(--font-body);
-  font-size: 0.69rem;
-  font-weight: 850;
-  letter-spacing: 0.12em;
 }
 
 .mappe-benefit-panel {
@@ -1634,16 +1528,6 @@ h2 {
   line-height: 1.62;
 }
 
-.mappe-benefit-list li span {
-  display: grid;
-  gap: 3px;
-}
-
-.mappe-benefit-list li strong {
-  color: var(--ink);
-  font-size: 0.98rem;
-}
-
 .mappe-benefit-list svg {
   margin-top: 4px;
   color: var(--green-2);
@@ -1668,28 +1552,15 @@ h2 {
   background: var(--surface-card);
 }
 
-.mappe-proof-card-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
-}
-
-.mappe-proof-card-head > svg {
+.mappe-proof-card > svg {
   display: grid;
   width: 46px;
   height: 46px;
+  margin-bottom: 24px;
   padding: 10px;
   border-radius: 50%;
   background: var(--surface-card-sage);
   color: var(--ink);
-}
-
-.mappe-proof-card-head > span {
-  color: var(--clay);
-  font-size: 0.76rem;
-  font-weight: 900;
-  letter-spacing: 0.12em;
 }
 
 .mappe-proof-card h3 {
@@ -1882,9 +1753,19 @@ h2 {
   align-items: start;
 }
 
+.booking-page-copy,
+.booking-page-booking {
+  min-width: 0;
+}
+
 .booking-page-copy {
   position: sticky;
   top: 112px;
+}
+
+.booking-page-booking {
+  display: grid;
+  gap: 18px;
 }
 
 .booking-page-copy h1 {
@@ -1907,8 +1788,8 @@ h2 {
   line-height: 1.7;
 }
 
-.booking-page-copy p.booking-page-alternative {
-  margin-top: 22px;
+.booking-page-alternative {
+  margin: 0;
   padding-left: 14px;
   border-left: 2px solid rgba(35, 68, 58, 0.22);
   color: rgba(28, 29, 32, 0.68);
@@ -4078,7 +3959,7 @@ h2 {
     url("/images/site/footer-botanical-insects.jpg");
   background-position: center, center, top center;
   background-repeat: no-repeat;
-  background-size: cover, cover, 100% auto;
+  background-size: cover, cover, cover;
   box-shadow:
     inset 0 34px 80px rgba(5, 8, 6, 0.1),
     inset 0 -42px 86px rgba(4, 7, 5, 0.16);
@@ -4490,11 +4371,17 @@ h2 {
   }
 
   .booking-panel h2 {
-    font-size: 2rem;
+    font-size: clamp(1.75rem, 8vw, 2rem);
+    hyphens: auto;
+    overflow-wrap: anywhere;
   }
 
   .booking-panel-head {
     grid-template-columns: 38px minmax(0, 1fr);
+  }
+
+  .booking-panel-head > div {
+    min-width: 0;
   }
 
   .booking-panel-head > svg {
@@ -4522,6 +4409,14 @@ h2 {
 
   .booking-week-day {
     min-width: 30px;
+  }
+
+  .booking-page-points span {
+    max-width: 100%;
+    min-height: 38px;
+    height: auto;
+    padding-block: 8px;
+    line-height: 1.25;
   }
 
   .booking-month-track {
@@ -4639,7 +4534,7 @@ h2 {
   }
 
   .hero-editorial::before {
-    inset: 96px 14px 28px;
+    display: none;
   }
 
   .hero-editorial .hero-content,
@@ -4724,6 +4619,32 @@ h2 {
   .button {
     min-height: 48px;
     width: 100%;
+  }
+
+  /* Mobile Hero: ohne Kartenrahmen und mit einem kompakten, linksbuendigen
+     CTA, damit das Paarmotiv rechts sichtbar bleibt. */
+  .hero-proof {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .hero-copy .hero-actions {
+    width: fit-content;
+    max-width: 100%;
+    align-items: flex-start;
+  }
+
+  .hero-copy .hero-actions .button {
+    width: fit-content;
+    max-width: 100%;
+    align-self: flex-start;
+    padding-right: 16px;
+    padding-left: 16px;
+    font-size: 0.92rem;
   }
 
   .reveal-ready .split > .reveal-target,
@@ -4843,31 +4764,6 @@ h2 {
     padding: 24px;
   }
 
-  .mappe-cover-stage {
-    min-height: 0;
-  }
-
-  .mappe-guide-visual {
-    min-height: 330px;
-  }
-
-  .mappe-guide-title {
-    right: 22px;
-    bottom: 22px;
-    left: 22px;
-  }
-
-  .mappe-guide-chapters {
-    grid-template-columns: 1fr;
-  }
-
-  .mappe-guide-chapters > span {
-    grid-template-columns: 34px minmax(0, 1fr);
-    gap: 8px;
-    min-height: 0;
-    padding: 14px 18px;
-  }
-
   .mappe-field-grid {
     grid-template-columns: 1fr;
   }
@@ -4954,6 +4850,12 @@ h2 {
 
   .footer-grid h2 {
     font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .booking-month-track {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 

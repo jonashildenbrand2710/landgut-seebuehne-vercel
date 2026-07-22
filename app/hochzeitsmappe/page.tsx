@@ -1,64 +1,49 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowRight,
   BookOpenCheck,
   Check,
-  KeyRound,
   ShieldCheck,
-  Sparkles
+  Sparkles,
+  Star,
+  Users
 } from "lucide-react";
 import { HochzeitsmappeForm } from "@/components/HochzeitsmappeForm";
 import { PageJsonLd } from "@/components/StructuredData";
 import { imageLibrary } from "@/data/site";
 
 const mappeBenefits = [
-  {
-    title: "Das Landgut entdecken",
-    text: "Seht See, Trauplatz, Landhaus und Gästezimmer so, wie sie euren Hochzeitstag tragen können."
-  },
-  {
-    title: "Euren Tag vor Augen haben",
-    text: "Verbindet Ankommen, Trauung, Feier und Übernachtung zu einem stimmigen Ablauf."
-  },
-  {
-    title: "Ideen konkretisieren",
-    text: "Nehmt Inspiration für Atmosphäre, Tischplanung und die besonderen Momente am Wasser mit."
-  },
-  {
-    title: "Fragen besser einordnen",
-    text: "Findet klare Antworten und merkt schnell, was ihr bei einer persönlichen Besichtigung vertiefen möchtet."
-  }
+  "was euch einen umfassenden Überblick über unsere Location am See gibt und euch direkt in Hochzeitsstimmung versetzt.",
+  "was euch Zeit spart, indem es alle wichtigen Informationen auf einen Blick zusammenfasst.",
+  "was euch inspiriert, mit konkreten Ideen für Dekoration, Menü und Ablauf.",
+  "was euch mit klaren und ehrlichen Antworten auf häufige Fragen rund um eure Hochzeit unterstützt."
 ];
 
 const proofCards = [
   {
-    icon: KeyRound,
-    step: "01",
-    title: "Kurz eintragen",
+    icon: Users,
+    title: "Bewährt bei echten Paaren",
     text:
-      "Gebt eure Kontaktdaten einmal ein. So bleibt die Hochzeitsmappe persönlich geschützt."
+      "Über 150 Brautpaare haben ihre Hochzeit mit Hilfe unserer Hochzeitsmappe geplant und sind so stressfreier in die ersten Entscheidungen gestartet."
   },
   {
     icon: BookOpenCheck,
-    step: "02",
-    title: "Sofort online eintauchen",
+    title: "Praxis-orientiert",
     text:
-      "Direkt nach dem Absenden öffnet sich die vollständige Mappe im Browser – ohne Download oder Dateianhang."
+      "Ein klar gegliederter Online-Begleiter mit Erfahrungsschatz, praktischen Einblicken und Fragen, die euch bei der Einordnung eurer Location-Entscheidung helfen."
   },
   {
     icon: ShieldCheck,
-    step: "03",
-    title: "Später wiederkommen",
+    title: "Genutzt von Profis",
     text:
-      "Euer persönlicher Link kommt zusätzlich per E-Mail und bringt euch wieder in den geschützten Online-Guide."
+      "Auch erfahrene Hochzeitsplaner nutzen die Mappe als strukturierten Startpunkt für Gespräche, Ablaufideen und konkrete Planung."
   }
 ];
 
-const guideChapters = ["Ankommen am See", "Trauung & Tagesablauf", "Feiern & Übernachten"];
-
 export const metadata: Metadata = {
-  title: "Online-Hochzeitsmappe",
+  title: "Hochzeitsmappe",
   description:
     "Persönliche Online-Hochzeitsmappe der Seebühne: Location, Ablauf, Ideen und wichtige Fragen für euren Planungsstart.",
   alternates: {
@@ -78,11 +63,12 @@ export const metadata: Metadata = {
   }
 };
 
-function GuideKicker() {
+function StarRating() {
   return (
-    <div className="mappe-stars">
-      <Sparkles aria-hidden="true" size={18} />
-      <span>Einblick · Inspiration · Planung</span>
+    <div className="mappe-stars" aria-label="5 von 5 Sternen">
+      {[0, 1, 2, 3, 4].map((star) => (
+        <Star aria-hidden="true" fill="currentColor" key={star} size={20} />
+      ))}
     </div>
   );
 }
@@ -104,82 +90,58 @@ export default function HochzeitsmappePage() {
       />
       <section className="mappe-hero">
         <div className="section-inner mappe-hero-intro">
-          <GuideKicker />
-          <h1>Eure Online-Hochzeitsmappe</h1>
+          <StarRating />
+          <h1>Die Hochzeitsmappe</h1>
           <p className="mappe-subtitle">
-            Entdeckt euren möglichen Hochzeitstag am See – Kapitel für Kapitel.
+            Euer persönlicher Online-Hochzeitsbegleiter für die Seebühne
           </p>
-          <span className="mappe-label">Kostenlos · persönlich · direkt im Browser</span>
+          <span className="mappe-label">Direkt online entdecken</span>
           <p>
-            Die Mappe führt euch durch das Landgut, macht Abläufe greifbar und zeigt,
-            wie sich eure Hochzeit hier anfühlen kann. Einmal kurz eintragen – danach
-            öffnet sich euer persönlicher Online-Guide sofort.
+            In dieser liebevoll gestalteten Online-Hochzeitsmappe führen wir euch durch
+            das Landgut, geben klare Antworten und zeigen, wie sich euer Tag am See
+            anfühlen kann. Nach dem kurzen Opt-in öffnet sie sich sofort im Browser.
           </p>
           <div className="hero-actions mappe-actions">
             <a className="button primary" href="#mappe-form">
               <BookOpenCheck aria-hidden="true" size={18} />
-              <span>Persönlichen Zugang öffnen</span>
+              <span>Online-Mappe öffnen</span>
             </a>
-            <a className="button secondary" href="#mappe-inhalte">
+            <Link className="button secondary" href="/termin-buchen">
               <ArrowRight aria-hidden="true" size={18} />
-              <span>Das erwartet euch</span>
-            </a>
+              <span>Besichtigungstermin buchen</span>
+            </Link>
           </div>
         </div>
       </section>
 
-      <section className="mappe-overview-section" id="mappe-inhalte">
+      <section className="mappe-overview-section">
         <div className="section-inner mappe-overview-grid">
           <div className="mappe-cover-stage">
-            <div className="mappe-browser-bar" aria-hidden="true">
-              <span />
-              <span />
-              <span />
-              <small>landgut-seebuehne.de</small>
-            </div>
-            <div className="mappe-guide-visual">
-              <Image
-                className="mappe-cover-image"
-                src={cover.src}
-                alt={cover.alt}
-                fill
-                fetchPriority="high"
-                preload
-                quality={72}
-                sizes="(max-width: 920px) 90vw, 620px"
-              />
-              <div className="mappe-guide-shade" aria-hidden="true" />
-              <div className="mappe-guide-title">
-                <span>Die Hochzeitsmappe der Seebühne</span>
-                <strong>Ein Ort für euer eigenes Märchen.</strong>
-              </div>
-            </div>
-            <div className="mappe-guide-chapters" aria-label="Beispielkapitel der Online-Hochzeitsmappe">
-              {guideChapters.map((chapter, index) => (
-                <span key={chapter}>
-                  <small>0{index + 1}</small>
-                  {chapter}
-                </span>
-              ))}
-            </div>
+            <Image
+              className="mappe-cover-image"
+              src={cover.src}
+              alt={cover.alt}
+              fill
+              fetchPriority="high"
+              preload
+              quality={72}
+              sizes="(max-width: 920px) 90vw, 520px"
+            />
           </div>
           <div className="mappe-benefit-panel">
-            <p className="eyebrow dark">Euer Online-Guide</p>
-            <h2>Mehr als Informationen: ein erster Rundgang durch euren Tag.</h2>
+            <p className="eyebrow dark">Online-Hochzeitsbegleiter</p>
+            <h2>Unsere Hochzeitsmappe ist genau das, ...</h2>
             <ul className="mappe-benefit-list">
               {mappeBenefits.map((benefit) => (
-                <li key={benefit.title}>
+                <li key={benefit}>
                   <Check aria-hidden="true" size={19} />
-                  <span>
-                    <strong>{benefit.title}</strong>
-                    {benefit.text}
-                  </span>
+                  <span>{benefit}</span>
                 </li>
               ))}
             </ul>
             <a className="button primary" href="#mappe-form">
               <BookOpenCheck aria-hidden="true" size={18} />
-              <span>Online-Hochzeitsmappe öffnen</span>
+              <span>Persönlichen Zugang sichern</span>
             </a>
           </div>
         </div>
@@ -189,12 +151,13 @@ export default function HochzeitsmappePage() {
         <div className="section-inner">
           <div className="section-heading-row">
             <div>
-              <p className="eyebrow dark">So funktioniert der Zugang</p>
-              <h2>Von der Landingpage direkt in eure Hochzeitsmappe.</h2>
+              <p className="eyebrow dark">Bewährt bei Paaren</p>
+              <h2>Ein stressfreier Einstieg, bevor die Detailfragen losgehen.</h2>
             </div>
             <p>
-              Kein Medienbruch und kein Warten auf eine Datei: Nach dem kurzen Formular
-              lest ihr direkt dort weiter, wo eure Planung beginnt.
+              Die Mappe ist als kompakter Planungsstart gedacht: genug Überblick
+              für erste Entscheidungen, ohne dass ihr euch durch einzelne Details
+              kämpfen müsst.
             </p>
           </div>
           <div className="mappe-proof-grid">
@@ -203,10 +166,7 @@ export default function HochzeitsmappePage() {
 
               return (
                 <article className="mappe-proof-card" key={card.title}>
-                  <div className="mappe-proof-card-head">
-                    <Icon aria-hidden="true" size={24} />
-                    <span>{card.step}</span>
-                  </div>
+                  <Icon aria-hidden="true" size={24} />
                   <h3>{card.title}</h3>
                   <p>{card.text}</p>
                 </article>
@@ -230,17 +190,17 @@ export default function HochzeitsmappePage() {
         <div className="section-inner mappe-form-grid">
           <div className="mappe-final-copy">
             <Sparkles aria-hidden="true" size={26} />
-            <p className="eyebrow">Euer persönlicher Zugang</p>
-            <h2>Einmal eintragen. Sofort am See eintauchen.</h2>
+            <p className="eyebrow">Zeit, sofort zu handeln</p>
+            <h2>Hol dir jetzt alle Infos für euren Planungsstart.</h2>
             <p>
-              Öffnet die kostenlose Online-Hochzeitsmappe direkt im Browser. Entdeckt
-              Bilder, Ablaufideen und Antworten in eurem Tempo – und bringt eure
-              wichtigsten Fragen einfach zur Besichtigung mit.
+              Beliebte Termine und Locations sind oft schneller vergeben, als man
+              denkt. Mit der kostenlosen Hochzeitsmappe könnt ihr eure Visionen
+              konkretisieren und die nächsten Fragen für eure Besichtigung sortieren.
             </p>
             <div className="mappe-mini-proof" aria-label="Inhalte der Hochzeitsmappe">
               <span>Persönlicher Online-Zugang</span>
-              <span>Sofort im Browser</span>
-              <span>Später per Link erreichbar</span>
+              <span>Location am See</span>
+              <span>Ablauf & Ideen</span>
             </div>
           </div>
 

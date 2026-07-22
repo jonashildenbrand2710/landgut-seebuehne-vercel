@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  type KeyboardEvent,
-  type ReactNode
-} from "react";
+import { useCallback, useEffect, useRef, type ReactNode } from "react";
 
 type AutoScrollCarouselProps = {
   ariaLabel: string;
@@ -136,7 +130,7 @@ export function AutoScrollCarousel({
     };
   }, [clearTimer, scheduleAutoplay]);
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
       return;
     }

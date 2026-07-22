@@ -29,20 +29,14 @@ export default function BesichtigungsterminBuchenPage() {
             wenige Eckpunkte ab, damit euer Termin sofort im Kalender landet und
             wir euren Besuch passend vorbereiten können.
           </p>
-          <p className="booking-page-alternative">
-            Ihr möchtet noch nicht gleich zur Besichtigung kommen oder habt vorab
-            Fragen? Schreibt uns gern eine E-Mail an{" "}
-            <Link href={`mailto:${siteConfig.email}`}>{siteConfig.email}</Link>. Auf
-            Wunsch vereinbaren wir darüber auch einen Telefontermin zum Austausch.
-          </p>
           <div className="booking-page-points" aria-label="Was euch erwartet">
             <span>
               <CalendarClock aria-hidden="true" size={16} />
-              120 Minuten vor Ort
+              90 Minuten vor Ort
             </span>
             <span>
               <MapPin aria-hidden="true" size={16} />
-              {siteConfig.address.legal}
+              Parkplatz: {siteConfig.address.legal}
             </span>
             <span>
               <ShieldCheck aria-hidden="true" size={16} />
@@ -54,7 +48,15 @@ export default function BesichtigungsterminBuchenPage() {
             </span>
           </div>
         </div>
-        <BookingFunnel {...flow} />
+        <div className="booking-page-booking">
+          <BookingFunnel {...flow} />
+          <p className="booking-page-alternative">
+            Ihr möchtet noch nicht gleich zur Besichtigung kommen oder habt vorab
+            Fragen? Schreibt uns gern eine E-Mail an{" "}
+            <Link href={`mailto:${siteConfig.email}`}>{siteConfig.email}</Link>. Auf
+            Wunsch vereinbaren wir darüber auch einen Telefontermin zum Austausch.
+          </p>
+        </div>
       </div>
     </article>
   );
