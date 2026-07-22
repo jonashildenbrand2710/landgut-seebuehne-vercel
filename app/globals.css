@@ -1882,9 +1882,19 @@ h2 {
   align-items: start;
 }
 
+.booking-page-copy,
+.booking-page-booking {
+  min-width: 0;
+}
+
 .booking-page-copy {
   position: sticky;
   top: 112px;
+}
+
+.booking-page-booking {
+  display: grid;
+  gap: 18px;
 }
 
 .booking-page-copy h1 {
@@ -1907,8 +1917,8 @@ h2 {
   line-height: 1.7;
 }
 
-.booking-page-copy p.booking-page-alternative {
-  margin-top: 22px;
+.booking-page-alternative {
+  margin: 0;
   padding-left: 14px;
   border-left: 2px solid rgba(35, 68, 58, 0.22);
   color: rgba(28, 29, 32, 0.68);
@@ -4490,11 +4500,17 @@ h2 {
   }
 
   .booking-panel h2 {
-    font-size: 2rem;
+    font-size: clamp(1.75rem, 8vw, 2rem);
+    hyphens: auto;
+    overflow-wrap: anywhere;
   }
 
   .booking-panel-head {
     grid-template-columns: 38px minmax(0, 1fr);
+  }
+
+  .booking-panel-head > div {
+    min-width: 0;
   }
 
   .booking-panel-head > svg {
@@ -4522,6 +4538,14 @@ h2 {
 
   .booking-week-day {
     min-width: 30px;
+  }
+
+  .booking-page-points span {
+    max-width: 100%;
+    min-height: 38px;
+    height: auto;
+    padding-block: 8px;
+    line-height: 1.25;
   }
 
   .booking-month-track {
@@ -4954,6 +4978,12 @@ h2 {
 
   .footer-grid h2 {
     font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .booking-month-track {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
