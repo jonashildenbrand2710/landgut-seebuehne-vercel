@@ -1286,17 +1286,31 @@ h2 {
   gap: 14px;
   width: 100%;
   margin: 0;
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
   padding: 0 max(18px, calc((100vw - 1180px) / 2)) 8px;
   scroll-padding-inline: max(18px, calc((100vw - 1180px) / 2));
+}
+
+.auto-scroll-carousel {
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
   scroll-snap-type: x mandatory;
   touch-action: pan-x pan-y pinch-zoom;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.hero-strip-inner:focus-visible {
+.auto-scroll-carousel::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.auto-scroll-carousel[data-carousel-animating="true"] {
+  scroll-snap-type: none;
+}
+
+.auto-scroll-carousel:focus-visible {
   outline: 3px solid var(--focus-ring);
   outline-offset: -3px;
 }
@@ -1309,26 +1323,12 @@ h2 {
   border-radius: 8px;
   background: var(--surface-card-sage);
   scroll-snap-align: center;
+  scroll-snap-stop: always;
 }
 
 .hero-strip-item img {
   object-fit: cover;
   transition: transform 280ms ease-out;
-}
-
-.hero-strip-item span {
-  position: absolute;
-  left: 14px;
-  bottom: 12px;
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: var(--surface-card-strong);
-  color: var(--ink);
-  font-size: 0.78rem;
-  font-weight: 900;
 }
 
 .lead-magnet-section {
@@ -2786,22 +2786,25 @@ h2 {
 }
 
 .promise-visual-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  display: flex;
   gap: 10px;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0 0 8px;
+  scroll-padding-inline: 0;
 }
 
 .promise-visual {
   position: relative;
+  flex: 0 0 clamp(280px, 28vw, 360px);
   min-height: clamp(190px, 18vw, 260px);
   overflow: hidden;
   border-radius: 4px;
   background: var(--surface-card-sage);
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.18);
-}
-
-.promise-visual:nth-child(3) {
-  min-height: clamp(260px, 25vw, 360px);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .promise-visual img {
@@ -3015,15 +3018,15 @@ h2 {
 
 .family-facts div {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(31, 49, 43, 0.13);
+  align-items: center;
+  gap: 16px;
+  padding: 6px 0;
+  border: 0;
 }
 
 .family-facts svg {
   flex: 0 0 auto;
-  margin-top: 3px;
+  margin: 0;
   color: var(--lake);
 }
 
@@ -4222,12 +4225,8 @@ h2 {
   }
 
   .promise-visual-grid {
-    display: flex;
     gap: 12px;
-    overflow-x: auto;
     padding-bottom: 8px;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
   }
 
   .promise-visual {
@@ -5486,6 +5485,7 @@ body:not(:has(.site-header--dornrose)) {
   --rose-deep: #987479;
   --ivory: #fffefa;
   --hero-dark: #1e3028;
+  --botanical-frame: url("/images/hochzeitsmappe-concepts/dornrose-rahmen.webp");
   --line: rgba(65, 88, 77, 0.16);
   --shadow-soft: 0 24px 64px rgba(52, 70, 61, 0.08);
 
@@ -5505,15 +5505,31 @@ body:not(:has(.site-header--dornrose)) {
   --shadow: var(--shadow-soft);
   --shadow-lg: 0 30px 84px rgba(30, 48, 40, 0.14);
   --surface-page:
-    radial-gradient(circle at 8% 10%, rgba(169, 200, 207, 0.12), transparent 28rem),
+    linear-gradient(rgba(251, 250, 246, 0.84), rgba(243, 240, 232, 0.9)),
+    var(--botanical-frame) center top / 100% auto no-repeat,
     linear-gradient(180deg, var(--paper) 0%, var(--paper-deep) 100%);
   --surface-header: rgba(251, 250, 246, 0.9);
-  --surface-section: linear-gradient(180deg, var(--ivory), var(--paper));
-  --surface-section-alt: linear-gradient(145deg, var(--paper-deep), rgba(169, 200, 207, 0.14));
-  --surface-section-warm: linear-gradient(145deg, var(--paper), var(--paper-rose));
-  --surface-card: rgba(255, 254, 250, 0.9);
-  --surface-card-strong: var(--ivory);
-  --surface-card-sage: linear-gradient(145deg, var(--ivory), rgba(169, 200, 207, 0.17));
+  --surface-section:
+    linear-gradient(rgba(255, 254, 250, 0.84), rgba(251, 250, 246, 0.9)),
+    var(--botanical-frame) center top / 100% auto no-repeat;
+  --surface-section-alt:
+    linear-gradient(rgba(243, 240, 232, 0.84), rgba(243, 240, 232, 0.9)),
+    var(--botanical-frame) center top / 100% auto no-repeat,
+    linear-gradient(145deg, var(--paper-deep), rgba(169, 200, 207, 0.14));
+  --surface-section-warm:
+    linear-gradient(rgba(251, 250, 246, 0.84), rgba(247, 240, 239, 0.9)),
+    var(--botanical-frame) center top / 100% auto no-repeat;
+  --surface-card:
+    linear-gradient(rgba(255, 254, 250, 0.9), rgba(255, 254, 250, 0.93)),
+    var(--botanical-frame) center top / 100% auto no-repeat;
+  --surface-card-strong:
+    linear-gradient(rgba(255, 254, 250, 0.9), rgba(255, 254, 250, 0.93)),
+    var(--botanical-frame) center top / 100% auto no-repeat,
+    var(--ivory);
+  --surface-card-sage:
+    linear-gradient(rgba(255, 254, 250, 0.89), rgba(255, 254, 250, 0.92)),
+    var(--botanical-frame) center top / 100% auto no-repeat,
+    linear-gradient(145deg, var(--ivory), rgba(169, 200, 207, 0.17));
   --surface-chip: linear-gradient(135deg, var(--paper-rose), rgba(217, 186, 190, 0.18));
   --surface-dark: linear-gradient(135deg, var(--hero-dark), var(--leaf-deep));
   --surface-dark-soft: linear-gradient(145deg, var(--hero-dark), #344b42);
@@ -5679,19 +5695,19 @@ body:not(:has(.site-header--dornrose)) :is(
   background: var(--surface-card);
 }
 
-/* Bildheros entsprechen dem dunkelgruenen Auftakt der Inhaltsmappe. */
+/* Dunkle, neutrale Bildlagen halten Motive klar und unverfaelscht. */
 body:not(:has(.site-header--dornrose)) .hero {
   background: var(--hero-dark);
 }
 
-body:not(:has(.site-header--dornrose)) .hero-image {
-  filter: saturate(0.88) contrast(0.96) brightness(0.95);
+body:not(:has(.site-header--dornrose)) :is(.hero-image, .lead-magnet-image, .promise-bg, .availability-image, .mappe-form-bg) {
+  filter: saturate(0.98) contrast(1.04) brightness(0.98);
 }
 
 body:not(:has(.site-header--dornrose)) .hero-shade {
   background:
-    linear-gradient(90deg, rgba(13, 27, 21, 0.86), rgba(17, 31, 25, 0.5) 48%, rgba(17, 31, 25, 0.14) 76%),
-    linear-gradient(0deg, rgba(13, 26, 20, 0.72), transparent 48%);
+    linear-gradient(90deg, rgba(7, 8, 9, 0.84), rgba(10, 11, 12, 0.48) 48%, rgba(8, 9, 10, 0.08) 76%),
+    linear-gradient(0deg, rgba(5, 6, 7, 0.66), transparent 48%);
 }
 
 body:not(:has(.site-header--dornrose)) .hero::after {
@@ -5708,10 +5724,19 @@ body:not(:has(.site-header--dornrose)) :is(.hero-proof, .hero-fact-bar, .hero-co
   -webkit-backdrop-filter: blur(10px);
 }
 
+body:not(:has(.site-header--dornrose)) .hero-cinematic .hero-proof {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
 /* Landingpage: viel Papier, wenige dunkle Bild- und CTA-Momente. */
 body:not(:has(.site-header--dornrose)) .hero-image-strip {
   border-color: var(--line);
-  background: var(--paper);
+  background: var(--surface-section);
 }
 
 body:not(:has(.site-header--dornrose)) :is(.lead-magnet-section, .promise-section, .availability-section) {
@@ -5719,7 +5744,9 @@ body:not(:has(.site-header--dornrose)) :is(.lead-magnet-section, .promise-sectio
 }
 
 body:not(:has(.site-header--dornrose)) :is(.lead-magnet-shade, .promise-shade, .availability-shade) {
-  background: linear-gradient(90deg, rgba(30, 48, 40, 0.9), rgba(64, 88, 77, 0.54) 58%, rgba(30, 48, 40, 0.28));
+  background:
+    radial-gradient(ellipse 48% 74% at 52% 50%, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.24) 62%, rgba(0, 0, 0, 0.48)),
+    linear-gradient(90deg, rgba(7, 8, 9, 0.76), rgba(10, 11, 12, 0.4) 58%, rgba(7, 8, 9, 0.18));
 }
 
 body:not(:has(.site-header--dornrose)) .lead-magnet-section .button.primary {
@@ -5747,22 +5774,30 @@ body:not(:has(.site-header--dornrose)) .bundle-section {
 }
 
 body:not(:has(.site-header--dornrose)) .bundle-card {
-  border-color: var(--line);
-  background: var(--ivory);
+  --card-border: rgba(116, 135, 120, 0.24);
+  --card-hover-wash: rgba(116, 135, 120, 0.1);
+  border-color: var(--card-border);
+  background: linear-gradient(145deg, var(--ivory) 0%, rgba(251, 250, 246, 0.95) 54%, rgba(116, 135, 120, 0.2) 100%);
 }
 
 body:not(:has(.site-header--dornrose)) .bundle-card:nth-child(1) {
-  background: linear-gradient(145deg, var(--ivory), var(--paper-rose));
+  --card-border: rgba(169, 200, 207, 0.44);
+  --card-hover-wash: rgba(169, 200, 207, 0.14);
+  background: linear-gradient(145deg, var(--ivory) 0%, rgba(251, 250, 246, 0.95) 54%, rgba(169, 200, 207, 0.3) 100%);
 }
 
 body:not(:has(.site-header--dornrose)) .bundle-card:nth-child(2) {
-  background: linear-gradient(145deg, var(--ivory), rgba(169, 200, 207, 0.18));
+  --card-border: rgba(217, 186, 190, 0.42);
+  --card-hover-wash: rgba(217, 186, 190, 0.14);
+  background: linear-gradient(145deg, var(--ivory) 0%, rgba(251, 250, 246, 0.95) 54%, rgba(217, 186, 190, 0.3) 100%);
 }
 
 body:not(:has(.site-header--dornrose)) .bundle-card.featured {
-  border-color: rgba(152, 116, 121, 0.3);
-  background: linear-gradient(145deg, var(--ivory), rgba(217, 186, 190, 0.22));
-  box-shadow: var(--shadow-soft);
+  --card-border: rgba(158, 141, 183, 0.46);
+  --card-hover-wash: rgba(158, 141, 183, 0.14);
+  border-color: var(--card-border);
+  background: linear-gradient(145deg, var(--ivory) 0%, rgba(251, 250, 246, 0.94) 50%, rgba(212, 203, 223, 0.4) 100%);
+  box-shadow: 0 16px 40px rgba(64, 88, 77, 0.08);
 }
 
 body:not(:has(.site-header--dornrose)) .bundle-card.featured::before {
@@ -5770,9 +5805,29 @@ body:not(:has(.site-header--dornrose)) .bundle-card.featured::before {
 }
 
 body:not(:has(.site-header--dornrose)) .bundle-badge {
-  border-color: var(--leaf-deep);
-  background: var(--leaf-deep);
-  color: var(--ivory);
+  align-items: center;
+  gap: 7px;
+  padding: 5px 2px;
+  border: 0;
+  border-top: 1px solid rgba(152, 116, 121, 0.42);
+  border-bottom: 1px solid rgba(152, 116, 121, 0.42);
+  border-radius: 0;
+  background: transparent;
+  color: var(--rose-deep);
+  font-family: var(--font-display);
+  font-size: 0.86rem;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.035em;
+  box-shadow: none;
+}
+
+body:not(:has(.site-header--dornrose)) .bundle-badge::before {
+  color: var(--rose-deep);
+  content: "\2726";
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-style: normal;
 }
 
 body:not(:has(.site-header--dornrose)) .bundle-card > p {
@@ -5782,19 +5837,19 @@ body:not(:has(.site-header--dornrose)) .bundle-card > p {
 body:not(:has(.site-header--dornrose)) .family-section {
   background:
     radial-gradient(circle at 8% 38%, rgba(169, 200, 207, 0.16), transparent 28rem),
-    var(--paper-deep);
+    var(--surface-section-alt);
 }
 
 body:not(:has(.site-header--dornrose)) .family-facts div {
-  border-color: var(--line);
-  background: rgba(255, 254, 250, 0.7);
+  border: 0;
+  background: transparent;
 }
 
 body:not(:has(.site-header--dornrose)) .testimonial-section {
   color: var(--ink);
   background:
     radial-gradient(circle at 88% 12%, rgba(217, 186, 190, 0.16), transparent 24rem),
-    var(--paper-rose);
+    var(--surface-section-warm);
 }
 
 body:not(:has(.site-header--dornrose)) .testimonial-section h2,
@@ -5824,7 +5879,37 @@ body:not(:has(.site-header--dornrose)) .testimonial-stars {
 
 body:not(:has(.site-header--dornrose)) .problem-solution-section,
 body:not(:has(.site-header--dornrose)) .personal-cta-section {
-  background: var(--surface-dark-soft);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #3f4937;
+  background-image:
+    linear-gradient(90deg, rgba(11, 15, 12, 0.28) 0%, rgba(15, 20, 16, 0.06) 44%, rgba(10, 14, 11, 0.26) 100%),
+    linear-gradient(180deg, rgba(8, 11, 9, 0.02) 0%, rgba(7, 10, 8, 0.22) 100%),
+    url("/images/site/footer-botanical-insects.jpg");
+  background-position: center, center, top center;
+  background-repeat: no-repeat;
+  background-size: cover, cover, cover;
+  box-shadow:
+    inset 0 34px 80px rgba(5, 8, 6, 0.1),
+    inset 0 -42px 86px rgba(4, 7, 5, 0.16);
+}
+
+body:not(:has(.site-header--dornrose)) :is(.problem-solution-section, .personal-cta-section)::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background:
+    radial-gradient(70% 115% at 11% 42%, rgba(3, 7, 4, 0.08), transparent 68%),
+    radial-gradient(68% 110% at 91% 40%, rgba(3, 7, 4, 0.1), transparent 70%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.012) 0 1px, transparent 1px 4px);
+  content: "";
+  pointer-events: none;
+}
+
+body:not(:has(.site-header--dornrose)) :is(.problem-solution-section, .personal-cta-section) > .section-inner {
+  position: relative;
+  z-index: 1;
 }
 
 body:not(:has(.site-header--dornrose)) .warning-item,
@@ -5849,9 +5934,118 @@ body:not(:has(.site-header--dornrose)) .journal-section {
     var(--surface-section-warm);
 }
 
+/* Pastellkarten: sichtbar im Ruhezustand, auf dem Desktop sanft vertieft. */
+body:not(:has(.site-header--dornrose)) :is(
+  .promise-card,
+  .family-story-card,
+  .teamleader-card,
+  .testimonial-card,
+  .gallery-item,
+  .journal-section .article-card,
+  .faq-item
+) {
+  --card-pastel: rgba(169, 200, 207, 0.26);
+  --card-border: rgba(169, 200, 207, 0.38);
+  --card-hover-wash: rgba(169, 200, 207, 0.13);
+  border-color: var(--card-border);
+  background: linear-gradient(145deg, rgba(255, 254, 250, 0.98) 0%, rgba(251, 250, 246, 0.95) 52%, var(--card-pastel) 100%);
+  box-shadow: inset 0 0 0 100vmax rgba(255, 254, 250, 0);
+}
+
+body:not(:has(.site-header--dornrose)) :is(
+  .promise-card:nth-child(5n + 2),
+  .family-story-card:nth-child(5n + 2),
+  .teamleader-card:nth-child(5n + 2),
+  .testimonial-card:nth-child(5n + 2),
+  .gallery-item:nth-child(5n + 2),
+  .journal-section .article-card:nth-child(5n + 2),
+  .faq-item:nth-child(5n + 2)
+) {
+  --card-pastel: rgba(217, 186, 190, 0.28);
+  --card-border: rgba(217, 186, 190, 0.4);
+  --card-hover-wash: rgba(217, 186, 190, 0.14);
+}
+
+body:not(:has(.site-header--dornrose)) :is(
+  .promise-card:nth-child(5n + 3),
+  .family-story-card:nth-child(5n + 3),
+  .teamleader-card:nth-child(5n + 3),
+  .testimonial-card:nth-child(5n + 3),
+  .gallery-item:nth-child(5n + 3),
+  .journal-section .article-card:nth-child(5n + 3),
+  .faq-item:nth-child(5n + 3)
+) {
+  --card-pastel: rgba(212, 203, 223, 0.32);
+  --card-border: rgba(158, 141, 183, 0.34);
+  --card-hover-wash: rgba(158, 141, 183, 0.13);
+}
+
+body:not(:has(.site-header--dornrose)) :is(
+  .promise-card:nth-child(5n + 4),
+  .family-story-card:nth-child(5n + 4),
+  .teamleader-card:nth-child(5n + 4),
+  .testimonial-card:nth-child(5n + 4),
+  .gallery-item:nth-child(5n + 4),
+  .journal-section .article-card:nth-child(5n + 4),
+  .faq-item:nth-child(5n + 4)
+) {
+  --card-pastel: rgba(116, 135, 120, 0.22);
+  --card-border: rgba(116, 135, 120, 0.34);
+  --card-hover-wash: rgba(116, 135, 120, 0.12);
+}
+
+body:not(:has(.site-header--dornrose)) :is(
+  .promise-card:nth-child(5n),
+  .family-story-card:nth-child(5n),
+  .teamleader-card:nth-child(5n),
+  .testimonial-card:nth-child(5n),
+  .gallery-item:nth-child(5n),
+  .journal-section .article-card:nth-child(5n),
+  .faq-item:nth-child(5n)
+) {
+  --card-pastel: rgba(219, 211, 193, 0.34);
+  --card-border: rgba(191, 184, 165, 0.4);
+  --card-hover-wash: rgba(191, 184, 165, 0.14);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body:not(:has(.site-header--dornrose)) :is(
+    .promise-card,
+    .bundle-card,
+    .family-story-card,
+    .teamleader-card,
+    .testimonial-card,
+    .gallery-item,
+    .journal-section .article-card,
+    .faq-item
+  ) {
+    transition:
+      border-color 320ms ease,
+      box-shadow 320ms ease,
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  body:not(:has(.site-header--dornrose)) :is(
+    .promise-card,
+    .bundle-card,
+    .family-story-card,
+    .teamleader-card,
+    .testimonial-card,
+    .gallery-item,
+    .journal-section .article-card,
+    .faq-item
+  ):hover {
+    border-color: color-mix(in srgb, var(--card-border) 72%, var(--leaf-deep));
+    box-shadow:
+      inset 0 0 0 100vmax var(--card-hover-wash),
+      0 22px 48px rgba(47, 57, 52, 0.13);
+    transform: translateY(-3px) scale(1.009);
+  }
+}
+
 /* Hochzeitsmappen-Einstiegsseite: jetzt Ziel, nicht mehr Referenz. */
 body:not(:has(.site-header--dornrose)) .mappe-page {
-  background: var(--paper);
+  background: var(--surface-page);
 }
 
 body:not(:has(.site-header--dornrose)) .mappe-hero {
@@ -5891,7 +6085,7 @@ body:not(:has(.site-header--dornrose)) .mappe-label {
 }
 
 body:not(:has(.site-header--dornrose)) .mappe-overview-section {
-  background: var(--paper);
+  background: var(--surface-section);
 }
 
 body:not(:has(.site-header--dornrose)) .mappe-cover-stage {
@@ -5916,7 +6110,7 @@ body:not(:has(.site-header--dornrose)) .mappe-form-card > svg {
 body:not(:has(.site-header--dornrose)) .mappe-proof-section {
   background:
     radial-gradient(circle at 12% 18%, rgba(169, 200, 207, 0.14), transparent 24rem),
-    var(--paper-deep);
+    var(--surface-section-alt);
 }
 
 body:not(:has(.site-header--dornrose)) .mappe-proof-card > svg {
@@ -5930,8 +6124,8 @@ body:not(:has(.site-header--dornrose)) .mappe-form-section {
 
 body:not(:has(.site-header--dornrose)) .mappe-form-shade {
   background:
-    linear-gradient(90deg, rgba(13, 27, 21, 0.9), rgba(30, 48, 40, 0.56) 58%, rgba(30, 48, 40, 0.38)),
-    linear-gradient(0deg, rgba(13, 26, 20, 0.82), rgba(13, 26, 20, 0.3));
+    linear-gradient(90deg, rgba(7, 8, 9, 0.88), rgba(10, 11, 12, 0.5) 58%, rgba(7, 8, 9, 0.26)),
+    linear-gradient(0deg, rgba(5, 6, 7, 0.78), rgba(5, 6, 7, 0.18));
 }
 
 body:not(:has(.site-header--dornrose)) .mappe-final-copy > svg {
@@ -5962,7 +6156,7 @@ body:not(:has(.site-header--dornrose)) .booking-page {
   background:
     radial-gradient(circle at 8% 16%, rgba(169, 200, 207, 0.18), transparent 26rem),
     radial-gradient(circle at 92% 84%, rgba(217, 186, 190, 0.16), transparent 25rem),
-    var(--paper);
+    var(--surface-section);
 }
 
 body:not(:has(.site-header--dornrose)) .booking-panel {
@@ -6017,13 +6211,13 @@ body:not(:has(.site-header--dornrose)) :is(.subpage-hero, .ratgeber-hero) {
   background:
     radial-gradient(circle at 86% 18%, rgba(217, 186, 190, 0.23), transparent 26rem),
     radial-gradient(circle at 10% 80%, rgba(169, 200, 207, 0.17), transparent 24rem),
-    var(--paper);
+    var(--surface-section);
 }
 
 body:not(:has(.site-header--dornrose)) .article-page {
   background:
     radial-gradient(circle at 90% 5%, rgba(169, 200, 207, 0.13), transparent 24rem),
-    var(--paper);
+    var(--surface-section);
 }
 
 body:not(:has(.site-header--dornrose)) .article-card > p {
@@ -6054,19 +6248,70 @@ body:not(:has(.site-header--dornrose)) .cta-section {
 body:not(:has(.site-header--dornrose)) .consent-banner-inner {
   border-color: var(--line);
   border-radius: 8px;
-  background: linear-gradient(155deg, var(--ivory), var(--paper-rose));
+  background: var(--surface-card-strong);
   box-shadow: var(--shadow-soft);
 }
 
 @media (max-width: 680px) {
   body:not(:has(.site-header--dornrose)) {
     --surface-page:
-      radial-gradient(circle at 88% 8%, rgba(217, 186, 190, 0.11), transparent 18rem),
+      linear-gradient(rgba(251, 250, 246, 0.9), rgba(243, 240, 232, 0.92)),
+      var(--botanical-frame) center top / auto 620px no-repeat,
       linear-gradient(180deg, var(--paper), var(--paper-deep));
   }
 
+  body:not(:has(.site-header--dornrose)) .hero-cinematic .hero-image {
+    object-position: 47% 50%;
+    transform-origin: 47% 56%;
+  }
+
   body:not(:has(.site-header--dornrose)) .hero-shade {
-    background: linear-gradient(180deg, rgba(30, 48, 40, 0.3), rgba(30, 48, 40, 0.9) 66%, var(--hero-dark));
+    background:
+      linear-gradient(90deg, rgba(7, 8, 9, 0.76), rgba(10, 11, 12, 0.38) 60%, rgba(7, 8, 9, 0.08)),
+      linear-gradient(0deg, rgba(5, 6, 7, 0.68), transparent 46%, rgba(5, 6, 7, 0.16));
+  }
+
+  body:not(:has(.site-header--dornrose)) .hero-cinematic .hero-content {
+    min-height: 100svh;
+    align-content: space-between;
+    padding-top: 130px;
+    padding-bottom: max(48px, calc(env(safe-area-inset-bottom) + 40px));
+    gap: 18px;
+  }
+
+  body:not(:has(.site-header--dornrose)) .hero-cinematic .hero-copy {
+    max-width: 68%;
+  }
+
+  body:not(:has(.site-header--dornrose)) .hero-cinematic h1 {
+    font-size: clamp(2.05rem, 9.7vw, 2.55rem);
+    line-height: 1.03;
+  }
+
+  body:not(:has(.site-header--dornrose)) .hero-cinematic .hero-copy > p:not(.eyebrow):not(.hero-draft-label) {
+    max-width: 26ch;
+    font-size: 0.96rem;
+    line-height: 1.5;
+  }
+
+  body:not(:has(.site-header--dornrose)) .hero-cinematic .hero-actions {
+    margin-top: 22px;
+  }
+
+  body:not(:has(.site-header--dornrose)) .hero-cinematic .hero-actions .button {
+    width: fit-content;
+    max-width: 214px;
+    min-height: 44px;
+    padding: 8px 13px;
+    font-size: 0.88rem;
+    line-height: 1.22;
+    white-space: normal;
+    text-align: left;
+  }
+
+  body:not(:has(.site-header--dornrose)) .hero-cinematic .hero-proof {
+    width: 100%;
+    margin-top: auto;
   }
 
   body:not(:has(.site-header--dornrose)) :is(.button, .header-cta) {

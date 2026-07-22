@@ -7,16 +7,19 @@ type AutoScrollCarouselProps = {
   children: ReactNode;
   className?: string;
   intervalMs?: number;
+  scrollDurationMs?: number;
 };
 
 export function AutoScrollCarousel({
   ariaLabel,
   children,
   className,
-  intervalMs = 4500
+  intervalMs = 4500,
+  scrollDurationMs = 1500
 }: AutoScrollCarouselProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<number | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
   const directionRef = useRef<1 | -1>(1);
   const pausedRef = useRef(false);
 
@@ -24,6 +27,17 @@ export function AutoScrollCarousel({
     if (timeoutRef.current !== null) {
       window.clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
+    }
+  }, []);
+
+  const stopAnimation = useCallback(() => {
+    if (animationFrameRef.current !== null) {
+      window.cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+
+    if (viewportRef.current) {
+      delete viewportRef.current.dataset.carouselAnimating;
     }
   }, []);
 
@@ -56,11 +70,45 @@ export function AutoScrollCarousel({
       directionRef.current = direction;
     }
 
-    viewport.scrollBy({
-      behavior: "smooth",
-      left: step * direction
-    });
-  }, []);
+    stopAnimation();
+
+    const startScrollLeft = viewport.scrollLeft;
+    const targetScrollLeft = Math.min(
+      maxScrollLeft,
+      Math.max(0, startScrollLeft + step * direction)
+    );
+    const distance = targetScrollLeft - startScrollLeft;
+
+    if (Math.abs(distance) <= 1) {
+      return;
+    }
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      viewport.scrollLeft = targetScrollLeft;
+      return;
+    }
+
+    viewport.dataset.carouselAnimating = "true";
+    const startedAt = window.performance.now();
+
+    const animate = (now: number) => {
+      const progress = Math.min((now - startedAt) / scrollDurationMs, 1);
+      const easedProgress = progress * progress * (3 - 2 * progress);
+
+      viewport.scrollLeft = startScrollLeft + distance * easedProgress;
+
+      if (progress < 1) {
+        animationFrameRef.current = window.requestAnimationFrame(animate);
+        return;
+      }
+
+      viewport.scrollLeft = targetScrollLeft;
+      animationFrameRef.current = null;
+      delete viewport.dataset.carouselAnimating;
+    };
+
+    animationFrameRef.current = window.requestAnimationFrame(animate);
+  }, [scrollDurationMs, stopAnimation]);
 
   const scheduleAutoplay = useCallback(() => {
     clearTimer();
@@ -85,6 +133,7 @@ export function AutoScrollCarousel({
     const pause = () => {
       pausedRef.current = true;
       clearTimer();
+      stopAnimation();
     };
     const resume = () => {
       pausedRef.current = false;
@@ -117,6 +166,7 @@ export function AutoScrollCarousel({
 
     return () => {
       clearTimer();
+      stopAnimation();
       viewport.removeEventListener("pointerdown", pause);
       viewport.removeEventListener("pointerup", resume);
       viewport.removeEventListener("pointercancel", resume);
@@ -128,7 +178,7 @@ export function AutoScrollCarousel({
       viewport.removeEventListener("scroll", postpone);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [clearTimer, scheduleAutoplay]);
+  }, [clearTimer, scheduleAutoplay, stopAnimation]);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {

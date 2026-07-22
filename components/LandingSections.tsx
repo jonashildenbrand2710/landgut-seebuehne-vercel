@@ -85,9 +85,11 @@ export function HeroImageStrip() {
     <section className="hero-image-strip" aria-label="Impressionen der Hauptseite">
       <AutoScrollCarousel
         ariaLabel="Hochzeitsimpressionen – horizontal wisch- oder scrollbar"
-        className="hero-strip-inner"
+        className="auto-scroll-carousel hero-strip-inner"
+        intervalMs={4000}
+        scrollDurationMs={1500}
       >
-        {images.map((imageKey, index) => {
+        {images.map((imageKey) => {
           const image = imageLibrary[imageKey];
 
           return (
@@ -100,7 +102,6 @@ export function HeroImageStrip() {
                 sizes="(max-width: 680px) 78vw, (max-width: 1100px) 42vw, 24vw"
                 style={{ objectPosition: focalPoint(imageKey) }}
               />
-              <span>{String(index + 1).padStart(2, "0")}</span>
             </div>
           );
         })}
@@ -178,12 +179,17 @@ export function PromiseGrid() {
             ))}
           </div>
         </div>
-        <div className="promise-visual-grid" aria-label="Hochzeitsimpressionen">
+        <AutoScrollCarousel
+          ariaLabel="Hochzeitsimpressionen der sechs Versprechen – horizontal wisch- oder scrollbar"
+          className="auto-scroll-carousel promise-visual-grid"
+          intervalMs={4000}
+          scrollDurationMs={1500}
+        >
           {images.map((imageKey) => {
             const image = imageLibrary[imageKey];
 
             return (
-              <div className="promise-visual" key={image.src}>
+              <div className="promise-visual" data-carousel-slide key={image.src}>
                 <Image
                   src={image.src}
                   alt={image.alt}
@@ -195,7 +201,7 @@ export function PromiseGrid() {
               </div>
             );
           })}
-        </div>
+        </AutoScrollCarousel>
       </div>
     </section>
   );
@@ -284,15 +290,15 @@ export function FamilyStory() {
           <p>{landingFamily.text}</p>
           <div className="family-facts" aria-label="Besonderheiten des Familienunternehmens">
             <div>
-              <Heart aria-hidden="true" size={20} />
+              <Heart aria-hidden="true" size={24} />
               <span>aus echter Familiengeschichte entstanden</span>
             </div>
             <div>
-              <Users aria-hidden="true" size={20} />
+              <Users aria-hidden="true" size={24} />
               <span>persönliche Ansprechpartner statt anonymer Eventfläche</span>
             </div>
             <div>
-              <MapPin aria-hidden="true" size={20} />
+              <MapPin aria-hidden="true" size={24} />
               <span>See, Gärten und Gastgebererfahrung in Mittelfranken</span>
             </div>
           </div>
