@@ -1,0 +1,36 @@
+{
+  "$schema": "./factory.schema.json",
+  "language": "de",
+  "linear": {
+    "teamKey": "JON",
+    "readyLabel": "agent-ready",
+    "blockedLabel": "blocked",
+    "reviewStatus": "In Review"
+  },
+  "github": {
+    "repository": "jonashildenbrand2710/landgut-seebuehne-vercel",
+    "baseBranch": "main",
+    "requiredChecks": ["quality"]
+  },
+  "commands": {
+    "install": "npm ci",
+    "lint": "npm run lint",
+    "typecheck": "npm run typecheck",
+    "test": "",
+    "build": "npm run build",
+    "start": "npm run dev -- --hostname 0.0.0.0",
+    "port": 3000
+  },
+  "cursor": {
+    "dispatchMode": "linear-agent"
+  },
+  "review": {
+    "provider": "finn-review",
+    "evidenceSkill": "evidence-driven-testing",
+    "humanMergeOnly": true
+  },
+  "preview": {
+    "provider": "vercel",
+    "required": true
+  }
+}

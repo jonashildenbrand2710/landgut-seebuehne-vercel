@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Code Factory project configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["language", "linear", "github", "commands", "cursor", "review", "preview"],
+  "properties": {
+    "language": { "enum": ["de", "en"] },
+    "linear": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["teamKey", "readyLabel", "blockedLabel", "reviewStatus"],
+      "properties": {
+        "teamKey": { "type": "string", "minLength": 1 },
+        "readyLabel": { "type": "string", "minLength": 1 },
+        "blockedLabel": { "type": "string", "minLength": 1 },
+        "reviewStatus": { "type": "string", "minLength": 1 }
+      }
+    },
+    "github": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "baseBranch", "requiredChecks"],
+      "properties": {
+        "repository": { "type": "string", "pattern": "^[^/]+/[^/]+$" },
+        "baseBranch": { "type": "string", "minLength": 1 },
+        "requiredChecks": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+      }
+    },
+    "commands": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["install", "lint", "typecheck", "test", "build", "start", "port"],
+      "properties": {
+        "install": { "type": "string" },
+        "lint": { "type": "string" },
+        "typecheck": { "type": "string" },
+        "test": { "type": "string" },
+        "build": { "type": "string" },
+        "start": { "type": "string" },
+        "port": { "type": "integer", "minimum": 1, "maximum": 65535 }
+      }
+    },
+    "cursor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dispatchMode"],
+      "properties": { "dispatchMode": { "const": "linear-agent" } }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "evidenceSkill", "humanMergeOnly"],
+      "properties": {
+        "provider": { "const": "finn-review" },
+        "evidenceSkill": { "const": "evidence-driven-testing" },
+        "humanMergeOnly": { "const": true }
+      }
+    },
+    "preview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "required"],
+      "properties": {
+        "provider": { "enum": ["vercel", "other", "none"] },
+        "required": { "type": "boolean" }
+      }
+    }
+  }
+}

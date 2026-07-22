@@ -1,0 +1,12 @@
+{
+  "$schema": "https://www.cursor.com/schemas/environment.schema.json",
+  "name": "Code Factory - Landgut Seebuehne",
+  "install": "npm ci",
+  "start": "npm run dev -- --hostname 0.0.0.0",
+  "ports": [
+    {
+      "name": "Landgut Seebuehne",
+      "port": 3000
+    }
+  ]
+}

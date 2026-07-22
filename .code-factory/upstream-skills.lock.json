@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "name": "finn-review",
+      "repository": "finna/Finn-loop",
+      "path": "skills/finn-review",
+      "commit": "1d4f940b8f65cde274623454458b59c4734cab1b",
+      "license": "MIT",
+      "installation": "fetch-from-source-with-license"
+    }
+  ]
+}
