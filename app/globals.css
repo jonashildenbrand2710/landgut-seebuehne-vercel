@@ -3269,6 +3269,10 @@ h2 {
   background: var(--surface-section-alt);
 }
 
+.family-mobile-prelude {
+  display: none;
+}
+
 .family-story-layout {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
@@ -6710,13 +6714,17 @@ body:not(:has(.site-header--dornrose)) .consent-banner-inner {
 
   body:not(:has(.site-header--dornrose)) .hero-cinematic .hero-actions .button {
     width: fit-content;
-    max-width: 204px;
+    max-width: 182px;
     min-height: 44px;
     padding: 8px 12px;
     font-size: 0.88rem;
     line-height: 1.22;
     white-space: normal;
     text-align: left;
+  }
+
+  body:not(:has(.site-header--dornrose)) .hero-cinematic .hero-actions .button svg {
+    display: none;
   }
 
   body:not(:has(.site-header--dornrose)) :is(
@@ -6752,6 +6760,88 @@ body:not(:has(.site-header--dornrose)) .consent-banner-inner {
   body:not(:has(.site-header--dornrose)) .hero-cinematic .hero-proof {
     width: 100%;
     margin-top: auto;
+  }
+
+  body:not(:has(.site-header--dornrose)) .lead-magnet-section .inline-actions {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  body:not(:has(.site-header--dornrose)) .lead-magnet-section .inline-actions .button.lead-magnet-cta.cta-botanical {
+    width: min(260px, 100%);
+    max-width: 260px;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  body:not(:has(.site-header--dornrose)) .bundle-section {
+    padding-bottom: 0;
+  }
+
+  body:not(:has(.site-header--dornrose)) .bundle-compare-actions {
+    display: none;
+  }
+
+  body:not(:has(.site-header--dornrose)) .family-section {
+    padding-top: 0;
+  }
+
+  body:not(:has(.site-header--dornrose)) .family-mobile-prelude {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    place-items: center;
+    min-height: 190px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #fffefa 0%, #f7f4ed 48%, #f3f0e8 100%);
+  }
+
+  body:not(:has(.site-header--dornrose)) .family-mobile-prelude::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 8%, rgba(64, 88, 77, 0.18) 20% 35%, transparent 35.5% 64.5%, rgba(64, 88, 77, 0.18) 65% 80%, transparent 92%);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    content: "";
+    pointer-events: none;
+  }
+
+  body:not(:has(.site-header--dornrose)) .family-mobile-prelude::after {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    background: var(--botanical-frame) 50% 34% / auto 310px no-repeat;
+    content: "";
+    filter: saturate(0.72) contrast(1.06);
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 16%, transparent 40%, transparent 60%, #000 84%, #000 100%);
+    mask-image: linear-gradient(90deg, #000 0%, #000 16%, transparent 40%, transparent 60%, #000 84%, #000 100%);
+    mix-blend-mode: multiply;
+    opacity: 0.34;
+    pointer-events: none;
+  }
+
+  body:not(:has(.site-header--dornrose)) .family-mobile-monogram {
+    position: relative;
+    width: 96px;
+    height: 64px;
+    overflow: hidden;
+    filter: drop-shadow(0 8px 20px rgba(64, 88, 77, 0.16));
+  }
+
+  body:not(:has(.site-header--dornrose)) .family-mobile-monogram-logo {
+    width: 220px;
+    max-width: none;
+    height: auto;
+    opacity: 0.72;
+  }
+
+  body:not(:has(.site-header--dornrose)) .problem-solution-section {
+    background-position: center, center, 8% top;
+    background-repeat: no-repeat, no-repeat, repeat-y;
+    background-size: cover, cover, auto 620px;
   }
 
   body:not(:has(.site-header--dornrose)) :is(.button, .header-cta) {

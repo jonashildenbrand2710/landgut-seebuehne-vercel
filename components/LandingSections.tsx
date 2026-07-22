@@ -5,6 +5,7 @@ import {
   ArrowRight,
   CalendarDays,
   Check,
+  Download,
   Heart,
   MapPin,
   Plus,
@@ -58,22 +59,27 @@ function InternalCta({
   href,
   children,
   variant = "primary",
-  tone
+  tone,
+  icon = "arrow",
+  className
 }: {
   href: string;
   children: React.ReactNode;
   variant?: "primary" | "secondary";
   tone?: "sage" | "cream" | "mauve";
+  icon?: "arrow" | "download" | "none";
+  className?: string;
 }) {
   const resolvedTone = tone ?? (variant === "secondary" ? "mauve" : "sage");
 
   return (
     <Link
-      className={`button ${variant} cta-botanical cta-tone-${resolvedTone}`}
+      className={`button ${variant} cta-botanical cta-tone-${resolvedTone}${className ? ` ${className}` : ""}`}
       href={href}
     >
       <span>{children}</span>
-      <ArrowRight aria-hidden="true" size={18} />
+      {icon === "download" ? <Download aria-hidden="true" size={18} /> : null}
+      {icon === "arrow" ? <ArrowRight aria-hidden="true" size={18} /> : null}
     </Link>
   );
 }
@@ -139,8 +145,13 @@ export function LeadMagnetSection() {
           <h2>{landingLeadMagnet.title}</h2>
           <p>{landingLeadMagnet.text}</p>
           <div className="inline-actions">
-            <InternalCta href="/hochzeitsmappe" tone="cream">
-              Online-Hochzeitsmappe öffnen
+            <InternalCta
+              className="lead-magnet-cta"
+              href="/hochzeitsmappe"
+              icon="download"
+              tone="cream"
+            >
+              Hochzeitsmappe laden
             </InternalCta>
           </div>
           <BrandLogo className="brand-logo brand-logo-lead" decorative variant="light" />
@@ -288,7 +299,7 @@ export function WeddingBundles() {
             </article>
           ))}
         </div>
-        <div className="center-actions">
+        <div className="center-actions bundle-compare-actions">
           <InternalCta href="/termin-buchen" tone="mauve">
             Pakete persönlich vergleichen
           </InternalCta>
@@ -301,6 +312,11 @@ export function WeddingBundles() {
 export function FamilyStory() {
   return (
     <section className="family-section">
+      <div className="family-mobile-prelude" aria-hidden="true">
+        <div className="family-mobile-monogram">
+          <BrandLogo className="family-mobile-monogram-logo" decorative />
+        </div>
+      </div>
       <div className="section-inner family-story-layout">
         <div className="landing-copy family-intro">
           <p className="eyebrow dark">{landingFamily.eyebrow}</p>
