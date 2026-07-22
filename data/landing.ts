@@ -85,7 +85,7 @@ export const landingAvailability = {
   title: "Jetzt anfragen, bevor euer Wunschdatum vergeben ist.",
   text:
     "Wählt direkt einen freien Besichtigungstermin. Vor Ort erlebt ihr die Location und wir ordnen Datum, Gästezahl und den passenden Rahmen gemeinsam ein.",
-  cta: "Besichtigungstermin buchen"
+  cta: "Freie Termine ansehen"
 };
 
 export const landingPromises = [
@@ -132,7 +132,7 @@ export const landingBundles = [
       "Authentische Momente - echte Nähe statt Massenabfertigung",
       "… und vieles mehr für euren perfekten Tag"
     ],
-    cta: "Besichtigungstermin buchen"
+    cta: "Jetzt Preise erfahren"
   },
   {
     title: "Classic Wedding",
@@ -144,7 +144,7 @@ export const landingBundles = [
       "Übernachtungsmöglichkeiten - für Gäste zum Vorzugspreis",
       "… und vieles mehr für euren perfekten Tag"
     ],
-    cta: "Besichtigungstermin buchen"
+    cta: "Leistungen vergleichen"
   },
   {
     title: "Signature Wedding",
@@ -158,7 +158,7 @@ export const landingBundles = [
       "Gratis Hochzeitssuite komfortable Übernachtung direkt vor Ort",
       "… und vieles mehr für euren perfekten Tag"
     ],
-    cta: "Besichtigungstermin buchen"
+    cta: "Wochenendtermine prüfen"
   }
 ] satisfies LandingBundle[];
 
@@ -232,7 +232,7 @@ export const landingProblemSigns = {
   title: "8 bittere Wahrheiten über Hochzeitslocations, die niemand ausspricht",
   text:
     "Was euch bei typischen Locations wirklich erwartet – und warum es euch betrifft",
-  cta: "Besichtigungstermin buchen",
+  cta: "Passenden Rahmen prüfen",
   items: [
     {
       title: "Die Fließband-Hochzeit",

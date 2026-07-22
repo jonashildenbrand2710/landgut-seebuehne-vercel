@@ -52,18 +52,26 @@ function focalPoint(imageKey: ImageKey) {
 
 const BACKGROUND_IMAGE_QUALITY = 60;
 const CONTENT_IMAGE_QUALITY = 70;
+const BUNDLE_CTA_TONES = ["cream", "sage", "mauve"] as const;
 
 function InternalCta({
   href,
   children,
-  variant = "primary"
+  variant = "primary",
+  tone
 }: {
   href: string;
   children: React.ReactNode;
   variant?: "primary" | "secondary";
+  tone?: "sage" | "cream" | "mauve";
 }) {
+  const resolvedTone = tone ?? (variant === "secondary" ? "mauve" : "sage");
+
   return (
-    <Link className={`button ${variant}`} href={href}>
+    <Link
+      className={`button ${variant} cta-botanical cta-tone-${resolvedTone}`}
+      href={href}
+    >
       <span>{children}</span>
       <ArrowRight aria-hidden="true" size={18} />
     </Link>
@@ -131,7 +139,9 @@ export function LeadMagnetSection() {
           <h2>{landingLeadMagnet.title}</h2>
           <p>{landingLeadMagnet.text}</p>
           <div className="inline-actions">
-            <InternalCta href="/hochzeitsmappe">Online-Hochzeitsmappe öffnen</InternalCta>
+            <InternalCta href="/hochzeitsmappe" tone="cream">
+              Online-Hochzeitsmappe öffnen
+            </InternalCta>
           </div>
           <BrandLogo className="brand-logo brand-logo-lead" decorative variant="light" />
         </div>
@@ -225,7 +235,10 @@ export function ImpressionSection() {
         <p className="eyebrow">{landingAvailability.eyebrow}</p>
         <h2>{landingAvailability.title}</h2>
         <p>{landingAvailability.text}</p>
-        <Link className="button primary light" href="/termin-buchen">
+        <Link
+          className="button primary light cta-botanical cta-tone-mauve"
+          href="/termin-buchen"
+        >
           <span>{landingAvailability.cta}</span>
           <ArrowRight aria-hidden="true" size={18} />
         </Link>
@@ -251,7 +264,7 @@ export function WeddingBundles() {
           </p>
         </div>
         <div className="bundle-grid">
-          {landingBundles.map((bundle) => (
+          {landingBundles.map((bundle, index) => (
             <article className={bundle.badge ? "bundle-card featured" : "bundle-card"} key={bundle.title}>
               {bundle.badge ? <span className="bundle-badge">{bundle.badge}</span> : null}
               <p>{bundle.kicker}</p>
@@ -265,7 +278,10 @@ export function WeddingBundles() {
                   </li>
                 ))}
               </ul>
-              <Link className="button primary bundle-link" href="/termin-buchen">
+              <Link
+                className={`button primary bundle-link cta-botanical cta-tone-${BUNDLE_CTA_TONES[index] ?? "sage"}`}
+                href="/termin-buchen"
+              >
                 <span>{bundle.cta}</span>
                 <ArrowRight aria-hidden="true" size={16} />
               </Link>
@@ -273,7 +289,9 @@ export function WeddingBundles() {
           ))}
         </div>
         <div className="center-actions">
-          <InternalCta href="/termin-buchen">Besichtigungstermin buchen</InternalCta>
+          <InternalCta href="/termin-buchen" tone="mauve">
+            Pakete persönlich vergleichen
+          </InternalCta>
         </div>
       </div>
     </section>
@@ -303,9 +321,9 @@ export function FamilyStory() {
             </div>
           </div>
           <div className="inline-actions">
-            <InternalCta href="/termin-buchen">Besichtigungstermin buchen</InternalCta>
+            <InternalCta href="/termin-buchen">Landgut persönlich erleben</InternalCta>
             <InternalCta href="/termin-buchen" variant="secondary">
-              Termin im Kalender wählen
+              Freie Termine prüfen
             </InternalCta>
           </div>
         </div>
@@ -349,7 +367,9 @@ export function FamilyStory() {
           })}
         </div>
         <div className="teamleader-actions">
-          <InternalCta href="/termin-buchen">Besichtigungstermin buchen</InternalCta>
+          <InternalCta href="/termin-buchen" tone="cream">
+            Persönlich kennenlernen
+          </InternalCta>
         </div>
       </div>
     </section>
@@ -444,7 +464,10 @@ export function ProblemSolution() {
               </li>
             ))}
           </ol>
-          <Link className="button primary light" href="/termin-buchen">
+          <Link
+            className="button primary light cta-botanical cta-tone-cream"
+            href="/termin-buchen"
+          >
             <span>{landingProblemSigns.cta}</span>
             <ArrowRight aria-hidden="true" size={18} />
           </Link>
@@ -548,9 +571,12 @@ export function PersonalCta() {
           </p>
         </div>
         <div className="personal-cta-actions">
-          <Link className="button primary light" href="/termin-buchen">
+          <Link
+            className="button primary light cta-botanical cta-tone-cream"
+            href="/termin-buchen"
+          >
             <CalendarDays aria-hidden="true" size={18} />
-            <span>Besichtigungstermin buchen</span>
+            <span>Wunschdatum prüfen</span>
           </Link>
         </div>
       </div>

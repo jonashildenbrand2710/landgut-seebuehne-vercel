@@ -50,7 +50,7 @@ export function Header({
         <BrandLogo className={`brand-logo brand-logo-header brand-logo-header--${variant}`} decorative priority />
       </Link>
       <Link
-        className={`header-cta header-cta--${variant}`}
+        className={`header-cta header-cta--${variant} cta-botanical cta-tone-sage`}
         href="/termin-buchen"
         aria-label="Besichtigungstermin am Landgut Seebühne buchen"
       >

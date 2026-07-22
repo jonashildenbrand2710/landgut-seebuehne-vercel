@@ -5610,6 +5610,79 @@ body:not(:has(.site-header--dornrose)) .button.secondary:hover {
   color: var(--hero-dark);
 }
 
+/* CTA-Farben aus der Markenpalette mit sehr ruhiger botanischer Tiefe.
+   Die Textur bleibt bewusst untergeordnet, damit die Handlungsaufforderung fuehrt. */
+body:not(:has(.site-header--dornrose)) :is(.button, .header-cta).cta-botanical {
+  position: relative;
+  isolation: isolate;
+  border-color: var(--cta-border);
+  background-color: var(--cta-base);
+  background-image:
+    linear-gradient(var(--cta-wash), var(--cta-wash)),
+    var(--cta-texture);
+  background-position: center, var(--cta-texture-position, center);
+  background-repeat: no-repeat;
+  background-size: cover, var(--cta-texture-size, 320% auto);
+  color: var(--cta-ink);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 10px 24px rgba(30, 48, 40, 0.1);
+}
+
+body:not(:has(.site-header--dornrose)) :is(.button, .header-cta).cta-botanical::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(circle at 14% 10%, rgba(255, 255, 255, 0.24), transparent 34%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 4px);
+  content: "";
+  pointer-events: none;
+}
+
+body:not(:has(.site-header--dornrose)) :is(.button, .header-cta).cta-botanical :is(span, svg) {
+  position: relative;
+  z-index: 1;
+}
+
+body:not(:has(.site-header--dornrose)) :is(.button, .header-cta).cta-botanical.cta-tone-sage {
+  --cta-base: #40584d;
+  --cta-border: rgba(255, 254, 250, 0.34);
+  --cta-ink: var(--ivory);
+  --cta-wash: rgba(30, 48, 40, 0.8);
+  --cta-texture: url("/images/site/footer-botanical-insects.jpg");
+  --cta-texture-position: 58% 42%;
+  --cta-texture-size: 360px auto;
+}
+
+body:not(:has(.site-header--dornrose)) :is(.button, .header-cta).cta-botanical.cta-tone-cream {
+  --cta-base: #f9f3e9;
+  --cta-border: rgba(64, 88, 77, 0.34);
+  --cta-ink: var(--hero-dark);
+  --cta-wash: rgba(249, 243, 233, 0.88);
+  --cta-texture: var(--botanical-frame);
+  --cta-texture-position: 50% 21%;
+}
+
+body:not(:has(.site-header--dornrose)) :is(.button, .header-cta).cta-botanical.cta-tone-mauve {
+  --cta-base: #d4cbdf;
+  --cta-border: rgba(64, 88, 77, 0.3);
+  --cta-ink: var(--hero-dark);
+  --cta-wash: rgba(212, 203, 223, 0.86);
+  --cta-texture: var(--botanical-frame);
+  --cta-texture-position: 50% 68%;
+}
+
+body:not(:has(.site-header--dornrose)) :is(.button, .header-cta).cta-botanical:hover {
+  border-color: var(--leaf-deep);
+  background-color: var(--paper-rose);
+  background-image:
+    linear-gradient(rgba(247, 240, 239, 0.86), rgba(247, 240, 239, 0.86)),
+    var(--botanical-frame);
+  color: var(--hero-dark);
+  box-shadow: 0 13px 30px rgba(30, 48, 40, 0.16);
+}
+
 body:not(:has(.site-header--dornrose)) :is(.header-cta, .button)::before {
   display: none;
 }
@@ -5700,7 +5773,11 @@ body:not(:has(.site-header--dornrose)) .hero {
   background: var(--hero-dark);
 }
 
-body:not(:has(.site-header--dornrose)) :is(.hero-image, .lead-magnet-image, .promise-bg, .availability-image, .mappe-form-bg) {
+body:not(:has(.site-header--dornrose)) .hero-image {
+  filter: none;
+}
+
+body:not(:has(.site-header--dornrose)) :is(.lead-magnet-image, .promise-bg, .availability-image, .mappe-form-bg) {
   filter: saturate(0.98) contrast(1.04) brightness(0.98);
 }
 
@@ -6300,11 +6377,41 @@ body:not(:has(.site-header--dornrose)) .consent-banner-inner {
 
   body:not(:has(.site-header--dornrose)) .hero-cinematic .hero-actions .button {
     width: fit-content;
-    max-width: 214px;
+    max-width: 204px;
     min-height: 44px;
-    padding: 8px 13px;
+    padding: 8px 12px;
     font-size: 0.88rem;
     line-height: 1.22;
+    white-space: normal;
+    text-align: left;
+  }
+
+  body:not(:has(.site-header--dornrose)) :is(
+    .inline-actions,
+    .center-actions,
+    .availability-content,
+    .teamleader-actions,
+    .warning-solution-card,
+    .personal-cta-actions,
+    .cta-actions
+  ) {
+    align-items: flex-start;
+  }
+
+  body:not(:has(.site-header--dornrose)) :is(
+    .inline-actions,
+    .center-actions,
+    .availability-content,
+    .bundle-card,
+    .teamleader-actions,
+    .warning-solution-card,
+    .personal-cta-actions,
+    .cta-actions
+  ) .button.cta-botanical {
+    width: fit-content;
+    max-width: min(100%, 224px);
+    padding-right: 14px;
+    padding-left: 14px;
     white-space: normal;
     text-align: left;
   }

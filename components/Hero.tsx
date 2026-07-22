@@ -82,13 +82,19 @@ function HeroActions({
   return (
     <div className="hero-actions">
       {primaryCta ? (
-        <Link className="button primary" href={ctaHref(primaryCta, allowDirectActions)}>
+        <Link
+          className="button primary cta-botanical cta-tone-sage"
+          href={ctaHref(primaryCta, allowDirectActions)}
+        >
           <span>{primaryCta}</span>
           <ArrowRight aria-hidden="true" size={18} />
         </Link>
       ) : null}
       {secondaryCta ? (
-        <Link className="button secondary" href={ctaHref(secondaryCta, allowDirectActions)}>
+        <Link
+          className="button secondary cta-botanical cta-tone-mauve"
+          href={ctaHref(secondaryCta, allowDirectActions)}
+        >
           <FileText aria-hidden="true" size={18} />
           <span>{secondaryCta}</span>
         </Link>
@@ -203,9 +209,9 @@ export function Hero({
         fetchPriority={priority ? "high" : "auto"}
         preload={priority}
         loading={priority ? "eager" : "lazy"}
-        quality={75}
-        // 150vw: der Hero ist mobil hoeher als breit und das 3:2-Bild muss die Hoehe covern.
-        sizes="(max-width: 680px) 150vw, 100vw"
+        quality={85}
+        // Im hohen Mobile-Hero braucht das 3:2-Motiv etwa 1,5x Viewport-Hoehe als Slotbreite.
+        sizes="(max-width: 680px) 150vh, 100vw"
         style={imageStyle}
       />
       <div className="hero-shade" />

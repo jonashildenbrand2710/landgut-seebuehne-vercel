@@ -69,9 +69,12 @@ export function CTASection({ allowDirectActions = false }: { allowDirectActions?
         <div className="cta-actions">
           {allowDirectActions ? (
             <>
-              <a className="button primary light" href={siteConfig.bookingUrl}>
+              <a
+                className="button primary light cta-botanical cta-tone-cream"
+                href={siteConfig.bookingUrl}
+              >
                 <CalendarDays aria-hidden="true" size={18} />
-                <span>Besichtigungstermin wählen</span>
+                <span>Freien Termin wählen</span>
               </a>
               <a className="button ghost-light" href={`mailto:${siteConfig.email}`}>
                 <Mail aria-hidden="true" size={18} />
@@ -79,8 +82,11 @@ export function CTASection({ allowDirectActions = false }: { allowDirectActions?
               </a>
             </>
           ) : (
-            <Link className="button primary light" href="/termin-buchen">
-              <span>Besichtigungstermin buchen</span>
+            <Link
+              className="button primary light cta-botanical cta-tone-cream"
+              href="/termin-buchen"
+            >
+              <span>Verfügbarkeit prüfen</span>
               <ArrowRight aria-hidden="true" size={18} />
             </Link>
           )}

@@ -8,8 +8,9 @@ const canonicalHostname = new URL(canonicalSiteUrl).hostname;
 
 const nextConfig: NextConfig = {
   images: {
-    // Quellbilder sind maximal 1920px breit - groessere Varianten waeren nur Upscaling-Kandidaten.
-    deviceSizes: [480, 640, 750, 828, 1080, 1200, 1440, 1920],
+    // Der Startseiten-Hero liegt originalgetreu in 3840px vor; 2560px deckt Retina-Mobile ab,
+    // ohne unnoetige 4K-Varianten an normale Endgeraete auszuliefern.
+    deviceSizes: [480, 640, 750, 828, 1080, 1200, 1440, 1920, 2560],
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 2678400,
     qualities: [60, 70, 72, 75, 85]
