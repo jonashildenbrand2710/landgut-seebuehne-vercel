@@ -184,3 +184,12 @@ Das Projekt ist im Zielzustand, wenn:
   kann
 - ein Agent mit dieser Datei und den Markdown-Quellen weiterarbeiten kann, ohne
   die komplette Altseite erneut auslesen zu muessen
+
+## Code Factory
+
+- `.code-factory/factory.json` ist der maschinenlesbare Projektvertrag für Codex und Cursor Cloud Agents.
+- Implementierung startet nur aus einem ausdrücklich freigegebenen Linear-Issue des Teams `JON` mit prüfbaren `AC-N` und bindenden `NG-N`.
+- Der Build-Agent arbeitet auf einem Issue-Branch, öffnet einen Draft-PR und führt `npm run lint`, `npm run typecheck` und `npm run build` aus.
+- UI-Änderungen benötigen Evidence des aktuellen Commits über `$evidence-driven-testing` und eine erreichbare Vercel-Preview.
+- Ein separater Cloud-Agent führt danach `$finn-review` gegen Linear-Vertrag, Diff und erforderliche GitHub-Checks aus.
+- Kein Agent merged oder aktiviert Auto-Merge. Der Merge bleibt eine ausdrückliche menschliche Entscheidung.

@@ -9,6 +9,7 @@
     "build": "node scripts/validate-articles.mjs && next build",
     "start": "next start",
     "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
     "validate:articles": "node scripts/validate-articles.mjs",
     "google:auth": "node scripts/google-auth.mjs",
     "audit:google-search": "node scripts/audit-google-search-console.mjs",
