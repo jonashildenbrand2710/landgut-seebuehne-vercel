@@ -19,7 +19,7 @@ export function Header({
   const [isScrolled, setIsScrolled] = useState(false);
   const isScrolledRef = useRef(false);
   const scrollFrameRef = useRef<number | null>(null);
-  const isDornrose = pathname === "/hochzeitsmappe-dornrose";
+  const isDornrose = pathname === "/hochzeitsmappe";
 
   useEffect(() => {
     if (isStatic) return;

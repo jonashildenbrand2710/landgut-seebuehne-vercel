@@ -2053,8 +2053,27 @@ h2 {
 
 .mappe-submit-button:disabled {
   cursor: wait;
-  opacity: 0.94;
+  opacity: 1;
   animation: none !important;
+}
+
+.mappe-form-card.is-submitting .mappe-submit-button {
+  background:
+    linear-gradient(
+      105deg,
+      var(--leaf-deep) 0%,
+      var(--green-2) 42%,
+      var(--leaf-deep) 82%
+    );
+  background-size: 220% 100%;
+  box-shadow:
+    0 14px 32px rgba(40, 76, 63, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  animation: mappe-submit-button-flow 1.8s linear infinite !important;
+}
+
+.mappe-form-card.is-submitting .mappe-submit-button::before {
+  animation: mappe-submit-shine 1.35s ease-in-out infinite;
 }
 
 .mappe-submit-progress {
@@ -2938,6 +2957,23 @@ h2 {
   }
 }
 
+@keyframes mappe-submit-button-flow {
+  to {
+    background-position: -220% 0;
+  }
+}
+
+@keyframes mappe-submit-shine {
+  0% {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+
+  55%,
+  100% {
+    transform: translateX(330%) skewX(-18deg);
+  }
+}
+
 @keyframes mappe-submit-spinner-in {
   from {
     opacity: 0;
@@ -3015,6 +3051,8 @@ h2 {
   .booking-spinner,
   .booking-success-box,
   .booking-refresh-icon,
+  .mappe-submit-button,
+  .mappe-submit-button::before,
   .mappe-submit-progress span,
   .mappe-submit-state {
     animation: none;
@@ -3023,6 +3061,11 @@ h2 {
   .mappe-submit-spinner,
   .mappe-submit-spinner::before {
     animation: none;
+  }
+
+  .mappe-form-card.is-submitting .mappe-submit-button,
+  .mappe-form-card.is-submitting .mappe-submit-button::before {
+    animation: none !important;
   }
 
   .booking-week-arrow,
@@ -6037,7 +6080,7 @@ body:has(.bewerbung-page) .site-footer {
 
 /* ── Dornenrose A · Site-Transfer v2 ──────────────────────────
  * Verbindliche Referenz: die geschuetzte Dornenrose-Inhaltsmappe
- * unter /hochzeitsmappe-dornrose und deren page.module.css.
+ * unter /hochzeitsmappe und deren page.module.css.
  *
  * Die Inhaltsmappe bleibt als Quelle unangetastet. Der gemeinsame
  * botanische .site-footer bleibt ebenfalls bewusst ausserhalb aller

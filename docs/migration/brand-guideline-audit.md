@@ -4,6 +4,11 @@ Stand: 2026-06-19
 
 Quelle: `/Users/corneliusaustin/Desktop/SB_brand_guideline.pdf`
 
+> Verbindliche Weiterentwicklung: Die harmonisierte Markenwelt aus dieser
+> ursprünglichen Guideline und „Dornrose am See“ ist in
+> `docs/migration/dornrose-brand-guidelines.md` dokumentiert. Dieses Audit
+> bleibt als Herkunftsnachweis bestehen.
+
 ## Logo
 
 - Logo besteht aus Logomark `SB` und Logotype `Landgut Seebühne`.

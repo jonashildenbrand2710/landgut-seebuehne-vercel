@@ -1,6 +1,6 @@
 # ActiveCampaign: Hochzeitsmappe
 
-Stand: 2026-07-21
+Stand: 2026-07-23
 
 Ziel: Der OnePage/Zapier-Schritt fuer die Hochzeitsmappe wird durch eine
 serverseitige Next.js-Integration ersetzt. Die Website nimmt den Lead entgegen,
@@ -19,30 +19,34 @@ Quelle: `docs/migration/onepage-current/pages/hochzeitsmappe.html`
 - Success-Text alt: `Unsere Hochzeitsmappe ist auf dem Weg in dein Postfach!`
 - Tracking alt: `CompleteRegistration`
 
-## Neuer Flow
+## Aktueller Preis-Opt-in-Flow
 
-1. `POST /api/hochzeitsmappe`
-2. Honeypot und Pflichtfelder pruefen.
-3. Einen 90 Tage gueltigen, AES-256-GCM-verschluesselten Magic-Link erzeugen.
-   Der Link enthaelt keine lesbaren Kontaktdaten.
-4. Lead via Supabase Edge Function `POST /hochzeitsmappe-leads` speichern.
-5. Nur wenn der CRM-Lead gespeichert wurde: Kontakt via ActiveCampaign
+1. `/hochzeitsmappe` zeigt die oeffentliche Dornrose-Hochzeitsmappe.
+2. Der primaere CTA `Preise anfordern` fuehrt zum Formular unter
+   `/intern/hochzeitsmappe-alt?preise=1#mappe-form`. Ohne den Parameter bleibt
+   dort die vollstaendige alte Landingpage intern geparkt.
+3. `POST /api/hochzeitsmappe` prueft Honeypot und Pflichtfelder.
+4. Lead via Supabase Edge Function `POST /hochzeitsmappe-leads` speichern oder
+   anhand der normalisierten E-Mail am vorhandenen Lead aktualisieren.
+5. Kontakt via ActiveCampaign
    `POST /contact/sync` upserten.
-6. Den persoenlichen Link in das ActiveCampaign-Kontaktfeld
-   `Hochzeitsmappe Zugangslink` (`%HOCHZEITSMAPPE_LINK%`, Feld-ID `5`) schreiben.
-7. Optionale Tags setzen.
-8. Optionale Liste abonnieren. Im aktuellen Account startet diese Anmeldung die
-   Automation `Wedding-Report Optin`.
-9. Die Automation nur dann direkt starten, wenn keine Liste konfiguriert ist.
-   Liste und direkter Automation-Start duerfen nicht kombiniert werden, weil der
-   Kontakt sonst zweimal in dieselbe Automation eintritt und die erste E-Mail
-   doppelt versendet werden kann.
+6. Vor der Ausloesung pruefen, ob der Tag `Preise_angefordert` bereits besteht.
+   Ist er vorhanden, wird der Kontakt nur aktualisiert und die Serie nicht erneut
+   gestartet.
+7. Neue oder noch nicht abonnierte Kontakte zuerst in die Liste
+   `Hochzeitsmappe` aufnehmen. Dadurch startet wie bisher die Automation
+   `Hochzeitsmappe Opt-in`.
+8. Kontakte, die bereits in dieser Liste sind, einmalig direkt in dieselbe
+   Automation aufnehmen. So erhaelt auch der bestehende Hochzeitsmappen-Altbestand
+   die neue Preis-Mail.
+9. Danach den separaten Tag `Preise_angefordert` als dauerhafte
+   Wiederholungssperre setzen.
 10. CRM-Lead via Supabase Edge Function `PATCH /hochzeitsmappe-leads` mit
    `activecampaign_status = "success"` oder `"failed"` aktualisieren.
-11. Sofort zum Magic-Link weiterleiten. Dieser setzt ein sicheres HttpOnly-Cookie
-    und oeffnet die saubere URL `/hochzeitsmappe-dornrose` ohne Token im Browser.
-12. Direkte Aufrufe ohne gueltiges Cookie werden zur Opt-in-Seite zurueckgeleitet.
-    Der personalisierte Link in der ersten E-Mail stellt den Zugang spaeter erneut her.
+11. Nach erfolgreicher Uebermittlung auf `/danke-preise` weiterleiten. Die Seite
+   weist auf Posteingang, Spam- und Werbeordner hin.
+12. Bestehende Magic-Links bleiben aus Rueckwaertskompatibilitaet gueltig und
+    fuehren jetzt zur oeffentlichen URL `/hochzeitsmappe`.
 
 Solange ActiveCampaign noch nicht vollstaendig konfiguriert ist, wird der
 bisherige `CONTACT_FORM_ENDPOINT` als Fallback fuer die User Experience genutzt.
@@ -62,6 +66,7 @@ ACTIVECAMPAIGN_API_KEY=
 ACTIVECAMPAIGN_HOCHZEITSMAPPE_AUTOMATION_ID=
 ACTIVECAMPAIGN_HOCHZEITSMAPPE_LIST_ID=
 ACTIVECAMPAIGN_HOCHZEITSMAPPE_TAG_IDS=
+ACTIVECAMPAIGN_PREISE_TAG_ID=15
 ACTIVECAMPAIGN_HOCHZEITSMAPPE_FIELD_ACCESS_URL_ID=5
 ACTIVECAMPAIGN_HOCHZEITSMAPPE_FIELD_LEAD_MAGNET_ID=
 ACTIVECAMPAIGN_HOCHZEITSMAPPE_FIELD_PAGE_ID=
@@ -74,6 +79,10 @@ ACTIVECAMPAIGN_HOCHZEITSMAPPE_FIELD_SUBMITTED_AT_ID=
 kein `NEXT_PUBLIC_` erhalten. Der erste Token muss zur Supabase Edge Function
 passen; das Magic-Link-Secret muss mindestens 32 zufaellige Zeichen enthalten.
 `ACTIVECAMPAIGN_HOCHZEITSMAPPE_TAG_IDS` ist kommasepariert.
+`ACTIVECAMPAIGN_PREISE_TAG_ID` enthaelt ausschliesslich die einmalige
+Wiederholungssperre fuer den Preis-Opt-in. Die bestehende Liste bleibt der
+Automation-Trigger fuer neue Kontakte; bei bereits abonnierten Kontakten startet
+die Integration dieselbe Automation einmalig direkt.
 `CRM_API_KEY` bleibt als Fallback fuer `ACTIVECAMPAIGN_API_KEY` unterstuetzt.
 
 ## Account-Audit ohne Secrets im Output
@@ -89,11 +98,11 @@ IDs. Es gibt keine API-Tokens und keine Kontakt-Personendaten aus.
 
 ## ActiveCampaign-Mail
 
-- Die Automation `Wedding-Report Optin` wird weiterhin ueber die Liste
-  `Hochzeitsmappe` gestartet.
-- Die erste E-Mail verwendet fuer den Button zur Online-Hochzeitsmappe das
-  Personalisierungsfeld `%HOCHZEITSMAPPE_LINK%` statt des bisherigen Google-Drive-Links.
-- Bestehende Kontakte ohne Feldwert erhalten keinen geratenen oder oeffentlichen
-  Ersatzlink; ein neuer Opt-in erzeugt immer einen frischen Zugang.
+- Die Automation `Hochzeitsmappe Opt-in` wird durch den Tag
+  `Preise_angefordert` gestartet.
+- Die erste E-Mail verlinkt fuer den Button `Preise & Leistungsbausteine ansehen`
+  auf `https://kennenlernen.landgut-seebuehne.de/auftrag-info`.
+- Absender, Antwortadresse, Abmeldelink, Impressum und alle spaeteren
+  Automation-Mails bleiben unveraendert.
 - Rechtstexte und Consent-Hinweise muessen final juristisch freigegeben werden,
   bevor daraus ein Marketing-Funnel im Livebetrieb wird.

@@ -6,7 +6,7 @@ import {
 } from "node:crypto";
 
 export const HOCHZEITSMAPPE_ACCESS_COOKIE = "hochzeitsmappe_access";
-export const HOCHZEITSMAPPE_ACCESS_PATH = "/hochzeitsmappe-dornrose";
+export const HOCHZEITSMAPPE_ACCESS_PATH = "/hochzeitsmappe";
 export const HOCHZEITSMAPPE_ACCESS_TTL_SECONDS = 60 * 60 * 24 * 90;
 
 type AccessPayload = {

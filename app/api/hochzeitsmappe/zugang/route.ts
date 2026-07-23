@@ -14,10 +14,7 @@ export function GET(request: NextRequest) {
   const access = verifyHochzeitsmappeAccessToken(token);
 
   if (!access || !token) {
-    return NextResponse.redirect(
-      new URL("/hochzeitsmappe?status=access-invalid#mappe-form", request.url),
-      303
-    );
+    return NextResponse.redirect(new URL("/hochzeitsmappe", request.url), 303);
   }
 
   const response = NextResponse.redirect(new URL(HOCHZEITSMAPPE_ACCESS_PATH, request.url), 303);

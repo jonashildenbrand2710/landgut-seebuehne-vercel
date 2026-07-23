@@ -17,6 +17,19 @@ type SyncContactResponse = {
   contact?: ActiveCampaignContact;
 };
 
+type ContactListsResponse = {
+  contactLists?: Array<{
+    list?: string | number;
+    status?: string | number;
+  }>;
+};
+
+type ContactTagsResponse = {
+  contactTags?: Array<{
+    tag?: string | number;
+  }>;
+};
+
 type FieldValueInput = {
   field: string;
   value: string;
@@ -164,6 +177,34 @@ export async function syncActiveCampaignContact(config: ActiveCampaignConfig, co
   });
 
   return getContactId(response);
+}
+
+export async function hasActiveCampaignContactTag(
+  config: ActiveCampaignConfig,
+  contactId: string,
+  tagId: string
+) {
+  const response = await activeCampaignRequest<ContactTagsResponse>(
+    config,
+    `/contacts/${contactId}/contactTags`
+  );
+
+  return (response.contactTags ?? []).some((contactTag) => String(contactTag.tag) === tagId);
+}
+
+export async function isActiveCampaignContactSubscribedToList(
+  config: ActiveCampaignConfig,
+  contactId: string,
+  listId: string
+) {
+  const response = await activeCampaignRequest<ContactListsResponse>(
+    config,
+    `/contacts/${contactId}/contactLists`
+  );
+
+  return (response.contactLists ?? []).some(
+    (contactList) => String(contactList.list) === listId && String(contactList.status) === "1"
+  );
 }
 
 export async function addActiveCampaignTagToContact(
