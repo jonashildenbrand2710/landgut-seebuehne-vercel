@@ -5,16 +5,15 @@ import {
   type UpdateHochzeitsmappeLeadActiveCampaignStatusPayload
 } from "@/lib/hochzeitsmappe-crm";
 import { submitHochzeitsmappeLeadToActiveCampaign } from "@/lib/hochzeitsmappe-lead";
-import {
-  createHochzeitsmappeAccessToken,
-  createHochzeitsmappeAccessUrl
-} from "@/lib/hochzeitsmappe-access";
 import { normalizeMetaEventId, sendMetaCompleteRegistration } from "@/lib/meta-capi";
 
 const activeCampaignFlowDetails = {
-  automation: "Wedding-Report Optin",
-  tags: ["Report_Hochzeitsmappe", "Hochzeitsmappe"]
+  automation: "Hochzeitsmappe Opt-in",
+  tags: ["Hochzeitsmappe", "Preise_angefordert"]
 };
+const formPath = "/intern/hochzeitsmappe-alt";
+const formViewPath = `${formPath}?preise=1`;
+const thankYouPath = "/danke-preise";
 
 function clean(value: FormDataEntryValue | null) {
   return typeof value === "string" ? value.trim() : "";
@@ -98,7 +97,7 @@ async function sendHochzeitsmappeConversion(
   await sendMetaCompleteRegistration({
     email: payload.email,
     eventId,
-    eventSourceUrl: tracking.pageUrl || new URL("/hochzeitsmappe", request.url).toString(),
+    eventSourceUrl: tracking.pageUrl || new URL(formPath, request.url).toString(),
     funnel: "hochzeitsmappe",
     phone: payload.phone,
     request,
@@ -107,7 +106,7 @@ async function sendHochzeitsmappeConversion(
 }
 
 export function GET(request: Request) {
-  return redirect(request, "/hochzeitsmappe");
+  return redirect(request, `${formViewPath}#mappe-form`);
 }
 
 export async function POST(request: Request) {
@@ -116,16 +115,17 @@ export async function POST(request: Request) {
   try {
     formData = await request.formData();
   } catch {
-    return redirect(request, "/hochzeitsmappe?status=missing#mappe-form");
+    return redirect(request, `${formViewPath}&status=missing#mappe-form`);
   }
 
   if (clean(formData.get("website"))) {
-    return redirect(request, "/danke?source=hochzeitsmappe");
+    return redirect(request, thankYouPath);
   }
 
   const payload = {
     source: "hochzeitsmappe" as const,
-    page: "/hochzeitsmappe",
+    intent: "preise" as const,
+    page: formPath,
     firstName: clean(formData.get("firstName")),
     lastName: clean(formData.get("lastName")),
     email: clean(formData.get("email")).toLowerCase(),
@@ -135,36 +135,16 @@ export async function POST(request: Request) {
   const metaEventId = normalizeMetaEventId(clean(formData.get("metaEventId")), "hochzeitsmappe");
 
   if (!payload.firstName || !payload.lastName || !payload.email || !payload.phone) {
-    return redirect(request, "/hochzeitsmappe?status=missing#mappe-form");
+    return redirect(request, `${formViewPath}&status=missing#mappe-form`);
   }
 
   if (!isValidEmail(payload.email)) {
-    return redirect(request, "/hochzeitsmappe?status=invalid-email#mappe-form");
+    return redirect(request, `${formViewPath}&status=invalid-email#mappe-form`);
   }
 
   if (!isValidPhone(payload.phone)) {
-    return redirect(request, "/hochzeitsmappe?status=invalid-phone#mappe-form");
+    return redirect(request, `${formViewPath}&status=invalid-phone#mappe-form`);
   }
-
-  let accessToken: string;
-  let emailAccessUrl: string;
-
-  try {
-    accessToken = createHochzeitsmappeAccessToken(payload.email);
-    emailAccessUrl = createHochzeitsmappeAccessUrl(
-      accessToken,
-      process.env.NEXT_PUBLIC_SITE_URL?.trim() || new URL(request.url).origin
-    );
-  } catch (error) {
-    console.error("Hochzeitsmappe access link create failed", sanitizeError(error));
-    return redirect(request, "/kontaktformular?source=hochzeitsmappe&status=integration-error");
-  }
-
-  const immediateAccessUrl = createHochzeitsmappeAccessUrl(accessToken, request.url);
-  const deliveryPayload = {
-    ...payload,
-    accessUrl: emailAccessUrl
-  };
 
   let crmLead;
 
@@ -175,21 +155,11 @@ export async function POST(request: Request) {
     return redirect(request, "/kontaktformular?source=hochzeitsmappe&status=integration-error");
   }
 
-  // Supabase deduplicates Hochzeitsmappe leads by normalized email. A repeated
-  // submission must not start the ActiveCampaign automation (and its email) again.
-  if (crmLead.deduped) {
-    console.info("Hochzeitsmappe duplicate submission suppressed", {
-      activeCampaignStatus: crmLead.activecampaign_status,
-      leadId: crmLead.lead_id
-    });
-    return Response.redirect(immediateAccessUrl, 303);
-  }
-
   try {
-    const activeCampaignResult = await submitHochzeitsmappeLeadToActiveCampaign(deliveryPayload);
+    const activeCampaignResult = await submitHochzeitsmappeLeadToActiveCampaign(payload);
 
     if (!activeCampaignResult) {
-      const fallbackOk = await forwardToFallbackEndpoint(deliveryPayload);
+      const fallbackOk = await forwardToFallbackEndpoint(payload);
 
       await updateActiveCampaignStatus({
         error: fallbackOk
@@ -205,7 +175,7 @@ export async function POST(request: Request) {
 
       await sendHochzeitsmappeConversion(request, formData, payload, metaEventId);
 
-      return Response.redirect(immediateAccessUrl, 303);
+      return redirect(request, thankYouPath);
     }
 
     await updateActiveCampaignStatus({
@@ -233,5 +203,5 @@ export async function POST(request: Request) {
 
   await sendHochzeitsmappeConversion(request, formData, payload, metaEventId);
 
-  return Response.redirect(immediateAccessUrl, 303);
+  return redirect(request, thankYouPath);
 }

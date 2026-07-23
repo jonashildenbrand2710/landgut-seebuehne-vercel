@@ -27,16 +27,17 @@ const nextConfig: NextConfig = {
         ]
       },
       {
-        source: "/hochzeitsmappe-dornrose",
+        source: "/intern/:path*",
         headers: [
           {
-            key: "Cache-Control",
-            value: "private, no-store, max-age=0"
-          },
-          {
-            key: "Referrer-Policy",
-            value: "no-referrer"
-          },
+            key: "X-Robots-Tag",
+            value: "noindex, nofollow, noarchive, nosnippet"
+          }
+        ]
+      },
+      {
+        source: "/danke-preise",
+        headers: [
           {
             key: "X-Robots-Tag",
             value: "noindex, nofollow, noarchive, nosnippet"
@@ -111,6 +112,11 @@ const nextConfig: NextConfig = {
       {
         source: "/hochzeitslocation-mittelfranken",
         destination: "/location",
+        statusCode: 301
+      },
+      {
+        source: "/hochzeitsmappe-dornrose",
+        destination: "/hochzeitsmappe",
         statusCode: 301
       },
       {

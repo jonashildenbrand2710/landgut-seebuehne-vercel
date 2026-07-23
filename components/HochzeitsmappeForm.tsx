@@ -8,20 +8,21 @@ import { MetaTrackingFields } from "@/components/MetaConversionTracking";
 const statusMessages: Record<string, string> = {
   missing: "Bitte füllt alle Pflichtfelder aus.",
   "invalid-email": "Bitte prüft eure E-Mail-Adresse.",
-  "invalid-phone": "Bitte prüft eure Telefonnummer.",
-  "access-required":
-    "Diese Online-Hochzeitsmappe ist persönlich geschützt. Tragt euch bitte kurz ein, um sie zu öffnen.",
-  "access-invalid":
-    "Euer Zugangslink ist ungültig oder abgelaufen. Fordert hier einfach einen neuen persönlichen Zugang an."
+  "invalid-phone": "Bitte prüft eure Telefonnummer."
 };
 
 export function HochzeitsmappeForm() {
   const formRef = useRef<HTMLFormElement>(null);
+  const submitFrameRef = useRef<number | null>(null);
   const submitLocked = useRef(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const resetSubmission = () => {
+      if (submitFrameRef.current !== null) {
+        window.cancelAnimationFrame(submitFrameRef.current);
+        submitFrameRef.current = null;
+      }
       submitLocked.current = false;
       setIsSubmitting(false);
     };
@@ -34,18 +35,34 @@ export function HochzeitsmappeForm() {
     window.addEventListener("pageshow", resetSubmission);
     return () => {
       window.cancelAnimationFrame(anchorFrame);
+      if (submitFrameRef.current !== null) {
+        window.cancelAnimationFrame(submitFrameRef.current);
+      }
       window.removeEventListener("pageshow", resetSubmission);
     };
   }, []);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
     if (submitLocked.current) {
-      event.preventDefault();
       return;
     }
 
+    const form = event.currentTarget;
+
     submitLocked.current = true;
     setIsSubmitting(true);
+
+    // Give React and the browser one complete paint before starting the native
+    // navigation. The animated state then stays visible while a slow request is
+    // still in flight instead of appearing as a frozen button.
+    submitFrameRef.current = window.requestAnimationFrame(() => {
+      submitFrameRef.current = window.requestAnimationFrame(() => {
+        submitFrameRef.current = null;
+        form.submit();
+      });
+    });
   }
 
   return (
@@ -59,13 +76,13 @@ export function HochzeitsmappeForm() {
       onSubmit={handleSubmit}
     >
       <BookOpenCheck aria-hidden="true" size={24} />
-      <h3>Online-Hochzeitsmappe öffnen</h3>
+      <h3>Preise &amp; Leistungsbausteine anfordern</h3>
       <Suspense fallback={null}>
         <FormStatusMessage messages={statusMessages} />
       </Suspense>
       <p>
-        Bestätigt kurz eure Kontaktdaten. Direkt danach öffnet sich euer persönlicher
-        Online-Zugang – und ihr erhaltet den Link zusätzlich per E-Mail.
+        Bestätigt kurz eure Kontaktdaten. Direkt danach senden wir euch den Link zur
+        Preisübersicht und zu den Leistungsbausteinen per E-Mail.
       </p>
       <input
         aria-hidden="true"
@@ -100,7 +117,7 @@ export function HochzeitsmappeForm() {
         ) : (
           <KeyRound aria-hidden="true" size={18} />
         )}
-        <span>{isSubmitting ? "Zugang wird vorbereitet …" : "Online-Hochzeitsmappe öffnen"}</span>
+        <span>{isSubmitting ? "Preise werden angefordert …" : "Jetzt Preise anfordern"}</span>
       </button>
       <div aria-hidden="true" className="mappe-submit-progress">
         <span />
@@ -108,13 +125,13 @@ export function HochzeitsmappeForm() {
       <div aria-atomic="true" aria-live="polite" className="mappe-submit-live" role="status">
         {isSubmitting ? (
           <p className="mappe-submit-state">
-            Einen Moment bitte – wir speichern eure Anfrage und öffnen euren Zugang.
+            Einen Moment bitte – wir speichern eure Anfrage und bereiten die E-Mail vor.
           </p>
         ) : null}
       </div>
       <p className="mappe-form-note">
-        Wir verwenden eure Angaben für den persönlichen Zugang zur Hochzeitsmappe,
-        den E-Mail-Versand und die Begleitung eurer Anfrage.
+        Wir verwenden eure Angaben für den Versand der Preisübersicht und die weitere
+        Begleitung eurer Anfrage per E-Mail. Ihr könnt euch jederzeit wieder abmelden.
       </p>
     </form>
   );

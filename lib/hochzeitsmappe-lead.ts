@@ -2,6 +2,8 @@ import {
   addActiveCampaignContactToAutomation,
   addActiveCampaignTagToContact,
   getActiveCampaignConfig,
+  hasActiveCampaignContactTag,
+  isActiveCampaignContactSubscribedToList,
   subscribeActiveCampaignContactToList,
   syncActiveCampaignContact
 } from "@/lib/active-campaign";
@@ -9,15 +11,12 @@ import {
 export type HochzeitsmappeLead = {
   email: string;
   firstName: string;
+  intent: "hochzeitsmappe" | "preise";
   lastName: string;
   page: string;
   phone: string;
   source: "hochzeitsmappe";
   submittedAt: string;
-};
-
-export type HochzeitsmappeDeliveryLead = HochzeitsmappeLead & {
-  accessUrl: string;
 };
 
 type HochzeitsmappeFieldIds = {
@@ -32,6 +31,7 @@ type HochzeitsmappeActiveCampaignConfig = {
   automationId?: string;
   fieldIds: HochzeitsmappeFieldIds;
   listId?: string;
+  priceTagId?: string;
   tagIds: string[];
 };
 
@@ -62,10 +62,11 @@ export function getHochzeitsmappeActiveCampaignConfig(): HochzeitsmappeActiveCam
       submittedAt: clean(process.env.ACTIVECAMPAIGN_HOCHZEITSMAPPE_FIELD_SUBMITTED_AT_ID)
     },
     listId: clean(process.env.ACTIVECAMPAIGN_HOCHZEITSMAPPE_LIST_ID),
+    priceTagId: clean(process.env.ACTIVECAMPAIGN_PREISE_TAG_ID),
     tagIds: splitIds(process.env.ACTIVECAMPAIGN_HOCHZEITSMAPPE_TAG_IDS)
   };
 
-  if (!config.automationId && !config.listId && !config.tagIds.length) {
+  if (!config.automationId && !config.listId && !config.priceTagId && !config.tagIds.length) {
     return null;
   }
 
@@ -80,17 +81,19 @@ function customField(field: string | undefined, value: string) {
   return { field, value };
 }
 
-function getCustomFields(lead: HochzeitsmappeDeliveryLead, fieldIds: HochzeitsmappeFieldIds) {
+function getCustomFields(lead: HochzeitsmappeLead, fieldIds: HochzeitsmappeFieldIds) {
   return [
-    customField(fieldIds.accessUrl, lead.accessUrl),
-    customField(fieldIds.leadMagnet, "Hochzeitsmappe"),
+    customField(
+      fieldIds.leadMagnet,
+      lead.intent === "preise" ? "Preise und Leistungsbausteine" : "Hochzeitsmappe"
+    ),
     customField(fieldIds.page, lead.page),
     customField(fieldIds.source, lead.source),
     customField(fieldIds.submittedAt, lead.submittedAt)
   ].filter((field): field is { field: string; value: string } => field !== null);
 }
 
-export async function submitHochzeitsmappeLeadToActiveCampaign(lead: HochzeitsmappeDeliveryLead) {
+export async function submitHochzeitsmappeLeadToActiveCampaign(lead: HochzeitsmappeLead) {
   const activeCampaign = getActiveCampaignConfig();
   const flowConfig = getHochzeitsmappeActiveCampaignConfig();
 
@@ -106,26 +109,55 @@ export async function submitHochzeitsmappeLeadToActiveCampaign(lead: Hochzeitsma
     phone: lead.phone
   });
 
+  const [alreadyRequestedPrices, alreadySubscribed] = await Promise.all([
+    flowConfig.priceTagId
+      ? hasActiveCampaignContactTag(activeCampaign, contactId, flowConfig.priceTagId)
+      : false,
+    flowConfig.listId
+      ? isActiveCampaignContactSubscribedToList(activeCampaign, contactId, flowConfig.listId)
+      : false
+  ]);
+
+  // The dedicated price tag is the idempotency lock for this delivery. A
+  // repeated form submission updates the contact but does not restart the
+  // automation or resubscribe someone who has since unsubscribed.
+  if (alreadyRequestedPrices) {
+    return {
+      automationId: flowConfig.automationId,
+      contactId,
+      duplicatePriceRequest: true,
+      listId: flowConfig.listId,
+      priceTagId: flowConfig.priceTagId,
+      tagIds: flowConfig.tagIds
+    };
+  }
+
+  if (flowConfig.listId && !alreadySubscribed) {
+    await subscribeActiveCampaignContactToList(activeCampaign, contactId, flowConfig.listId);
+  }
+
   for (const tagId of flowConfig.tagIds) {
     await addActiveCampaignTagToContact(activeCampaign, contactId, tagId);
   }
 
-  if (flowConfig.listId) {
-    await subscribeActiveCampaignContactToList(activeCampaign, contactId, flowConfig.listId);
+  // New contacts enter through the existing list-subscription trigger. Contacts
+  // already subscribed to that list need a one-time direct entry so existing
+  // Hochzeitsmappe leads receive the new price email as well.
+  if (flowConfig.automationId && (!flowConfig.listId || alreadySubscribed)) {
+    await addActiveCampaignContactToAutomation(activeCampaign, contactId, flowConfig.automationId);
   }
 
-  // The configured Hochzeitsmappe automation starts when the contact subscribes
-  // to its list. Adding the contact directly as well would create two automation
-  // entries and can send the first email twice. Keep the direct start as a
-  // fallback for setups that intentionally do not use a list trigger.
-  if (flowConfig.automationId && !flowConfig.listId) {
-    await addActiveCampaignContactToAutomation(activeCampaign, contactId, flowConfig.automationId);
+  // Set the idempotency tag last so an upstream failure can be retried safely.
+  if (flowConfig.priceTagId) {
+    await addActiveCampaignTagToContact(activeCampaign, contactId, flowConfig.priceTagId);
   }
 
   return {
     automationId: flowConfig.automationId,
     contactId,
+    duplicatePriceRequest: false,
     listId: flowConfig.listId,
+    priceTagId: flowConfig.priceTagId,
     tagIds: flowConfig.tagIds
   };
 }

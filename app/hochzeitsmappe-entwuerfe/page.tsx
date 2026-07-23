@@ -481,7 +481,7 @@ export default async function HochzeitsmappeEntwuerfePage({ searchParams }: Conc
           ))}
         </div>
         {selected === "dornrose" ? (
-          <Link className={styles.openFullConcept} href="/hochzeitsmappe-dornrose">
+          <Link className={styles.openFullConcept} href="/hochzeitsmappe">
             Vollständige Dornrose-Fassung öffnen
             <ArrowRight aria-hidden="true" size={18} />
           </Link>
