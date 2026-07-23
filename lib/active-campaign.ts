@@ -17,6 +17,21 @@ type SyncContactResponse = {
   contact?: ActiveCampaignContact;
 };
 
+type ContactAutomationResponse = {
+  contactAutomation?: {
+    id?: string | number;
+  };
+};
+
+type ContactListRelation = {
+  list?: string | number;
+  status?: string | number;
+};
+
+type ContactListsResponse = {
+  contactLists?: ContactListRelation[];
+};
+
 type FieldValueInput = {
   field: string;
   value: string;
@@ -205,13 +220,31 @@ export async function subscribeActiveCampaignContactToList(
   });
 }
 
-export async function addActiveCampaignContactToAutomation(
+export async function getActiveCampaignContactListStatus(
+  config: ActiveCampaignConfig,
+  contactId: string,
+  listId: string
+) {
+  const response = await activeCampaignRequest<ContactListsResponse>(
+    config,
+    `/contacts/${encodeURIComponent(contactId)}/contactLists`
+  );
+  const relation = (response.contactLists ?? []).find(
+    (contactList) => String(contactList.list) === listId
+  );
+
+  return relation ? String(relation.status ?? "") : null;
+}
+
+export async function startActiveCampaignContactAutomation(
   config: ActiveCampaignConfig,
   contactId: string,
   automationId: string
 ) {
-  try {
-    await activeCampaignRequest(config, "/contactAutomations", {
+  const response = await activeCampaignRequest<ContactAutomationResponse>(
+    config,
+    "/contactAutomations",
+    {
       method: "POST",
       body: {
         contactAutomation: {
@@ -219,7 +252,21 @@ export async function addActiveCampaignContactToAutomation(
           automation: automationId
         }
       }
-    });
+    }
+  );
+
+  return response.contactAutomation?.id
+    ? String(response.contactAutomation.id)
+    : undefined;
+}
+
+export async function addActiveCampaignContactToAutomation(
+  config: ActiveCampaignConfig,
+  contactId: string,
+  automationId: string
+) {
+  try {
+    await startActiveCampaignContactAutomation(config, contactId, automationId);
   } catch (error) {
     if (!isDuplicateRelationError(error)) {
       throw error;

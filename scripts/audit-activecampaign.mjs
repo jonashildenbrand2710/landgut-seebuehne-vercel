@@ -151,3 +151,17 @@ console.log(
     .map((key) => `  ${key}=${process.env[key] ? "(set)" : "(empty)"}`)
     .join("\n")
 );
+
+console.log("\nBooking env mapping");
+console.log(
+  [
+    "ACTIVECAMPAIGN_BOOKING_AUTOMATION_ID",
+    "ACTIVECAMPAIGN_BOOKING_LIST_ID",
+    "ACTIVECAMPAIGN_BOOKING_TAG_IDS",
+    "ACTIVECAMPAIGN_BOOKING_FIELD_LEAD_NUMBER_ID",
+    "ACTIVECAMPAIGN_BOOKING_FIELD_STATUS_ID",
+    "ACTIVECAMPAIGN_BOOKING_FIELD_WEBSITE_ID"
+  ]
+    .map((key) => `  ${key}=${process.env[key] ? "(set)" : "(empty)"}`)
+    .join("\n")
+);
