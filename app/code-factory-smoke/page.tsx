@@ -24,7 +24,7 @@ const checks = [
 
 export default function CodeFactorySmokePage() {
   return (
-    <main className={styles.main}>
+    <div className={styles.main}>
       <section className={styles.panel} aria-labelledby="code-factory-smoke-heading">
         <p className={styles.eyebrow}>Code Factory · E2E</p>
         <h1 id="code-factory-smoke-heading" className={styles.title}>
@@ -43,6 +43,6 @@ export default function CodeFactorySmokePage() {
           ))}
         </ul>
       </section>
-    </main>
+    </div>
   );
 }
