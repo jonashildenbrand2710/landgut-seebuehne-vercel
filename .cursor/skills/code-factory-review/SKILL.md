@@ -10,14 +10,14 @@ Arbeite auf Deutsch. Dieser Lauf muss von Build und Greploop-Reparatur getrennt 
 ## 1. Trigger und Stand prüfen
 
 1. Lies `AGENTS.md`, `.code-factory/factory.json`, den PR und das verknüpfte Linear-Issue vollständig.
-2. Beende ohne Seiteneffekt, wenn der PR ein Draft ist, `review.triggerLabel` fehlt, das Issue nicht eindeutig ist, der PR nicht zum konfigurierten Repository gehört oder `repair.runningLabel` gesetzt ist.
+2. Beende ohne Seiteneffekt, wenn der PR ein Draft ist, `review.triggerLabel` fehlt, das Issue nicht eindeutig ist, dem verknüpften Linear-Issue das Label `linear.readyLabel` fehlt, der PR nicht zum konfigurierten Repository gehört oder `repair.runningLabel` gesetzt ist.
 3. Ermittle die vollständige Head-SHA. Beende idempotent, wenn bereits ein vollständiger Kommentar `Code Factory review of HEAD_SHA` existiert.
 4. Prüfe, dass der aktuelle Evidence Report und die Preview exakt zu dieser SHA gehören. Alte Belege sind ungültig.
 
 ## 2. Greptile unabhängig prüfen lassen
 
 1. Suche für die Head-SHA Greptile-Check, neuesten allgemeinen Greptile-Kommentar, PR-Review und offene Greptile-Threads.
-2. Läuft der Greptile-Check, warte begrenzt. Fehlt er, poste genau einmal `@greptile review` zusammen mit dem Marker `Greploop review of HEAD_SHA`.
+2. Läuft der Greptile-Check, warte begrenzt. Fehlt er, prüfe erneut `review.triggerLabel` am PR und `linear.readyLabel` am Linear-Issue und poste nur bei beiden Gates genau einmal `@greptile review` zusammen mit dem Marker `Greploop review of HEAD_SHA`.
 3. Verwende nur das Ergebnis der aktuellen SHA. Erforderlich sind `review.requiredScore` und bei `review.requireZeroUnresolvedComments` null offene Greptile-Kommentare.
 4. Bei roten Greptile-Befunden: veröffentliche die aktuelle Score-/Befundzusammenfassung in PR und Linear, entferne `review.approvedLabel` und setze `review.changesRequestedLabel` als letzte Aktion. Die getrennte Repair-Automation übernimmt mit `$greploop`.
 5. Wenn `repair.limitLabel` oder `review.humanReviewLabel` gesetzt ist, starte keine weitere Reparatur und erkläre die verbliebenen Befunde in Linear.

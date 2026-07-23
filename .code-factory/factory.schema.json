@@ -60,9 +60,10 @@
     "review": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["provider", "repairSkill", "requiredScore", "requireZeroUnresolvedComments", "evidenceSkill", "automationProvider", "triggerLabel", "approvedLabel", "changesRequestedLabel", "humanReviewLabel", "rerunOnPush", "humanMergeOnly"],
+      "required": ["provider", "triggerMode", "repairSkill", "requiredScore", "requireZeroUnresolvedComments", "evidenceSkill", "automationProvider", "triggerLabel", "approvedLabel", "changesRequestedLabel", "humanReviewLabel", "rerunOnPush", "humanMergeOnly"],
       "properties": {
         "provider": { "const": "greptile" },
+        "triggerMode": { "const": "factory-only" },
         "repairSkill": { "const": "greploop" },
         "requiredScore": { "const": "5/5" },
         "requireZeroUnresolvedComments": { "const": true },

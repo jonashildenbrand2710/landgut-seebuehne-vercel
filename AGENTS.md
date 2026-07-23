@@ -199,6 +199,7 @@ Lies vor jeder Änderung `.code-factory/factory.json` und das verknüpfte Linear
 - UI-/API-Verhalten mit reproduzierbaren Belegen dokumentieren.
 - `$evidence-driven-testing` vor dem ersten Code als `EVD-N`-Prüfvertrag und nach jedem neuen Commit als tatsächlichen UI-Nachweis verwenden.
 - Für UI oder sichtbare Funktionalität mindestens ein direkt erreichbares Video zum aktuellen SHA erzeugen.
+- Greptile läuft ausschließlich im Code-Factory-Flow: `.greptile/config.json` deaktiviert automatische Reviews und Commit-Trigger. Nur der getrennte Review-Lauf darf Greptile anfordern, wenn am Linear-Issue weiterhin `linear.readyLabel` und am PR `review.triggerLabel` gesetzt sind.
 - Greptile ist die externe Code-Review-Instanz. Ein roter Greptile-Review startet die getrennte Repair-Automation mit `$greploop`; höchstens `repair.maxGreptileReviewIterations` Greptile-Prüfungen pro menschlicher Freigabe.
 - Nach vollständigem Build und Evidence `review.triggerLabel` setzen; eine Cursor Automation startet `$code-factory-review` in einem getrennten Agent-Lauf.
 - Review-Agenten dürfen keinen Code ändern oder mergen. Bei behebbaren Must-fix-Befunden setzt der Review als letzte Aktion `repair.triggerLabel`; eine zweite Automation startet `$code-factory-repair`.

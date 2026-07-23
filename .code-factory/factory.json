@@ -33,6 +33,7 @@
   },
   "review": {
     "provider": "greptile",
+    "triggerMode": "factory-only",
     "repairSkill": "greploop",
     "requiredScore": "5/5",
     "requireZeroUnresolvedComments": true,
