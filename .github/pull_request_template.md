@@ -2,6 +2,7 @@
 
 - Issue: <!-- ISSUE-ID + URL -->
 - Ziel: <!-- ein Satz -->
+- Merge-Ziel: `staging`
 
 ## Vertrag
 
@@ -17,6 +18,7 @@
 
 - Preview: <!-- URL oder begründetes nicht zutreffend -->
 - Screenshots/Video/Logs: <!-- Links -->
+- Direktes Erfolgs-Video: <!-- Pflicht bei UI oder sichtbarer Funktionalität; sonst begründen -->
 - Evidence Report: <!-- Ergebnis von evidence-driven-testing -->
 - Manuelle Prüfschritte:
   1. <!-- Schritt -->
@@ -31,7 +33,11 @@
 
 - [ ] Keine Secrets oder Fremdänderungen
 - [ ] Evidence gehört zum aktuellen Commit
+- [ ] PR zielt auf den konfigurierten Staging-Branch
+- [ ] Merge-ready-Linear-Nachricht enthält PR, Preview, direktes Video, Evidence und Greptile-Verdict
 - [ ] `factory-review-ready` wird erst nach vollständigen Belegen gesetzt
 - [ ] Automatischer unabhängiger `$code-factory-review` steht noch aus oder ist für den aktuellen SHA verlinkt
-- [ ] Rote Reviews werden höchstens drei Runden automatisch über `$code-factory-repair` im selben PR nachgebessert
+- [ ] Rote Greptile-Reviews werden über `$greploop` mit höchstens fünf Greptile-Prüfungen im selben PR nachgebessert
+- [ ] Automation Memory enthält höchstens abstrahierte, nicht sensible Factory-Lektionen und überschreibt keinen Projektvertrag
+- [ ] Wiederkehrende Factory-Probleme werden nur als Draft-PR im zentralen Factory-Repository vorgeschlagen
 - [ ] Draft-PR; Mensch entscheidet über Merge

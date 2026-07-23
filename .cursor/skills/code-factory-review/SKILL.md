@@ -1,60 +1,60 @@
 ---
 name: code-factory-review
-description: Prüft automatisch einen reviewbereiten Code-Factory-PR in einem unabhängigen Cursor-Cloud-Lauf gegen Linear-Vertrag, Finn-review, CI, Preview und Evidence. Verwenden, wenn eine Cursor Automation durch factory-review-ready, einen neuen PR-Commit oder abgeschlossene Checks ausgelöst wird. Ändert keinen Code und merged nie.
+description: Fordert in einem vom Build getrennten Cursor-Cloud-Lauf den commitgebundenen Greptile-Review an, übergibt rote Befunde an Greploop und prüft bei 5/5 nur noch CI, Evidence und Preview. Verwenden, wenn eine Cursor Automation durch factory-review-ready, einen neuen PR-Commit oder abgeschlossene Checks ausgelöst wird; ändert keinen Code und merged nie.
 ---
 
-# Automatischer unabhängiger Review
+# Greptile-Review und kleines Abschluss-Gate
 
-Arbeite standardmäßig auf Deutsch. Dieser Lauf muss von der Build-Session getrennt sein.
+Arbeite auf Deutsch. Dieser Lauf muss von Build und Greploop-Reparatur getrennt sein.
 
 ## 1. Trigger und Stand prüfen
 
 1. Lies `AGENTS.md`, `.code-factory/factory.json`, den PR und das verknüpfte Linear-Issue vollständig.
-2. Beende ohne Seiteneffekt, wenn der PR ein Draft ist, `review.triggerLabel` fehlt, das Issue nicht eindeutig ist oder der PR nicht zum konfigurierten Repository gehört.
-3. Ermittle den aktuellen Head-SHA. Beende idempotent, wenn bereits ein vollständiger PR-Kommentar `Code Factory review of HEAD_SHA` existiert.
-4. Entferne keine Labels und schreibe keinen Zwischen-Verdict, solange Required Checks oder eine erforderliche Preview noch laufen. Warte begrenzt; ein `Checks completed`-Trigger darf später erneut starten.
+2. Beende ohne Seiteneffekt, wenn der PR ein Draft ist, `review.triggerLabel` fehlt, das Issue nicht eindeutig ist, der PR nicht zum konfigurierten Repository gehört oder `repair.runningLabel` gesetzt ist.
+3. Ermittle die vollständige Head-SHA. Beende idempotent, wenn bereits ein vollständiger Kommentar `Code Factory review of HEAD_SHA` existiert.
+4. Prüfe, dass der aktuelle Evidence Report und die Preview exakt zu dieser SHA gehören. Alte Belege sind ungültig.
 
-## 2. Unabhängig prüfen
+## 2. Greptile unabhängig prüfen lassen
 
-- Führe `$finn-review` für den aktuellen PR und Head-SHA aus.
-- Prüfe alle `AC-N` und `NG-N`, Mergeability und die in `github.requiredChecks` konfigurierten Checks.
-- Prüfe, dass Preview und Evidence exakt zum Head-SHA gehören. Öffne die Preview und teste den beschriebenen Kernfluss, wenn Browserzugriff möglich ist.
-- Werte nur reproduzierbare Belege. Alte Kommentare, Videos oder Checks eines früheren SHA sind ungültig.
-- Arbeite kosten- und zeiteffizient: Starte keine Subagenten, keine Bildschirmaufnahmen und erstelle keine neuen Evidence-Artefakte. Nutze die vorhandene commitgebundene Evidence und höchstens einen direkten Browser- oder HTTP-Check.
-- Ist die Vercel-Preview durch SSO geschützt, dokumentiere sie als `geschützt` und verwende den grünen Deployment-Status plus aktuelle Evidence für denselben Head-SHA. Blockiere nur, wenn die Evidence fehlt oder nicht zum aktuellen Head-SHA gehört.
-- Führe lokale Qualitätsbefehle nur erneut aus, wenn GitHub-Checks fehlen, rot oder nicht eindeutig dem aktuellen Head-SHA zugeordnet sind.
-- Ändere keinen Code, pushe keinen Commit, öffne keinen PR und merge nie.
+1. Suche für die Head-SHA Greptile-Check, neuesten allgemeinen Greptile-Kommentar, PR-Review und offene Greptile-Threads.
+2. Läuft der Greptile-Check, warte begrenzt. Fehlt er, poste genau einmal `@greptile review` zusammen mit dem Marker `Greploop review of HEAD_SHA`.
+3. Verwende nur das Ergebnis der aktuellen SHA. Erforderlich sind `review.requiredScore` und bei `review.requireZeroUnresolvedComments` null offene Greptile-Kommentare.
+4. Bei roten Greptile-Befunden: veröffentliche die aktuelle Score-/Befundzusammenfassung in PR und Linear, entferne `review.approvedLabel` und setze `review.changesRequestedLabel` als letzte Aktion. Die getrennte Repair-Automation übernimmt mit `$greploop`.
+5. Wenn `repair.limitLabel` oder `review.humanReviewLabel` gesetzt ist, starte keine weitere Reparatur und erkläre die verbliebenen Befunde in Linear.
 
-## 3. Commitgebundenen Verdict veröffentlichen
+Ändere keinen Code, löse keine Review-Threads, pushe nichts, öffne keinen PR und merge nie.
 
-Poste in GitHub und im Linear-Issue:
+## 3. Kleines CI-/Preview-Gate
+
+Erst nach Greptile `5/5` und null offenen Kommentaren:
+
+1. **CI:** Alle in `github.requiredChecks` konfigurierten Checks sind für die Head-SHA erfolgreich und der PR besitzt keinen Konflikt.
+2. **Zielbranch:** Der PR zielt auf `github.pullRequestBaseBranch` und niemals direkt auf Produktion.
+3. **Evidence:** Der Evidence Report weist alle erforderlichen `EVD-N` für dieselbe SHA als bestanden aus. Bei sichtbarer Funktionalität ist mindestens ein direkt erreichbares Erfolgs-Video vorhanden.
+4. **Preview:** Das erfolgreiche Preview-Deployment gehört zur Head-SHA, entspricht `preview.environment` und ist erreichbar oder nachvollziehbar durch Provider-Status plus aktuelle Evidence belegt.
+
+Führe keine zweite Code-Review-Liste und keine neue Aufnahme durch. Dieses Gate kontrolliert nur die bereits erzeugten Ergebnisse.
+
+## 4. Verdict und Preview veröffentlichen
+
+Poste in GitHub und im Linear-Stamm-Issue:
 
 ```md
 Code Factory review of HEAD_SHA
 
-- Vertrag: grün | rot
+- Greptile: 5/5 | rot | fehlt
+- Offene Greptile-Kommentare: N
 - CI: grün | rot | ausstehend
-- Finn-review: loop-approved | changes-requested
-- Preview: URL | fehlt
 - Evidence: aktuell | fehlt
-
-## Muss vor Merge behoben werden
-Keine. | konkrete Befunde
-
-## Sollte bald verbessert werden
-Keine. | konkrete Befunde
-
-## Sicher zu mergen
-Ja, nach menschlichem Preview-Check und ausdrücklichem Merge-Befehl. | Nein, Grund
+- Preview: URL | fehlt
+- Erfolgs-Video: URL | nicht zutreffend
+- Pull Request: URL
+- Merge-Ziel: STAGING_BRANCH
+- Ergebnis: merge-bereit | Reparatur läuft | Mensch nötig
 ```
 
-Bei fünf grünen Gates: entferne `review.changesRequestedLabel`, `review.humanReviewLabel`, `repair.runningLabel` und `repair.limitLabel`, setze `review.approvedLabel`.
+Bei grünem Gate entferne `review.changesRequestedLabel`, `repair.runningLabel`, `repair.limitLabel` und `review.humanReviewLabel`, setze `review.approvedLabel` und sende über `notifications.provider` eine Merge-ready-Nachricht mit direkten URLs für PR, Staging-Preview, Evidence Report und Erfolgs-Video sowie Greptile-Verdict, Head-SHA und Zielbranch. Formuliere ausdrücklich: „Bitte Preview und Video prüfen; Merge erst nach deinem ausdrücklichen Befehl.“
 
-Bei klaren Must-fix-Befunden: entferne `review.approvedLabel`. Ermittle die Zahl der eindeutigen `Code Factory repair round`-Marker seit der neuesten `Code Factory human decision`.
+Bei fehlender Verknüpfung, dauerhaft unprüfbarer Umgebung oder rotem Abschluss-Gate setze `review.humanReviewLabel` und erkläre den Blocker in einfachen Sätzen.
 
-- Unter `repair.maxAutomaticRoundsPerGate`: veröffentliche zuerst den vollständigen Verdict und setze danach `review.changesRequestedLabel` als letzte Aktion. Dadurch startet die getrennte `$code-factory-repair`-Automation.
-- Am Limit: setze nicht `review.changesRequestedLabel`, sondern `repair.limitLabel` und `review.humanReviewLabel`. Stelle in Linear genau eine kurze Frage mit Empfehlung und den Antworten `Weiter` oder `Stop`. Bei `Weiter` beginnt nach der menschlichen Antwort ein neuer Block von höchstens drei Runden.
-
-Entscheide technische Details selbst. Frage nur bei einer wesentlichen Änderung von sichtbarem Produktverhalten, Daten, Auth, Berechtigungen, Datenschutz, Zahlung, Recht oder irreversibler Außenwirkung. Formuliere dann in Linear genau eine kurze Frage mit höchstens drei klaren Antworten und einer empfohlenen Option. Bei fehlender Verknüpfung oder dauerhaft unprüfbarer Umgebung: entferne `review.approvedLabel`, setze `review.humanReviewLabel` und erkläre den Blocker in einfachen Sätzen.
-
-Die Benachrichtigung und jede seltene Rückfrage laufen über Linear/Cursor. Der Mensch startet keinen Review- oder Repair-Skill; seine kurze Linear-Antwort wird vom Repair-Loop weiterverwendet. Er prüft erst den fertigen Preview-Link und gibt später den Merge ausdrücklich frei.
+Speichere höchstens eine abstrahierte, nicht sensible `Factory lesson`. Ein einzelner Lauf darf keinen Skill verändern. Kein Auto-Merge und kein Produktions-Deploy.
