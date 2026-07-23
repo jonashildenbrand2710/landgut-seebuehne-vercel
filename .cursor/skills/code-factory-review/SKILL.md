@@ -20,6 +20,9 @@ Arbeite standardmäßig auf Deutsch. Dieser Lauf muss von der Build-Session getr
 - Prüfe alle `AC-N` und `NG-N`, Mergeability und die in `github.requiredChecks` konfigurierten Checks.
 - Prüfe, dass Preview und Evidence exakt zum Head-SHA gehören. Öffne die Preview und teste den beschriebenen Kernfluss, wenn Browserzugriff möglich ist.
 - Werte nur reproduzierbare Belege. Alte Kommentare, Videos oder Checks eines früheren SHA sind ungültig.
+- Arbeite kosten- und zeiteffizient: Starte keine Subagenten, keine Bildschirmaufnahmen und erstelle keine neuen Evidence-Artefakte. Nutze die vorhandene commitgebundene Evidence und höchstens einen direkten Browser- oder HTTP-Check.
+- Ist die Vercel-Preview durch SSO geschützt, dokumentiere sie als `geschützt` und verwende den grünen Deployment-Status plus aktuelle Evidence für denselben Head-SHA. Blockiere nur, wenn die Evidence fehlt oder nicht zum aktuellen Head-SHA gehört.
+- Führe lokale Qualitätsbefehle nur erneut aus, wenn GitHub-Checks fehlen, rot oder nicht eindeutig dem aktuellen Head-SHA zugeordnet sind.
 - Ändere keinen Code, pushe keinen Commit, öffne keinen PR und merge nie.
 
 ## 3. Commitgebundenen Verdict veröffentlichen
