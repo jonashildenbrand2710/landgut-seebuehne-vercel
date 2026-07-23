@@ -22,12 +22,36 @@
     "port": 3000
   },
   "cursor": {
-    "dispatchMode": "linear-agent"
+    "dispatchMode": "linear-agent",
+    "modelPolicy": "auto",
+    "buildOptimization": "cost",
+    "repairOptimization": "cost",
+    "reviewOptimization": "balance",
+    "allowFixedModelOverride": false
   },
   "review": {
     "provider": "finn-review",
     "evidenceSkill": "evidence-driven-testing",
+    "automationProvider": "cursor-automation",
+    "triggerLabel": "factory-review-ready",
+    "approvedLabel": "factory-approved",
+    "changesRequestedLabel": "loop-changes-requested",
+    "humanReviewLabel": "needs-human-review",
+    "rerunOnPush": true,
     "humanMergeOnly": true
+  },
+  "repair": {
+    "enabled": true,
+    "automationProvider": "cursor-automation",
+    "triggerLabel": "loop-changes-requested",
+    "runningLabel": "factory-repair-running",
+    "limitLabel": "repair-limit-reached",
+    "issueLabel": "factory-repair",
+    "maxAutomaticRoundsPerGate": 3,
+    "createLinearSubIssue": true,
+    "reusePullRequest": true,
+    "inheritBuildApproval": true,
+    "resetAfterHumanDecision": true
   },
   "preview": {
     "provider": "vercel",
