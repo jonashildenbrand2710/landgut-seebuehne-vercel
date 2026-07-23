@@ -539,6 +539,18 @@ export function BookingFunnel({
             Danke, wir haben den Termin gespeichert und im Kalender angelegt.
             Eine persönliche Rückmeldung erfolgt, falls noch etwas offen ist.
           </p>
+          {bookingResult.confirmation_email?.status === "queued" ? (
+            <p className="booking-note" role="status">
+              Eure Bestätigungsmail ist an {contact.email} unterwegs.
+            </p>
+          ) : null}
+          {bookingResult.confirmation_email?.status === "failed" ||
+          bookingResult.confirmation_email?.status === "not_configured" ? (
+            <p className="booking-error" role="status">
+              Der Termin ist gebucht, aber die Bestätigungsmail konnte gerade nicht
+              versendet werden. Bitte bucht deshalb nicht erneut – wir kümmern uns darum.
+            </p>
+          ) : null}
           <dl className="booking-review-list">
             <div>
               <dt>Termin</dt>
@@ -1034,9 +1046,15 @@ export function BookingFunnel({
               <ArrowLeft aria-hidden="true" size={18} />
               <span>Zurück</span>
             </button>
-            <button className="button primary" disabled={bookingState === "loading"} onClick={submitBooking} type="button">
+            <button
+              aria-busy={bookingState === "loading"}
+              className="button primary"
+              disabled={bookingState === "loading"}
+              onClick={submitBooking}
+              type="button"
+            >
               {bookingState === "loading" ? (
-                <LoaderCircle aria-hidden="true" className="booking-spinner" size={18} />
+                <span aria-hidden="true" className="booking-submit-spinner" />
               ) : (
                 <CalendarCheck aria-hidden="true" size={18} />
               )}

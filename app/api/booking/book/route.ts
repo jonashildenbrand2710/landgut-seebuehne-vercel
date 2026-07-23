@@ -1,4 +1,6 @@
 import { bookingErrorResponse, createBooking, type BookingRequest } from "@/lib/booking-api";
+import { submitBookingConfirmationToActiveCampaign } from "@/lib/booking-confirmation";
+import { sanitizeError } from "@/lib/hochzeitsmappe-crm";
 import { sendMetaCompleteRegistration } from "@/lib/meta-capi";
 
 function stringValue(value: unknown) {
@@ -20,6 +22,33 @@ export async function POST(request: Request) {
     booking = await createBooking(payload);
   } catch (error) {
     return bookingErrorResponse(error);
+  }
+
+  let confirmationEmail;
+
+  if (payload.booking?.type === "tour") {
+    try {
+      const confirmationResult = await submitBookingConfirmationToActiveCampaign(
+        payload,
+        booking
+      );
+
+      confirmationEmail = {
+        status: confirmationResult ? ("queued" as const) : ("not_configured" as const)
+      };
+
+      if (!confirmationResult) {
+        console.error("ActiveCampaign booking confirmation is not configured");
+      }
+    } catch (error) {
+      confirmationEmail = {
+        status: "failed" as const
+      };
+      console.error(
+        "ActiveCampaign booking confirmation failed",
+        sanitizeError(error)
+      );
+    }
   }
 
   // Tracking darf eine erfolgreich angelegte Buchung nie in einen Fehler verwandeln.
@@ -49,5 +78,11 @@ export async function POST(request: Request) {
     }
   }
 
-  return Response.json(booking, { status: 200 });
+  return Response.json(
+    {
+      ...booking,
+      ...(confirmationEmail ? { confirmation_email: confirmationEmail } : {})
+    },
+    { status: 200 }
+  );
 }

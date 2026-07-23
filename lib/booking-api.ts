@@ -69,6 +69,9 @@ export type BookingResponse = {
     };
     status?: string;
   };
+  confirmation_email?: {
+    status: "failed" | "not_configured" | "queued";
+  };
   google_calendar?: {
     eventId?: string;
     synced?: boolean;

@@ -2436,6 +2436,22 @@ h2 {
   animation: booking-spin 900ms linear infinite;
 }
 
+.booking-submit-spinner {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.34);
+  border-top-color: currentColor;
+  border-right-color: currentColor;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0) rotate(0turn);
+  transform-origin: center;
+  animation: booking-submit-spin 880ms linear infinite;
+  will-change: transform;
+}
+
 .booking-note {
   background: rgba(158, 141, 183, 0.14);
 }
@@ -2972,6 +2988,12 @@ h2 {
   }
 }
 
+@keyframes booking-submit-spin {
+  to {
+    transform: translate3d(0, 0, 0) rotate(1turn);
+  }
+}
+
 @keyframes booking-step-in {
   from {
     opacity: 0.72;
@@ -3013,6 +3035,7 @@ h2 {
   .booking-slot-block,
   .booking-date-reveal,
   .booking-spinner,
+  .booking-submit-spinner,
   .booking-success-box,
   .booking-refresh-icon,
   .mappe-submit-progress span,
