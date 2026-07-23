@@ -187,9 +187,21 @@ Das Projekt ist im Zielzustand, wenn:
 
 ## Code Factory
 
-- `.code-factory/factory.json` ist der maschinenlesbare Projektvertrag für Codex und Cursor Cloud Agents.
-- Implementierung startet nur aus einem ausdrücklich freigegebenen Linear-Issue des Teams `JON` mit prüfbaren `AC-N` und bindenden `NG-N`.
-- Der Build-Agent arbeitet auf einem Issue-Branch, öffnet einen Draft-PR und führt `npm run lint`, `npm run typecheck` und `npm run build` aus.
-- UI-Änderungen benötigen Evidence des aktuellen Commits über `$evidence-driven-testing` und eine erreichbare Vercel-Preview.
-- Ein separater Cloud-Agent führt danach `$finn-review` gegen Linear-Vertrag, Diff und erforderliche GitHub-Checks aus.
-- Kein Agent merged oder aktiviert Auto-Merge. Der Merge bleibt eine ausdrückliche menschliche Entscheidung.
+Lies vor jeder Änderung `.code-factory/factory.json` und das verknüpfte Linear-Issue.
+
+- Nutzerkommunikation standardmäßig auf Deutsch.
+- Cursor-Modell-Policy ist `Auto`; keine festen Anbieter- oder Modellnamen anfordern. Aufgabenkomplexität und Risiko aus dem Linear-Issue beachten.
+- Genau ein Linear-Issue pro Pull Request.
+- `AC-N` vollständig umsetzen; `NG-N` bindend erhalten.
+- Bestehende Architektur und Projektregeln haben Vorrang.
+- Alle konfigurierten, nicht leeren Qualitätsbefehle ausführen.
+- UI-/API-Verhalten mit reproduzierbaren Belegen dokumentieren.
+- UI-Verhalten mit `$evidence-driven-testing` belegen.
+- Nach vollständigem Build und Evidence `review.triggerLabel` setzen; eine Cursor Automation startet `$code-factory-review` in einem getrennten Agent-Lauf.
+- Review-Agenten dürfen keinen Code ändern oder mergen. Bei behebbaren Must-fix-Befunden setzt der Review als letzte Aktion `repair.triggerLabel`; eine zweite Automation startet `$code-factory-repair`.
+- Repair-Agenten verwenden `$code-factory-build` im Reparaturmodus, arbeiten auf demselben PR-Branch und dürfen weder neuen PR noch Merge erzeugen. Höchstens drei aufeinanderfolgende automatische Runden ohne neue menschliche Linear-Antwort.
+- Technische Details selbst entscheiden. Menschen nur am Rundenlimit oder bei wesentlichem Produkt-, Daten-, Auth-, Datenschutz-, Zahlungs-, Rechts- oder Irreversibilitätsentscheid kurz in Linear fragen; eine Frage gleichzeitig, einfache Antworten.
+- Neue PR-Commits lösen einen neuen commitgebundenen Review aus.
+- Keine Secrets in Code, Logs, Issues, PRs oder Aufnahmen.
+- Branch und Draft-PR erstellen; niemals selbst mergen oder Auto-Merge aktivieren.
+- Bei den seltenen erlaubten Produktfragen eine kurze deutsche Frage mit Empfehlung und höchstens drei direkt beantwortbaren Optionen in Linear stellen.

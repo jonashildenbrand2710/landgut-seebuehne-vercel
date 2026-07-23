@@ -3,7 +3,7 @@
   "title": "Code Factory project configuration",
   "type": "object",
   "additionalProperties": false,
-  "required": ["language", "linear", "github", "commands", "cursor", "review", "preview"],
+  "required": ["language", "linear", "github", "commands", "cursor", "review", "repair", "preview"],
   "properties": {
     "language": { "enum": ["de", "en"] },
     "linear": {
@@ -44,17 +44,48 @@
     "cursor": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["dispatchMode"],
-      "properties": { "dispatchMode": { "const": "linear-agent" } }
+      "required": ["dispatchMode", "modelPolicy", "buildOptimization", "repairOptimization", "reviewOptimization", "allowFixedModelOverride"],
+      "properties": {
+        "dispatchMode": { "const": "linear-agent" },
+        "modelPolicy": { "const": "auto" },
+        "buildOptimization": { "enum": ["cost", "balance", "intelligence"] },
+        "repairOptimization": { "enum": ["cost", "balance", "intelligence"] },
+        "reviewOptimization": { "enum": ["cost", "balance", "intelligence"] },
+        "allowFixedModelOverride": { "const": false }
+      }
     },
     "review": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["provider", "evidenceSkill", "humanMergeOnly"],
+      "required": ["provider", "evidenceSkill", "automationProvider", "triggerLabel", "approvedLabel", "changesRequestedLabel", "humanReviewLabel", "rerunOnPush", "humanMergeOnly"],
       "properties": {
         "provider": { "const": "finn-review" },
         "evidenceSkill": { "const": "evidence-driven-testing" },
+        "automationProvider": { "const": "cursor-automation" },
+        "triggerLabel": { "const": "factory-review-ready" },
+        "approvedLabel": { "const": "factory-approved" },
+        "changesRequestedLabel": { "const": "loop-changes-requested" },
+        "humanReviewLabel": { "const": "needs-human-review" },
+        "rerunOnPush": { "const": true },
         "humanMergeOnly": { "const": true }
+      }
+    },
+    "repair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "automationProvider", "triggerLabel", "runningLabel", "limitLabel", "issueLabel", "maxAutomaticRoundsPerGate", "createLinearSubIssue", "reusePullRequest", "inheritBuildApproval", "resetAfterHumanDecision"],
+      "properties": {
+        "enabled": { "const": true },
+        "automationProvider": { "const": "cursor-automation" },
+        "triggerLabel": { "const": "loop-changes-requested" },
+        "runningLabel": { "const": "factory-repair-running" },
+        "limitLabel": { "const": "repair-limit-reached" },
+        "issueLabel": { "const": "factory-repair" },
+        "maxAutomaticRoundsPerGate": { "const": 3 },
+        "createLinearSubIssue": { "const": true },
+        "reusePullRequest": { "const": true },
+        "inheritBuildApproval": { "const": true },
+        "resetAfterHumanDecision": { "const": true }
       }
     },
     "preview": {

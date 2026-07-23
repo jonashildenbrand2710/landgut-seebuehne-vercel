@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Factory Repair"
+  short_description: "Koordiniert automatische Reparaturrunden."
+  default_prompt: "Nutze $code-factory-repair, um einen roten Code-Factory-Review im bestehenden Pull Request zu beheben."
