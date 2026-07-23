@@ -1,22 +1,22 @@
 # Third-party notices
 
-## finna/Finn-loop — finn-review
+## greptileai/skills — greploop
 
-The bundled `finn-review` skill is adapted from
-[`finna/Finn-loop`](https://github.com/finna/Finn-loop), commit
-`1d4f940b8f65cde274623454458b59c4734cab1b`, and is distributed under the MIT
-License reproduced below and in `.cursor/skills/finn-review/LICENSE`.
+The repository-local Code Factory adaptation of `greploop` is based on
+[`greptileai/skills`](https://github.com/greptileai/skills/tree/main/greploop),
+commit `646e2dfad81e5157e97daecc802b68d3d2c4d1e4`, and is distributed under the
+MIT License reproduced below and in `.cursor/skills/greploop/LICENSE`.
 
 MIT License
 
-Copyright (c) 2026 Alex Finn
+Copyright (c) 2026 Greptile AI
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.

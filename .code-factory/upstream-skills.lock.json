@@ -1,12 +1,13 @@
 {
   "skills": [
     {
-      "name": "finn-review",
-      "repository": "finna/Finn-loop",
-      "path": "skills/finn-review",
-      "commit": "1d4f940b8f65cde274623454458b59c4734cab1b",
+      "name": "greploop",
+      "repository": "greptileai/skills",
+      "path": "greploop",
+      "commit": "646e2dfad81e5157e97daecc802b68d3d2c4d1e4",
       "license": "MIT",
-      "installation": "fetch-from-source-with-license"
+      "upstreamVersion": "1.3",
+      "installation": "code-factory-adaptation-with-license"
     }
   ]
 }

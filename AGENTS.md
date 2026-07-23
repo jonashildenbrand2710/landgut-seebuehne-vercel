@@ -192,16 +192,26 @@ Lies vor jeder Änderung `.code-factory/factory.json` und das verknüpfte Linear
 - Nutzerkommunikation standardmäßig auf Deutsch.
 - Cursor-Modell-Policy ist `Auto`; keine festen Anbieter- oder Modellnamen anfordern. Aufgabenkomplexität und Risiko aus dem Linear-Issue beachten.
 - Genau ein Linear-Issue pro Pull Request.
+- Feature- und Fix-PRs zielen auf `github.pullRequestBaseBranch`; niemals direkt auf den Produktions-`github.baseBranch`.
 - `AC-N` vollständig umsetzen; `NG-N` bindend erhalten.
 - Bestehende Architektur und Projektregeln haben Vorrang.
 - Alle konfigurierten, nicht leeren Qualitätsbefehle ausführen.
 - UI-/API-Verhalten mit reproduzierbaren Belegen dokumentieren.
-- UI-Verhalten mit `$evidence-driven-testing` belegen.
+- `$evidence-driven-testing` vor dem ersten Code als `EVD-N`-Prüfvertrag und nach jedem neuen Commit als tatsächlichen UI-Nachweis verwenden.
+- Für UI oder sichtbare Funktionalität mindestens ein direkt erreichbares Video zum aktuellen SHA erzeugen.
+- Greptile läuft ausschließlich im Code-Factory-Flow: `.greptile/config.json` deaktiviert automatische Reviews und Commit-Trigger. Nur der getrennte Review-Lauf darf Greptile anfordern, wenn am Linear-Issue weiterhin `linear.readyLabel` und am PR `review.triggerLabel` gesetzt sind.
+- Greptile ist die externe Code-Review-Instanz. Ein roter Greptile-Review startet die getrennte Repair-Automation mit `$greploop`; höchstens `repair.maxGreptileReviewIterations` Greptile-Prüfungen pro menschlicher Freigabe.
 - Nach vollständigem Build und Evidence `review.triggerLabel` setzen; eine Cursor Automation startet `$code-factory-review` in einem getrennten Agent-Lauf.
 - Review-Agenten dürfen keinen Code ändern oder mergen. Bei behebbaren Must-fix-Befunden setzt der Review als letzte Aktion `repair.triggerLabel`; eine zweite Automation startet `$code-factory-repair`.
-- Repair-Agenten verwenden `$code-factory-build` im Reparaturmodus, arbeiten auf demselben PR-Branch und dürfen weder neuen PR noch Merge erzeugen. Höchstens drei aufeinanderfolgende automatische Runden ohne neue menschliche Linear-Antwort.
+- Repair-Agenten verwenden `$greploop`, arbeiten auf demselben PR-Branch und dürfen weder neuen PR noch Merge erzeugen. Nach fünf Greptile-Prüfungen ist eine neue menschliche Linear-Antwort erforderlich.
+- Build, Review und Repair dürfen relevante Cursor Automation Memories nur als überprüfbare Hypothesen nutzen. Aktuelles Issue, `AGENTS.md`, Factory-Konfiguration und aktuelle Belege haben Vorrang.
+- Pro Lauf höchstens eine abstrahierte, nicht sensible `Factory lesson` mit Scope, Symptom, verifizierter Ursache, wiederverwendbarer Heuristik, Beleg und Gültigkeitsbedingung speichern.
+- Keine Secrets, personenbezogenen Daten, Kundendaten, vollständigen Prompts oder ungeprüften Produktentscheidungen in Automation Memory ablegen.
+- Skills niemals aufgrund eines einzelnen Laufs selbst verändern. Erst mindestens `learning.minimumIndependentSignals` unabhängige Signale dürfen über `Code Factory Learning` einen Draft-PR im zentralen `learning.sourceRepository` vorschlagen.
+- Learning darf kein Produkt-Repository ändern, keine globalen Skills installieren, nicht direkt auf `main` pushen und niemals mergen.
 - Technische Details selbst entscheiden. Menschen nur am Rundenlimit oder bei wesentlichem Produkt-, Daten-, Auth-, Datenschutz-, Zahlungs-, Rechts- oder Irreversibilitätsentscheid kurz in Linear fragen; eine Frage gleichzeitig, einfache Antworten.
 - Neue PR-Commits lösen einen neuen commitgebundenen Review aus.
+- Bei grünem Review im Linear-Stamm-Issue eine Merge-ready-Nachricht mit PR, Vercel-Staging-Preview, direktem Video, Evidence Report, Greptile-Score und Zielbranch posten.
 - Keine Secrets in Code, Logs, Issues, PRs oder Aufnahmen.
 - Branch und Draft-PR erstellen; niemals selbst mergen oder Auto-Merge aktivieren.
 - Bei den seltenen erlaubten Produktfragen eine kurze deutsche Frage mit Empfehlung und höchstens drei direkt beantwortbaren Optionen in Linear stellen.

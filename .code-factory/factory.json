@@ -10,6 +10,8 @@
   "github": {
     "repository": "jonashildenbrand2710/landgut-seebuehne-vercel",
     "baseBranch": "main",
+    "stagingBranch": "staging",
+    "pullRequestBaseBranch": "staging",
     "requiredChecks": ["quality"]
   },
   "commands": {
@@ -30,7 +32,11 @@
     "allowFixedModelOverride": false
   },
   "review": {
-    "provider": "finn-review",
+    "provider": "greptile",
+    "triggerMode": "factory-only",
+    "repairSkill": "greploop",
+    "requiredScore": "5/5",
+    "requireZeroUnresolvedComments": true,
     "evidenceSkill": "evidence-driven-testing",
     "automationProvider": "cursor-automation",
     "triggerLabel": "factory-review-ready",
@@ -42,19 +48,42 @@
   },
   "repair": {
     "enabled": true,
+    "provider": "greploop",
     "automationProvider": "cursor-automation",
     "triggerLabel": "loop-changes-requested",
     "runningLabel": "factory-repair-running",
     "limitLabel": "repair-limit-reached",
     "issueLabel": "factory-repair",
-    "maxAutomaticRoundsPerGate": 3,
+    "maxGreptileReviewIterations": 5,
+    "humanContinueRequiredAfterLimit": true,
     "createLinearSubIssue": true,
     "reusePullRequest": true,
-    "inheritBuildApproval": true,
-    "resetAfterHumanDecision": true
+    "inheritBuildApproval": true
+  },
+  "learning": {
+    "enabled": true,
+    "automationProvider": "cursor-automation",
+    "automationMemory": true,
+    "sourceRepository": "jonashildenbrand2710/code-factory",
+    "minimumIndependentSignals": 2,
+    "proposalOnly": true,
+    "humanMergeOnly": true
   },
   "preview": {
     "provider": "vercel",
-    "required": true
+    "required": true,
+    "environment": "preview",
+    "branch": "staging",
+    "deployPullRequests": true
+  },
+  "notifications": {
+    "provider": "linear",
+    "mergeReady": {
+      "includePullRequest": true,
+      "includePreview": true,
+      "includeEvidenceVideo": true,
+      "includeEvidenceReport": true,
+      "includeReviewVerdict": true
+    }
   }
 }

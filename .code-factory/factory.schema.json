@@ -3,8 +3,9 @@
   "title": "Code Factory project configuration",
   "type": "object",
   "additionalProperties": false,
-  "required": ["language", "linear", "github", "commands", "cursor", "review", "repair", "preview"],
+  "required": ["$schema", "language", "linear", "github", "commands", "cursor", "review", "repair", "learning", "preview", "notifications"],
   "properties": {
+    "$schema": { "const": "./factory.schema.json" },
     "language": { "enum": ["de", "en"] },
     "linear": {
       "type": "object",
@@ -20,10 +21,12 @@
     "github": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["repository", "baseBranch", "requiredChecks"],
+      "required": ["repository", "baseBranch", "stagingBranch", "pullRequestBaseBranch", "requiredChecks"],
       "properties": {
         "repository": { "type": "string", "pattern": "^[^/]+/[^/]+$" },
         "baseBranch": { "type": "string", "minLength": 1 },
+        "stagingBranch": { "type": "string", "minLength": 1 },
+        "pullRequestBaseBranch": { "type": "string", "minLength": 1 },
         "requiredChecks": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
       }
     },
@@ -57,9 +60,13 @@
     "review": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["provider", "evidenceSkill", "automationProvider", "triggerLabel", "approvedLabel", "changesRequestedLabel", "humanReviewLabel", "rerunOnPush", "humanMergeOnly"],
+      "required": ["provider", "triggerMode", "repairSkill", "requiredScore", "requireZeroUnresolvedComments", "evidenceSkill", "automationProvider", "triggerLabel", "approvedLabel", "changesRequestedLabel", "humanReviewLabel", "rerunOnPush", "humanMergeOnly"],
       "properties": {
-        "provider": { "const": "finn-review" },
+        "provider": { "const": "greptile" },
+        "triggerMode": { "const": "factory-only" },
+        "repairSkill": { "const": "greploop" },
+        "requiredScore": { "const": "5/5" },
+        "requireZeroUnresolvedComments": { "const": true },
         "evidenceSkill": { "const": "evidence-driven-testing" },
         "automationProvider": { "const": "cursor-automation" },
         "triggerLabel": { "const": "factory-review-ready" },
@@ -73,28 +80,66 @@
     "repair": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["enabled", "automationProvider", "triggerLabel", "runningLabel", "limitLabel", "issueLabel", "maxAutomaticRoundsPerGate", "createLinearSubIssue", "reusePullRequest", "inheritBuildApproval", "resetAfterHumanDecision"],
+      "required": ["enabled", "provider", "automationProvider", "triggerLabel", "runningLabel", "limitLabel", "issueLabel", "maxGreptileReviewIterations", "humanContinueRequiredAfterLimit", "createLinearSubIssue", "reusePullRequest", "inheritBuildApproval"],
       "properties": {
         "enabled": { "const": true },
+        "provider": { "const": "greploop" },
         "automationProvider": { "const": "cursor-automation" },
         "triggerLabel": { "const": "loop-changes-requested" },
         "runningLabel": { "const": "factory-repair-running" },
         "limitLabel": { "const": "repair-limit-reached" },
         "issueLabel": { "const": "factory-repair" },
-        "maxAutomaticRoundsPerGate": { "const": 3 },
+        "maxGreptileReviewIterations": { "const": 5 },
+        "humanContinueRequiredAfterLimit": { "const": true },
         "createLinearSubIssue": { "const": true },
         "reusePullRequest": { "const": true },
-        "inheritBuildApproval": { "const": true },
-        "resetAfterHumanDecision": { "const": true }
+        "inheritBuildApproval": { "const": true }
+      }
+    },
+    "learning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "automationProvider", "automationMemory", "sourceRepository", "minimumIndependentSignals", "proposalOnly", "humanMergeOnly"],
+      "properties": {
+        "enabled": { "const": true },
+        "automationProvider": { "const": "cursor-automation" },
+        "automationMemory": { "const": true },
+        "sourceRepository": { "type": "string", "pattern": "^[^/]+/[^/]+$" },
+        "minimumIndependentSignals": { "type": "integer", "minimum": 2 },
+        "proposalOnly": { "const": true },
+        "humanMergeOnly": { "const": true }
       }
     },
     "preview": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["provider", "required"],
+      "required": ["provider", "required", "environment", "branch", "deployPullRequests"],
       "properties": {
         "provider": { "enum": ["vercel", "other", "none"] },
-        "required": { "type": "boolean" }
+        "required": { "type": "boolean" },
+        "environment": { "enum": ["preview"] },
+        "branch": { "type": "string", "minLength": 1 },
+        "deployPullRequests": { "const": true }
+      }
+    },
+    "notifications": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "mergeReady"],
+      "properties": {
+        "provider": { "const": "linear" },
+        "mergeReady": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["includePullRequest", "includePreview", "includeEvidenceVideo", "includeEvidenceReport", "includeReviewVerdict"],
+          "properties": {
+            "includePullRequest": { "const": true },
+            "includePreview": { "const": true },
+            "includeEvidenceVideo": { "const": true },
+            "includeEvidenceReport": { "const": true },
+            "includeReviewVerdict": { "const": true }
+          }
+        }
       }
     }
   }
