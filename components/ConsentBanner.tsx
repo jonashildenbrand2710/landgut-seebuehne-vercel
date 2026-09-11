@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { META_PIXEL_ID } from "@/lib/meta-events";
+import { TIKTOK_PIXEL_ID } from "@/lib/tiktok-events";
 import {
   CONSENT_OPEN_EVENT_NAME,
   storeConsent,
@@ -10,10 +11,11 @@ import {
 } from "@/lib/consent";
 
 export function ConsentBanner() {
-  const [isVisible, setIsVisible] = useState(Boolean(META_PIXEL_ID));
+  const trackingConfigured = Boolean(META_PIXEL_ID || TIKTOK_PIXEL_ID);
+  const [isVisible, setIsVisible] = useState(trackingConfigured);
 
   useEffect(() => {
-    if (!META_PIXEL_ID) return;
+    if (!trackingConfigured) return;
 
     // "Cookie-Einstellungen" im Footer oeffnet das Banner erneut (Widerruf).
     const reopen = () => {
@@ -25,7 +27,7 @@ export function ConsentBanner() {
     return () => {
       window.removeEventListener(CONSENT_OPEN_EVENT_NAME, reopen);
     };
-  }, []);
+  }, [trackingConfigured]);
 
   if (!isVisible) return null;
 
@@ -39,8 +41,9 @@ export function ConsentBanner() {
     <aside className="consent-banner" role="region" aria-label="Cookie- und Tracking-Hinweis">
       <div className="consent-banner-inner">
         <p>
-          Wir möchten mit eurem Einverständnis Marketing-Cookies (Meta Pixel) nutzen, um unsere
-          Anzeigen besser zu steuern. Notwendige Funktionen kommen ohne Tracking aus.{" "}
+          Wir möchten mit eurem Einverständnis Marketing-Cookies (Meta Pixel und TikTok Pixel)
+          nutzen, um die Wirkung unserer Anzeigen zu messen und Kampagnen zu optimieren.
+          Notwendige Funktionen kommen ohne Tracking aus.{" "}
           <Link href="/datenschutz">Mehr im Datenschutz</Link>
         </p>
         <div className="consent-banner-actions">

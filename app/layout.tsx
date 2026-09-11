@@ -8,6 +8,7 @@ import { MetaPixel } from "@/components/MetaPixel";
 import { NavigationMotion } from "@/components/NavigationMotion";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { SiteJsonLd } from "@/components/StructuredData";
+import { TikTokPixel } from "@/components/TikTokPixel";
 import { imageLibrary, siteConfig } from "@/data/site";
 import { CONSENT_STORAGE_KEY } from "@/lib/consent";
 import "./globals.css";
@@ -83,6 +84,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           Zum Inhalt springen
         </a>
         <MetaPixel />
+        <TikTokPixel />
         <MetaConversionFromQuery />
         <SiteJsonLd />
         <Header />
