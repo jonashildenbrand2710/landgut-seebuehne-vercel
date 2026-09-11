@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { ArrowRight, CalendarDays, Check, FileText, Heart, MapPin, Star } from "lucide-react";
@@ -11,6 +11,10 @@ type HeroProps = {
   title: string;
   text: string;
   imageKey: keyof typeof imageLibrary;
+  mobileImage?: {
+    src: string;
+    alt: string;
+  };
   primaryCta?: string;
   secondaryCta?: string;
   allowDirectActions?: boolean;
@@ -180,11 +184,54 @@ function HeroCollage() {
   );
 }
 
+function ResponsiveHeroImage({
+  desktop,
+  mobile,
+  imageStyle,
+  priority
+}: {
+  desktop: (typeof imageLibrary)[ImageKey];
+  mobile: NonNullable<HeroProps["mobileImage"]>;
+  imageStyle: CSSProperties;
+  priority: boolean;
+}) {
+  const {
+    props: { srcSet: desktopSrcSet, ...desktopProps }
+  } = getImageProps({
+    className: "hero-image",
+    src: desktop.src,
+    alt: desktop.alt,
+    fill: true,
+    fetchPriority: priority ? "high" : "auto",
+    loading: priority ? "eager" : "lazy",
+    quality: 70,
+    sizes: "100vw",
+    style: imageStyle
+  });
+  const {
+    props: { srcSet: mobileSrcSet }
+  } = getImageProps({
+    src: mobile.src,
+    alt: mobile.alt,
+    fill: true,
+    quality: 75,
+    sizes: "150vh"
+  });
+
+  return (
+    <picture>
+      <source media="(max-width: 680px)" sizes="150vh" srcSet={mobileSrcSet} />
+      <img {...desktopProps} alt={desktop.alt} srcSet={desktopSrcSet} />
+    </picture>
+  );
+}
+
 export function Hero({
   eyebrow,
   title,
   text,
   imageKey,
+  mobileImage,
   primaryCta,
   secondaryCta,
   allowDirectActions = false,
@@ -201,19 +248,28 @@ export function Hero({
 
   return (
     <section className={className}>
-      <Image
-        className="hero-image"
-        src={image.src}
-        alt={image.alt}
-        fill
-        fetchPriority={priority ? "high" : "auto"}
-        preload={priority}
-        loading={priority ? "eager" : "lazy"}
-        quality={70}
-        // Im hohen Mobile-Hero braucht das 3:2-Motiv etwa 1,5x Viewport-Hoehe als Slotbreite.
-        sizes="(max-width: 680px) 150vh, 100vw"
-        style={imageStyle}
-      />
+      {mobileImage ? (
+        <ResponsiveHeroImage
+          desktop={image}
+          mobile={mobileImage}
+          imageStyle={imageStyle}
+          priority={priority}
+        />
+      ) : (
+        <Image
+          className="hero-image"
+          src={image.src}
+          alt={image.alt}
+          fill
+          fetchPriority={priority ? "high" : "auto"}
+          preload={priority}
+          loading={priority ? "eager" : "lazy"}
+          quality={70}
+          // Im hohen Mobile-Hero braucht das 3:2-Motiv etwa 1,5x Viewport-Hoehe als Slotbreite.
+          sizes="(max-width: 680px) 150vh, 100vw"
+          style={imageStyle}
+        />
+      )}
       <div className="hero-shade" />
       <div className="hero-content">
         <div className="hero-copy">
