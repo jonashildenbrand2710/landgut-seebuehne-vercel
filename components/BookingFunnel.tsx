@@ -21,6 +21,8 @@ import type {
   BookingSlot
 } from "@/lib/booking-api";
 import { createMetaEventId, trackMetaCompleteRegistrationWhenReady } from "@/components/MetaConversionTracking";
+import { trackTikTokCompleteRegistrationWhenReady } from "@/components/TikTokConversionTracking";
+import { readStoredConsent } from "@/lib/consent";
 
 type BookingFunnelProps = {
   appointmentType: BookingAppointmentType;
@@ -81,8 +83,11 @@ function trackingPayload() {
     meta_campaign_id: params.get("meta_campaign_id") || "",
     meta_placement: params.get("meta_placement") || "",
     landingPageUrl: window.location.href,
+    marketingConsent: readStoredConsent() || "",
     pageUrl: window.location.href,
     referrer: document.referrer,
+    ttclid: params.get("ttclid") || "",
+    ttp: cookieValue("_ttp"),
     userAgent: navigator.userAgent,
     utm_campaign: params.get("utm_campaign") || "",
     utm_content: params.get("utm_content") || "",
@@ -535,6 +540,12 @@ export function BookingFunnel({
 
       if (booking.booking?.status !== "preview") {
         trackMetaCompleteRegistrationWhenReady(
+          appointmentType === "tour" ? "besichtigung" : "erstgespraech",
+          eventId,
+          { guard: true }
+        );
+
+        trackTikTokCompleteRegistrationWhenReady(
           appointmentType === "tour" ? "besichtigung" : "erstgespraech",
           eventId,
           { guard: true }

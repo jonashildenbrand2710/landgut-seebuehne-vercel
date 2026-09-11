@@ -1,6 +1,7 @@
 import { bookingErrorResponse, createBooking, type BookingRequest } from "@/lib/booking-api";
 import { submitBookingConfirmation } from "@/lib/booking-confirmation";
 import { sendMetaCompleteRegistration } from "@/lib/meta-capi";
+import { sendTikTokCompleteRegistration } from "@/lib/tiktok-events-api";
 
 export const runtime = "nodejs";
 
@@ -85,6 +86,33 @@ export async function POST(request: Request) {
     } catch (error) {
       console.error(
         "Meta CAPI tracking after booking failed",
+        error instanceof Error ? error.message : "Unknown error"
+      );
+    }
+  }
+
+  // TikTok optimiert auf erfolgreiche Buchungen aus demselben Termin-Funnel.
+  if (payload.booking?.type === "phone" || payload.booking?.type === "tour") {
+    try {
+      const tracking =
+        payload.tracking && typeof payload.tracking === "object" && !Array.isArray(payload.tracking)
+          ? payload.tracking
+          : {};
+      const eventSourceUrl =
+        stringValue(tracking.pageUrl) || new URL(payload.source?.page || "/termin-buchen", request.url).toString();
+
+      await sendTikTokCompleteRegistration({
+        email: payload.contact?.email,
+        eventId: payload.eventId,
+        eventSourceUrl,
+        funnel: payload.booking.type === "tour" ? "besichtigung" : "erstgespraech",
+        phone: payload.contact?.phone,
+        request,
+        tracking
+      });
+    } catch (error) {
+      console.error(
+        "TikTok Events API tracking after booking failed",
         error instanceof Error ? error.message : "Unknown error"
       );
     }
