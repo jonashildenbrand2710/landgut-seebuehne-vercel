@@ -10,6 +10,7 @@ import {
   createHochzeitsmappeAccessUrl
 } from "@/lib/hochzeitsmappe-access";
 import { normalizeMetaEventId, sendMetaCompleteRegistration } from "@/lib/meta-capi";
+import { META_EVENT_NAME } from "@/lib/meta-events";
 
 const activeCampaignFlowDetails = {
   automation: "Hochzeitsmappe Opt-in",
@@ -162,7 +163,10 @@ export async function POST(request: Request) {
     return redirect(request, "/kontaktformular?source=hochzeitsmappe&status=integration-error");
   }
 
-  const immediateAccessUrl = createHochzeitsmappeAccessUrl(accessToken, request.url);
+  const immediateAccessUrl = new URL(createHochzeitsmappeAccessUrl(accessToken, request.url));
+  immediateAccessUrl.searchParams.set("meta_event", META_EVENT_NAME);
+  immediateAccessUrl.searchParams.set("event_id", metaEventId);
+  immediateAccessUrl.searchParams.set("funnel", "hochzeitsmappe");
   const deliveryPayload = { ...payload, accessUrl: emailAccessUrl };
 
   let crmLead;

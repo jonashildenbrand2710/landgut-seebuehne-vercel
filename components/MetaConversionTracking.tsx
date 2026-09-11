@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { CONSENT_EVENT_NAME } from "@/lib/consent";
 import {
   isMetaConversionFunnel,
   META_EVENT_NAME,
@@ -228,7 +229,22 @@ export function MetaConversionFromQuery() {
       return undefined;
     }
 
-    return trackMetaCompleteRegistrationWhenReady(funnel, eventId, { guard: true });
+    let cancelTracking = trackMetaCompleteRegistrationWhenReady(funnel, eventId, { guard: true });
+    const retryAfterConsent = (event: Event) => {
+      if (!(event instanceof CustomEvent) || event.detail !== "granted") {
+        return;
+      }
+
+      cancelTracking?.();
+      cancelTracking = trackMetaCompleteRegistrationWhenReady(funnel, eventId, { guard: true });
+    };
+
+    window.addEventListener(CONSENT_EVENT_NAME, retryAfterConsent);
+
+    return () => {
+      cancelTracking?.();
+      window.removeEventListener(CONSENT_EVENT_NAME, retryAfterConsent);
+    };
   }, []);
 
   return null;
