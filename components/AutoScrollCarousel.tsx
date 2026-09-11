@@ -8,6 +8,7 @@ type AutoScrollCarouselProps = {
   className?: string;
   intervalMs?: number;
   scrollDurationMs?: number;
+  startImmediatelyOnVisible?: boolean;
 };
 
 export function AutoScrollCarousel({
@@ -15,7 +16,8 @@ export function AutoScrollCarousel({
   children,
   className,
   intervalMs = 4500,
-  scrollDurationMs = 1500
+  scrollDurationMs = 1500,
+  startImmediatelyOnVisible = false
 }: AutoScrollCarouselProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<number | null>(null);
@@ -26,6 +28,7 @@ export function AutoScrollCarousel({
   const directionRef = useRef<1 | -1>(1);
   const pausedRef = useRef(false);
   const visibleRef = useRef(false);
+  const hasStartedOnVisibleRef = useRef(false);
 
   const clearTimer = useCallback(() => {
     if (timeoutRef.current !== null) {
@@ -171,7 +174,7 @@ export function AutoScrollCarousel({
       }
     };
     const handlePageScroll = () => {
-      if (!visibleRef.current) return;
+      if (!visibleRef.current || startImmediatelyOnVisible) return;
 
       clearTimer();
       stopAnimation();
@@ -190,7 +193,12 @@ export function AutoScrollCarousel({
 
         visibleRef.current = isVisible;
         if (isVisible) {
-          scheduleAutoplay();
+          if (startImmediatelyOnVisible && !hasStartedOnVisibleRef.current) {
+            hasStartedOnVisibleRef.current = true;
+            scrollOneSlide();
+          } else {
+            scheduleAutoplay();
+          }
         } else {
           clearTimer();
           stopAnimation();
@@ -233,7 +241,7 @@ export function AutoScrollCarousel({
       window.removeEventListener("scroll", handlePageScroll);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [clearTimer, scheduleAutoplay, stopAnimation]);
+  }, [clearTimer, scheduleAutoplay, scrollOneSlide, startImmediatelyOnVisible, stopAnimation]);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {

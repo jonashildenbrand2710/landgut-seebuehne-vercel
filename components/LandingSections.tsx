@@ -103,6 +103,7 @@ export function HeroImageStrip() {
         className="auto-scroll-carousel hero-strip-inner"
         intervalMs={4000}
         scrollDurationMs={1500}
+        startImmediatelyOnVisible
       >
         {images.map((imageKey) => {
           const image = imageLibrary[imageKey];
@@ -255,6 +256,11 @@ export function ImpressionSection() {
           <ArrowRight aria-hidden="true" size={18} />
         </Link>
       </div>
+      <BrandLogo
+        className="availability-watermark-logo"
+        decorative
+        variant="light"
+      />
     </section>
   );
 }
