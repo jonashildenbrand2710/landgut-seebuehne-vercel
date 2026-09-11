@@ -5,7 +5,6 @@ import {
   ArrowRight,
   CalendarCheck,
   CalendarDays,
-  CheckCircle2,
   ChevronLeft,
   ChevronRight,
   LoaderCircle,
@@ -54,13 +53,7 @@ type StepId = "year" | "guests" | "slot" | "contact" | "review";
 
 const siteName = "landgut-seebuehne-vercel";
 const timeZone = "Europe/Berlin";
-const steps: Array<{ id: StepId; label: string }> = [
-  { id: "year", label: "Jahr" },
-  { id: "guests", label: "Gäste" },
-  { id: "slot", label: "Termin" },
-  { id: "contact", label: "Kontakt" },
-  { id: "review", label: "Prüfen" }
-];
+const steps: StepId[] = ["year", "guests", "slot", "contact", "review"];
 
 function addDays(date: Date, days: number) {
   return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
@@ -376,7 +369,7 @@ export function BookingFunnel({
   const currentWeek = weeks[Math.min(weekIndex, Math.max(0, weeks.length - 1))] || [];
   const selectedDay = selectedDayKey ? days.find((day) => day.key === selectedDayKey) || null : null;
   const visibleSlots = selectedDayKey ? slotsByDay.get(selectedDayKey) || [] : [];
-  const activeStepIndex = steps.findIndex((step) => step.id === activeStep);
+  const activeStepIndex = steps.indexOf(activeStep);
   const contactValidation = useMemo(() => {
     const nameValid = contact.name.trim().length >= 2;
     const emailValid = validateEmail(contact.email);
@@ -460,7 +453,7 @@ export function BookingFunnel({
   }, [activeStep, bookingResult]);
 
   const goToStep = (step: StepId) => {
-    const nextIndex = steps.findIndex((item) => item.id === step);
+    const nextIndex = steps.indexOf(step);
     if (nextIndex <= activeStepIndex) {
       setActiveStep(step);
       return;
@@ -543,24 +536,6 @@ export function BookingFunnel({
     }
   };
 
-  const stepper = (
-    <ol className="booking-progress" aria-label="Buchungsschritte">
-      {steps.map((step, index) => (
-        <li className={index === activeStepIndex ? "is-active" : index < activeStepIndex ? "is-complete" : ""} key={step.id}>
-          <button
-            aria-current={index === activeStepIndex ? "step" : undefined}
-            disabled={!canVisitStep(step.id)}
-            type="button"
-            onClick={() => goToStep(step.id)}
-          >
-            <span>{index < activeStepIndex ? <CheckCircle2 aria-hidden="true" size={14} /> : index + 1}</span>
-            {step.label}
-          </button>
-        </li>
-      ))}
-    </ol>
-  );
-
   if (bookingResult) {
     const isPreviewBooking = bookingResult.booking?.status === "preview";
 
@@ -622,8 +597,6 @@ export function BookingFunnel({
         <ArrowLeft aria-hidden="true" size={16} />
         Terminart ändern
       </button>
-      {stepper}
-
       {activeStep === "year" ? (
         <div className="booking-step booking-question-step">
           <p className="booking-step-count">Frage 1 von 2</p>

@@ -2319,72 +2319,6 @@ h2 {
   line-height: 1.65;
 }
 
-.booking-progress {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
-  margin: 24px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.booking-progress button {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  width: 100%;
-  min-height: 42px;
-  padding: 0 10px;
-  border: 1px solid rgba(28, 29, 32, 0.13);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.62);
-  color: rgba(63, 78, 70, 0.76);
-  cursor: pointer;
-  font: inherit;
-  font-size: 0.84rem;
-  font-weight: 800;
-  text-align: left;
-  transition:
-    background 180ms ease,
-    border-color 180ms ease,
-    transform 180ms ease;
-}
-
-.booking-progress button:hover:not(:disabled) {
-  border-color: rgba(79, 139, 120, 0.58);
-  transform: translateY(-1px);
-}
-
-.booking-progress button:disabled {
-  cursor: not-allowed;
-  opacity: 0.58;
-}
-
-.booking-progress span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 999px;
-  background: rgba(28, 29, 32, 0.08);
-  color: var(--ink);
-  flex: 0 0 auto;
-  font-size: 0.76rem;
-}
-
-.booking-progress .is-active button,
-.booking-progress .is-complete button {
-  border-color: rgba(79, 139, 120, 0.48);
-  background: rgba(103, 164, 144, 0.13);
-  color: var(--ink);
-}
-
-.booking-progress .is-complete span {
-  background: var(--green-2);
-  color: var(--white);
-}
-
 .booking-step {
   display: grid;
   gap: 16px;
@@ -3292,10 +3226,6 @@ h2 {
   min-width: 140px;
 }
 
-.booking-progress {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-}
-
 @media (max-width: 720px) {
   .booking-page {
     padding-top: 108px;
@@ -3311,22 +3241,6 @@ h2 {
 
   .booking-choice-group-large {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .booking-progress {
-    grid-template-columns: repeat(5, minmax(44px, 1fr));
-    overflow-x: auto;
-    padding-bottom: 4px;
-  }
-
-  .booking-progress button {
-    justify-content: center;
-    padding-inline: 6px;
-    font-size: 0;
-  }
-
-  .booking-progress button span {
-    font-size: 0.76rem;
   }
 
   .booking-slot-grid.compact:not(.is-expanded) .booking-slot:nth-child(n + 5) {
@@ -3489,7 +3403,6 @@ h2 {
   .booking-week-arrow,
   .booking-week-day,
   .booking-month-option,
-  .booking-progress button,
   .booking-refresh,
   .booking-slot {
     transition: none;
@@ -5350,10 +5263,6 @@ h2 {
   .booking-step-title {
     align-items: flex-start;
     flex-direction: column;
-  }
-
-  .booking-progress {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .booking-calendar {
@@ -7282,16 +7191,10 @@ body:not(:has(.site-header--dornrose)) .booking-panel-phone::before {
   background: var(--accent-gradient);
 }
 
-body:not(:has(.site-header--dornrose)) :is(.booking-progress button, .booking-week-arrow, .booking-refresh) {
+body:not(:has(.site-header--dornrose)) :is(.booking-week-arrow, .booking-refresh) {
   border-color: var(--line);
   background: var(--ivory);
   color: var(--leaf-deep);
-}
-
-body:not(:has(.site-header--dornrose)) .booking-progress :is(.is-active, .is-complete) button {
-  border-color: rgba(64, 88, 77, 0.42);
-  background: rgba(116, 135, 120, 0.14);
-  color: var(--ink);
 }
 
 body:not(:has(.site-header--dornrose)) .booking-calendar {
