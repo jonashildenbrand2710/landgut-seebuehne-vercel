@@ -71,7 +71,7 @@ export const landingProof = {
 export const landingLeadMagnet = {
   eyebrow: "Hochzeitsmappe",
   title: "Die perfekte Kulisse für eure Traumhochzeit",
-  text: "Sichert euch jetzt exklusive Infos und Termine, bevor sie vergeben sind.",
+  text: "Ladet euch jetzt die Hochzeitsmappe mit allen wichtigen Informationen zur Location und eurer Hochzeit herunter.",
   badges: ["Persönlicher Online-Zugang", "Location am See", "Ablauf & Möglichkeiten", "Vorbereitung auf die Besichtigung"],
   points: [
     "umfassender Überblick über die Location am See",
@@ -388,11 +388,6 @@ export const landingGallery = [
     imageKey: "gettingReady",
     title: "Getting Ready",
     text: "Der Tag beginnt ruhiger, wenn ihr schon vor Ort ankommen könnt."
-  },
-  {
-    imageKey: "team",
-    title: "Gastgeberfamilie",
-    text: "Persönliche Begleitung macht aus einem Ort einen verlässlichen Rahmen."
   },
   {
     imageKey: "lake",

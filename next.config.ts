@@ -113,6 +113,16 @@ const nextConfig: NextConfig = {
         statusCode: 301
       },
       {
+        source: "/besichtigung",
+        destination: "/termin-buchen",
+        statusCode: 301
+      },
+      {
+        source: "/formular",
+        destination: "/termin-buchen",
+        statusCode: 301
+      },
+      {
         source: "/ueber-uns",
         destination: "/uber-uns",
         statusCode: 301

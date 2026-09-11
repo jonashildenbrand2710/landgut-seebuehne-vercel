@@ -5,8 +5,8 @@ import { CookieSettingsButton } from "@/components/CookieSettingsButton";
 import { mainNavigation, siteConfig } from "@/data/site";
 
 const footerSecondaryLinks = [
-  { label: "Besichtigung", href: "/besichtigung" },
-  { label: "Kennenlerngespräch", href: "/formular" }
+  { label: "Besichtigung", href: "/termin-buchen" },
+  { label: "Kennenlerngespräch", href: "/termin-buchen" }
 ];
 
 export function Footer() {
@@ -32,7 +32,7 @@ export function Footer() {
               </li>
             ))}
             {footerSecondaryLinks.map((item) => (
-              <li key={item.href}>
+              <li key={item.label}>
                 <Link href={item.href} prefetch={false}>
                   {item.label}
                 </Link>

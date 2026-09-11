@@ -1,47 +1,79 @@
 :root {
-  --bg: #f9f3e9;
-  --bg-soft: #ebe3d3;
-  --ink: #1c1d20;
-  /* Flaechentext: dunkles Graugruen statt Braun, haelt >=8:1 auf allen Creme-Toenen. */
-  --ink-soft: #3f4e46;
-  --green: #67a490;
-  --green-2: #4f8b78;
-  /* Gruen fuer Text auf hellen Flaechen: erfuellt WCAG AA (>=4.6:1) auf allen Creme-Toenen. */
-  --green-text: #386e5f;
-  --focus-ring: #386e5f;
-  --focus-ring-light: rgba(249, 243, 233, 0.92);
-  --lake: #9e8db7;
-  /* Tiefes Salbeigruen fuer kleine Bold-Labels (frueher Braunton). */
-  --clay: #44685a;
-  --gold: #dbd3c1;
-  --line: rgba(28, 29, 32, 0.14);
-  --white: #ffffff;
-  --shadow-sm: 0 6px 18px rgba(28, 29, 32, 0.08);
-  --shadow: 0 18px 45px rgba(28, 29, 32, 0.13);
-  --shadow-lg: 0 26px 60px rgba(28, 29, 32, 0.2);
+  /* Verbindliche Markenpalette. Komponenten verwenden die semantischen Aliasse darunter. */
+  --color-pearl: #fbfaf6;
+  --color-paper: #f3f0e8;
+  --color-rose-paper: #f7f0ef;
+  --color-ivory: #fffefa;
+  --color-nature-ink: #2f3934;
+  --color-soft-ink: #667069;
+  --color-sage: #67a490;
+  --color-leaf: #748778;
+  --color-deep-leaf: var(--color-sage);
+  --color-forest: var(--color-sage);
+  --color-lake: #a9c8cf;
+  --color-rose: #d9babe;
+  --color-deep-rose: #987479;
+  --color-rose-text: #805d62;
+  --color-photo-overlay: #090b0a;
+  --color-botanical-deep: #3f4937;
+  --color-formal-ink: #1c1d20;
+  --rgb-sage: 103 164 144;
+  --rgb-nature-ink: 47 57 52;
+  --rgb-formal-ink: 28 29 32;
+  --rgb-ivory: 255 254 250;
+  --rgb-rose: 217 186 190;
+  --rgb-photo-overlay: 9 11 10;
+  --surface-brand-primary: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-sage) 84%, var(--color-ivory)),
+    var(--color-sage)
+  );
+  --surface-brand-primary-hover: color-mix(in srgb, var(--color-sage) 84%, var(--color-ivory));
+  --surface-photo-dark: var(--color-photo-overlay);
+  --surface-content-dark: var(--color-botanical-deep);
+  --on-brand-primary: var(--color-pearl);
+  --on-photo-dark: var(--color-ivory);
+
+  /* Bestehende Komponentennamen bleiben als zentrale Kompatibilitaets-Aliasse erhalten. */
+  --bg: var(--color-pearl);
+  --bg-soft: var(--color-paper);
+  --ink: var(--color-nature-ink);
+  --ink-soft: var(--color-soft-ink);
+  --green: var(--color-sage);
+  --green-2: var(--color-sage);
+  --green-text: var(--color-nature-ink);
+  --focus-ring: var(--color-sage);
+  --focus-ring-light: rgb(var(--rgb-ivory) / 0.94);
+  --lake: var(--color-lake);
+  --clay: var(--color-nature-ink);
+  --gold: var(--color-rose);
+  --line: rgb(var(--rgb-formal-ink) / 0.14);
+  --white: var(--color-ivory);
+  --shadow-sm: 0 6px 18px rgb(var(--rgb-formal-ink) / 0.08);
+  --shadow: 0 18px 45px rgb(var(--rgb-formal-ink) / 0.13);
+  --shadow-lg: 0 26px 60px rgb(var(--rgb-formal-ink) / 0.2);
   --tracking-caps: 0.08em;
   --text-h2: clamp(2.3rem, 3.4vw, 3.35rem);
   --motion-fast: 180ms;
   --motion-medium: 360ms;
   --motion-slow: 520ms;
   --motion-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --surface-page: linear-gradient(180deg, #f9f3e9 0%, #f4ecdf 42%, #ebe3d3 100%);
-  --surface-header: linear-gradient(95deg, rgba(249, 243, 233, 0.96), rgba(235, 227, 211, 0.93) 58%, rgba(103, 164, 144, 0.3));
-  --surface-section: linear-gradient(180deg, rgba(249, 243, 233, 0.98) 0%, rgba(244, 236, 223, 0.94) 55%, rgba(249, 243, 233, 0.98) 100%);
-  --surface-section-alt: linear-gradient(145deg, rgba(235, 227, 211, 0.98) 0%, rgba(249, 243, 233, 0.96) 52%, rgba(103, 164, 144, 0.15) 100%);
-  --surface-section-warm: linear-gradient(145deg, rgba(249, 243, 233, 1) 0%, rgba(219, 211, 193, 0.52) 58%, rgba(103, 164, 144, 0.12) 100%);
-  --surface-card: linear-gradient(145deg, rgba(255, 255, 255, 0.78) 0%, rgba(249, 243, 233, 0.94) 56%, rgba(235, 227, 211, 0.8) 100%);
-  --surface-card-strong: linear-gradient(145deg, rgba(255, 255, 255, 0.92) 0%, rgba(249, 243, 233, 0.98) 52%, rgba(212, 203, 223, 0.42) 100%);
-  --surface-card-sage: linear-gradient(145deg, rgba(249, 243, 233, 0.96) 0%, rgba(212, 203, 223, 0.58) 56%, rgba(103, 164, 144, 0.2) 100%);
-  --surface-chip: linear-gradient(135deg, rgba(249, 243, 233, 0.96), rgba(219, 211, 193, 0.72) 58%, rgba(212, 203, 223, 0.52));
-  /* Dunkle Flaechen: Tiefwasser- und Tannengruen statt Braun. */
-  --surface-dark: linear-gradient(135deg, #14211b 0%, #1d3a2f 55%, #2c5243 100%);
-  --surface-dark-soft: linear-gradient(145deg, rgba(18, 30, 25, 0.98) 0%, rgba(24, 43, 36, 0.96) 58%, rgba(44, 82, 67, 0.92) 100%);
-  --surface-cta: linear-gradient(135deg, #14211b 0%, #23443a 52%, #1a2f27 100%);
-  --surface-cta-light: linear-gradient(135deg, #f9f3e9 0%, #ebe3d3 62%, #d4cbdf 100%);
-  --surface-cta-button: linear-gradient(135deg, #ffffff 0%, #f9f3e9 54%, #efeaf5 100%);
-  --surface-cta-button-hover: linear-gradient(135deg, #182720 0%, #234439 58%, #2d5547 100%);
-  --accent-gradient: linear-gradient(135deg, #67a490 0%, #b9accc 54%, #9e8db7 100%);
+  --surface-page: linear-gradient(180deg, var(--color-pearl) 0%, var(--color-paper) 100%);
+  --surface-header: rgb(var(--rgb-ivory) / 0.92);
+  --surface-section: linear-gradient(180deg, var(--color-ivory), var(--color-pearl));
+  --surface-section-alt: linear-gradient(145deg, var(--color-paper), rgb(var(--rgb-sage) / 0.15));
+  --surface-section-warm: linear-gradient(145deg, var(--color-pearl), var(--color-rose-paper));
+  --surface-card: linear-gradient(145deg, var(--color-ivory), var(--color-pearl));
+  --surface-card-strong: linear-gradient(145deg, var(--color-ivory), var(--color-rose-paper));
+  --surface-card-sage: linear-gradient(145deg, var(--color-ivory), rgb(var(--rgb-sage) / 0.2));
+  --surface-chip: linear-gradient(135deg, var(--color-rose-paper), rgb(var(--rgb-rose) / 0.4));
+  --surface-dark: var(--surface-brand-primary);
+  --surface-dark-soft: var(--surface-brand-primary);
+  --surface-cta: var(--surface-brand-primary);
+  --surface-cta-light: linear-gradient(135deg, var(--color-pearl), var(--color-rose-paper));
+  --surface-cta-button: var(--color-sage);
+  --surface-cta-button-hover: var(--surface-brand-primary-hover);
+  --accent-gradient: linear-gradient(135deg, var(--color-rose), var(--color-lake), var(--color-sage));
   --font-display: var(--font-serif), Georgia, serif;
 }
 
@@ -373,7 +405,7 @@ img {
   gap: 10px;
   min-height: 46px;
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 999px;
   font-weight: 700;
   line-height: 1;
   white-space: nowrap;
@@ -477,7 +509,7 @@ img {
   min-height: 100svh;
   display: grid;
   align-items: end;
-  background: #102019;
+  background: var(--surface-photo-dark);
   isolation: isolate;
   overflow: hidden;
   color: var(--white);
@@ -1209,19 +1241,53 @@ h2 {
 }
 
 .faq-item {
-  padding: 26px;
+  overflow: hidden;
 }
 
-.faq-item h3,
+.faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 26px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary svg {
+  flex: 0 0 auto;
+  color: var(--green-text);
+  transition: transform var(--motion-fast) ease-out;
+}
+
+.faq-item[open] summary svg {
+  transform: rotate(45deg);
+}
+
+.faq-question,
 .article-card h3,
 .article-card h2 {
   font-size: 1.28rem;
+  font-weight: 700;
   line-height: 1.22;
 }
 
+.faq-answer {
+  padding: 0 26px 26px;
+}
+
 .faq-item p {
+  margin: 0;
   color: var(--ink-soft);
   line-height: 1.65;
+}
+
+.faq-item p + p {
+  margin-top: 14px;
 }
 
 .article-card {
@@ -1457,7 +1523,7 @@ h2 {
   overflow: hidden;
   border: 1px solid rgba(28, 29, 32, 0.12);
   border-radius: 14px;
-  background: #fffefa;
+  background: var(--color-ivory);
   box-shadow: 0 22px 58px rgba(28, 29, 32, 0.17);
 }
 
@@ -1494,7 +1560,7 @@ h2 {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #d9babe;
+  background: var(--color-rose);
 }
 
 .mappe-browser-dots span:nth-child(2) {
@@ -1524,7 +1590,7 @@ h2 {
   display: inline-flex;
   gap: 5px;
   align-items: center;
-  color: var(--leaf-deep, #40584d);
+  color: var(--color-nature-ink);
   font-size: 0.65rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -1535,13 +1601,13 @@ h2 {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #6f987e;
-  box-shadow: 0 0 0 4px rgba(111, 152, 126, 0.12);
+  background: var(--color-sage);
+  box-shadow: 0 0 0 4px rgb(var(--rgb-sage) / 0.12);
 }
 
 .mappe-guide-viewport {
   position: relative;
-  background: #fbfaf6;
+  background: var(--color-pearl);
 }
 
 .mappe-guide-progress {
@@ -1559,7 +1625,7 @@ h2 {
   display: block;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, #d9babe, #fbfaf6 48%, #a9c8cf);
+  background: linear-gradient(90deg, var(--color-rose), var(--color-pearl) 48%, var(--color-lake));
   transform: scaleX(0.16);
   transform-origin: left;
   animation: mappe-guide-progress 9s cubic-bezier(0.65, 0, 0.35, 1) infinite;
@@ -1594,7 +1660,7 @@ h2 {
   top: 50%;
   left: clamp(24px, 5vw, 48px);
   width: min(430px, calc(100% - 48px));
-  color: #fffefa;
+  color: var(--color-ivory);
   transform: translateY(-44%);
 }
 
@@ -1659,7 +1725,7 @@ h2 {
   width: 2px;
   height: 5px;
   border-radius: 999px;
-  background: #fffefa;
+  background: var(--color-ivory);
   content: "";
   transform: translateX(-50%);
   animation: mappe-guide-scroll 2.4s ease-in-out infinite;
@@ -1669,7 +1735,7 @@ h2 {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   border-top: 1px solid rgba(65, 88, 77, 0.12);
-  background: #fffefa;
+  background: var(--color-ivory);
 }
 
 .mappe-guide-chapters > span {
@@ -1695,14 +1761,14 @@ h2 {
 }
 
 .mappe-guide-chapters small {
-  color: #987479;
+  color: var(--color-deep-rose);
   font-size: 0.65rem;
   font-weight: 850;
   letter-spacing: 0.1em;
 }
 
 .mappe-guide-chapters strong {
-  color: #2f3934;
+  color: var(--color-nature-ink);
   font-family: var(--font-display);
   font-size: 0.9rem;
   font-weight: 400;
@@ -2009,7 +2075,7 @@ h2 {
   width: 45%;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--rose, #d9babe), var(--lake), var(--green-2));
+  background: linear-gradient(90deg, var(--color-rose), var(--lake), var(--green-2));
   transform: translate3d(-120%, 0, 0);
   will-change: transform;
 }
@@ -2934,7 +3000,7 @@ h2 {
   padding: 8px 13px;
   border-radius: 0 0 7px 7px;
   background: var(--leaf-deep);
-  color: var(--ivory);
+  color: var(--on-brand-primary);
   font-size: 0.72rem;
   font-weight: 850;
   letter-spacing: 0.04em;
@@ -3148,6 +3214,9 @@ h2 {
 
   .booking-entry-options {
     grid-template-columns: 1fr;
+    width: min(100%, 520px);
+    margin-inline: auto;
+    padding-inline: clamp(10px, 3vw, 18px);
   }
 
   .booking-entry-card {
@@ -3680,7 +3749,7 @@ h2 {
   right: 0;
   left: 0;
   height: 4px;
-  background: linear-gradient(90deg, #9e8db7, #d4cbdf 55%, #67a490);
+  background: linear-gradient(90deg, var(--color-rose), var(--color-lake) 55%, var(--color-sage));
   content: "";
 }
 
@@ -4762,17 +4831,22 @@ h2 {
   isolation: isolate;
   overflow: hidden;
   padding: 74px clamp(18px, 4vw, 56px) 32px;
-  background-color: #3f4937;
+  background-color: var(--surface-photo-dark);
   background-image:
-    linear-gradient(90deg, rgba(11, 15, 12, 0.28) 0%, rgba(15, 20, 16, 0.06) 44%, rgba(10, 14, 11, 0.26) 100%),
-    linear-gradient(180deg, rgba(8, 11, 9, 0.02) 0%, rgba(7, 10, 8, 0.22) 100%),
+    linear-gradient(
+      90deg,
+      rgb(var(--rgb-photo-overlay) / 0.28) 0%,
+      rgb(var(--rgb-photo-overlay) / 0.06) 44%,
+      rgb(var(--rgb-photo-overlay) / 0.26) 100%
+    ),
+    linear-gradient(180deg, rgb(var(--rgb-photo-overlay) / 0.02) 0%, rgb(var(--rgb-photo-overlay) / 0.22) 100%),
     url("/images/site/footer-botanical-insects.jpg");
   background-position: center, center, top center;
   background-repeat: no-repeat;
   background-size: cover, cover, cover;
   box-shadow:
-    inset 0 34px 80px rgba(5, 8, 6, 0.1),
-    inset 0 -42px 86px rgba(4, 7, 5, 0.16);
+    inset 0 34px 80px rgb(var(--rgb-photo-overlay) / 0.1),
+    inset 0 -42px 86px rgb(var(--rgb-photo-overlay) / 0.16);
   color: var(--white);
 }
 
@@ -4792,8 +4866,8 @@ h2 {
   z-index: 0;
   inset: 0;
   background:
-    radial-gradient(70% 115% at 11% 42%, rgba(3, 7, 4, 0.08), transparent 68%),
-    radial-gradient(68% 110% at 91% 40%, rgba(3, 7, 4, 0.1), transparent 70%),
+    radial-gradient(70% 115% at 11% 42%, rgb(var(--rgb-photo-overlay) / 0.08), transparent 68%),
+    radial-gradient(68% 110% at 91% 40%, rgb(var(--rgb-photo-overlay) / 0.1), transparent 70%),
     repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.012) 0 1px, transparent 1px 4px);
   content: "";
   pointer-events: none;
@@ -5719,7 +5793,7 @@ h2 {
 }
 
 body:has(.bewerbung-page) {
-  background: #77aa96;
+  background: var(--color-sage);
 }
 
 body:has(.bewerbung-page) .site-header,
@@ -5728,11 +5802,11 @@ body:has(.bewerbung-page) .site-footer {
 }
 
 .bewerbung-page {
-  --bewerbung-green: #77aa96;
-  --bewerbung-green-dark: #5f977f;
-  --bewerbung-cream: #f6f0e8;
-  --bewerbung-ink: #1c1d20;
-  --bewerbung-muted: rgba(28, 29, 32, 0.58);
+  --bewerbung-green: var(--color-sage);
+  --bewerbung-green-dark: var(--color-sage);
+  --bewerbung-cream: var(--color-paper);
+  --bewerbung-ink: var(--color-formal-ink);
+  --bewerbung-muted: rgb(var(--rgb-formal-ink) / 0.68);
   min-height: 100svh;
   padding: clamp(28px, 5vw, 58px) clamp(24px, 5vw, 44px) clamp(42px, 6vw, 76px);
   font-family: var(--font-sans), system-ui, sans-serif;
@@ -5741,7 +5815,7 @@ body:has(.bewerbung-page) .site-footer {
 .bewerbung-page-intro,
 .bewerbung-page-form,
 .bewerbung-page-success {
-  color: var(--white);
+  color: var(--color-formal-ink);
   background: var(--bewerbung-green);
 }
 
@@ -5905,7 +5979,7 @@ body:has(.bewerbung-page) .site-footer {
   margin-top: 34px;
   padding: 0 24px;
   border-radius: 999px;
-  background: linear-gradient(180deg, #464b4f 0%, #27282b 100%);
+  background: var(--color-formal-ink);
   box-shadow: 0 14px 26px rgba(28, 29, 32, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   font-size: clamp(0.94rem, 2.4vw, 1.02rem);
 }
@@ -5919,7 +5993,8 @@ body:has(.bewerbung-page) .site-footer {
   margin: 30px auto 36px;
   padding: 0 28px;
   border-radius: 999px;
-  background: linear-gradient(180deg, #94c9ae 0%, #67a490 100%);
+  background: var(--color-sage);
+  color: var(--on-brand-primary);
   box-shadow: 0 13px 28px rgba(90, 151, 131, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.24);
 }
 
@@ -6195,8 +6270,9 @@ body:has(.bewerbung-page) .site-footer {
 .bewerbung-submit-button {
   width: 100%;
   margin-top: 16px;
-  border-radius: 4px;
-  background: linear-gradient(180deg, #94c9ae 0%, #67a490 100%);
+  border-radius: 999px;
+  background: var(--color-sage);
+  color: var(--on-brand-primary);
   box-shadow: 0 14px 28px rgba(90, 151, 131, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
@@ -6344,27 +6420,29 @@ body:has(.bewerbung-page) .site-footer {
  * Verbindliche Referenz: die geschuetzte Dornenrose-Inhaltsmappe
  * unter /hochzeitsmappe und deren page.module.css.
  *
- * Die Inhaltsmappe bleibt als Quelle unangetastet. Der gemeinsame
- * botanische .site-footer bleibt ebenfalls bewusst ausserhalb aller
- * nachfolgenden Overrides, damit Farbton, Bildtextur und Overlays
- * exakt dem bestehenden Footer entsprechen.
+ * Die Inhaltsmappe nutzt dieselben zentralen Farbtokens. Der gemeinsame
+ * botanische .site-footer bleibt als dunkle Bildflaeche erhalten, verwendet
+ * fuer seine Abdunklung aber ebenfalls den neutralen Foto-Overlay.
  *
  * Diese Schicht ist rein visuell. Texte, Bilder, Links, Reihenfolge,
  * Formulare und Funktionen werden nicht veraendert.
  */
 body:not(:has(.site-header--dornrose)) {
-  --paper: #fbfaf6;
-  --paper-deep: #f3f0e8;
-  --paper-rose: #f7f0ef;
-  --ink: #2f3934;
-  --text-muted: #667069;
-  --leaf: #748778;
-  --leaf-deep: #40584d;
-  --lake: #a9c8cf;
-  --rose: #d9babe;
-  --rose-deep: #987479;
-  --ivory: #fffefa;
-  --hero-dark: #1e3028;
+  --paper: var(--color-pearl);
+  --paper-deep: var(--color-paper);
+  --paper-rose: var(--color-rose-paper);
+  --ink: var(--color-nature-ink);
+  --text-muted: var(--color-soft-ink);
+  --leaf: var(--color-leaf);
+  --leaf-deep: var(--color-deep-leaf);
+  --forest: var(--color-forest);
+  --lake: var(--color-lake);
+  --rose: var(--color-rose);
+  --rose-deep: var(--color-deep-rose);
+  --rose-text: var(--color-rose-text);
+  --ivory: var(--color-ivory);
+  /* Nur noch Kompatibilitaetsalias: Fotolagen verwenden --surface-photo-dark/--rgb-photo-overlay. */
+  --hero-dark: var(--color-photo-overlay);
   --botanical-frame: url("/images/hochzeitsmappe-concepts/dornrose-rahmen.webp");
   --line: rgba(65, 88, 77, 0.16);
   --shadow-soft: 0 24px 64px rgba(52, 70, 61, 0.08);
@@ -6374,11 +6452,11 @@ body:not(:has(.site-header--dornrose)) {
   --bg-soft: var(--paper-deep);
   --ink-soft: var(--text-muted);
   --green: var(--leaf);
-  --green-2: var(--leaf-deep);
-  --green-text: var(--leaf-deep);
-  --focus-ring: var(--leaf-deep);
-  --focus-ring-light: rgba(255, 254, 250, 0.94);
-  --clay: var(--leaf-deep);
+  --green-2: var(--color-sage);
+  --green-text: var(--color-nature-ink);
+  --focus-ring: var(--color-sage);
+  --focus-ring-light: rgb(var(--rgb-ivory) / 0.94);
+  --clay: var(--color-nature-ink);
   --gold: var(--rose);
   --white: var(--ivory);
   --shadow-sm: 0 8px 22px rgba(52, 70, 61, 0.055);
@@ -6411,12 +6489,12 @@ body:not(:has(.site-header--dornrose)) {
     var(--botanical-frame) center top / 100% auto no-repeat,
     linear-gradient(145deg, var(--ivory), rgba(169, 200, 207, 0.17));
   --surface-chip: linear-gradient(135deg, var(--paper-rose), rgba(217, 186, 190, 0.18));
-  --surface-dark: linear-gradient(135deg, var(--hero-dark), var(--leaf-deep));
-  --surface-dark-soft: linear-gradient(145deg, var(--hero-dark), #344b42);
-  --surface-cta: linear-gradient(135deg, var(--hero-dark), var(--leaf-deep));
+  --surface-dark: var(--surface-brand-primary);
+  --surface-dark-soft: var(--surface-brand-primary);
+  --surface-cta: var(--surface-brand-primary);
   --surface-cta-light: linear-gradient(135deg, var(--paper), var(--paper-rose));
-  --surface-cta-button: linear-gradient(135deg, var(--leaf-deep), #344b42);
-  --surface-cta-button-hover: linear-gradient(135deg, #344b42, var(--hero-dark));
+  --surface-cta-button: var(--color-sage);
+  --surface-cta-button-hover: var(--surface-brand-primary-hover);
   --accent-gradient: linear-gradient(90deg, var(--rose), var(--lake), var(--leaf));
 
   background: var(--surface-page);
@@ -6424,8 +6502,8 @@ body:not(:has(.site-header--dornrose)) {
 }
 
 body:not(:has(.site-header--dornrose)) ::selection {
-  background: rgba(217, 186, 190, 0.56);
-  color: var(--hero-dark);
+  background: rgb(var(--rgb-rose) / 0.56);
+  color: var(--color-formal-ink);
 }
 
 /* Header und Buttons folgen der ruhigen Editorial-Formsprache der Mappe. */
@@ -6444,7 +6522,7 @@ body:not(:has(.site-header--dornrose)) .site-header.is-scrolled {
 }
 
 body:not(:has(.site-header--dornrose)) :is(.header-cta, .button) {
-  border-radius: 8px;
+  border-radius: 999px;
   box-shadow: none;
   transition:
     transform 180ms ease-out,
@@ -6454,40 +6532,40 @@ body:not(:has(.site-header--dornrose)) :is(.header-cta, .button) {
 }
 
 body:not(:has(.site-header--dornrose)) :is(.header-cta, .button.primary) {
-  border-color: var(--leaf-deep);
+  border-color: rgb(var(--rgb-formal-ink) / 0.38);
   background: var(--surface-cta-button);
-  color: var(--ivory);
+  color: var(--on-brand-primary);
 }
 
 body:not(:has(.site-header--dornrose)) :is(.header-cta, .button.primary):hover {
-  border-color: var(--hero-dark);
+  border-color: var(--color-formal-ink);
   background: var(--surface-cta-button-hover);
-  color: var(--ivory);
-  box-shadow: 0 12px 28px rgba(30, 48, 40, 0.15);
+  color: var(--on-brand-primary);
+  box-shadow: 0 12px 28px rgb(var(--rgb-formal-ink) / 0.15);
 }
 
 body:not(:has(.site-header--dornrose)) .button.primary.light {
-  border-color: rgba(255, 254, 250, 0.72);
-  background: var(--ivory);
-  color: var(--leaf-deep);
+  border-color: rgb(var(--rgb-formal-ink) / 0.38);
+  background: var(--surface-cta-button);
+  color: var(--on-brand-primary);
 }
 
 body:not(:has(.site-header--dornrose)) .button.primary.light:hover {
-  border-color: var(--ivory);
-  background: var(--paper-rose);
-  color: var(--hero-dark);
+  border-color: var(--color-formal-ink);
+  background: var(--surface-cta-button-hover);
+  color: var(--on-brand-primary);
 }
 
 body:not(:has(.site-header--dornrose)) .button.secondary {
-  border-color: rgba(64, 88, 77, 0.34);
-  background: rgba(255, 254, 250, 0.74);
-  color: var(--leaf-deep);
+  border-color: rgb(var(--rgb-sage) / 0.72);
+  background: rgb(var(--rgb-ivory) / 0.74);
+  color: var(--color-nature-ink);
 }
 
 body:not(:has(.site-header--dornrose)) .button.secondary:hover {
-  border-color: var(--leaf-deep);
+  border-color: var(--color-sage);
   background: var(--paper-rose);
-  color: var(--hero-dark);
+  color: var(--color-formal-ink);
 }
 
 /* CTA-Farben aus der Markenpalette mit sehr ruhiger botanischer Tiefe.
@@ -6526,41 +6604,68 @@ body:not(:has(.site-header--dornrose)) :is(.button, .header-cta).cta-botanical :
 }
 
 body:not(:has(.site-header--dornrose)) :is(.button, .header-cta).cta-botanical.cta-tone-sage {
-  --cta-base: #40584d;
-  --cta-border: rgba(255, 254, 250, 0.34);
-  --cta-ink: var(--ivory);
-  --cta-wash: rgba(30, 48, 40, 0.8);
+  --cta-base: var(--color-sage);
+  --cta-border: rgb(var(--rgb-formal-ink) / 0.38);
+  --cta-ink: var(--on-brand-primary);
+  --cta-wash: rgb(var(--rgb-sage) / 0.9);
+  --cta-hover: var(--surface-brand-primary-hover);
+  --cta-hover-wash: rgb(var(--rgb-sage) / 0.78);
   --cta-texture: url("/images/site/footer-botanical-insects.jpg");
   --cta-texture-position: 58% 42%;
   --cta-texture-size: 360px auto;
 }
 
 body:not(:has(.site-header--dornrose)) :is(.button, .header-cta).cta-botanical.cta-tone-cream {
-  --cta-base: #f9f3e9;
-  --cta-border: rgba(64, 88, 77, 0.34);
-  --cta-ink: var(--hero-dark);
-  --cta-wash: rgba(249, 243, 233, 0.88);
+  --cta-base: var(--color-pearl);
+  --cta-border: rgb(var(--rgb-sage) / 0.72);
+  --cta-ink: var(--color-formal-ink);
+  --cta-wash: rgb(var(--rgb-ivory) / 0.88);
+  --cta-hover: var(--color-paper);
+  --cta-hover-wash: rgb(var(--rgb-ivory) / 0.76);
   --cta-texture: var(--botanical-frame);
   --cta-texture-position: 50% 21%;
 }
 
 body:not(:has(.site-header--dornrose)) :is(.button, .header-cta).cta-botanical.cta-tone-mauve {
-  --cta-base: #d4cbdf;
-  --cta-border: rgba(64, 88, 77, 0.3);
-  --cta-ink: var(--hero-dark);
-  --cta-wash: rgba(212, 203, 223, 0.86);
+  --cta-base: var(--color-rose);
+  --cta-border: rgb(var(--rgb-formal-ink) / 0.3);
+  --cta-ink: var(--color-formal-ink);
+  --cta-wash: rgb(var(--rgb-rose) / 0.86);
+  --cta-hover: var(--color-rose-paper);
+  --cta-hover-wash: rgb(var(--rgb-rose) / 0.72);
   --cta-texture: var(--botanical-frame);
   --cta-texture-position: 50% 68%;
 }
 
+body:not(:has(.site-header--dornrose)) :is(.button, .header-cta).cta-botanical.cta-tone-rose {
+  --cta-base: var(--rose);
+  --cta-border: color-mix(in srgb, var(--color-deep-rose) 58%, transparent);
+  --cta-ink: var(--color-formal-ink);
+  --cta-wash: rgb(var(--rgb-rose) / 0.88);
+  --cta-hover: var(--color-rose-paper);
+  --cta-hover-wash: rgb(var(--rgb-rose) / 0.72);
+  --cta-texture: var(--botanical-frame);
+  --cta-texture-position: 50% 54%;
+}
+
 body:not(:has(.site-header--dornrose)) :is(.button, .header-cta).cta-botanical:hover {
-  border-color: var(--leaf-deep);
-  background-color: var(--paper-rose);
+  border-color: var(--color-formal-ink);
+  background-color: var(--cta-hover);
   background-image:
-    linear-gradient(rgba(247, 240, 239, 0.86), rgba(247, 240, 239, 0.86)),
-    var(--botanical-frame);
-  color: var(--hero-dark);
-  box-shadow: 0 13px 30px rgba(30, 48, 40, 0.16);
+    linear-gradient(var(--cta-hover-wash), var(--cta-hover-wash)),
+    var(--cta-texture);
+  color: var(--cta-ink);
+  box-shadow: 0 13px 30px rgb(var(--rgb-formal-ink) / 0.16);
+}
+
+/* Primaere CTAs sind Sage; die gezielt vereinbarte Altrosa-Variante bleibt ausgenommen. */
+body:not(:has(.site-header--dornrose)) :is(.button.primary, .header-cta).cta-botanical:not(.cta-tone-rose) {
+  --cta-base: var(--color-sage);
+  --cta-border: rgb(var(--rgb-formal-ink) / 0.38);
+  --cta-ink: var(--on-brand-primary);
+  --cta-wash: rgb(var(--rgb-sage) / 0.9);
+  --cta-hover: var(--surface-brand-primary-hover);
+  --cta-hover-wash: rgb(var(--rgb-sage) / 0.78);
 }
 
 body:not(:has(.site-header--dornrose)) :is(.header-cta, .button)::before {
@@ -6580,8 +6685,9 @@ body:not(:has(.site-header--dornrose)) :is(
 }
 
 body:not(:has(.site-header--dornrose)) :is(a, button, input, select, textarea):focus-visible {
-  outline-color: var(--focus-ring);
+  outline: 2px solid var(--color-formal-ink);
   outline-offset: 3px;
+  box-shadow: 0 0 0 5px var(--focus-ring);
 }
 
 /* Typografie und Grundflaechen. */
@@ -6591,7 +6697,7 @@ body:not(:has(.site-header--dornrose)) :is(h1, h2) {
 }
 
 body:not(:has(.site-header--dornrose)) :is(.eyebrow, .eyebrow.dark) {
-  color: var(--leaf-deep);
+  color: var(--rose-text);
   letter-spacing: 0.14em;
 }
 
@@ -6650,7 +6756,7 @@ body:not(:has(.site-header--dornrose)) :is(
 
 /* Dunkle, neutrale Bildlagen halten Motive klar und unverfaelscht. */
 body:not(:has(.site-header--dornrose)) .hero {
-  background: var(--hero-dark);
+  background: var(--surface-photo-dark);
 }
 
 body:not(:has(.site-header--dornrose)) .hero-image {
@@ -6665,12 +6771,12 @@ body:not(:has(.site-header--dornrose)) .hero-shade {
   background:
     linear-gradient(
       90deg,
-      rgba(7, 8, 9, 0.78) 0%,
-      rgba(8, 10, 10, 0.5) 34%,
-      rgba(9, 12, 11, 0.18) 58%,
-      rgba(8, 9, 10, 0.03) 78%
+      rgb(var(--rgb-photo-overlay) / 0.78) 0%,
+      rgb(var(--rgb-photo-overlay) / 0.5) 34%,
+      rgb(var(--rgb-photo-overlay) / 0.18) 58%,
+      rgb(var(--rgb-photo-overlay) / 0.03) 78%
     ),
-    linear-gradient(0deg, rgba(5, 6, 7, 0.5), transparent 52%);
+    linear-gradient(0deg, rgb(var(--rgb-photo-overlay) / 0.5), transparent 52%);
 }
 
 body:not(:has(.site-header--dornrose)) .hero::after {
@@ -6680,8 +6786,8 @@ body:not(:has(.site-header--dornrose)) .hero::after {
 }
 
 body:not(:has(.site-header--dornrose)) :is(.hero-proof, .hero-fact-bar, .hero-collage-note) {
-  border-color: rgba(255, 254, 250, 0.28);
-  background: rgba(30, 48, 40, 0.44);
+  border-color: rgb(var(--rgb-ivory) / 0.28);
+  background: rgb(var(--rgb-photo-overlay) / 0.44);
   box-shadow: none;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -6703,19 +6809,29 @@ body:not(:has(.site-header--dornrose)) .hero-image-strip {
 }
 
 body:not(:has(.site-header--dornrose)) :is(.lead-magnet-section, .promise-section, .availability-section) {
-  background-color: var(--hero-dark);
+  background-color: var(--surface-photo-dark);
 }
 
 body:not(:has(.site-header--dornrose)) :is(.lead-magnet-shade, .promise-shade, .availability-shade) {
   background:
-    radial-gradient(ellipse 48% 74% at 52% 50%, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.24) 62%, rgba(0, 0, 0, 0.48)),
-    linear-gradient(90deg, rgba(7, 8, 9, 0.76), rgba(10, 11, 12, 0.4) 58%, rgba(7, 8, 9, 0.18));
+    radial-gradient(
+      ellipse 48% 74% at 52% 50%,
+      rgb(var(--rgb-photo-overlay) / 0.06),
+      rgb(var(--rgb-photo-overlay) / 0.24) 62%,
+      rgb(var(--rgb-photo-overlay) / 0.48)
+    ),
+    linear-gradient(
+      90deg,
+      rgb(var(--rgb-photo-overlay) / 0.76),
+      rgb(var(--rgb-photo-overlay) / 0.4) 58%,
+      rgb(var(--rgb-photo-overlay) / 0.18)
+    );
 }
 
 body:not(:has(.site-header--dornrose)) .lead-magnet-section .button.primary {
-  border-color: var(--ivory);
-  background: var(--ivory);
-  color: var(--leaf-deep);
+  border-color: rgb(var(--rgb-formal-ink) / 0.38);
+  background: var(--color-sage);
+  color: var(--on-brand-primary);
   box-shadow: none;
 }
 
@@ -6726,8 +6842,8 @@ body:not(:has(.site-header--dornrose)) .promise-card {
 }
 
 body:not(:has(.site-header--dornrose)) .promise-card > span {
-  background: var(--leaf-deep);
-  color: var(--ivory);
+  background: var(--color-sage);
+  color: var(--on-brand-primary);
 }
 
 body:not(:has(.site-header--dornrose)) .bundle-section {
@@ -6794,7 +6910,7 @@ body:not(:has(.site-header--dornrose)) .bundle-badge::before {
 }
 
 body:not(:has(.site-header--dornrose)) .bundle-card > p {
-  color: var(--leaf-deep);
+  color: var(--color-nature-ink);
 }
 
 body:not(:has(.site-header--dornrose)) .family-section {
@@ -6821,7 +6937,7 @@ body:not(:has(.site-header--dornrose)) .testimonial-card strong {
 }
 
 body:not(:has(.site-header--dornrose)) .testimonial-heading .eyebrow {
-  color: var(--leaf-deep);
+  color: var(--rose-text);
 }
 
 body:not(:has(.site-header--dornrose)) .testimonial-heading p:not(.eyebrow),
@@ -6845,27 +6961,33 @@ body:not(:has(.site-header--dornrose)) .personal-cta-section {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background-color: #3f4937;
+  background-color: var(--surface-content-dark);
   background-image:
-    linear-gradient(90deg, rgba(11, 15, 12, 0.28) 0%, rgba(15, 20, 16, 0.06) 44%, rgba(10, 14, 11, 0.26) 100%),
-    linear-gradient(180deg, rgba(8, 11, 9, 0.02) 0%, rgba(7, 10, 8, 0.22) 100%),
+    linear-gradient(
+      90deg,
+      rgb(var(--rgb-photo-overlay) / 0.28) 0%,
+      rgb(var(--rgb-photo-overlay) / 0.06) 44%,
+      rgb(var(--rgb-photo-overlay) / 0.26) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgb(var(--rgb-photo-overlay) / 0.02) 0%,
+      rgb(var(--rgb-photo-overlay) / 0.22) 100%
+    ),
     url("/images/site/footer-botanical-insects.jpg");
   background-position: center, center, top center;
   background-repeat: no-repeat;
-  background-size: cover, cover, cover;
+  background-size: cover;
   box-shadow:
-    inset 0 34px 80px rgba(5, 8, 6, 0.1),
-    inset 0 -42px 86px rgba(4, 7, 5, 0.16);
+    inset 0 34px 80px rgb(var(--rgb-photo-overlay) / 0.1),
+    inset 0 -42px 86px rgb(var(--rgb-photo-overlay) / 0.16);
 }
 
 body:not(:has(.site-header--dornrose)) :is(.problem-solution-section, .personal-cta-section)::before {
   position: absolute;
   z-index: 0;
   inset: 0;
-  background:
-    radial-gradient(70% 115% at 11% 42%, rgba(3, 7, 4, 0.08), transparent 68%),
-    radial-gradient(68% 110% at 91% 40%, rgba(3, 7, 4, 0.1), transparent 70%),
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.012) 0 1px, transparent 1px 4px);
+  background: repeating-linear-gradient(0deg, rgb(var(--rgb-ivory) / 0.018) 0 1px, transparent 1px 4px);
   content: "";
   pointer-events: none;
 }
@@ -7044,7 +7166,7 @@ body:not(:has(.site-header--dornrose)) .mappe-label {
   border: 1px solid rgba(152, 116, 121, 0.22);
   border-radius: 2px;
   background: rgba(247, 240, 239, 0.78);
-  color: var(--leaf-deep);
+  color: var(--rose-text);
 }
 
 body:not(:has(.site-header--dornrose)) .mappe-overview-section {
@@ -7082,13 +7204,22 @@ body:not(:has(.site-header--dornrose)) .mappe-proof-card > svg {
 }
 
 body:not(:has(.site-header--dornrose)) .mappe-form-section {
-  background: var(--hero-dark);
+  background: var(--surface-photo-dark);
 }
 
 body:not(:has(.site-header--dornrose)) .mappe-form-shade {
   background:
-    linear-gradient(90deg, rgba(7, 8, 9, 0.88), rgba(10, 11, 12, 0.5) 58%, rgba(7, 8, 9, 0.26)),
-    linear-gradient(0deg, rgba(5, 6, 7, 0.78), rgba(5, 6, 7, 0.18));
+    linear-gradient(
+      90deg,
+      rgb(var(--rgb-photo-overlay) / 0.88),
+      rgb(var(--rgb-photo-overlay) / 0.5) 58%,
+      rgb(var(--rgb-photo-overlay) / 0.26)
+    ),
+    linear-gradient(
+      0deg,
+      rgb(var(--rgb-photo-overlay) / 0.78),
+      rgb(var(--rgb-photo-overlay) / 0.18)
+    );
 }
 
 body:not(:has(.site-header--dornrose)) .mappe-final-copy > svg {
@@ -7109,9 +7240,10 @@ body:not(:has(.site-header--dornrose)) :is(.mappe-field input, .booking-field in
 }
 
 body:not(:has(.site-header--dornrose)) :is(.mappe-field input, .booking-field input, .booking-field select, .booking-field textarea):focus {
-  border-color: var(--leaf-deep);
-  outline: 3px solid rgba(116, 135, 120, 0.2);
-  outline-offset: 1px;
+  border-color: var(--color-sage);
+  outline: 2px solid var(--color-formal-ink);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px rgb(var(--rgb-sage) / 0.42);
 }
 
 /* Besichtigungsfunnel: sachlich wie die Klartext-Abschnitte der Mappe. */
@@ -7151,15 +7283,15 @@ body:not(:has(.site-header--dornrose)) :is(.booking-slot, .booking-choice, .book
 }
 
 body:not(:has(.site-header--dornrose)) :is(.booking-slot, .booking-choice):is(:hover, .is-selected) {
-  border-color: var(--leaf-deep);
-  background: rgba(116, 135, 120, 0.15);
+  border-color: var(--color-sage);
+  background: rgb(var(--rgb-sage) / 0.2);
   box-shadow: none;
 }
 
 body:not(:has(.site-header--dornrose)) :is(.booking-note, .booking-preview-note, .booking-selection-note) {
   border-color: rgba(169, 200, 207, 0.5);
   background: rgba(169, 200, 207, 0.16);
-  color: var(--leaf-deep);
+  color: var(--color-nature-ink);
 }
 
 /* Journal, Artikel und generische Unterseiten. */
@@ -7178,7 +7310,7 @@ body:not(:has(.site-header--dornrose)) .article-page {
 }
 
 body:not(:has(.site-header--dornrose)) .article-card > p {
-  color: var(--leaf-deep);
+  color: var(--color-soft-ink);
 }
 
 body:not(:has(.site-header--dornrose)) .article-list-item {
@@ -7198,7 +7330,38 @@ body:not(:has(.site-header--dornrose)) :is(.article-summary, .article-inline-cta
 }
 
 body:not(:has(.site-header--dornrose)) .cta-section {
-  background: var(--surface-cta);
+  color: var(--on-brand-primary);
+  background: var(--surface-brand-primary);
+}
+
+/* Die beiden erzaehlerischen Flaechen behalten ihre dunkle botanische Gestaltung. */
+body:not(:has(.site-header--dornrose)) :is(.problem-solution-section, .personal-cta-section) {
+  color: var(--on-photo-dark);
+}
+
+body:not(:has(.site-header--dornrose)) :is(
+  .problem-solution-heading h2,
+  .problem-solution-heading p:not(.eyebrow),
+  .personal-cta-section h2,
+  .personal-cta-section p:not(.eyebrow)
+) {
+  color: var(--on-photo-dark);
+}
+
+body:not(:has(.site-header--dornrose)) :is(.cta-section h2, .cta-inner p:not(.eyebrow)) {
+  color: var(--on-brand-primary);
+}
+
+body:not(:has(.site-header--dornrose)) :is(.problem-solution-section, .personal-cta-section) .eyebrow {
+  color: var(--color-rose);
+}
+
+body:not(:has(.site-header--dornrose)) .cta-section .eyebrow {
+  color: var(--on-brand-primary);
+}
+
+body:not(:has(.site-header--dornrose)) .solution-list small {
+  color: var(--color-soft-ink);
 }
 
 /* Cookie-Dialog; der Footer selbst bleibt unveraendert. */
@@ -7349,7 +7512,7 @@ body:not(:has(.site-header--dornrose)) .consent-banner-inner {
     place-items: center;
     min-height: 190px;
     overflow: hidden;
-    background: linear-gradient(180deg, #fffefa 0%, #f7f4ed 48%, #f3f0e8 100%);
+    background: linear-gradient(180deg, var(--color-ivory) 0%, var(--color-pearl) 48%, var(--color-paper) 100%);
   }
 
   body:not(:has(.site-header--dornrose)) .family-mobile-prelude::before {
@@ -7428,6 +7591,57 @@ body:not(:has(.site-header--dornrose)) .consent-banner-inner {
     padding-inline: 9px;
     font-size: 0.72rem;
   }
+
+  body:not(:has(.site-header--dornrose)) .brand-logo-lead {
+    width: min(150px, 42vw);
+    margin-top: 56px;
+  }
+
+  body:not(:has(.site-header--dornrose)) .availability-section {
+    min-height: 880px;
+    align-items: start;
+  }
+
+  body:not(:has(.site-header--dornrose)) .availability-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 52px 0 390px;
+    text-align: center;
+  }
+
+  body:not(:has(.site-header--dornrose)) .availability-content :is(h2, p:not(.eyebrow)) {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  body:not(:has(.site-header--dornrose)) .availability-content h2 {
+    max-width: 18ch;
+    font-size: 2rem;
+  }
+
+  body:not(:has(.site-header--dornrose)) .availability-content p:not(.eyebrow) {
+    max-width: 40ch;
+    font-size: 0.98rem;
+    line-height: 1.52;
+  }
+
+  body:not(:has(.site-header--dornrose)) .availability-content .button.cta-botanical {
+    align-self: center;
+    text-align: center;
+  }
+
+  .faq-item summary {
+    padding: 22px;
+  }
+
+  .faq-answer {
+    padding: 0 22px 22px;
+  }
+}
+
+html[data-consent-stored="true"] .consent-banner {
+  display: none;
 }
 
 html[data-consent-stored="true"] .consent-banner {

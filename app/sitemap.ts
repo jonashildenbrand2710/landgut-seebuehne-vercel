@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { articles } from "@/data/articles";
 import { allPages, isPublicSitePageSlug, siteConfig } from "@/data/site";
 
-const lowPrioritySlugs = new Set(["impressum", "datenschutz", "formular", "kontaktformular"]);
+const lowPrioritySlugs = new Set(["impressum", "datenschutz", "kontaktformular"]);
 
 function pagePriority(slug: string) {
   if (!slug) return 1;
