@@ -101,7 +101,7 @@ export const imageLibrary = {
 } as const;
 
 export const homepageHeroMobileImage = {
-  src: "/images/site/hero-brautpaar-steg-am-see-mobile-ai-v3.jpg",
+  src: "/images/site/hero-brautpaar-steg-am-see-greener-4k-test-v2.jpg",
   alt: "Brautpaar mit Schirm auf einem Holzsteg am See des Landgut Seebühne"
 } as const;
 
