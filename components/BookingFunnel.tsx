@@ -707,21 +707,16 @@ export function BookingFunnel({
         <div className="booking-step">
           <div className="booking-step-title">
             <div>
-              <h3>Freie Terminzeit wählen</h3>
+              <h3>
+                {appointmentType === "phone"
+                  ? "Sucht euch eine passende Zeit aus zum Telefonieren."
+                  : "Sucht euch eine passende Zeit für eure Besichtigung aus."}
+              </h3>
               <p>Die Verfügbarkeit wird live mit dem Kalender abgeglichen.</p>
               {availabilityPreview ? (
                 <p className="booking-preview-note">Lokale Vorschau – noch ohne Live-Kalenderabgleich.</p>
               ) : null}
             </div>
-            <button
-              className={availabilityState === "loading" ? "booking-refresh is-loading" : "booking-refresh"}
-              disabled={availabilityState === "loading"}
-              type="button"
-              onClick={loadAvailability}
-            >
-              <RefreshCcw aria-hidden="true" className="booking-refresh-icon" size={16} />
-              <span>Neu laden</span>
-            </button>
           </div>
 
           {availabilityState === "loading" ? (
@@ -846,11 +841,7 @@ export function BookingFunnel({
             <p className="booking-hint">Wählt zuerst einen Tag – danach erscheinen die freien Uhrzeiten.</p>
           ) : null}
 
-          {selectedSlot ? (
-            <p className="booking-selection-note">Ausgewählt: {formatReviewSlot(selectedSlot)}</p>
-          ) : null}
-
-          <div className="booking-actions">
+          <div className="booking-actions booking-slot-actions">
             <button className="button secondary" onClick={() => setActiveStep("guests")} type="button">
               <ArrowLeft aria-hidden="true" size={18} />
               <span>Zurück</span>

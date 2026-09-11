@@ -71,7 +71,7 @@ export function getBookingFlowConfig(appointmentType: BookingAppointmentType): B
     ...identity,
     appointmentType: "phone",
     description:
-      "Preise, freie Hochzeitstermine und eine persönliche Einschätzung – kompakt am Telefon.",
+      "Am Telefon sprechen wir über Preise und freie Hochzeitstermine und geben euch eine persönliche Einschätzung.",
     durationMinutes: 30,
     fields: sharedFields,
     heading: "Kurz kennenlernen",

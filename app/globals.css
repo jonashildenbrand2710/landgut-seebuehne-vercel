@@ -3155,14 +3155,43 @@ h2 {
 }
 
 .booking-good-choice {
-  margin: 0 0 4px;
-  padding: 12px 14px;
-  border-left: 3px solid var(--leaf-deep);
-  background: rgba(116, 135, 120, 0.1);
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 12px 8px;
+  padding: 14px 18px;
+  border: 1px solid rgba(64, 88, 77, 0.22);
+  border-radius: 18px 18px 18px 5px;
+  background: rgba(238, 244, 239, 0.94);
+  box-shadow: 0 10px 26px rgba(46, 58, 51, 0.08);
+}
+
+.booking-good-choice::after {
+  position: absolute;
+  bottom: -10px;
+  left: 12px;
+  width: 17px;
+  height: 12px;
+  background: rgba(238, 244, 239, 0.94);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  content: "";
 }
 
 .booking-good-choice strong {
   color: var(--ink);
+}
+
+.booking-slot-actions {
+  justify-content: center;
+  margin-top: 8px;
+  padding: 8px 0 2px;
+}
+
+.booking-slot-actions .button {
+  min-width: 176px;
+  min-height: 58px;
+  padding-inline: 24px;
+  font-size: 1rem;
 }
 
 .booking-step-count {
