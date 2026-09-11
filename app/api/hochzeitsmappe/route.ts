@@ -5,15 +5,18 @@ import {
   type UpdateHochzeitsmappeLeadActiveCampaignStatusPayload
 } from "@/lib/hochzeitsmappe-crm";
 import { submitHochzeitsmappeLeadToActiveCampaign } from "@/lib/hochzeitsmappe-lead";
+import {
+  createHochzeitsmappeAccessToken,
+  createHochzeitsmappeAccessUrl
+} from "@/lib/hochzeitsmappe-access";
 import { normalizeMetaEventId, sendMetaCompleteRegistration } from "@/lib/meta-capi";
+import { META_EVENT_NAME } from "@/lib/meta-events";
 
 const activeCampaignFlowDetails = {
   automation: "Hochzeitsmappe Opt-in",
-  tags: ["Hochzeitsmappe", "Preise_angefordert"]
+  tags: ["Hochzeitsmappe"]
 };
-const formPath = "/intern/hochzeitsmappe-alt";
-const formViewPath = `${formPath}?preise=1`;
-const thankYouPath = "/danke-preise";
+const formPath = "/hochzeitsmappe";
 
 function clean(value: FormDataEntryValue | null) {
   return typeof value === "string" ? value.trim() : "";
@@ -106,7 +109,7 @@ async function sendHochzeitsmappeConversion(
 }
 
 export function GET(request: Request) {
-  return redirect(request, `${formViewPath}#mappe-form`);
+  return redirect(request, `${formPath}#mappe-form`);
 }
 
 export async function POST(request: Request) {
@@ -115,16 +118,16 @@ export async function POST(request: Request) {
   try {
     formData = await request.formData();
   } catch {
-    return redirect(request, `${formViewPath}&status=missing#mappe-form`);
+    return redirect(request, `${formPath}?status=missing#mappe-form`);
   }
 
   if (clean(formData.get("website"))) {
-    return redirect(request, thankYouPath);
+    return redirect(request, formPath);
   }
 
   const payload = {
     source: "hochzeitsmappe" as const,
-    intent: "preise" as const,
+    intent: "hochzeitsmappe" as const,
     page: formPath,
     firstName: clean(formData.get("firstName")),
     lastName: clean(formData.get("lastName")),
@@ -135,16 +138,36 @@ export async function POST(request: Request) {
   const metaEventId = normalizeMetaEventId(clean(formData.get("metaEventId")), "hochzeitsmappe");
 
   if (!payload.firstName || !payload.lastName || !payload.email || !payload.phone) {
-    return redirect(request, `${formViewPath}&status=missing#mappe-form`);
+    return redirect(request, `${formPath}?status=missing#mappe-form`);
   }
 
   if (!isValidEmail(payload.email)) {
-    return redirect(request, `${formViewPath}&status=invalid-email#mappe-form`);
+    return redirect(request, `${formPath}?status=invalid-email#mappe-form`);
   }
 
   if (!isValidPhone(payload.phone)) {
-    return redirect(request, `${formViewPath}&status=invalid-phone#mappe-form`);
+    return redirect(request, `${formPath}?status=invalid-phone#mappe-form`);
   }
+
+  let accessToken: string;
+  let emailAccessUrl: string;
+
+  try {
+    accessToken = createHochzeitsmappeAccessToken(payload.email);
+    emailAccessUrl = createHochzeitsmappeAccessUrl(
+      accessToken,
+      process.env.NEXT_PUBLIC_SITE_URL?.trim() || new URL(request.url).origin
+    );
+  } catch (error) {
+    console.error("Hochzeitsmappe access link create failed", sanitizeError(error));
+    return redirect(request, "/kontaktformular?source=hochzeitsmappe&status=integration-error");
+  }
+
+  const immediateAccessUrl = new URL(createHochzeitsmappeAccessUrl(accessToken, request.url));
+  immediateAccessUrl.searchParams.set("meta_event", META_EVENT_NAME);
+  immediateAccessUrl.searchParams.set("event_id", metaEventId);
+  immediateAccessUrl.searchParams.set("funnel", "hochzeitsmappe");
+  const deliveryPayload = { ...payload, accessUrl: emailAccessUrl };
 
   let crmLead;
 
@@ -156,10 +179,10 @@ export async function POST(request: Request) {
   }
 
   try {
-    const activeCampaignResult = await submitHochzeitsmappeLeadToActiveCampaign(payload);
+    const activeCampaignResult = await submitHochzeitsmappeLeadToActiveCampaign(deliveryPayload);
 
     if (!activeCampaignResult) {
-      const fallbackOk = await forwardToFallbackEndpoint(payload);
+      const fallbackOk = await forwardToFallbackEndpoint(deliveryPayload);
 
       await updateActiveCampaignStatus({
         error: fallbackOk
@@ -175,7 +198,7 @@ export async function POST(request: Request) {
 
       await sendHochzeitsmappeConversion(request, formData, payload, metaEventId);
 
-      return redirect(request, thankYouPath);
+      return Response.redirect(immediateAccessUrl, 303);
     }
 
     await updateActiveCampaignStatus({
@@ -203,5 +226,5 @@ export async function POST(request: Request) {
 
   await sendHochzeitsmappeConversion(request, formData, payload, metaEventId);
 
-  return redirect(request, thankYouPath);
+  return Response.redirect(immediateAccessUrl, 303);
 }

@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "audit:activecampaign": "node scripts/audit-activecampaign.mjs",
+    "update:activecampaign:hochzeitsmappe": "node scripts/update-activecampaign-hochzeitsmappe-email.mjs",
     "dev": "next dev",
     "build": "node scripts/validate-articles.mjs && next build",
     "start": "next start",

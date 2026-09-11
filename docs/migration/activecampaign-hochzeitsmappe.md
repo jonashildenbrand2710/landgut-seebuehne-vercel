@@ -1,108 +1,100 @@
 # ActiveCampaign: Hochzeitsmappe
 
-Stand: 2026-07-23
+Stand: 2026-09-11
 
-Ziel: Der OnePage/Zapier-Schritt fuer die Hochzeitsmappe wird durch eine
-serverseitige Next.js-Integration ersetzt. Die Website nimmt den Lead entgegen,
-speichert ihn zuerst im Supabase/CRM-Projekt, legt oder aktualisiert danach den
-Kontakt in ActiveCampaign und schreibt das ActiveCampaign-Ergebnis wieder an den
-CRM-Lead.
+## Zielbild
 
-## Aus alter OnePage-Form uebernommen
+Die oeffentliche URL `/hochzeitsmappe` ist eine indexierbare Landingpage mit
+Opt-in-Formular. Die eigentliche Online-Hochzeitsmappe liegt geschuetzt unter
+`/hochzeitsmappe/online` und ist nur mit einem gueltigen Zugangscookie sichtbar.
 
-Quelle: `docs/migration/onepage-current/pages/hochzeitsmappe.html`
+Preise und Leistungsbausteine werden weder auf der Website noch per E-Mail
+ausgeliefert. Am Ende der Mappe fuehrt der CTA zu `/termin-buchen`, wo zwischen
+Telefonat und Besichtigung gewaehlt wird.
 
-- Formular-ID alt: `dd7ca618-459a-4ff6-9f13-72f9af3d2e5f`
-- Button alt: `Jetzt Hochzeitsmappe erhalten`
-- Felder: Vorname, Nachname, E-Mail, Telefon
-- Submit-Mail war aktiv: `on_submit_send_mail: true`
-- Success-Text alt: `Unsere Hochzeitsmappe ist auf dem Weg in dein Postfach!`
-- Tracking alt: `CompleteRegistration`
+## Zugangs- und E-Mail-Flow
 
-## Aktueller Preis-Opt-in-Flow
+1. `/hochzeitsmappe` zeigt Landingpage, Vorschau und Formular.
+2. `POST /api/hochzeitsmappe` prueft Honeypot und Pflichtfelder.
+3. Die Route erzeugt einen 90 Tage gueltigen, AES-256-GCM-verschluesselten
+   Magic-Link ohne lesbare Kontaktdaten.
+4. Der Lead wird ueber die Supabase Edge Function `POST /hochzeitsmappe-leads`
+   gespeichert oder anhand der normalisierten E-Mail aktualisiert.
+5. Der Kontakt wird in ActiveCampaign mit `POST /contact/sync` angelegt oder
+   aktualisiert.
+6. Der persoenliche Link wird in das Kontaktfeld `Hochzeitsmappe Zugangslink`
+   (`%HOCHZEITSMAPPE_LINK%`) geschrieben.
+7. Optionale Hochzeitsmappen-Tags werden gesetzt und der Kontakt wird in die
+   konfigurierte Liste aufgenommen. Die Listenanmeldung startet fuer neue
+   Kontakte die Automation `Hochzeitsmappe Opt-in`.
+8. Bereits abonnierte Kontakte werden direkt erneut in die Automation aufgenommen,
+   damit auch auf einem neuen Geraet ein frischer Zugangslink versendet wird.
+9. Nach erfolgreicher Verarbeitung leitet die Website sofort ueber den Magic-Link
+   weiter. Dieser setzt ein sicheres HttpOnly-Cookie und oeffnet
+   `/hochzeitsmappe/online`.
+10. Die erste ActiveCampaign-Mail enthaelt denselben persoenlichen Link, damit die
+    Mappe spaeter erneut geoeffnet werden kann.
 
-1. `/hochzeitsmappe` zeigt die oeffentliche Dornrose-Hochzeitsmappe.
-2. Der primaere CTA `Preise anfordern` fuehrt zum Formular unter
-   `/intern/hochzeitsmappe-alt?preise=1#mappe-form`. Ohne den Parameter bleibt
-   dort die vollstaendige alte Landingpage intern geparkt.
-3. `POST /api/hochzeitsmappe` prueft Honeypot und Pflichtfelder.
-4. Lead via Supabase Edge Function `POST /hochzeitsmappe-leads` speichern oder
-   anhand der normalisierten E-Mail am vorhandenen Lead aktualisieren.
-5. Kontakt via ActiveCampaign
-   `POST /contact/sync` upserten.
-6. Vor der Ausloesung pruefen, ob der Tag `Preise_angefordert` bereits besteht.
-   Ist er vorhanden, wird der Kontakt nur aktualisiert und die Serie nicht erneut
-   gestartet.
-7. Neue oder noch nicht abonnierte Kontakte zuerst in die Liste
-   `Hochzeitsmappe` aufnehmen. Dadurch startet wie bisher die Automation
-   `Hochzeitsmappe Opt-in`.
-8. Kontakte, die bereits in dieser Liste sind, einmalig direkt in dieselbe
-   Automation aufnehmen. So erhaelt auch der bestehende Hochzeitsmappen-Altbestand
-   die neue Preis-Mail.
-9. Danach den separaten Tag `Preise_angefordert` als dauerhafte
-   Wiederholungssperre setzen.
-10. CRM-Lead via Supabase Edge Function `PATCH /hochzeitsmappe-leads` mit
-   `activecampaign_status = "success"` oder `"failed"` aktualisieren.
-11. Nach erfolgreicher Uebermittlung auf `/danke-preise` weiterleiten. Die Seite
-   weist auf Posteingang, Spam- und Werbeordner hin.
-12. Bestehende Magic-Links bleiben aus Rueckwaertskompatibilitaet gueltig und
-    fuehren jetzt zur oeffentlichen URL `/hochzeitsmappe`.
+Ohne ActiveCampaign-Konfiguration bleibt `CONTACT_FORM_ENDPOINT` als Fallback
+erhalten. Der Zugriff im Browser wird auch im Fallback-Fall direkt freigeschaltet,
+wenn CRM und Fallback den Lead akzeptiert haben.
 
-Solange ActiveCampaign noch nicht vollstaendig konfiguriert ist, wird der
-bisherige `CONTACT_FORM_ENDPOINT` als Fallback fuer die User Experience genutzt.
-Der CRM-Lead wird in diesem Fall trotzdem mit `activecampaign_status = "failed"`
-markiert, weil kein ActiveCampaign-Sync ueber die neue Route erfolgt ist. Sobald
-AC-URL, API-Key und mindestens eine Zuordnung per Automation, Liste oder Tag
-gesetzt sind, laeuft der Flow ueber ActiveCampaign.
+## Alte Preiswege
 
-## Env Variablen
+- `/preise`, `/preise-basis` und `/danke-preise` leiten dauerhaft auf
+  `/termin-buchen` weiter.
+- `/intern/hochzeitsmappe-alt` leitet dauerhaft auf die neue Landingpage
+  `/hochzeitsmappe` weiter.
+- Die alte externe Preis-Landingpage
+  `https://kennenlernen.landgut-seebuehne.de/auftrag-info` muss ausserhalb dieses
+  Repositories deaktiviert oder ebenfalls auf `/termin-buchen` weitergeleitet
+  werden.
+
+## Env-Variablen
 
 ```env
-SUPABASE_FUNCTIONS_URL=https://guiudeaozmqalddthbzy.supabase.co/functions/v1
-HOCHZEITSMAPPE_ACCESS_TOKEN=replace-with-same-token-as-supabase-edge-function
+SUPABASE_FUNCTIONS_URL=
+HOCHZEITSMAPPE_ACCESS_TOKEN=
 HOCHZEITSMAPPE_MAGIC_LINK_SECRET=
 ACTIVECAMPAIGN_API_URL=
 ACTIVECAMPAIGN_API_KEY=
 ACTIVECAMPAIGN_HOCHZEITSMAPPE_AUTOMATION_ID=
 ACTIVECAMPAIGN_HOCHZEITSMAPPE_LIST_ID=
 ACTIVECAMPAIGN_HOCHZEITSMAPPE_TAG_IDS=
-ACTIVECAMPAIGN_PREISE_TAG_ID=15
-ACTIVECAMPAIGN_HOCHZEITSMAPPE_FIELD_ACCESS_URL_ID=5
+ACTIVECAMPAIGN_HOCHZEITSMAPPE_FIELD_ACCESS_URL_ID=
 ACTIVECAMPAIGN_HOCHZEITSMAPPE_FIELD_LEAD_MAGNET_ID=
 ACTIVECAMPAIGN_HOCHZEITSMAPPE_FIELD_PAGE_ID=
 ACTIVECAMPAIGN_HOCHZEITSMAPPE_FIELD_SOURCE_ID=
 ACTIVECAMPAIGN_HOCHZEITSMAPPE_FIELD_SUBMITTED_AT_ID=
 ```
 
-`SUPABASE_FUNCTIONS_URL`, `HOCHZEITSMAPPE_ACCESS_TOKEN` und
-`HOCHZEITSMAPPE_MAGIC_LINK_SECRET` sind server-only Website-Variablen und duerfen
-kein `NEXT_PUBLIC_` erhalten. Der erste Token muss zur Supabase Edge Function
-passen; das Magic-Link-Secret muss mindestens 32 zufaellige Zeichen enthalten.
-`ACTIVECAMPAIGN_HOCHZEITSMAPPE_TAG_IDS` ist kommasepariert.
-`ACTIVECAMPAIGN_PREISE_TAG_ID` enthaelt ausschliesslich die einmalige
-Wiederholungssperre fuer den Preis-Opt-in. Die bestehende Liste bleibt der
-Automation-Trigger fuer neue Kontakte; bei bereits abonnierten Kontakten startet
-die Integration dieselbe Automation einmalig direkt.
-`CRM_API_KEY` bleibt als Fallback fuer `ACTIVECAMPAIGN_API_KEY` unterstuetzt.
+`HOCHZEITSMAPPE_MAGIC_LINK_SECRET` muss mindestens 32 zufaellige Zeichen lang
+sein. Alle Variablen in diesem Abschnitt sind server-only.
 
-## Account-Audit ohne Secrets im Output
+## ActiveCampaign-Pruefung und Mail-Update
 
-Wenn die ActiveCampaign-Zugangsdaten lokal oder in der Shell gesetzt sind:
+Der read-only Account-Audit laeuft mit:
 
 ```bash
 npm run audit:activecampaign
 ```
 
-Das Skript listet Kampagnen, Automationen, Listen, Tags und Kontaktfelder mit
-IDs. Es gibt keine API-Tokens und keine Kontakt-Personendaten aus.
+Die geplante neue erste Mail kann ohne Aenderung als Vorschau geprueft werden:
 
-## ActiveCampaign-Mail
+```bash
+npm run update:activecampaign:hochzeitsmappe
+```
 
-- Die Automation `Hochzeitsmappe Opt-in` wird durch den Tag
-  `Preise_angefordert` gestartet.
-- Die erste E-Mail verlinkt fuer den Button `Preise & Leistungsbausteine ansehen`
-  auf `https://kennenlernen.landgut-seebuehne.de/auftrag-info`.
-- Absender, Antwortadresse, Abmeldelink, Impressum und alle spaeteren
-  Automation-Mails bleiben unveraendert.
-- Rechtstexte und Consent-Hinweise muessen final juristisch freigegeben werden,
-  bevor daraus ein Marketing-Funnel im Livebetrieb wird.
+Die produktive Nachricht wird erst mit ausdruecklichem `--apply` aktualisiert.
+Dabei bleiben Absender, Antwortadresse, Abmeldelink und Footer unveraendert.
+
+### Vorbereiteter Wortlaut der ersten Mail
+
+- Betreff: `Eure persoenliche Hochzeitsmappe der Seebuehne`
+- Preheader: `Oeffnet euren persoenlichen Online-Begleiter fuer die Hochzeit am See.`
+- Button: `Persoenliche Hochzeitsmappe oeffnen`
+- Ziel: ActiveCampaign-Personalisierungsfeld `%HOCHZEITSMAPPE_LINK%`
+
+Der Text erklaert den Online-Hochzeitsbegleiter und weist darauf hin, dass der
+persoenliche Link 90 Tage gueltig bleibt. Preisuebersicht, Preis-Link und
+Preis-CTA sind vollstaendig entfernt.
