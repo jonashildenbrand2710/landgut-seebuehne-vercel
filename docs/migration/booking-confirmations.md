@@ -70,7 +70,7 @@ aber erneut bestätigt.
 
 ```dotenv
 BOOKING_CONFIRMATION_PROVIDER=smtp
-BOOKING_MAIL_FROM=Landgut Seebühne <mail@landgut-seebuehne.de>
+BOOKING_MAIL_FROM=Landgut Seebühne <mail@hochzeiten-seebuehne.de>
 BOOKING_MAIL_REPLY_TO=mail@landgut-seebuehne.de
 BOOKING_MAIL_BCC=
 
@@ -84,6 +84,10 @@ ACTIVECAMPAIGN_BOOKING_FIELD_APPOINTMENT_TYPE_ID=6
 ACTIVECAMPAIGN_BOOKING_FIELD_SLOT_START_ID=7
 ACTIVECAMPAIGN_BOOKING_FIELD_SLOT_END_ID=8
 ```
+
+Bei IONOS muss die technische Absenderadresse für das authentifizierte
+SMTP-Konto freigeschaltet sein. Die sichtbare Antwortadresse darf davon
+abweichen und bleibt hier `mail@landgut-seebuehne.de`.
 
 `npm run setup:activecampaign:booking` prüft die benötigten Tags und Felder
 schreibgeschützt. Mit `npm run setup:activecampaign:booking:apply` werden nur
