@@ -214,7 +214,7 @@ function ResponsiveHeroImage({
     src: mobile.src,
     alt: mobile.alt,
     fill: true,
-    quality: 76,
+    quality: 75,
     sizes: "150vh"
   });
 
