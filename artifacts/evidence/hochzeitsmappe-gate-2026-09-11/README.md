@@ -2,6 +2,7 @@
 
 - Datum: 2026-09-11
 - Implementierungs-Commit: `dbece7b`
+- Tracking-Commit: `a895092`
 - Branch: `codex/hochzeitsmappe-gated-flow`
 - Umgebung: lokaler Next.js-Server mit isolierten CRM-/Fallback-Mocks
 - Vercel-Preview: `https://landgut-seebuehne-vercel-cpeyrrhxu-jonas-projects-ac40f00f.vercel.app`
@@ -18,6 +19,7 @@
 | EVD-4 | In der Mappe werden keine Preise mehr angeboten. | Sichtpruefung und DOM-Abfrage der geschuetzten Mappe. | Kein Preis-Anforderungs-CTA; der Abschluss verlinkt auf `/termin-buchen` fuer Telefonat oder Besichtigung. | `05-next-step.jpg` |
 | EVD-5 | Alte Preiswege liefern keine Preisansicht mehr. | Header-/Redirect-Pruefung. | `/preise`, `/preise-basis` und `/danke-preise` antworten mit 301 auf `/termin-buchen`; `/intern/hochzeitsmappe-alt` mit 301 auf `/hochzeitsmappe`. | Terminalprotokoll der lokalen Verifikation |
 | EVD-6 | Oeffentliche und geschuetzte URLs sind SEO-seitig getrennt. | Lokale Sitemap und Metadaten geprueft. | `/hochzeitsmappe` ist in der Sitemap; `/hochzeitsmappe/online` und alte Preiswege sind nicht enthalten. | Build- und Sitemap-Protokoll |
+| EVD-7 | Die erfolgreiche Registrierung wird Meta als Conversion gemeldet. | Erfolgsredirect und Tracking-Payload geprueft. | Server-CAPI und consent-abhaengiger Browser-Pixel verwenden dasselbe `CompleteRegistration`-Event mit identischer Event-ID zur Deduplizierung. | Lokales Request- und Browserprotokoll |
 
 ## Qualitaetspruefungen
 
