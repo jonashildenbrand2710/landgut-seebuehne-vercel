@@ -3,9 +3,9 @@ import nextEnv from "@next/env";
 nextEnv.loadEnvConfig(process.cwd());
 
 const CAMPAIGN_ID = "43";
-const SUBJECT = "Eure Preise & Leistungsbausteine für die Seebühne";
-const PREHEADER = "Entdeckt in Ruhe, welche Möglichkeiten zu eurem Fest passen.";
-const PRICES_URL = "https://kennenlernen.landgut-seebuehne.de/auftrag-info";
+const SUBJECT = "Eure persönliche Hochzeitsmappe der Seebühne";
+const PREHEADER = "Öffnet euren persönlichen Online-Begleiter für die Hochzeit am See.";
+const ACCESS_URL_TOKEN = "%HOCHZEITSMAPPE_LINK%";
 const CONTENT_TABLE_MARKER =
   '<table cellpadding="0" cellspacing="0" class="es-content"';
 
@@ -56,19 +56,19 @@ function buildContentTable() {
     paragraph("Hallo %FIRSTNAME%,", { greeting: true }),
     spacer(),
     paragraph(
-      "wie schön, dass ihr die Hochzeitsmappe der Seebühne angesehen habt und nun den nächsten Schritt gehen möchtet."
+      "wie schön, dass ihr euch für die Hochzeitsmappe der Seebühne entschieden habt."
     ),
     spacer(),
     paragraph(
-      "Über den folgenden Link findet ihr unsere Übersicht mit Preisen und Leistungsbausteinen. Dort könnt ihr euch in Ruhe ansehen, welche Möglichkeiten es für eure Hochzeit gibt und welche Bausteine zu eurem Fest passen."
+      "Über den folgenden persönlichen Link öffnet ihr euren Online-Hochzeitsbegleiter mit Einblicken in das Landgut, Ablaufideen und Antworten auf wichtige Fragen."
     ),
     spacer(),
     paragraph(
-      `<a href="${PRICES_URL}" target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#6B3A3C;font-size:14px"><strong>Preise &amp; Leistungsbausteine ansehen</strong></a>`
+      `<a href="${ACCESS_URL_TOKEN}" target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#6B3A3C;font-size:14px"><strong>Persönliche Hochzeitsmappe öffnen</strong></a>`
     ),
     spacer(),
     paragraph(
-      "Nehmt euch am besten ein paar Minuten Zeit für die Übersicht. Wenn ihr danach das Gefühl habt, dass die Seebühne der richtige Ort für euch sein könnte, ist eine persönliche Besichtigung der nächste sinnvolle Schritt."
+      "Der Link führt euch direkt zur Mappe und bleibt 90 Tage gültig. So könnt ihr später jederzeit in Ruhe weiterlesen."
     ),
     spacer(),
     paragraph(
@@ -100,14 +100,14 @@ function buildText(existingText) {
   const body = [
     "Hallo %FIRSTNAME%,",
     "",
-    "wie schön, dass ihr die Hochzeitsmappe der Seebühne angesehen habt und nun den nächsten Schritt gehen möchtet.",
+    "wie schön, dass ihr euch für die Hochzeitsmappe der Seebühne entschieden habt.",
     "",
-    "Über den folgenden Link findet ihr unsere Übersicht mit Preisen und Leistungsbausteinen. Dort könnt ihr euch in Ruhe ansehen, welche Möglichkeiten es für eure Hochzeit gibt und welche Bausteine zu eurem Fest passen.",
+    "Über den folgenden persönlichen Link öffnet ihr euren Online-Hochzeitsbegleiter mit Einblicken in das Landgut, Ablaufideen und Antworten auf wichtige Fragen.",
     "",
-    "Preise & Leistungsbausteine ansehen",
-    PRICES_URL,
+    "Persönliche Hochzeitsmappe öffnen",
+    ACCESS_URL_TOKEN,
     "",
-    "Nehmt euch am besten ein paar Minuten Zeit für die Übersicht. Wenn ihr danach das Gefühl habt, dass die Seebühne der richtige Ort für euch sein könnte, ist eine persönliche Besichtigung der nächste sinnvolle Schritt.",
+    "Der Link führt euch direkt zur Mappe und bleibt 90 Tage gültig. So könnt ihr später jederzeit in Ruhe weiterlesen.",
     "",
     "Falls beim Lesen Fragen entstehen, antwortet einfach direkt auf diese E-Mail.",
     "",
@@ -123,8 +123,10 @@ function isUpdated(message) {
   return (
     message.subject === SUBJECT &&
     message.preheader_text === PREHEADER &&
-    message.html.includes(PRICES_URL) &&
-    message.html.includes("Falls beim Lesen Fragen entstehen") &&
+    message.html.includes(ACCESS_URL_TOKEN) &&
+    message.html.includes("Der Link führt euch direkt zur Mappe") &&
+    !message.html.includes("auftrag-info") &&
+    !message.html.includes("Preise &amp; Leistungsbausteine") &&
     !message.html.includes("drive.google.com") &&
     !message.html.includes("wa.me/")
   );
@@ -132,11 +134,13 @@ function isUpdated(message) {
 
 function verificationState(message) {
   return {
-    bodyUpdated: message.html.includes("Falls beim Lesen Fragen entstehen"),
+    accessUrlPresent: message.html.includes(ACCESS_URL_TOKEN),
+    bodyUpdated: message.html.includes("Der Link führt euch direkt zur Mappe"),
     oldDriveLinkRemoved: !message.html.includes("drive.google.com"),
     oldWhatsAppLinkRemoved: !message.html.includes("wa.me/"),
     preheaderUpdated: message.preheader_text === PREHEADER,
-    pricesUrlPresent: message.html.includes(PRICES_URL),
+    oldPricesLinkRemoved: !message.html.includes("auftrag-info"),
+    oldPricesWordingRemoved: !message.html.includes("Preise &amp; Leistungsbausteine"),
     subjectUpdated: message.subject === SUBJECT
   };
 }
@@ -162,7 +166,7 @@ if (isUpdated(current)) {
         status: "already-up-to-date",
         subject: current.subject,
         preheader: current.preheader_text,
-        pricesUrl: PRICES_URL
+        accessUrlToken: ACCESS_URL_TOKEN
       },
       null,
       2
@@ -181,7 +185,7 @@ if (!shouldApply) {
         currentSubject: current.subject,
         nextSubject: SUBJECT,
         nextPreheader: PREHEADER,
-        pricesUrl: PRICES_URL
+        accessUrlToken: ACCESS_URL_TOKEN
       },
       null,
       2
@@ -235,7 +239,7 @@ console.log(
         verified.html.includes("%SENDER-INFO-SINGLELINE%"),
       messageId,
       preheader: verified.preheader_text,
-      pricesUrl: PRICES_URL,
+      accessUrlToken: ACCESS_URL_TOKEN,
       senderPreserved:
         verified.fromemail === previous.fromemail &&
         verified.fromname === previous.fromname &&

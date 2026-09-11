@@ -76,13 +76,13 @@ export function HochzeitsmappeForm() {
       onSubmit={handleSubmit}
     >
       <BookOpenCheck aria-hidden="true" size={24} />
-      <h3>Preise &amp; Leistungsbausteine anfordern</h3>
+      <h3>Persönlichen Zugang sichern</h3>
       <Suspense fallback={null}>
         <FormStatusMessage messages={statusMessages} />
       </Suspense>
       <p>
-        Bestätigt kurz eure Kontaktdaten. Direkt danach senden wir euch den Link zur
-        Preisübersicht und zu den Leistungsbausteinen per E-Mail.
+        Tragt kurz eure Kontaktdaten ein. Direkt danach öffnet sich eure Hochzeitsmappe
+        und der persönliche Zugangslink kommt zusätzlich per E-Mail.
       </p>
       <input
         aria-hidden="true"
@@ -117,7 +117,7 @@ export function HochzeitsmappeForm() {
         ) : (
           <KeyRound aria-hidden="true" size={18} />
         )}
-        <span>{isSubmitting ? "Preise werden angefordert …" : "Jetzt Preise anfordern"}</span>
+        <span>{isSubmitting ? "Zugang wird vorbereitet …" : "Hochzeitsmappe öffnen"}</span>
       </button>
       <div aria-hidden="true" className="mappe-submit-progress">
         <span />
@@ -125,13 +125,12 @@ export function HochzeitsmappeForm() {
       <div aria-atomic="true" aria-live="polite" className="mappe-submit-live" role="status">
         {isSubmitting ? (
           <p className="mappe-submit-state">
-            Einen Moment bitte – wir speichern eure Anfrage und bereiten die E-Mail vor.
+            Einen Moment bitte – wir bereiten euren persönlichen Zugang vor.
           </p>
         ) : null}
       </div>
       <p className="mappe-form-note">
-        Wir verwenden eure Angaben für den Versand der Preisübersicht und die weitere
-        Begleitung eurer Anfrage per E-Mail. Ihr könnt euch jederzeit wieder abmelden.
+        Euren persönlichen Zugangslink schicken wir an die angegebene E-Mail-Adresse.
       </p>
     </form>
   );
