@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { usePathname } from "next/navigation";
 
 const REVEAL_SELECTORS = [
@@ -62,12 +62,12 @@ const SPLIT_PARENTS = ".split, .cta-inner, .personal-cta-inner, .section-heading
 
 function revealStartTransform(target: HTMLElement, useVerticalMotion: boolean) {
   let x = 0;
-  let y = target.matches(CARD_SELECTORS) ? 20 : target.matches(VISUAL_SELECTORS) ? 16 : 12;
-  const scale = target.matches(CARD_SELECTORS) ? 0.992 : target.matches(VISUAL_SELECTORS) ? 0.988 : 1;
+  let y = target.matches(CARD_SELECTORS) ? 10 : target.matches(VISUAL_SELECTORS) ? 8 : 6;
+  const scale = target.matches(CARD_SELECTORS) ? 0.998 : target.matches(VISUAL_SELECTORS) ? 0.997 : 1;
   const parent = target.parentElement;
 
   if (!useVerticalMotion && parent?.matches(SPLIT_PARENTS)) {
-    x = target === parent.firstElementChild ? -8 : 8;
+    x = target === parent.firstElementChild ? -4 : 4;
     y = 0;
   }
 
@@ -77,7 +77,7 @@ function revealStartTransform(target: HTMLElement, useVerticalMotion: boolean) {
 export function ScrollReveal() {
   const pathname = usePathname();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const targets = Array.from(document.querySelectorAll<HTMLElement>(REVEAL_SELECTORS));
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -85,7 +85,6 @@ export function ScrollReveal() {
 
     const useVerticalMotion = window.matchMedia("(max-width: 680px)").matches;
     const animations = new Set<Animation>();
-    const delays = new Map(targets.map((target, index) => [target, Math.min(index % 4, 3) * 24]));
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -96,31 +95,43 @@ export function ScrollReveal() {
 
           if (typeof target.animate !== "function") return;
 
+          target.style.willChange = "transform, opacity";
           const animation = target.animate(
             [
-              { opacity: 0, transform: revealStartTransform(target, useVerticalMotion) },
+              { opacity: 0.94, transform: revealStartTransform(target, useVerticalMotion) },
               { opacity: 1, transform: "translate3d(0, 0, 0) scale(1)" }
             ],
             {
-              delay: delays.get(target) ?? 0,
-              duration: 820,
-              easing: "cubic-bezier(0.2, 0.75, 0.25, 1)",
-              fill: "backwards"
+              duration: 540,
+              easing: "cubic-bezier(0.22, 1, 0.36, 1)"
             }
           );
 
           animations.add(animation);
-          animation.addEventListener("finish", () => animations.delete(animation), { once: true });
+          const finishAnimation = () => {
+            animations.delete(animation);
+            target.style.removeProperty("will-change");
+          };
+
+          animation.addEventListener("finish", finishAnimation, { once: true });
+          animation.addEventListener("cancel", finishAnimation, { once: true });
         });
       },
-      { rootMargin: "0px 0px -4% 0px", threshold: 0.05 }
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
     );
 
-    targets.forEach((target) => observer.observe(target));
+    const initialViewportHeight = window.innerHeight;
+    targets.forEach((target) => {
+      const bounds = target.getBoundingClientRect();
+      const isInitiallyVisible = bounds.bottom > 0 && bounds.top < initialViewportHeight;
+
+      if (!isInitiallyVisible) observer.observe(target);
+    });
 
     return () => {
       observer.disconnect();
       animations.forEach((animation) => animation.cancel());
+      targets.forEach((target) => target.style.removeProperty("will-change"));
     };
   }, [pathname]);
 

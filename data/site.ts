@@ -43,7 +43,7 @@ export const siteConfig = {
 
 export const imageLibrary = {
   hero: {
-    src: "/images/site/hero-brautpaar-steg-am-see-natural-color-v6.jpg",
+    src: "/images/site/hero-brautpaar-steg-am-see-greener-4k-test-v2.jpg",
     alt: "Brautpaar mit Schirm auf einem Holzsteg am See des Landgut Seebühne"
   },
   coupleFence: {
@@ -132,7 +132,7 @@ export const indexPage = {
   heroTitle: "Natürlich heiraten inmitten von Wiesen, Wald und See",
   heroText: "Genießt sorgenfrei - eure Traumhochzeit ist in besten Händen.",
   imageKey: "hero",
-  primaryCta: "Jetzt Verfügbarkeit prüfen",
+  primaryCta: "Jetzt eure Kalkulation erfahren",
   sections: [
     {
       eyebrow: "Der Ort",
