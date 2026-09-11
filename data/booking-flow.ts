@@ -20,65 +20,24 @@ export type BookingFlowField = {
   label: string;
   options?: string[];
   required?: boolean;
-  type: "month-slider" | "optional-date" | "select" | "textarea" | "text";
+  type: "guest-slider" | "select";
 };
 
 const defaultFlowId = "website_booking";
-const defaultFlowVersion = "2026-06-v1";
-const phoneFields: BookingFlowField[] = [
-  {
-    id: "desiredYear",
-    label: "Wunschjahr",
-    options: ["2026", "2027", "2028", "Noch offen"],
-    type: "select"
-  },
-  {
-    id: "guestRange",
-    label: "Gästezahl",
-    options: ["15-35", "35-60", "60-90", "90-130", "130+", "Noch offen"],
-    type: "select"
-  },
-  {
-    id: "weddingType",
-    label: "Art der Hochzeit",
-    options: ["Trauung plus Feier", "Nur freie Trauung", "Nur Feier", "Noch offen"],
-    type: "select"
-  },
-  {
-    helper: "Optional, aber hilfreich für das Gespräch.",
-    id: "note",
-    label: "Was sollten wir wissen?",
-    type: "textarea"
-  }
-];
-const tourFields: BookingFlowField[] = [
-  {
-    id: "guestRange",
-    label: "Wie viele Personen plant ihr?",
-    options: ["15–35", "36–60", "61–90", "91–130", "Mehr als 130", "Noch offen"],
-    required: true,
-    type: "select"
-  },
+const defaultFlowVersion = "2026-09-neutral-v1";
+const sharedFields: BookingFlowField[] = [
   {
     id: "desiredYear",
     label: "In welchem Jahr möchtet ihr heiraten?",
-    options: ["2026", "2027", "2028", "Noch offen"],
+    options: ["2027", "2028", "2029", "Noch offen"],
     required: true,
     type: "select"
   },
   {
-    helper: "Unsere Hauptsaison reicht von April bis Oktober.",
-    id: "preferredMonth",
-    label: "Welcher Zeitraum passt für euch?",
-    options: ["April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "Noch offen"],
+    id: "guestRange",
+    label: "Mit wie vielen Gästen möchtet ihr ungefähr feiern?",
     required: true,
-    type: "month-slider"
-  },
-  {
-    helper: "Nur wenn ihr bereits ein konkretes Datum im Blick habt.",
-    id: "desiredDate",
-    label: "Habt ihr schon einen Wunschtermin?",
-    type: "optional-date"
+    type: "guest-slider"
   }
 ];
 
@@ -97,14 +56,14 @@ export function getBookingFlowConfig(appointmentType: BookingAppointmentType): B
       ...identity,
       appointmentType: "tour",
       description:
-        "Wählt einen freien Besichtigungstermin in den nächsten zehn Tagen. Danach fragen wir Kontaktdaten und wenige Eckpunkte ab.",
-      durationMinutes: 120,
-      fields: tourFields,
-      heading: "Besichtigungstermin buchen",
+        "Erlebt das Landgut persönlich und klärt gemeinsam mit uns euren individuellen Kostenrahmen.",
+      durationMinutes: 90,
+      fields: sharedFields,
+      heading: "Landgut live erleben",
       rangeDays: 10,
       route: "/termin-buchen",
       sourceLabel: "Besichtigung",
-      stepMinutes: 60
+      stepMinutes: 30
     };
   }
 
@@ -112,10 +71,10 @@ export function getBookingFlowConfig(appointmentType: BookingAppointmentType): B
     ...identity,
     appointmentType: "phone",
     description:
-      "Wählt eine freie Terminzeit in den nächsten zehn Tagen. Danach fragen wir Kontaktdaten und wenige Eckpunkte ab.",
+      "Preise, freie Hochzeitstermine und eine persönliche Einschätzung – kompakt am Telefon.",
     durationMinutes: 30,
-    fields: phoneFields,
-    heading: "Termin wählen",
+    fields: sharedFields,
+    heading: "Kurz kennenlernen",
     rangeDays: 10,
     route: "/termin-buchen",
     sourceLabel: "Telefontermin",

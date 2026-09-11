@@ -24,7 +24,7 @@ export const siteConfig = {
     publicRegion: "Vestenbergsgreuth / Mittelfranken / Franken"
   },
   bookingUrl: publicBookingUrl(process.env.NEXT_PUBLIC_BOOKING_URL, "/termin-buchen"),
-  alternateBookingUrl: publicBookingUrl(process.env.NEXT_PUBLIC_ALT_BOOKING_URL, "/besichtigungstermin-buchen"),
+  alternateBookingUrl: publicBookingUrl(process.env.NEXT_PUBLIC_ALT_BOOKING_URL, "/termin-buchen"),
   brand: {
     logo: {
       src: "/images/brand/landgut-seebuehne-logo.svg",

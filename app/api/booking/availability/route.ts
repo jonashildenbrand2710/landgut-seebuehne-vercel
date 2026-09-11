@@ -6,41 +6,47 @@ import {
 } from "@/lib/booking-api";
 
 const berlinTimeZone = "Europe/Berlin";
-const tourHours = new Set([10, 11, 12, 13, 14, 15, 16, 17]);
-const tourWeekdays = new Set(["Sun", "Mon", "Tue", "Wed", "Thu"]);
+const previewPolicies = {
+  phone: { durationMinutes: 30, weekdays: ["Mon", "Tue", "Wed", "Thu"] as string[] },
+  tour: { durationMinutes: 90, weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu"] as string[] }
+} as const;
 
 function localSlotParts(date: Date) {
   const parts = new Intl.DateTimeFormat("en-US", {
     hour: "2-digit",
     hourCycle: "h23",
+    minute: "2-digit",
     timeZone: berlinTimeZone,
     weekday: "short"
   }).formatToParts(date);
   const record = Object.fromEntries(parts.map((part) => [part.type, part.value]));
-  return { hour: Number(record.hour), weekday: record.weekday };
+  return { hour: Number(record.hour), minute: Number(record.minute), weekday: record.weekday };
 }
 
-function previewTourSlots(payload: BookingAvailabilityRequest): BookingSlot[] {
+function previewSlots(payload: BookingAvailabilityRequest): BookingSlot[] {
+  const policy = previewPolicies[payload.appointmentType];
   const from = new Date(payload.range.from);
   const to = new Date(payload.range.to);
-  const cursor = new Date(Math.ceil(from.getTime() / 3_600_000) * 3_600_000);
+  const cursor = new Date(Math.ceil(from.getTime() / 1_800_000) * 1_800_000);
   const slots: BookingSlot[] = [];
 
   while (cursor.getTime() < to.getTime()) {
     const local = localSlotParts(cursor);
-    if (tourWeekdays.has(local.weekday) && tourHours.has(local.hour)) {
+    const localStartMinutes = local.hour * 60 + local.minute;
+    const localEndMinutes = localStartMinutes + policy.durationMinutes;
+    if (policy.weekdays.includes(local.weekday) && localStartMinutes >= 600 && localEndMinutes <= 1200) {
       const start = new Date(cursor);
-      const end = new Date(start.getTime() + 120 * 60_000);
+      const end = new Date(start.getTime() + policy.durationMinutes * 60_000);
       slots.push({
-        appointmentType: "tour",
-        durationMinutes: 120,
+        appointmentType: payload.appointmentType,
+        durationMinutes: policy.durationMinutes,
         end: end.toISOString(),
-        id: `tour_${start.toISOString()}`,
+        id: `${payload.appointmentType}_${start.toISOString()}`,
         start: start.toISOString(),
         timezone: berlinTimeZone
       });
     }
-    cursor.setTime(cursor.getTime() + 3_600_000);
+    cursor.setTime(cursor.getTime() + 1_800_000);
   }
 
   return slots;
@@ -60,13 +66,13 @@ export async function POST(request: Request) {
     const previewEnabled =
       process.env.NODE_ENV !== "production" && process.env.BOOKING_AVAILABILITY_PREVIEW === "true";
     const availability =
-      previewEnabled && bookingPayload.appointmentType === "tour"
+      previewEnabled && (bookingPayload.appointmentType === "phone" || bookingPayload.appointmentType === "tour")
         ? {
-            appointmentType: "tour",
+            appointmentType: bookingPayload.appointmentType,
             calendar_checked: false,
             from: bookingPayload.range.from,
             preview_mode: true,
-            slots: previewTourSlots(bookingPayload),
+            slots: previewSlots(bookingPayload),
             to: bookingPayload.range.to
           }
         : await getBookingAvailability(bookingPayload);

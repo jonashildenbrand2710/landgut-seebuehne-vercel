@@ -70,11 +70,11 @@ export function Header({
       <Link
         className={`header-cta header-cta--${variant} cta-botanical cta-tone-sage`}
         href="/termin-buchen"
-        aria-label="Besichtigungstermin am Landgut Seebühne buchen"
+        aria-label="Termin am Landgut Seebühne buchen"
       >
         <CalendarDays aria-hidden="true" size={18} />
-        <span className="header-cta-label-full">Besichtigung buchen</span>
-        <span className="header-cta-label-short">Besichtigung</span>
+        <span className="header-cta-label-full">Termin buchen</span>
+        <span className="header-cta-label-short">Termin</span>
       </Link>
     </header>
   );

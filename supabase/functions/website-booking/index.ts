@@ -1,5 +1,13 @@
 import { createClient } from "jsr:@supabase/supabase-js@2";
-import { slotIsBlocked, type BusyCalendarInterval } from "./slot-policy.ts";
+import {
+  appointmentPolicies,
+  parseAppointmentType,
+  slotEndMatchesPolicy,
+  slotIsBlocked,
+  slotMatchesPolicy,
+  type BookingAppointmentType,
+  type BusyCalendarInterval,
+} from "./slot-policy.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
@@ -11,12 +19,9 @@ const calendarScope = "https://www.googleapis.com/auth/calendar.events";
 const googleTokenUrl = "https://oauth2.googleapis.com/token";
 const googleCalendarApiBase = "https://www.googleapis.com/calendar/v3";
 const defaultTimeZone = "Europe/Berlin";
-const defaultAppointmentType = "phone";
-const defaultSlotDurationMinutes = 30;
 const defaultSlotStepMinutes = 30;
-const tourCalendarSlotMinutes = 60;
 const maxAvailabilityRangeDays = 45;
-const maxAvailabilitySlots = 120;
+const maxAvailabilitySlots = 400;
 
 type GoogleConfig = {
   calendarId: string;
@@ -57,12 +62,6 @@ type LeadRecord = {
   tour_google_calendar_event_id: string | null;
   tour_google_calendar_synced_at: string | null;
   tour_scheduled_at: string | null;
-};
-
-type BookingWindow = {
-  end: string;
-  start: string;
-  weekdays: number[];
 };
 
 const leadSelect = `
@@ -118,11 +117,6 @@ function asRecord(value: unknown): Record<string, unknown> {
 
 function asString(value: unknown) {
   return typeof value === "string" && value.trim() ? value.trim() : "";
-}
-
-function asNumber(value: unknown, fallback: number) {
-  const number = typeof value === "number" ? value : Number(value);
-  return Number.isFinite(number) ? number : fallback;
 }
 
 function compactRecord(record: Record<string, unknown>) {
@@ -213,32 +207,18 @@ function addMinutes(value: Date, minutes: number) {
   return new Date(value.getTime() + minutes * 60 * 1000);
 }
 
-function minutesFromTime(value: string) {
-  const match = value.match(/^(\d{1,2}):(\d{2})$/);
-  if (!match) return null;
-  return Number(match[1]) * 60 + Number(match[2]);
-}
-
-function appointmentDuration(payload: Record<string, unknown>) {
+function appointmentType(payload: Record<string, unknown>): BookingAppointmentType | null {
   const booking = asRecord(payload.booking);
-  return Math.min(
-    180,
-    Math.max(
-      15,
-      asNumber(
-        booking.durationMinutes ?? booking.duration_minutes ?? payload.durationMinutes,
-        defaultSlotDurationMinutes,
-      ),
-    ),
+  return parseAppointmentType(
+    asString(booking.type) || asString(booking.appointmentType) || asString(payload.appointmentType),
   );
 }
 
-function appointmentType(payload: Record<string, unknown>) {
-  const booking = asRecord(payload.booking);
-  return asString(booking.type) || asString(booking.appointmentType) || asString(payload.appointmentType) || defaultAppointmentType;
+function bookingTypeFromRecord(booking: Record<string, unknown>): BookingAppointmentType {
+  return parseAppointmentType(asString(booking.type) || asString(booking.appointmentType)) || "phone";
 }
 
-function appointmentLabel(type: string) {
+function appointmentLabel(type: BookingAppointmentType) {
   return type === "tour" ? "Besichtigungstermin" : "Telefontermin";
 }
 
@@ -374,88 +354,6 @@ async function googleCalendarRequest(
   return payload;
 }
 
-function defaultBookingWindows(): BookingWindow[] {
-  // Besichtigungen starten Sonntag bis Donnerstag stuendlich von 10:00 bis 17:00 Uhr.
-  // Das Fenster endet um 19:00 Uhr, damit auch der letzte 120-Minuten-Termin hineinpasst.
-  return [{ end: "19:00", start: "10:00", weekdays: [0, 1, 2, 3, 4] }];
-}
-
-function bookingWindows(): BookingWindow[] {
-  const raw = Deno.env.get("WEBSITE_BOOKING_WINDOWS")?.trim();
-  if (!raw) return defaultBookingWindows();
-
-  try {
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return defaultBookingWindows();
-    const windows = parsed
-      .map((item) => {
-        const record = asRecord(item);
-        const weekdays = Array.isArray(record.weekdays)
-          ? record.weekdays.map((day) => Number(day)).filter((day) => day >= 0 && day <= 6)
-          : [];
-        return {
-          end: asString(record.end),
-          start: asString(record.start),
-          weekdays,
-        };
-      })
-      .filter((item) => item.weekdays.length && minutesFromTime(item.start) !== null && minutesFromTime(item.end) !== null);
-    return windows.length ? windows : defaultBookingWindows();
-  } catch {
-    return defaultBookingWindows();
-  }
-}
-
-function localParts(date: Date, timeZone = defaultTimeZone) {
-  const parts = new Intl.DateTimeFormat("en-US", {
-    day: "2-digit",
-    hour: "2-digit",
-    hourCycle: "h23",
-    minute: "2-digit",
-    month: "2-digit",
-    timeZone,
-    weekday: "short",
-    year: "numeric",
-  }).formatToParts(date);
-  const record = Object.fromEntries(parts.map((part) => [part.type, part.value]));
-  const weekdayMap: Record<string, number> = {
-    Fri: 5,
-    Mon: 1,
-    Sat: 6,
-    Sun: 0,
-    Thu: 4,
-    Tue: 2,
-    Wed: 3,
-  };
-  return {
-    dateKey: `${record.year}-${record.month}-${record.day}`,
-    hour: Number(record.hour),
-    minute: Number(record.minute),
-    weekday: weekdayMap[record.weekday] ?? -1,
-  };
-}
-
-function slotInBookingWindow(start: Date, durationMinutes: number, windows: BookingWindow[]) {
-  const end = addMinutes(start, durationMinutes);
-  const startParts = localParts(start);
-  const endParts = localParts(end);
-  if (startParts.dateKey !== endParts.dateKey) return false;
-
-  const startMinutes = startParts.hour * 60 + startParts.minute;
-  const endMinutes = endParts.hour * 60 + endParts.minute;
-  return windows.some((window) => {
-    const windowStart = minutesFromTime(window.start);
-    const windowEnd = minutesFromTime(window.end);
-    return (
-      window.weekdays.includes(startParts.weekday) &&
-      windowStart !== null &&
-      windowEnd !== null &&
-      startMinutes >= windowStart &&
-      endMinutes <= windowEnd
-    );
-  });
-}
-
 function roundUpToStep(date: Date, stepMinutes: number) {
   const stepMs = stepMinutes * 60 * 1000;
   return new Date(Math.ceil(date.getTime() / stepMs) * stepMs);
@@ -536,6 +434,10 @@ function slotLabel(date: Date) {
 }
 
 async function handleAvailability(payload: Record<string, unknown>) {
+  const type = appointmentType(payload);
+  if (!type) return jsonResponse({ error: "Terminart ist ungueltig." }, 400);
+
+  const policy = appointmentPolicies[type];
   const config = googleConfig();
   const accessToken = await getGoogleAccessToken(config);
   const { from, to } = availabilityRange(payload);
@@ -543,10 +445,8 @@ async function handleAvailability(payload: Record<string, unknown>) {
     return jsonResponse({ error: "Zeitraum ist ungueltig." }, 400);
   }
 
-  const durationMinutes = appointmentDuration(payload);
-  const type = appointmentType(payload);
-  const stepMinutes = Math.max(15, asNumber(payload.stepMinutes, defaultSlotStepMinutes));
-  const windows = bookingWindows();
+  const durationMinutes = policy.durationMinutes;
+  const stepMinutes = policy.stepMinutes;
   const busy = await busyCalendarIntervals(accessToken, config.calendarId, from, to);
   const slots: Array<Record<string, unknown>> = [];
 
@@ -556,10 +456,9 @@ async function handleAvailability(payload: Record<string, unknown>) {
     cursor = addMinutes(cursor, stepMinutes)
   ) {
     const end = addMinutes(cursor, durationMinutes);
-    const calendarSlotEnd = addMinutes(cursor, type === "tour" ? tourCalendarSlotMinutes : durationMinutes);
     if (end.getTime() > to.getTime()) continue;
-    if (!slotInBookingWindow(cursor, durationMinutes, windows)) continue;
-    if (slotIsBlocked(busy, cursor, calendarSlotEnd)) continue;
+    if (!slotMatchesPolicy(cursor, policy, defaultTimeZone)) continue;
+    if (slotIsBlocked(busy, cursor, end)) continue;
 
     slots.push({
       appointmentType: type,
@@ -589,11 +488,7 @@ function bookingTimes(payload: Record<string, unknown>) {
     parseDate(booking.slotStart) ||
     parseDate(booking.start) ||
     parseDate(payload.slotStart);
-  const end =
-    parseDate(slot.end) ||
-    parseDate(booking.slotEnd) ||
-    parseDate(booking.end) ||
-    (start ? addMinutes(start, appointmentDuration(payload)) : null);
+  const end = parseDate(slot.end) || parseDate(booking.slotEnd) || parseDate(booking.end);
 
   return { end, start };
 }
@@ -733,7 +628,8 @@ function calendarDescription({
     .slice(0, 16)
     .map((entry) => `- ${entry.label}: ${entry.answer}`);
   const utm = asRecord(tracking.utm);
-  const label = appointmentLabel(asString(booking.type) || asString(booking.appointmentType) || defaultAppointmentType);
+  const type = bookingTypeFromRecord(booking);
+  const label = appointmentLabel(type);
 
   return compact([
     `${label} aus der eigenen Website-Booking-API.`,
@@ -743,7 +639,7 @@ function calendarDescription({
     `Name: ${lead.couple_name || asString(contact.name)}`,
     `Telefon: ${lead.phone || asString(contact.phone)}`,
     `E-Mail: ${lead.email || asString(contact.email)}`,
-    `Terminart: ${asString(booking.type) || asString(booking.appointmentType) || defaultAppointmentType}`,
+    `Terminart: ${type}`,
     `Flow: ${flowId || "offen"}`,
     eventId ? `Event-ID: ${eventId}` : null,
     "",
@@ -782,7 +678,7 @@ function googleBookingEventBody({
   start: Date;
   tracking: Record<string, unknown>;
 }) {
-  const type = asString(booking.type) || asString(booking.appointmentType) || defaultAppointmentType;
+  const type = bookingTypeFromRecord(booking);
   const label = appointmentLabel(type);
 
   return {
@@ -921,7 +817,7 @@ function buildLeadPayload({
     existing?.note ||
     null;
 
-  const bookingType = asString(booking.type) || asString(booking.appointmentType) || defaultAppointmentType;
+  const bookingType = bookingTypeFromRecord(booking);
   const typeSpecificCalendarFields =
     bookingType === "tour"
       ? {
@@ -1038,7 +934,11 @@ async function updateLeadCalendarResult(
 
 async function handleBook(payload: Record<string, unknown>) {
   const contact = asRecord(payload.contact);
-  const booking = asRecord(payload.booking);
+  const submittedBooking = asRecord(payload.booking);
+  const type = appointmentType(payload);
+  if (!type) return jsonResponse({ error: "Terminart ist ungueltig." }, 400);
+
+  const policy = appointmentPolicies[type];
   const answers = payload.answers ?? {};
   const tracking = normalizeTracking(payload.tracking);
   const flowId = asString(payload.flowId) || asString(payload.flow_id) || "website_booking";
@@ -1047,23 +947,39 @@ async function handleBook(payload: Record<string, unknown>) {
   const nameResult = requiredString(contact.name || contact.coupleName || contact.couple_name, "Name");
   const email = normalizeEmail(contact.email);
   const phoneResult = requiredString(contact.phone, "Telefon");
-  const { end, start } = bookingTimes(payload);
+  const { end: submittedEnd, start } = bookingTimes(payload);
 
   if (!nameResult.ok) return jsonResponse({ error: nameResult.error }, 400);
   if (!email || !isValidEmail(email)) return jsonResponse({ error: "E-Mail ist ungueltig." }, 400);
   if (!phoneResult.ok) return jsonResponse({ error: phoneResult.error }, 400);
-  if (!start || !end || end.getTime() <= start.getTime()) {
+  if (!start || !submittedEnd || submittedEnd.getTime() <= start.getTime()) {
     return jsonResponse({ error: "Gueltiger Slot mit start/end ist erforderlich." }, 400);
   }
+  const end = addMinutes(start, policy.durationMinutes);
+  if (!slotEndMatchesPolicy(start, submittedEnd, policy)) {
+    return jsonResponse({ error: `Die Termindauer muss ${policy.durationMinutes} Minuten betragen.` }, 400);
+  }
+  if (!slotMatchesPolicy(start, policy, defaultTimeZone)) {
+    return jsonResponse({ error: "Der gewaehlte Slot liegt ausserhalb der Buchungszeiten." }, 400);
+  }
+  const booking = {
+    ...submittedBooking,
+    durationMinutes: policy.durationMinutes,
+    slot: {
+      ...asRecord(submittedBooking.slot),
+      end: end.toISOString(),
+      start: start.toISOString(),
+      timezone: defaultTimeZone,
+    },
+    type,
+  };
 
   const config = googleConfig();
   const accessToken = await getGoogleAccessToken(config);
   const supabase = supabaseAdmin();
   const existing = await findExistingLead(supabase, eventId, email);
-  const type = appointmentType(payload);
-  const calendarEnd = type === "tour" ? addMinutes(start, tourCalendarSlotMinutes) : end;
   const excludeEventId = type === "tour" ? existing?.tour_google_calendar_event_id || "" : existing?.google_calendar_event_id || "";
-  const isFree = await slotAvailable(accessToken, config.calendarId, start, calendarEnd, excludeEventId);
+  const isFree = await slotAvailable(accessToken, config.calendarId, start, end, excludeEventId);
   if (!isFree) {
     return jsonResponse({
       code: "slot_unavailable",
@@ -1099,7 +1015,7 @@ async function handleBook(payload: Record<string, unknown>) {
         answers,
         booking,
         contact,
-        end: calendarEnd,
+        end,
         eventId,
         flowId,
         lead,

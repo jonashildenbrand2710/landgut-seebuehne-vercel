@@ -12,7 +12,7 @@ Arbeitsstand fuer den Vercel-Rebuild. Ziel: Keine bekannte Onepage-URL soll beim
 | `/ueber-uns` | `/uber-uns` | 301 | index Ziel | Komfort-Redirect fuer Umlautschreibweise |
 | `/hochzeitsmappe` | `/hochzeitsmappe` | behalten | index | Lead-Magnet, keine Preisdetails |
 | `/besichtigung` | `/besichtigung` | behalten | index | Direkte Besichtigung als primaeren Einstieg framen |
-| `/termin-buchen` | `/termin-buchen` | behalten | index | Direkte Kalenderbuchung fuer eine 120-minuetige Besichtigung; Google blockiert den einstündigen Startslot |
+| `/termin-buchen` | `/termin-buchen` | behalten | index | Neutraler Termin-Funnel fuer 30-minuetiges Telefonat oder 90-minuetige Besichtigung mit Google-Kalenderabgleich |
 | `/kontaktformular` | `/kontaktformular` | behalten | index | Kontakt- und Lead-Einstieg |
 | `/formular` | `/formular` | behalten | index | Besichtigungs-Funnel; CTA fuehrt direkt zur Kalenderbuchung |
 | `/impressum` | `/impressum` | behalten | index | Rechtsdaten vor Livegang final pruefen |

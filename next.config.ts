@@ -80,6 +80,11 @@ const nextConfig: NextConfig = {
     return [
       ...canonicalDomainRedirects,
       {
+        source: "/besichtigungstermin-buchen",
+        destination: "/termin-buchen",
+        statusCode: 301
+      },
+      {
         source: "/ueber-uns",
         destination: "/uber-uns",
         statusCode: 301

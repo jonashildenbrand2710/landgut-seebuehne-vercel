@@ -7,7 +7,7 @@ import { mainNavigation, siteConfig } from "@/data/site";
 const footerSecondaryLinks = [
   { label: "Getting Ready", href: "/getting-ready" },
   { label: "Besichtigung", href: "/besichtigung" },
-  { label: "Besichtigung buchen", href: "/termin-buchen" },
+  { label: "Termin buchen", href: "/termin-buchen" },
   { label: "Kontakt", href: "/kontaktformular" },
   { label: "Buchungsformular", href: "/formular" }
 ];

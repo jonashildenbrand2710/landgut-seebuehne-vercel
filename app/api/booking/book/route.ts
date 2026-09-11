@@ -14,6 +14,28 @@ export async function POST(request: Request) {
     return Response.json({ error: "Anfrage enthält kein gültiges JSON." }, { status: 400 });
   }
 
+  if (process.env.NODE_ENV !== "production" && process.env.BOOKING_AVAILABILITY_PREVIEW === "true") {
+    return Response.json(
+      {
+        booking: {
+          eventId: payload.eventId,
+          flowId: payload.flowId,
+          flowVersion: payload.flowVersion,
+          slot: payload.booking.slot,
+          status: "preview"
+        },
+        google_calendar: {
+          synced: false
+        },
+        lead: {
+          leadNumber: null,
+          status: "preview"
+        }
+      },
+      { status: 200 }
+    );
+  }
+
   let booking;
 
   try {

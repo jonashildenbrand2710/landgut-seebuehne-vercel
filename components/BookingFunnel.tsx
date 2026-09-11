@@ -9,10 +9,12 @@ import {
   ChevronLeft,
   ChevronRight,
   LoaderCircle,
+  MapPin,
+  Phone,
   RefreshCcw
 } from "lucide-react";
-import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
-import type { BookingFlowField } from "@/data/booking-flow";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { BookingFlowConfig, BookingFlowField } from "@/data/booking-flow";
 import type {
   BookingAppointmentType,
   BookingAvailabilityResponse,
@@ -32,6 +34,13 @@ type BookingFunnelProps = {
   rangeDays: number;
   sourceLabel: string;
   stepMinutes: number;
+  onChangeAppointmentType: () => void;
+};
+
+type BookingJourneyProps = {
+  email: string;
+  phoneFlow: BookingFlowConfig;
+  tourFlow: BookingFlowConfig;
 };
 
 type BookingContact = {
@@ -41,15 +50,15 @@ type BookingContact = {
 };
 
 type LoadingState = "idle" | "loading" | "success" | "error";
-type StepId = "slot" | "contact" | "questions" | "review";
+type StepId = "year" | "guests" | "slot" | "contact" | "review";
 
 const siteName = "landgut-seebuehne-vercel";
 const timeZone = "Europe/Berlin";
-const tourBookingWeekdays = new Set(["Sun", "Mon", "Tue", "Wed", "Thu"]);
 const steps: Array<{ id: StepId; label: string }> = [
+  { id: "year", label: "Jahr" },
+  { id: "guests", label: "Gäste" },
   { id: "slot", label: "Termin" },
   { id: "contact", label: "Kontakt" },
-  { id: "questions", label: "Eckpunkte" },
   { id: "review", label: "Prüfen" }
 ];
 
@@ -127,11 +136,6 @@ function weekdayIndex(date: Date) {
   return Math.max(0, weekdayNames.indexOf(name));
 }
 
-function isTourBookingDay(value: string) {
-  const weekday = new Intl.DateTimeFormat("en-US", { timeZone, weekday: "short" }).format(new Date(value));
-  return tourBookingWeekdays.has(weekday);
-}
-
 function formatDayNumber(date: Date) {
   return new Intl.DateTimeFormat("de-DE", { day: "numeric", timeZone }).format(date);
 }
@@ -196,12 +200,7 @@ async function postJson<T>(url: string, payload: unknown) {
 
 function answerLabel(field: BookingFlowField, value: string) {
   if (!value) return "Noch offen";
-  if (field.type === "optional-date") {
-    const date = new Date(`${value}T12:00:00`);
-    if (!Number.isNaN(date.getTime())) {
-      return new Intl.DateTimeFormat("de-DE", { dateStyle: "long", timeZone }).format(date);
-    }
-  }
+  if (field.id === "guestRange" && value !== "Noch offen") return `ca. ${value} Gäste`;
   return field.options?.find((option) => option === value) || value;
 }
 
@@ -225,6 +224,69 @@ function phoneValidationMessage(value: string) {
   return "";
 }
 
+export function BookingJourney({ email, phoneFlow, tourFlow }: BookingJourneyProps) {
+  const [appointmentType, setAppointmentType] = useState<BookingAppointmentType | null>(null);
+  const selectedFlow = appointmentType === "phone" ? phoneFlow : appointmentType === "tour" ? tourFlow : null;
+
+  if (selectedFlow) {
+    return (
+      <div className="booking-journey-shell">
+        <BookingFunnel
+          {...selectedFlow}
+          key={selectedFlow.appointmentType}
+          onChangeAppointmentType={() => setAppointmentType(null)}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <section className="booking-entry" aria-labelledby="booking-entry-title">
+      <header className="booking-entry-copy">
+        <p className="eyebrow dark">Euer nächster Schritt</p>
+        <h1 id="booking-entry-title">Erst sprechen oder gleich erleben?</h1>
+        <p>
+          Jede Hochzeit ist anders – und genau deshalb bekommt ihr bei uns keine Antwort von der Stange.
+          Im Kennenlerngespräch klären wir Preise und euren passenden Rahmen. Bei der Besichtigung erlebt ihr
+          direkt, wie sich euer Hochzeitstag bei uns anfühlen könnte.
+        </p>
+      </header>
+
+      <div className="booking-entry-options" aria-label="Terminart wählen">
+        <button className="booking-entry-card is-recommended" onClick={() => setAppointmentType("phone")} type="button">
+          <span className="booking-entry-badge">Empfohlener erster Schritt</span>
+          <span className="booking-entry-icon"><Phone aria-hidden="true" size={23} /></span>
+          <span className="booking-entry-card-copy">
+            <strong>Kurz kennenlernen</strong>
+            <small>30 Minuten telefonisch</small>
+            <span>Preise, freie Hochzeitstermine und eine persönliche Einschätzung – kompakt am Telefon.</span>
+          </span>
+          <span className="booking-entry-cta">Telefontermin wählen <ArrowRight aria-hidden="true" size={18} /></span>
+        </button>
+
+        <button className="booking-entry-card" onClick={() => setAppointmentType("tour")} type="button">
+          <span className="booking-entry-icon"><MapPin aria-hidden="true" size={23} /></span>
+          <span className="booking-entry-card-copy">
+            <strong>Landgut live erleben</strong>
+            <small>90 Minuten vor Ort</small>
+            <span>
+              Erlebt das Landgut persönlich und klärt gemeinsam mit uns euren individuellen Kostenrahmen.
+              Auf dieser Grundlage erstellen wir euch auf Wunsch gleich einen schriftlichen Kostenvoranschlag.
+            </span>
+          </span>
+          <span className="booking-entry-cta">Besichtigung wählen <ArrowRight aria-hidden="true" size={18} /></span>
+        </button>
+      </div>
+
+      <p className="booking-entry-contact">
+        <strong>Etwas anderes auf dem Herzen?</strong>{" "}
+        Schreibt uns einfach an{" "}
+        <a href={`mailto:${email}?subject=${encodeURIComponent("Frage an das Landgut Seebühne")}`}>{email}</a>.
+      </p>
+    </section>
+  );
+}
+
 export function BookingFunnel({
   appointmentType,
   description,
@@ -235,9 +297,10 @@ export function BookingFunnel({
   heading,
   rangeDays,
   sourceLabel,
-  stepMinutes
+  stepMinutes,
+  onChangeAppointmentType
 }: BookingFunnelProps) {
-  const [activeStep, setActiveStep] = useState<StepId>("slot");
+  const [activeStep, setActiveStep] = useState<StepId>("year");
   const [availabilityState, setAvailabilityState] = useState<LoadingState>("idle");
   const [bookingState, setBookingState] = useState<LoadingState>("idle");
   const [slots, setSlots] = useState<BookingSlot[]>([]);
@@ -255,6 +318,7 @@ export function BookingFunnel({
     phone: false
   });
   const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [guestSliderValue, setGuestSliderValue] = useState(80);
   const [error, setError] = useState("");
   const [availabilityError, setAvailabilityError] = useState("");
   const [availabilityPreview, setAvailabilityPreview] = useState(false);
@@ -329,9 +393,10 @@ export function BookingFunnel({
   const questionsComplete = fields.every((field) => !field.required || answers[field.id]?.trim());
 
   const canVisitStep = (step: StepId) => {
-    if (step === "slot") return true;
-    if (step === "contact") return Boolean(selectedSlot);
-    if (step === "questions") return Boolean(selectedSlot && contactComplete);
+    if (step === "year") return true;
+    if (step === "guests") return Boolean(answers.desiredYear);
+    if (step === "slot") return Boolean(answers.desiredYear && answers.guestRange);
+    if (step === "contact") return Boolean(answers.desiredYear && answers.guestRange && selectedSlot);
     return Boolean(selectedSlot && contactComplete && questionsComplete);
   };
 
@@ -353,9 +418,7 @@ export function BookingFunnel({
           to: to.toISOString()
         }
       });
-      const nextSlots = (availability.slots ?? []).filter(
-        (slot) => appointmentType !== "tour" || isTourBookingDay(slot.start)
-      );
+      const nextSlots = availability.slots ?? [];
       setAvailabilityPreview(Boolean(availability.preview_mode));
       setSlots(nextSlots);
       setSelectedSlotId("");
@@ -372,12 +435,14 @@ export function BookingFunnel({
   }, [appointmentType, durationMinutes, flowId, flowVersion, rangeDays, stepMinutes]);
 
   useEffect(() => {
+    if (activeStep !== "slot" || availabilityState !== "idle") return;
+
     const timeout = window.setTimeout(() => {
       void loadAvailability();
     }, 0);
 
     return () => window.clearTimeout(timeout);
-  }, [loadAvailability]);
+  }, [activeStep, availabilityState, loadAvailability]);
 
   useEffect(() => {
     if (!hasRenderedBookingStepRef.current) {
@@ -416,31 +481,6 @@ export function BookingFunnel({
 
   const updateAnswer = (field: string, value: string) => {
     setAnswers((current) => ({ ...current, [field]: value }));
-  };
-
-  const handleChoiceKeyDown = (
-    event: KeyboardEvent<HTMLButtonElement>,
-    field: BookingFlowField,
-    optionIndex: number
-  ) => {
-    const options = field.options || [];
-    if (!options.length) return;
-
-    let nextIndex = -1;
-    if (event.key === "ArrowDown" || event.key === "ArrowRight") {
-      nextIndex = (optionIndex + 1) % options.length;
-    } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
-      nextIndex = (optionIndex - 1 + options.length) % options.length;
-    }
-
-    if (nextIndex < 0) return;
-
-    event.preventDefault();
-    updateAnswer(field.id, options[nextIndex]);
-
-    const group = event.currentTarget.closest('[role="radiogroup"]');
-    const radios = group?.querySelectorAll<HTMLButtonElement>('[role="radio"]');
-    radios?.[nextIndex]?.focus();
   };
 
   const submitBooking = async () => {
@@ -491,11 +531,13 @@ export function BookingFunnel({
       setBookingResult(booking);
       setBookingState("success");
 
-      trackMetaCompleteRegistrationWhenReady(
-        appointmentType === "tour" ? "besichtigung" : "erstgespraech",
-        eventId,
-        { guard: true }
-      );
+      if (booking.booking?.status !== "preview") {
+        trackMetaCompleteRegistrationWhenReady(
+          appointmentType === "tour" ? "besichtigung" : "erstgespraech",
+          eventId,
+          { guard: true }
+        );
+      }
     } catch (submitError) {
       setBookingState("error");
       setError(submitError instanceof Error ? submitError.message : "Termin konnte nicht gebucht werden.");
@@ -521,6 +563,8 @@ export function BookingFunnel({
   );
 
   if (bookingResult) {
+    const isPreviewBooking = bookingResult.booking?.status === "preview";
+
     return (
       <section
         ref={panelRef}
@@ -531,13 +575,14 @@ export function BookingFunnel({
           <CalendarCheck aria-hidden="true" size={24} />
           <div>
             <p className="eyebrow dark">{sourceLabel}</p>
-            <h2 id="booking-success-title">Termin ist gebucht.</h2>
+            <h2 id="booking-success-title">{isPreviewBooking ? "Testlauf abgeschlossen." : "Termin ist gebucht."}</h2>
           </div>
         </div>
         <div className="booking-success-box">
           <p>
-            Danke, wir haben den Termin gespeichert und im Kalender angelegt.
-            Eine persönliche Rückmeldung erfolgt, falls noch etwas offen ist.
+            {isPreviewBooking
+              ? "Alles hat funktioniert. In dieser lokalen Vorschau wurden weder Kalender noch CRM verändert."
+              : "Danke, wir haben den Termin gespeichert und im Kalender angelegt. Eine persönliche Rückmeldung erfolgt, falls noch etwas offen ist."}
           </p>
           <dl className="booking-review-list">
             <div>
@@ -570,8 +615,93 @@ export function BookingFunnel({
           <h2 id="booking-title">{heading}</h2>
         </div>
       </div>
+      <p className="booking-good-choice">
+        <strong>Gute Wahl!</strong> Mit zwei kurzen Fragen bereiten wir euren Termin passend für euch vor.
+      </p>
       <p>{description}</p>
+      <button className="booking-change-type booking-change-type-inline" onClick={onChangeAppointmentType} type="button">
+        <ArrowLeft aria-hidden="true" size={16} />
+        Terminart ändern
+      </button>
       {stepper}
+
+      {activeStep === "year" ? (
+        <div className="booking-step booking-question-step">
+          <p className="booking-step-count">Frage 1 von 2</p>
+          <h3>In welchem Jahr möchtet ihr heiraten?</h3>
+          <p>Eine grobe Richtung reicht völlig.</p>
+          <div className="booking-choice-group booking-choice-group-large" role="radiogroup" aria-label="Wunschjahr">
+            {["2027", "2028", "2029", "Noch offen"].map((option) => (
+              <button
+                aria-checked={answers.desiredYear === option}
+                className={answers.desiredYear === option ? "booking-choice is-selected" : "booking-choice"}
+                key={option}
+                onClick={() => updateAnswer("desiredYear", option)}
+                role="radio"
+                type="button"
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+          <div className="booking-actions">
+            <button className="button primary" disabled={!answers.desiredYear} onClick={() => goToStep("guests")} type="button">
+              <span>Weiter</span>
+              <ArrowRight aria-hidden="true" size={18} />
+            </button>
+          </div>
+        </div>
+      ) : null}
+
+      {activeStep === "guests" ? (
+        <div className="booking-step booking-question-step">
+          <p className="booking-step-count">Frage 2 von 2</p>
+          <h3>Mit wie vielen Gästen möchtet ihr ungefähr feiern?</h3>
+          <p>Damit wir euren passenden Rahmen besser einschätzen können.</p>
+          <div className="booking-guest-control">
+            <output className="booking-guest-output" htmlFor="booking-guest-slider" aria-live="polite">
+              {answers.guestRange === "Noch offen"
+                ? "Noch offen"
+                : answers.guestRange
+                  ? `ca. ${answers.guestRange} Gäste`
+                  : "Bewegt den Regler"}
+            </output>
+            <input
+              aria-label="Ungefähre Gästezahl"
+              id="booking-guest-slider"
+              max="130"
+              min="30"
+              onInput={(event) => {
+                const value = Number(event.currentTarget.value);
+                setGuestSliderValue(value);
+                updateAnswer("guestRange", String(value));
+              }}
+              step="5"
+              type="range"
+              value={guestSliderValue}
+            />
+            <div className="booking-guest-scale" aria-hidden="true"><span>30</span><span>130</span></div>
+            <button
+              aria-pressed={answers.guestRange === "Noch offen"}
+              className={answers.guestRange === "Noch offen" ? "booking-choice booking-guest-open is-selected" : "booking-choice booking-guest-open"}
+              onClick={() => updateAnswer("guestRange", "Noch offen")}
+              type="button"
+            >
+              Noch offen
+            </button>
+          </div>
+          <div className="booking-actions">
+            <button className="button secondary" onClick={() => setActiveStep("year")} type="button">
+              <ArrowLeft aria-hidden="true" size={18} />
+              <span>Zurück</span>
+            </button>
+            <button className="button primary" disabled={!answers.guestRange} onClick={() => goToStep("slot")} type="button">
+              <span>Freie Termine ansehen</span>
+              <ArrowRight aria-hidden="true" size={18} />
+            </button>
+          </div>
+        </div>
+      ) : null}
 
       {activeStep === "slot" ? (
         <div className="booking-step">
@@ -721,6 +851,10 @@ export function BookingFunnel({
           ) : null}
 
           <div className="booking-actions">
+            <button className="button secondary" onClick={() => setActiveStep("guests")} type="button">
+              <ArrowLeft aria-hidden="true" size={18} />
+              <span>Zurück</span>
+            </button>
             <button className="button primary" disabled={!selectedSlot} onClick={() => goToStep("contact")} type="button">
               <span>Weiter</span>
               <ArrowRight aria-hidden="true" size={18} />
@@ -737,7 +871,7 @@ export function BookingFunnel({
             setContactTouched({ email: true, name: true, phone: true });
             if (contactComplete) {
               setError("");
-              goToStep("questions");
+              goToStep("review");
             }
           }}
         >
@@ -823,178 +957,6 @@ export function BookingFunnel({
         </form>
       ) : null}
 
-      {activeStep === "questions" ? (
-        <form
-          className="booking-step"
-          onSubmit={(event) => {
-            event.preventDefault();
-            if (questionsComplete) goToStep("review");
-          }}
-        >
-          <h3>Eckpunkte</h3>
-          <p>
-            {appointmentType === "tour"
-              ? "Nur wenige Angaben, damit wir eure Besichtigung passend vorbereiten können."
-              : "Nur wenige Angaben, damit das Gespräch direkt sinnvoll startet."}
-          </p>
-          <div className="booking-field-grid questions">
-            {fields.map((field) => {
-              const labelId = `booking-field-${field.id}`;
-              const dateModeKey = `${field.id}Mode`;
-              const dateMode = answers[dateModeKey] || "";
-
-              return (
-                <div className="booking-field" key={field.id}>
-                  <span id={labelId}>{field.label}</span>
-                  {field.type === "textarea" ? (
-                  <textarea
-                    aria-labelledby={labelId}
-                    name={field.id}
-                    onChange={(event) => updateAnswer(field.id, event.target.value)}
-                    required={field.required}
-                    rows={4}
-                    value={answers[field.id] || ""}
-                  />
-                  ) : field.type === "select" ? (
-                    <div className="booking-choice-group" role="radiogroup" aria-labelledby={labelId}>
-                    {field.options?.map((option, optionIndex) => {
-                      const isSelected = answers[field.id] === option;
-                      const selectedIndex = field.options?.indexOf(answers[field.id] || "") ?? -1;
-                      const focusIndex = selectedIndex >= 0 ? selectedIndex : 0;
-
-                      return (
-                        <button
-                          aria-checked={isSelected}
-                          className={isSelected ? "booking-choice is-selected" : "booking-choice"}
-                          key={option}
-                          onClick={() => updateAnswer(field.id, option)}
-                          onKeyDown={(event) => handleChoiceKeyDown(event, field, optionIndex)}
-                          role="radio"
-                          tabIndex={optionIndex === focusIndex ? 0 : -1}
-                          type="button"
-                        >
-                          {option}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  ) : field.type === "month-slider" ? (
-                    <div className="booking-month-control" role="radiogroup" aria-labelledby={labelId}>
-                      <div className="booking-month-track">
-                        {field.options
-                          ?.filter((option) => option !== "Noch offen")
-                          .map((option, optionIndex) => {
-                            const isSelected = answers[field.id] === option;
-                            const selectedIndex = field.options?.indexOf(answers[field.id] || "") ?? -1;
-                            const focusIndex = selectedIndex >= 0 ? selectedIndex : 0;
-
-                            return (
-                              <button
-                                aria-checked={isSelected}
-                                className={isSelected ? "booking-month-option is-selected" : "booking-month-option"}
-                                key={option}
-                                onClick={() => updateAnswer(field.id, option)}
-                                onKeyDown={(event) => handleChoiceKeyDown(event, field, optionIndex)}
-                                role="radio"
-                                tabIndex={optionIndex === focusIndex ? 0 : -1}
-                                type="button"
-                              >
-                                <span aria-hidden="true" />
-                                {option}
-                              </button>
-                            );
-                          })}
-                      </div>
-                      <button
-                        aria-checked={answers[field.id] === "Noch offen"}
-                        className={
-                          answers[field.id] === "Noch offen"
-                            ? "booking-choice booking-month-open is-selected"
-                            : "booking-choice booking-month-open"
-                        }
-                        onClick={() => updateAnswer(field.id, "Noch offen")}
-                        onKeyDown={(event) =>
-                          handleChoiceKeyDown(event, field, Math.max(0, (field.options?.length || 1) - 1))
-                        }
-                        role="radio"
-                        tabIndex={answers[field.id] === "Noch offen" ? 0 : -1}
-                        type="button"
-                      >
-                        Noch offen
-                      </button>
-                    </div>
-                  ) : field.type === "optional-date" ? (
-                    <div className="booking-optional-date">
-                      <div className="booking-choice-group" role="group" aria-labelledby={labelId}>
-                        <button
-                          aria-pressed={dateMode === "open"}
-                          className={dateMode === "open" ? "booking-choice is-selected" : "booking-choice"}
-                          onClick={() =>
-                            setAnswers((current) => ({
-                              ...current,
-                              [dateModeKey]: "open",
-                              [field.id]: ""
-                            }))
-                          }
-                          type="button"
-                        >
-                          Noch offen
-                        </button>
-                        <button
-                          aria-pressed={dateMode === "date"}
-                          className={dateMode === "date" ? "booking-choice is-selected" : "booking-choice"}
-                          onClick={() =>
-                            setAnswers((current) => ({
-                              ...current,
-                              [dateModeKey]: "date"
-                            }))
-                          }
-                          type="button"
-                        >
-                          Konkretes Datum wählen
-                        </button>
-                      </div>
-                      {dateMode === "date" ? (
-                        <div className="booking-date-reveal">
-                          <label htmlFor={`booking-${field.id}`}>Wunschtermin</label>
-                          <input
-                            id={`booking-${field.id}`}
-                            name={field.id}
-                            onChange={(event) => updateAnswer(field.id, event.target.value)}
-                            type="date"
-                            value={answers[field.id] || ""}
-                          />
-                        </div>
-                      ) : null}
-                    </div>
-                  ) : (
-                    <input
-                      aria-labelledby={labelId}
-                      name={field.id}
-                      onChange={(event) => updateAnswer(field.id, event.target.value)}
-                      required={field.required}
-                      type="text"
-                      value={answers[field.id] || ""}
-                    />
-                  )}
-                  {field.helper ? <small>{field.helper}</small> : null}
-                </div>
-              );
-            })}
-          </div>
-          <div className="booking-actions">
-            <button className="button secondary" onClick={() => setActiveStep("contact")} type="button">
-              <ArrowLeft aria-hidden="true" size={18} />
-              <span>Zurück</span>
-            </button>
-            <button className="button primary" disabled={!questionsComplete} type="submit">
-              <span>Prüfen</span>
-              <ArrowRight aria-hidden="true" size={18} />
-            </button>
-          </div>
-        </form>
-      ) : null}
-
       {activeStep === "review" ? (
         <div className="booking-step">
           <h3>Prüfen und buchen</h3>
@@ -1030,7 +992,7 @@ export function BookingFunnel({
           ) : null}
 
           <div className="booking-actions">
-            <button className="button secondary" onClick={() => setActiveStep("questions")} type="button">
+            <button className="button secondary" onClick={() => setActiveStep("contact")} type="button">
               <ArrowLeft aria-hidden="true" size={18} />
               <span>Zurück</span>
             </button>
