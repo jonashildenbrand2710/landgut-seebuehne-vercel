@@ -2612,6 +2612,10 @@ h2 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.booking-slots-toggle {
+  display: none;
+}
+
 .booking-slot {
   position: relative;
   display: flex;
@@ -3315,6 +3319,45 @@ h2 {
 
   .booking-progress button span {
     font-size: 0.76rem;
+  }
+
+  .booking-slot-grid.compact:not(.is-expanded) .booking-slot:nth-child(n + 5) {
+    display: none;
+  }
+
+  .booking-slot-grid.compact:not(.is-expanded):has(.booking-slot:nth-child(n + 5).is-selected)
+    .booking-slot:nth-child(4) {
+    display: none;
+  }
+
+  .booking-slot-grid.compact:not(.is-expanded) .booking-slot.is-selected {
+    display: flex;
+  }
+
+  .booking-slots-toggle {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    min-height: 44px;
+    padding: 0 15px;
+    border: 0;
+    border-bottom: 1px solid currentColor;
+    background: transparent;
+    color: var(--leaf-deep);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 850;
+  }
+
+  .booking-slots-toggle svg {
+    transition: transform 180ms ease;
+  }
+
+  .booking-slots-toggle[aria-expanded="true"] svg {
+    transform: rotate(90deg);
   }
 }
 

@@ -306,6 +306,7 @@ export function BookingFunnel({
   const [slots, setSlots] = useState<BookingSlot[]>([]);
   const [selectedDayKey, setSelectedDayKey] = useState("");
   const [selectedSlotId, setSelectedSlotId] = useState("");
+  const [showAllSlots, setShowAllSlots] = useState(false);
   const [weekIndex, setWeekIndex] = useState(0);
   const [contact, setContact] = useState<BookingContact>({
     email: "",
@@ -321,7 +322,6 @@ export function BookingFunnel({
   const [guestSliderValue, setGuestSliderValue] = useState(80);
   const [error, setError] = useState("");
   const [availabilityError, setAvailabilityError] = useState("");
-  const [availabilityPreview, setAvailabilityPreview] = useState(false);
   const [bookingResult, setBookingResult] = useState<BookingResponse | null>(null);
   const panelRef = useRef<HTMLElement>(null);
   const hasRenderedBookingStepRef = useRef(false);
@@ -419,14 +419,13 @@ export function BookingFunnel({
         }
       });
       const nextSlots = availability.slots ?? [];
-      setAvailabilityPreview(Boolean(availability.preview_mode));
       setSlots(nextSlots);
       setSelectedSlotId("");
       setSelectedDayKey("");
+      setShowAllSlots(false);
       setWeekIndex(0);
       setAvailabilityState("success");
     } catch (loadError) {
-      setAvailabilityPreview(false);
       setAvailabilityState("error");
       setAvailabilityError(
         loadError instanceof Error ? loadError.message : "Freie Termine konnten nicht geladen werden."
@@ -712,10 +711,6 @@ export function BookingFunnel({
                   ? "Sucht euch eine passende Zeit aus zum Telefonieren."
                   : "Sucht euch eine passende Zeit für eure Besichtigung aus."}
               </h3>
-              <p>Die Verfügbarkeit wird live mit dem Kalender abgeglichen.</p>
-              {availabilityPreview ? (
-                <p className="booking-preview-note">Lokale Vorschau – noch ohne Live-Kalenderabgleich.</p>
-              ) : null}
             </div>
           </div>
 
@@ -795,6 +790,7 @@ export function BookingFunnel({
                       onClick={() => {
                         setSelectedDayKey(cell.key);
                         setSelectedSlotId("");
+                        setShowAllSlots(false);
                       }}
                       type="button"
                     >
@@ -816,7 +812,12 @@ export function BookingFunnel({
                 role="region"
               >
                 <p className="booking-slot-day">{formatFullDay(selectedDay.date)}</p>
-                <div className="booking-slot-grid compact" role="radiogroup" aria-label="Freie Uhrzeiten">
+                <div
+                  className={`booking-slot-grid compact${showAllSlots ? " is-expanded" : ""}`}
+                  id="booking-slot-options"
+                  role="radiogroup"
+                  aria-label="Freie Uhrzeiten"
+                >
                   {visibleSlots.map((slot) => (
                     <label
                       className={slot.id === selectedSlotId ? "booking-slot is-selected" : "booking-slot"}
@@ -833,6 +834,18 @@ export function BookingFunnel({
                     </label>
                   ))}
                 </div>
+                {visibleSlots.length > 4 ? (
+                  <button
+                    aria-controls="booking-slot-options"
+                    aria-expanded={showAllSlots}
+                    className="booking-slots-toggle"
+                    onClick={() => setShowAllSlots((current) => !current)}
+                    type="button"
+                  >
+                    {showAllSlots ? "Weniger Uhrzeiten anzeigen" : `Alle ${visibleSlots.length} Uhrzeiten anzeigen`}
+                    <ChevronRight aria-hidden="true" size={17} />
+                  </button>
+                ) : null}
               </div>
             ) : availabilityState === "success" ? (
               <p className="booking-note">An diesem Tag ist aktuell kein Termin frei. Wählt einen anderen Tag.</p>
