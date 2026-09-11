@@ -43,7 +43,7 @@ export const siteConfig = {
 
 export const imageLibrary = {
   hero: {
-    src: "/images/site/hero-brautpaar-steg-am-see-greener-4k-test-v2.jpg",
+    src: "/images/site/hero-brautpaar-steg-am-see.jpg",
     alt: "Brautpaar mit Schirm auf einem Holzsteg am See des Landgut Seebühne"
   },
   coupleFence: {
@@ -98,6 +98,11 @@ export const imageLibrary = {
     src: "/images/site/team-landgut-seebuehne.jpg",
     alt: "Oliver Hildenbrand vom Landgut Seebühne"
   }
+} as const;
+
+export const homepageHeroMobileImage = {
+  src: "/images/site/hero-brautpaar-steg-am-see-mobile-ai-v3.jpg",
+  alt: "Brautpaar mit Schirm auf einem Holzsteg am See des Landgut Seebühne"
 } as const;
 
 export type PageSection = {

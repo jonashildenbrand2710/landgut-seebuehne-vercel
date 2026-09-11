@@ -16,7 +16,7 @@ import { FAQ } from "@/components/PageSections";
 import { Hero } from "@/components/Hero";
 import { PageJsonLd } from "@/components/StructuredData";
 import { landingFaq } from "@/data/landing";
-import { indexPage } from "@/data/site";
+import { homepageHeroMobileImage, indexPage } from "@/data/site";
 import { pageMetadata } from "@/lib/page-metadata";
 
 export const metadata: Metadata = pageMetadata({
@@ -40,6 +40,7 @@ export default function HomePage() {
         title={indexPage.heroTitle}
         text={indexPage.heroText}
         imageKey={indexPage.imageKey}
+        mobileImage={homepageHeroMobileImage}
         primaryCta={indexPage.primaryCta}
         variant="cinematic"
         proof={{
