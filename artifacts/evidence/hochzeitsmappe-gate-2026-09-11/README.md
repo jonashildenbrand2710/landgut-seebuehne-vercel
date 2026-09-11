@@ -5,7 +5,7 @@
 - Tracking-Commit: `a895092`
 - Branch: `codex/hochzeitsmappe-gated-flow`
 - Umgebung: lokaler Next.js-Server mit isolierten CRM-/Fallback-Mocks
-- Vercel-Preview: `https://landgut-seebuehne-vercel-cpeyrrhxu-jonas-projects-ac40f00f.vercel.app`
+- Vercel-Preview: `https://landgut-seebuehne-vercel-eia1idfdy-jonas-projects-ac40f00f.vercel.app`
 - Linear: nicht verwendet, entsprechend der ausdruecklichen Nutzerentscheidung
 - Gesamtergebnis: bestanden
 
