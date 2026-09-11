@@ -568,6 +568,17 @@ export function BookingFunnel({
               ? "Alles hat funktioniert. In dieser lokalen Vorschau wurden weder Kalender noch CRM verändert."
               : "Danke, wir haben den Termin gespeichert und im Kalender angelegt. Eine persönliche Rückmeldung erfolgt, falls noch etwas offen ist."}
           </p>
+          {!isPreviewBooking && bookingResult.confirmation_email?.status === "queued" ? (
+            <p className="booking-note" role="status">
+              Eure Terminbestätigung ist an {contact.email} unterwegs.
+            </p>
+          ) : null}
+          {!isPreviewBooking && bookingResult.confirmation_email?.status === "failed" ? (
+            <p className="booking-error" role="status">
+              Der Termin ist gebucht, aber die Bestätigungsmail konnte gerade nicht versendet werden.
+              Bitte bucht nicht erneut – wir kümmern uns darum.
+            </p>
+          ) : null}
           <dl className="booking-review-list">
             <div>
               <dt>Termin</dt>

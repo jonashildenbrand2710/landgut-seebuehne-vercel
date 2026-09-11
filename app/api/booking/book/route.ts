@@ -1,5 +1,8 @@
 import { bookingErrorResponse, createBooking, type BookingRequest } from "@/lib/booking-api";
+import { submitBookingConfirmation } from "@/lib/booking-confirmation";
 import { sendMetaCompleteRegistration } from "@/lib/meta-capi";
+
+export const runtime = "nodejs";
 
 function stringValue(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
@@ -44,6 +47,22 @@ export async function POST(request: Request) {
     return bookingErrorResponse(error);
   }
 
+  let confirmationEmail: NonNullable<typeof booking.confirmation_email>;
+
+  try {
+    const result = await submitBookingConfirmation(payload, booking);
+    confirmationEmail = {
+      provider: result.deliveryProvider,
+      status: "queued"
+    };
+  } catch (error) {
+    confirmationEmail = { status: "failed" };
+    console.error(
+      "Booking confirmation delivery failed",
+      error instanceof Error ? error.message : "Unknown error"
+    );
+  }
+
   // Tracking darf eine erfolgreich angelegte Buchung nie in einen Fehler verwandeln.
   if (payload.booking?.type === "phone" || payload.booking?.type === "tour") {
     try {
@@ -71,5 +90,11 @@ export async function POST(request: Request) {
     }
   }
 
-  return Response.json(booking, { status: 200 });
+  return Response.json(
+    {
+      ...booking,
+      confirmation_email: confirmationEmail
+    },
+    { status: 200 }
+  );
 }
