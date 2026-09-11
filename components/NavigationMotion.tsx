@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
-const ENTER_DURATION_MS = 480;
+const ENTER_DURATION_MS = 360;
 const PENDING_FALLBACK_MS = 1400;
 
 function firstVisiblePageSurface(main: HTMLElement | null) {
@@ -17,14 +17,13 @@ function firstVisiblePageSurface(main: HTMLElement | null) {
 
 export function NavigationMotion() {
   const pathname = usePathname();
+  const initialPathnameRef = useRef(pathname);
+  const hasNavigatedRef = useRef(false);
   const pendingTimeoutRef = useRef<number | null>(null);
   const entryAnimationRef = useRef<Animation | null>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = document.documentElement;
-    const main = document.querySelector<HTMLElement>("main#inhalt");
-    const surface = firstVisiblePageSurface(main);
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     root.classList.remove("route-is-pending");
     if (pendingTimeoutRef.current !== null) {
@@ -32,12 +31,23 @@ export function NavigationMotion() {
       pendingTimeoutRef.current = null;
     }
 
+    const isInitialRender = pathname === initialPathnameRef.current && !hasNavigatedRef.current;
+    if (pathname !== initialPathnameRef.current) {
+      hasNavigatedRef.current = true;
+    }
+
+    if (isInitialRender) return;
+
+    const main = document.querySelector<HTMLElement>("main#inhalt");
+    const surface = firstVisiblePageSurface(main);
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     if (!surface || prefersReducedMotion) return;
 
     entryAnimationRef.current?.cancel();
     entryAnimationRef.current = surface.animate(
       [
-        { opacity: 0.88, transform: "translate3d(0, 9px, 0)" },
+        { opacity: 0.96, transform: "translate3d(0, 4px, 0)" },
         { opacity: 1, transform: "translate3d(0, 0, 0)" }
       ],
       { duration: ENTER_DURATION_MS, easing: "cubic-bezier(0.22, 1, 0.36, 1)" }
