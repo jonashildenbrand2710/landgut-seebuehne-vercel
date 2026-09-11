@@ -185,23 +185,19 @@ Das Projekt ist im Zielzustand, wenn:
 - ein Agent mit dieser Datei und den Markdown-Quellen weiterarbeiten kann, ohne
   die komplette Altseite erneut auslesen zu muessen
 
-## Code Factory
+## Lokaler Workflow
 
-Lies vor jeder Änderung `.code-factory/factory.json` und das verknüpfte Linear-Issue.
-
-- Nutzerkommunikation standardmäßig auf Deutsch.
-- Cursor-Modell-Policy ist `Auto`; keine festen Anbieter- oder Modellnamen anfordern. Aufgabenkomplexität und Risiko aus dem Linear-Issue beachten.
-- Genau ein Linear-Issue pro Pull Request.
-- `AC-N` vollständig umsetzen; `NG-N` bindend erhalten.
-- Bestehende Architektur und Projektregeln haben Vorrang.
-- Alle konfigurierten, nicht leeren Qualitätsbefehle ausführen.
-- UI-/API-Verhalten mit reproduzierbaren Belegen dokumentieren.
-- UI-Verhalten mit `$evidence-driven-testing` belegen.
-- Nach vollständigem Build und Evidence `review.triggerLabel` setzen; eine Cursor Automation startet `$code-factory-review` in einem getrennten Agent-Lauf.
-- Review-Agenten dürfen keinen Code ändern oder mergen. Bei behebbaren Must-fix-Befunden setzt der Review als letzte Aktion `repair.triggerLabel`; eine zweite Automation startet `$code-factory-repair`.
-- Repair-Agenten verwenden `$code-factory-build` im Reparaturmodus, arbeiten auf demselben PR-Branch und dürfen weder neuen PR noch Merge erzeugen. Höchstens drei aufeinanderfolgende automatische Runden ohne neue menschliche Linear-Antwort.
-- Technische Details selbst entscheiden. Menschen nur am Rundenlimit oder bei wesentlichem Produkt-, Daten-, Auth-, Datenschutz-, Zahlungs-, Rechts- oder Irreversibilitätsentscheid kurz in Linear fragen; eine Frage gleichzeitig, einfache Antworten.
-- Neue PR-Commits lösen einen neuen commitgebundenen Review aus.
-- Keine Secrets in Code, Logs, Issues, PRs oder Aufnahmen.
-- Branch und Draft-PR erstellen; niemals selbst mergen oder Auto-Merge aktivieren.
-- Bei den seltenen erlaubten Produktfragen eine kurze deutsche Frage mit Empfehlung und höchstens drei direkt beantwortbaren Optionen in Linear stellen.
+- Änderungen dürfen direkt lokal umgesetzt werden. Ein Linear-Issue oder ein
+  Code-Factory-Prozess ist dafür nicht erforderlich.
+- Eine ausdrückliche Bitte des Nutzers, etwas zu ändern oder zu implementieren,
+  autorisiert nach erfolgreicher Prüfung auch Commit, Push und Live-Deployment.
+- Vor jedem Commit müssen mindestens `npm run lint`, `npm run typecheck` und
+  `npm run build` erfolgreich laufen.
+- Es dürfen ausschließlich Dateien committed werden, die zur aktuellen Aufgabe
+  gehören. Bereits vorhandene oder fremde Änderungen bleiben unangetastet.
+- Secrets dürfen niemals committed oder in Ausgaben offengelegt werden.
+- Für rechtliche Texte, Zugangsdaten, Zahlungen, DNS-Änderungen und andere
+  wesentliche irreversible Entscheidungen ist weiterhin eine konkrete
+  Nutzerfreigabe erforderlich.
+- Wenn der Nutzer ausdrücklich „nur lokal“ sagt, darf weder gepusht noch
+  deployed werden.

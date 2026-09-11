@@ -5,6 +5,9 @@
   "private": true,
   "scripts": {
     "audit:activecampaign": "node scripts/audit-activecampaign.mjs",
+    "setup:activecampaign:booking": "node scripts/setup-activecampaign-booking.mjs",
+    "setup:activecampaign:booking:apply": "node scripts/setup-activecampaign-booking.mjs --apply",
+    "test:booking-confirmations": "node --test tests/booking-confirmation-content.test.mjs",
     "update:activecampaign:hochzeitsmappe": "node scripts/update-activecampaign-hochzeitsmappe-email.mjs",
     "dev": "next dev",
     "build": "node scripts/validate-articles.mjs && next build",

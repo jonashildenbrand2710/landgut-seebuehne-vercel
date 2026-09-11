@@ -21,6 +21,8 @@ import type {
   BookingSlot
 } from "@/lib/booking-api";
 import { createMetaEventId, trackMetaCompleteRegistrationWhenReady } from "@/components/MetaConversionTracking";
+import { trackTikTokCompleteRegistrationWhenReady } from "@/components/TikTokConversionTracking";
+import { readStoredConsent } from "@/lib/consent";
 
 type BookingFunnelProps = {
   appointmentType: BookingAppointmentType;
@@ -81,8 +83,11 @@ function trackingPayload() {
     meta_campaign_id: params.get("meta_campaign_id") || "",
     meta_placement: params.get("meta_placement") || "",
     landingPageUrl: window.location.href,
+    marketingConsent: readStoredConsent() || "",
     pageUrl: window.location.href,
     referrer: document.referrer,
+    ttclid: params.get("ttclid") || "",
+    ttp: cookieValue("_ttp"),
     userAgent: navigator.userAgent,
     utm_campaign: params.get("utm_campaign") || "",
     utm_content: params.get("utm_content") || "",
@@ -539,6 +544,12 @@ export function BookingFunnel({
           eventId,
           { guard: true }
         );
+
+        trackTikTokCompleteRegistrationWhenReady(
+          appointmentType === "tour" ? "besichtigung" : "erstgespraech",
+          eventId,
+          { guard: true }
+        );
       }
     } catch (submitError) {
       setBookingState("error");
@@ -568,6 +579,17 @@ export function BookingFunnel({
               ? "Alles hat funktioniert. In dieser lokalen Vorschau wurden weder Kalender noch CRM verändert."
               : "Danke, wir haben den Termin gespeichert und im Kalender angelegt. Eine persönliche Rückmeldung erfolgt, falls noch etwas offen ist."}
           </p>
+          {!isPreviewBooking && bookingResult.confirmation_email?.status === "queued" ? (
+            <p className="booking-note" role="status">
+              Eure Terminbestätigung ist an {contact.email} unterwegs.
+            </p>
+          ) : null}
+          {!isPreviewBooking && bookingResult.confirmation_email?.status === "failed" ? (
+            <p className="booking-error" role="status">
+              Der Termin ist gebucht, aber die Bestätigungsmail konnte gerade nicht versendet werden.
+              Bitte bucht nicht erneut – wir kümmern uns darum.
+            </p>
+          ) : null}
           <dl className="booking-review-list">
             <div>
               <dt>Termin</dt>

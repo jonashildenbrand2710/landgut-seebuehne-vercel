@@ -17,6 +17,12 @@ type SyncContactResponse = {
   contact?: ActiveCampaignContact;
 };
 
+type ContactAutomationResponse = {
+  contactAutomation?: {
+    id?: string | number;
+  };
+};
+
 type ContactListsResponse = {
   contactLists?: Array<{
     list?: string | number;
@@ -207,6 +213,22 @@ export async function isActiveCampaignContactSubscribedToList(
   );
 }
 
+export async function getActiveCampaignContactListStatus(
+  config: ActiveCampaignConfig,
+  contactId: string,
+  listId: string
+) {
+  const response = await activeCampaignRequest<ContactListsResponse>(
+    config,
+    `/contacts/${encodeURIComponent(contactId)}/contactLists`
+  );
+  const relation = (response.contactLists ?? []).find(
+    (contactList) => String(contactList.list) === listId
+  );
+
+  return relation ? String(relation.status ?? "") : null;
+}
+
 export async function addActiveCampaignTagToContact(
   config: ActiveCampaignConfig,
   contactId: string,
@@ -266,4 +288,27 @@ export async function addActiveCampaignContactToAutomation(
       throw error;
     }
   }
+}
+export async function startActiveCampaignContactAutomation(
+  config: ActiveCampaignConfig,
+  contactId: string,
+  automationId: string
+) {
+  const response = await activeCampaignRequest<ContactAutomationResponse>(
+    config,
+    "/contactAutomations",
+    {
+      method: "POST",
+      body: {
+        contactAutomation: {
+          contact: contactId,
+          automation: automationId
+        }
+      }
+    }
+  );
+
+  return response.contactAutomation?.id
+    ? String(response.contactAutomation.id)
+    : undefined;
 }

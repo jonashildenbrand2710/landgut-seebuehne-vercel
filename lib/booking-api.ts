@@ -69,6 +69,10 @@ export type BookingResponse = {
     };
     status?: string;
   };
+  confirmation_email?: {
+    provider?: "activecampaign" | "smtp";
+    status: "failed" | "queued";
+  };
   google_calendar?: {
     eventId?: string;
     synced?: boolean;
