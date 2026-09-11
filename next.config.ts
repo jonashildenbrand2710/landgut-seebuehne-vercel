@@ -36,8 +36,16 @@ const nextConfig: NextConfig = {
         ]
       },
       {
-        source: "/danke-preise",
+        source: "/hochzeitsmappe/online",
         headers: [
+          {
+            key: "Cache-Control",
+            value: "private, no-store, max-age=0"
+          },
+          {
+            key: "Referrer-Policy",
+            value: "no-referrer"
+          },
           {
             key: "X-Robots-Tag",
             value: "noindex, nofollow, noarchive, nosnippet"
@@ -82,6 +90,26 @@ const nextConfig: NextConfig = {
       {
         source: "/besichtigungstermin-buchen",
         destination: "/termin-buchen",
+        statusCode: 301
+      },
+      {
+        source: "/preise",
+        destination: "/termin-buchen",
+        statusCode: 301
+      },
+      {
+        source: "/preise-basis",
+        destination: "/termin-buchen",
+        statusCode: 301
+      },
+      {
+        source: "/danke-preise",
+        destination: "/termin-buchen",
+        statusCode: 301
+      },
+      {
+        source: "/intern/hochzeitsmappe-alt",
+        destination: "/hochzeitsmappe",
         statusCode: 301
       },
       {

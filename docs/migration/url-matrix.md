@@ -10,15 +10,15 @@ Arbeitsstand fuer den Vercel-Rebuild. Ziel: Keine bekannte Onepage-URL soll beim
 | `/getting-ready` | `/getting-ready` | behalten | index | Getting Ready als Ablaufvorteil |
 | `/uber-uns` | `/uber-uns` | behalten | index | Bestehende Schreibweise behalten |
 | `/ueber-uns` | `/uber-uns` | 301 | index Ziel | Komfort-Redirect fuer Umlautschreibweise |
-| `/hochzeitsmappe` | `/hochzeitsmappe` | behalten | index | Lead-Magnet, keine Preisdetails |
+| `/hochzeitsmappe` | `/hochzeitsmappe` | behalten | index | Oeffentliche Opt-in-Landingpage; Online-Mappe erst nach persoenlichem Zugang |
 | `/besichtigung` | `/besichtigung` | behalten | index | Direkte Besichtigung als primaeren Einstieg framen |
 | `/termin-buchen` | `/termin-buchen` | behalten | index | Neutraler Termin-Funnel fuer 30-minuetiges Telefonat oder 90-minuetige Besichtigung mit Google-Kalenderabgleich |
 | `/kontaktformular` | `/kontaktformular` | behalten | index | Kontakt- und Lead-Einstieg |
 | `/formular` | `/formular` | behalten | index | Besichtigungs-Funnel; CTA fuehrt direkt zur Kalenderbuchung |
 | `/impressum` | `/impressum` | behalten | index | Rechtsdaten vor Livegang final pruefen |
 | `/danke` | `/danke` | behalten | noindex | Danke-Seite, nicht in Sitemap |
-| `/preise` | `/preise` | behalten | noindex | Keine oeffentlichen Preisdetails, CTA zur Besichtigung |
-| `/preise-basis` | `/preise-basis` | behalten | noindex | Keine oeffentlichen Preisdetails |
+| `/preise` | `/termin-buchen` | 301 | noindex | Kein Preisversand; Telefonat oder Besichtigung waehlen |
+| `/preise-basis` | `/termin-buchen` | 301 | noindex | Kein Preisversand; Telefonat oder Besichtigung waehlen |
 | `/quizz` | `/quizz` | Review | noindex | Alter Funnel; Zweck pruefen |
 | `/chatbot` | `/chatbot` | Review | noindex | Alter Funnel/Template; Zweck pruefen |
 | `/zimmerbuchung` | `/zimmerbuchung` | Review | noindex | Operative Seite; Integration pruefen |
