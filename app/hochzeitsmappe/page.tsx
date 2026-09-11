@@ -114,7 +114,7 @@ export default function HochzeitsmappePage() {
             </a>
             <Link className="button secondary" href="/termin-buchen">
               <ArrowRight aria-hidden="true" size={18} />
-              <span>Besichtigungstermin buchen</span>
+              <span>Eure Kalkulation erfahren</span>
             </Link>
           </div>
         </div>
@@ -246,11 +246,6 @@ export default function HochzeitsmappePage() {
               schicken wir euch den persönlichen Zugangslink per E-Mail, damit ihr später
               jederzeit weiterlesen könnt.
             </p>
-            <div className="mappe-mini-proof" aria-label="Vorteile des Online-Zugangs">
-              <span>Sofort online öffnen</span>
-              <span>Link direkt per E-Mail</span>
-              <span>Später bequem weiterlesen</span>
-            </div>
           </div>
 
           <HochzeitsmappeForm />
