@@ -5,11 +5,8 @@ import { CookieSettingsButton } from "@/components/CookieSettingsButton";
 import { mainNavigation, siteConfig } from "@/data/site";
 
 const footerSecondaryLinks = [
-  { label: "Getting Ready", href: "/getting-ready" },
   { label: "Besichtigung", href: "/besichtigung" },
-  { label: "Termin buchen", href: "/termin-buchen" },
-  { label: "Kontakt", href: "/kontaktformular" },
-  { label: "Buchungsformular", href: "/formular" }
+  { label: "Kennenlerngespräch", href: "/formular" }
 ];
 
 export function Footer() {
