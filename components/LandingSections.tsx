@@ -207,6 +207,7 @@ export function PromiseGrid() {
           className="auto-scroll-carousel promise-visual-grid"
           intervalMs={4000}
           scrollDurationMs={1500}
+          startImmediatelyOnVisible
         >
           {images.map((imageKey) => {
             const image = imageLibrary[imageKey];

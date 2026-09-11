@@ -28,7 +28,6 @@ export function AutoScrollCarousel({
   const directionRef = useRef<1 | -1>(1);
   const pausedRef = useRef(false);
   const visibleRef = useRef(false);
-  const hasStartedOnVisibleRef = useRef(false);
 
   const clearTimer = useCallback(() => {
     if (timeoutRef.current !== null) {
@@ -193,8 +192,7 @@ export function AutoScrollCarousel({
 
         visibleRef.current = isVisible;
         if (isVisible) {
-          if (startImmediatelyOnVisible && !hasStartedOnVisibleRef.current) {
-            hasStartedOnVisibleRef.current = true;
+          if (startImmediatelyOnVisible) {
             scrollOneSlide();
           } else {
             scheduleAutoplay();

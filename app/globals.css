@@ -7346,7 +7346,8 @@ body:not(:has(.site-header--dornrose)) .cta-section .eyebrow {
 }
 
 body:not(:has(.site-header--dornrose)) .solution-list small {
-  color: var(--color-soft-ink);
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 500;
 }
 
 /* Cookie-Dialog; der Footer selbst bleibt unveraendert. */
