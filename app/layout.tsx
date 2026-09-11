@@ -9,6 +9,7 @@ import { NavigationMotion } from "@/components/NavigationMotion";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { SiteJsonLd } from "@/components/StructuredData";
 import { imageLibrary, siteConfig } from "@/data/site";
+import { CONSENT_STORAGE_KEY } from "@/lib/consent";
 import "./globals.css";
 
 const inclusiveSans = Inclusive_Sans({
@@ -29,6 +30,10 @@ const siteVerification: Metadata["verification"] = {
   ...(googleSiteVerification ? { google: googleSiteVerification } : {}),
   ...(bingSiteVerification ? { other: { "msvalidate.01": bingSiteVerification } } : {})
 };
+
+const consentVisibilityScript = `try{var c=localStorage.getItem(${JSON.stringify(
+  CONSENT_STORAGE_KEY
+)});if(c==="granted"||c==="denied")document.documentElement.dataset.consentStored="true"}catch(e){}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.domain),
@@ -67,8 +72,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html
       lang="de"
       className={`${inclusiveSans.variable} ${notoSerif.variable}`}
-      data-scroll-behavior="smooth"
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: consentVisibilityScript }} />
+      </head>
       <body>
         <NavigationMotion />
         <a className="skip-link" href="#inhalt">

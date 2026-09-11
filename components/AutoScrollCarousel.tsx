@@ -20,10 +20,12 @@ export function AutoScrollCarousel({
   const viewportRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<number | null>(null);
   const completionTimeoutRef = useRef<number | null>(null);
+  const pageScrollTimeoutRef = useRef<number | null>(null);
   const scrollEndHandlerRef = useRef<(() => void) | null>(null);
   const scheduleAutoplayRef = useRef<() => void>(() => undefined);
   const directionRef = useRef<1 | -1>(1);
   const pausedRef = useRef(false);
+  const visibleRef = useRef(false);
 
   const clearTimer = useCallback(() => {
     if (timeoutRef.current !== null) {
@@ -125,7 +127,7 @@ export function AutoScrollCarousel({
   const scheduleAutoplay = useCallback(() => {
     clearTimer();
 
-    if (pausedRef.current || document.hidden) {
+    if (pausedRef.current || !visibleRef.current || document.hidden) {
       return;
     }
 
@@ -163,11 +165,41 @@ export function AutoScrollCarousel({
     const handleVisibilityChange = () => {
       if (document.hidden) {
         clearTimer();
+        stopAnimation();
       } else {
         scheduleAutoplay();
       }
     };
+    const handlePageScroll = () => {
+      if (!visibleRef.current) return;
 
+      clearTimer();
+      stopAnimation();
+      if (pageScrollTimeoutRef.current !== null) {
+        window.clearTimeout(pageScrollTimeoutRef.current);
+      }
+      pageScrollTimeoutRef.current = window.setTimeout(() => {
+        pageScrollTimeoutRef.current = null;
+        scheduleAutoplay();
+      }, 700);
+    };
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        const isVisible = Boolean(entry?.isIntersecting && entry.intersectionRatio >= 0.25);
+        if (visibleRef.current === isVisible) return;
+
+        visibleRef.current = isVisible;
+        if (isVisible) {
+          scheduleAutoplay();
+        } else {
+          clearTimer();
+          stopAnimation();
+        }
+      },
+      { threshold: [0, 0.25, 0.6] }
+    );
+
+    visibilityObserver.observe(viewport);
     viewport.addEventListener("pointerdown", pause);
     viewport.addEventListener("pointerup", resume);
     viewport.addEventListener("pointercancel", resume);
@@ -177,12 +209,18 @@ export function AutoScrollCarousel({
     viewport.addEventListener("focusout", resume);
     viewport.addEventListener("wheel", postpone, { passive: true });
     viewport.addEventListener("scroll", postpone, { passive: true });
+    window.addEventListener("scroll", handlePageScroll, { passive: true });
     document.addEventListener("visibilitychange", handleVisibilityChange);
-    scheduleAutoplay();
 
     return () => {
       clearTimer();
       stopAnimation();
+      visibilityObserver.disconnect();
+      if (pageScrollTimeoutRef.current !== null) {
+        window.clearTimeout(pageScrollTimeoutRef.current);
+        pageScrollTimeoutRef.current = null;
+      }
+      visibleRef.current = false;
       viewport.removeEventListener("pointerdown", pause);
       viewport.removeEventListener("pointerup", resume);
       viewport.removeEventListener("pointercancel", resume);
@@ -192,6 +230,7 @@ export function AutoScrollCarousel({
       viewport.removeEventListener("focusout", resume);
       viewport.removeEventListener("wheel", postpone);
       viewport.removeEventListener("scroll", postpone);
+      window.removeEventListener("scroll", handlePageScroll);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [clearTimer, scheduleAutoplay, stopAnimation]);
