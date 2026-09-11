@@ -593,10 +593,6 @@ export function BookingFunnel({
         <strong>Gute Wahl!</strong> Mit zwei kurzen Fragen bereiten wir euren Termin passend für euch vor.
       </p>
       <p>{description}</p>
-      <button className="booking-change-type booking-change-type-inline" onClick={onChangeAppointmentType} type="button">
-        <ArrowLeft aria-hidden="true" size={16} />
-        Terminart ändern
-      </button>
       {activeStep === "year" ? (
         <div className="booking-step booking-question-step">
           <p className="booking-step-count">Frage 1 von 2</p>
@@ -616,10 +612,14 @@ export function BookingFunnel({
               </button>
             ))}
           </div>
-          <div className="booking-actions">
+          <div className="booking-actions booking-step-actions">
             <button className="button primary" disabled={!answers.desiredYear} onClick={() => goToStep("guests")} type="button">
               <span>Weiter</span>
               <ArrowRight aria-hidden="true" size={18} />
+            </button>
+            <button className="button secondary booking-back-button" onClick={onChangeAppointmentType} type="button">
+              <ArrowLeft aria-hidden="true" size={15} />
+              <span>Zurück zur Terminart</span>
             </button>
           </div>
         </div>
@@ -662,14 +662,14 @@ export function BookingFunnel({
               Noch offen
             </button>
           </div>
-          <div className="booking-actions">
-            <button className="button secondary" onClick={() => setActiveStep("year")} type="button">
-              <ArrowLeft aria-hidden="true" size={18} />
-              <span>Zurück</span>
-            </button>
+          <div className="booking-actions booking-step-actions">
             <button className="button primary" disabled={!answers.guestRange} onClick={() => goToStep("slot")} type="button">
               <span>Freie Termine ansehen</span>
               <ArrowRight aria-hidden="true" size={18} />
+            </button>
+            <button className="button secondary booking-back-button" onClick={() => setActiveStep("year")} type="button">
+              <ArrowLeft aria-hidden="true" size={15} />
+              <span>Zurück</span>
             </button>
           </div>
         </div>
@@ -827,14 +827,14 @@ export function BookingFunnel({
             <p className="booking-hint">Wählt zuerst einen Tag – danach erscheinen die freien Uhrzeiten.</p>
           ) : null}
 
-          <div className="booking-actions booking-slot-actions">
-            <button className="button secondary" onClick={() => setActiveStep("guests")} type="button">
-              <ArrowLeft aria-hidden="true" size={18} />
-              <span>Zurück</span>
-            </button>
+          <div className="booking-actions booking-step-actions booking-slot-actions">
             <button className="button primary" disabled={!selectedSlot} onClick={() => goToStep("contact")} type="button">
               <span>Weiter</span>
               <ArrowRight aria-hidden="true" size={18} />
+            </button>
+            <button className="button secondary booking-back-button" onClick={() => setActiveStep("guests")} type="button">
+              <ArrowLeft aria-hidden="true" size={15} />
+              <span>Zurück</span>
             </button>
           </div>
         </div>
@@ -921,14 +921,14 @@ export function BookingFunnel({
               </small>
             </label>
           </div>
-          <div className="booking-actions">
-            <button className="button secondary" onClick={() => setActiveStep("slot")} type="button">
-              <ArrowLeft aria-hidden="true" size={18} />
-              <span>Zurück</span>
-            </button>
+          <div className="booking-actions booking-step-actions">
             <button className="button primary" disabled={!contactComplete} type="submit">
               <span>Weiter</span>
               <ArrowRight aria-hidden="true" size={18} />
+            </button>
+            <button className="button secondary booking-back-button" onClick={() => setActiveStep("slot")} type="button">
+              <ArrowLeft aria-hidden="true" size={15} />
+              <span>Zurück</span>
             </button>
           </div>
         </form>
@@ -968,11 +968,7 @@ export function BookingFunnel({
             </p>
           ) : null}
 
-          <div className="booking-actions">
-            <button className="button secondary" onClick={() => setActiveStep("contact")} type="button">
-              <ArrowLeft aria-hidden="true" size={18} />
-              <span>Zurück</span>
-            </button>
+          <div className="booking-actions booking-step-actions">
             <button className="button primary" disabled={bookingState === "loading"} onClick={submitBooking} type="button">
               {bookingState === "loading" ? (
                 <LoaderCircle aria-hidden="true" className="booking-spinner" size={18} />
@@ -988,6 +984,10 @@ export function BookingFunnel({
                     ? "Termin wird gebucht"
                     : "Termin buchen"}
               </span>
+            </button>
+            <button className="button secondary booking-back-button" onClick={() => setActiveStep("contact")} type="button">
+              <ArrowLeft aria-hidden="true" size={15} />
+              <span>Zurück</span>
             </button>
           </div>
         </div>
