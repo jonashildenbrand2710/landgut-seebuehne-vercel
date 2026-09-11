@@ -5,7 +5,7 @@
   place-items: center;
   overflow: hidden;
   padding: clamp(48px, 8vw, 100px) 20px;
-  background: #1e3028;
+  background: var(--surface-photo-dark);
 }
 
 .background,
@@ -22,8 +22,8 @@
 .shade {
   z-index: 1;
   background:
-    linear-gradient(120deg, rgba(19, 39, 31, 0.88), rgba(19, 39, 31, 0.48)),
-    linear-gradient(0deg, rgba(19, 39, 31, 0.3), rgba(19, 39, 31, 0.3));
+    linear-gradient(120deg, rgb(var(--rgb-photo-overlay) / 0.88), rgb(var(--rgb-photo-overlay) / 0.48)),
+    linear-gradient(0deg, rgb(var(--rgb-photo-overlay) / 0.3), rgb(var(--rgb-photo-overlay) / 0.3));
 }
 
 .card {
@@ -40,13 +40,13 @@
 
 .icon {
   margin-bottom: 24px;
-  color: #987479;
+  color: var(--color-deep-rose);
 }
 
 .eyebrow {
   display: block;
   margin-bottom: 12px;
-  color: #748778;
+  color: var(--color-rose-text);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.15em;
@@ -56,7 +56,7 @@
 .card h1 {
   max-width: 650px;
   margin: 0;
-  color: #2f3934;
+  color: var(--color-nature-ink);
   font-family: var(--font-display);
   font-size: clamp(2.6rem, 7vw, 5rem);
   font-weight: 400;
@@ -66,7 +66,7 @@
 .intro {
   max-width: 630px;
   margin: 24px 0 0;
-  color: #4f5e56;
+  color: var(--color-soft-ink);
   font-size: clamp(1.03rem, 2vw, 1.18rem);
   line-height: 1.65;
 }
@@ -90,24 +90,24 @@
 
 .steps svg {
   margin-top: 2px;
-  color: #748778;
+  color: var(--color-leaf);
 }
 
 .steps strong {
   display: block;
-  color: #2f3934;
+  color: var(--color-nature-ink);
 }
 
 .steps p {
   margin: 4px 0 0;
-  color: #667069;
+  color: var(--color-soft-ink);
   font-size: 0.9rem;
   line-height: 1.5;
 }
 
 .note {
   margin: 22px 0 0;
-  color: #667069;
+  color: var(--color-soft-ink);
   font-size: 0.88rem;
 }
 
@@ -126,7 +126,7 @@
   justify-content: center;
   min-height: 54px;
   padding: 0 22px;
-  border: 1px solid #40584d;
+  border: 1px solid var(--color-sage);
   border-radius: 999px;
   font-weight: 700;
   text-decoration: none;
@@ -134,12 +134,12 @@
 }
 
 .primary {
-  color: #fff;
-  background: #40584d;
+  color: var(--on-brand-primary);
+  background: var(--color-sage);
 }
 
 .secondary {
-  color: #40584d;
+  color: var(--color-nature-ink);
   background: transparent;
 }
 
@@ -149,8 +149,8 @@
 }
 
 .secondary:hover {
-  color: #fff;
-  background: #40584d;
+  color: var(--on-brand-primary);
+  background: var(--color-sage);
 }
 
 @media (max-width: 560px) {

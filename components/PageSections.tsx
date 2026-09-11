@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, CalendarDays, Check, Mail } from "lucide-react";
+import { ArrowRight, CalendarDays, Check, Mail, Plus } from "lucide-react";
 import type { PageSection, SitePage } from "@/data/site";
 import { siteConfig } from "@/data/site";
 
@@ -41,12 +41,17 @@ export function FAQ({ items }: { items?: SitePage["faqs"] }) {
         <h2>Häufige Fragen</h2>
         <div className="faq-grid">
           {items.map((item) => (
-            <article className="faq-item" key={item.question}>
-              <h3>{item.question}</h3>
-              {item.answer.split(/\n{2,}/).map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </article>
+            <details className="faq-item" key={item.question}>
+              <summary>
+                <span className="faq-question">{item.question}</span>
+                <Plus aria-hidden="true" size={22} />
+              </summary>
+              <div className="faq-answer">
+                {item.answer.split(/\n{2,}/).map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            </details>
           ))}
         </div>
       </div>

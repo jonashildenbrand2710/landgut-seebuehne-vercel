@@ -625,10 +625,8 @@ export const publicSitePageSlugs = [
   "getting-ready",
   "uber-uns",
   "hochzeitsmappe",
-  "besichtigung",
   "termin-buchen",
   "kontaktformular",
-  "formular",
   "impressum",
   "datenschutz"
 ] as const;

@@ -1,14 +1,14 @@
 .page {
-  --paper: #fbfaf6;
-  --paper-deep: #f3f0e8;
-  --paper-rose: #f7f0ef;
-  --ink: #2f3934;
-  --muted: #667069;
-  --leaf: #748778;
-  --leaf-deep: #40584d;
-  --lake: #a9c8cf;
-  --rose: #d9babe;
-  --line: rgba(65, 88, 77, 0.16);
+  --paper: var(--color-pearl);
+  --paper-deep: var(--color-paper);
+  --paper-rose: var(--color-rose-paper);
+  --ink: var(--color-nature-ink);
+  --muted: var(--color-soft-ink);
+  --leaf: var(--color-leaf);
+  --leaf-deep: var(--color-deep-leaf);
+  --lake: var(--color-lake);
+  --rose: var(--color-rose);
+  --line: rgb(var(--rgb-nature-ink) / 0.16);
   overflow: hidden;
   background: var(--paper);
   color: var(--ink);
@@ -43,7 +43,7 @@
   isolation: isolate;
   min-height: max(760px, 100svh);
   overflow: hidden;
-  background: #1e3028;
+  background: var(--surface-photo-dark);
 }
 
 .heroVisual,
@@ -60,8 +60,13 @@
 .heroShade {
   z-index: 1;
   background:
-    linear-gradient(90deg, rgba(13, 27, 21, 0.78) 0%, rgba(17, 31, 25, 0.5) 28%, transparent 58%),
-    linear-gradient(0deg, rgba(13, 26, 20, 0.42), transparent 34%);
+    linear-gradient(
+      90deg,
+      rgb(var(--rgb-photo-overlay) / 0.78) 0%,
+      rgb(var(--rgb-photo-overlay) / 0.5) 28%,
+      transparent 58%
+    ),
+    linear-gradient(0deg, rgb(var(--rgb-photo-overlay) / 0.42), transparent 34%);
 }
 
 .heroCopy {
@@ -70,7 +75,7 @@
   left: clamp(24px, 7vw, 116px);
   bottom: clamp(58px, 10vh, 116px);
   width: min(540px, 42vw);
-  color: #fffefa;
+  color: var(--on-photo-dark);
 }
 
 .heroKicker,
@@ -126,8 +131,8 @@
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.48);
   border-radius: 50%;
-  color: #fffefa;
-  background: rgba(40, 69, 57, 0.25);
+  color: var(--on-photo-dark);
+  background: rgb(var(--rgb-photo-overlay) / 0.25);
   backdrop-filter: blur(8px);
 }
 
@@ -174,7 +179,7 @@
 .scriptAccent {
   display: block;
   margin-bottom: 14px;
-  color: #987479;
+  color: var(--color-deep-rose);
   font-family: var(--font-display);
   font-size: clamp(1.35rem, 2.3vw, 1.85rem);
   font-style: italic;
@@ -236,7 +241,7 @@
   grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  background: #fffefa;
+  background: var(--color-ivory);
 }
 
 .chapterNav a {
@@ -621,7 +626,7 @@
   max-width: 760px;
   margin: 15px auto 0;
   padding: 0 12px;
-  color: #5b665f;
+  color: var(--muted);
   font-size: 0.69rem;
   letter-spacing: 0.04em;
   line-height: 1.55;
@@ -654,7 +659,7 @@
 .mapFigure {
   padding: clamp(10px, 2vw, 22px);
   border: 1px solid rgba(116, 135, 120, 0.2);
-  background: #fffefa;
+  background: var(--color-ivory);
   box-shadow: 0 28px 70px rgba(52, 70, 61, 0.09);
 }
 
@@ -702,7 +707,7 @@
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   min-height: 780px;
-  background: #e8ece7;
+  background: color-mix(in srgb, var(--color-sage) 12%, var(--color-ivory));
 }
 
 .landhausImage {
@@ -739,7 +744,7 @@
   display: flex;
   gap: 11px;
   align-items: center;
-  color: #46554d;
+  color: var(--ink);
   font-size: 0.92rem;
 }
 
@@ -775,7 +780,7 @@
 .seatingFigure {
   padding: clamp(12px, 2vw, 24px);
   border: 1px solid rgba(116, 135, 120, 0.18);
-  background: #fffefa;
+  background: var(--color-ivory);
   box-shadow: 0 30px 80px rgba(52, 70, 61, 0.1);
 }
 
@@ -784,7 +789,7 @@
 }
 
 .seatingFigure figcaption span {
-  color: var(--leaf-deep);
+  color: var(--ink);
   font-weight: 700;
 }
 
@@ -793,7 +798,7 @@
 }
 
 .momentsGrid figure {
-  background: #fffefa;
+  background: var(--color-ivory);
 }
 
 .momentsGrid figcaption {
@@ -845,12 +850,12 @@
 
 .beforeAfterGrid svg {
   margin-bottom: 22px;
-  color: #a17d82;
+  color: var(--color-deep-rose);
 }
 
 .beforeAfterGrid span {
   margin-bottom: 10px;
-  color: #9b777c;
+  color: var(--color-rose-text);
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.13em;
@@ -868,12 +873,12 @@
 }
 
 .teamSection {
-  background: #edf0eb;
+  background: color-mix(in srgb, var(--color-sage) 10%, var(--color-paper));
 }
 
 .teamPortrait {
   overflow: hidden;
-  background: #dfe5df;
+  background: color-mix(in srgb, var(--color-sage) 16%, var(--color-paper));
 }
 
 .teamPortrait .fullImage {
@@ -887,7 +892,7 @@
   gap: 13px;
   align-items: center;
   padding: 20px 4px 0;
-  color: #45534b;
+  color: var(--ink);
   font-family: var(--font-display);
   font-size: 1.08rem;
 }
@@ -934,7 +939,7 @@
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
   align-items: stretch;
-  background: #f3f0e8;
+  background: var(--color-paper);
 }
 
 .detailsPhoto {
@@ -1019,13 +1024,13 @@
   grid-template-columns: minmax(380px, 0.92fr) minmax(460px, 1.08fr);
   align-items: center;
   min-height: 920px;
-  background: #e7ece7;
+  background: color-mix(in srgb, var(--color-sage) 12%, var(--color-ivory));
 }
 
 .ctaImagePane {
   align-self: stretch;
   overflow: hidden;
-  background: #d9e1d9;
+  background: color-mix(in srgb, var(--color-sage) 18%, var(--color-paper));
 }
 
 .ctaImagePane .fullImage {
@@ -1033,7 +1038,7 @@
   height: 100%;
   object-fit: contain;
   object-position: center;
-  background: #d9e1d9;
+  background: color-mix(in srgb, var(--color-sage) 18%, var(--color-paper));
 }
 
 .ctaCopyPane {
@@ -1059,7 +1064,7 @@
 
 .ctaCopyPane > svg {
   margin-bottom: 28px;
-  color: #a17d82;
+  color: var(--color-deep-rose);
 }
 
 .ctaCopyPane p {
@@ -1077,7 +1082,7 @@
   padding: 0 25px;
   border: 1px solid var(--leaf-deep);
   border-radius: 999px;
-  color: #fff;
+  color: var(--on-brand-primary);
   background: var(--leaf-deep);
   font-family: var(--font-display);
   font-size: 1rem;
@@ -1087,7 +1092,7 @@
 }
 
 .primaryButton:hover {
-  background: #334a40;
+  background: var(--surface-brand-primary-hover);
   transform: translateY(-2px);
 }
 
@@ -1112,7 +1117,7 @@
   padding: 0 25px;
   border: 1px solid var(--leaf-deep);
   border-radius: 999px;
-  color: var(--leaf-deep);
+  color: var(--ink);
   background: transparent;
   font-family: var(--font-display);
   font-size: 1rem;
@@ -1123,7 +1128,7 @@
 }
 
 .secondaryButton:hover {
-  color: #fff;
+  color: var(--on-brand-primary);
   background: var(--leaf-deep);
   transform: translateY(-2px);
 }
@@ -1135,7 +1140,7 @@
   align-items: center;
   padding: clamp(30px, 4vw, 48px) clamp(20px, 5vw, 70px);
   border-top: 1px solid var(--line);
-  background: #fffefa;
+  background: var(--color-ivory);
 }
 
 .mappeCta span {
@@ -1166,7 +1171,7 @@
   padding: 12px 22px;
   border: 1px solid rgba(64, 88, 77, 0.34);
   border-radius: 999px;
-  color: var(--leaf-deep);
+  color: var(--ink);
   font-family: var(--font-display);
   font-size: 0.95rem;
   font-weight: 500;
@@ -1241,7 +1246,7 @@
   }
 
   .heroShade {
-    background: linear-gradient(0deg, rgba(18, 31, 25, 0.26), transparent 44%);
+    background: linear-gradient(0deg, rgb(var(--rgb-photo-overlay) / 0.26), transparent 44%);
   }
 
   .heroCopy {
@@ -1269,7 +1274,7 @@
 
   .heroJump {
     border-color: rgba(64, 88, 77, 0.36);
-    color: var(--leaf-deep);
+    color: var(--ink);
   }
 
   .heroSeal {

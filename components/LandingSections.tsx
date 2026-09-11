@@ -54,7 +54,7 @@ function focalPoint(imageKey: ImageKey) {
 
 const BACKGROUND_IMAGE_QUALITY = 60;
 const CONTENT_IMAGE_QUALITY = 70;
-const BUNDLE_CTA_TONES = ["cream", "sage", "mauve"] as const;
+const BUNDLE_CTA_TONES = ["sage", "sage", "mauve"] as const;
 
 function InternalCta({
   href,
@@ -67,7 +67,7 @@ function InternalCta({
   href: string;
   children: React.ReactNode;
   variant?: "primary" | "secondary";
-  tone?: "sage" | "cream" | "mauve";
+  tone?: "sage" | "cream" | "mauve" | "rose";
   icon?: "arrow" | "download" | "none";
   className?: string;
 }) {
@@ -248,7 +248,7 @@ export function ImpressionSection() {
         <h2>{landingAvailability.title}</h2>
         <p>{landingAvailability.text}</p>
         <Link
-          className="button primary light cta-botanical cta-tone-mauve"
+          className="button primary cta-botanical cta-tone-sage"
           href="/termin-buchen"
         >
           <span>{landingAvailability.cta}</span>
@@ -339,9 +339,6 @@ export function FamilyStory() {
           </div>
           <div className="inline-actions">
             <InternalCta href="/termin-buchen">Landgut persönlich erleben</InternalCta>
-            <InternalCta href="/termin-buchen" variant="secondary">
-              Freie Termine prüfen
-            </InternalCta>
           </div>
         </div>
         <div className="family-story-cards">
@@ -384,7 +381,7 @@ export function FamilyStory() {
           })}
         </div>
         <div className="teamleader-actions">
-          <InternalCta href="/termin-buchen" tone="cream">
+          <InternalCta href="/termin-buchen" tone="rose">
             Persönlich kennenlernen
           </InternalCta>
         </div>
@@ -573,7 +570,7 @@ export function JournalTeaser() {
         </div>
         <div className="center-actions">
           <InternalCta href="/hochzeitsratgeber" variant="secondary">
-            Alle Beiträge im Journal entdecken
+            Alle Beiträge entdecken
           </InternalCta>
         </div>
       </div>

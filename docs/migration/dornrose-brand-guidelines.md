@@ -1,6 +1,6 @@
 # Landgut Seebühne Brand Guidelines - Dornrose am See
 
-Stand: 2026-07-22
+Stand: 2026-09-11
 Status: verbindliche Arbeitsgrundlage für Website, Hochzeitsmappe, Kampagnen
 und neue Markenmedien
 
@@ -167,23 +167,38 @@ Erlebniswelt.
 | Natur-Ink | `#2F3934` | editorialer Haupttext |
 | Soft Ink | `#667069` | Sekundärtext auf sehr hellen Flächen |
 | Blattgrün | `#748778` | Naturakzent, größere Flächen und Icons |
-| Tiefes Blatt | `#40584D` | Buttons, Links, Fokus und kleiner Text |
-| Wald | `#1E3028` | dunkle Hero- und Fotokapitel |
+| Tiefes Blatt | `#67A490` | technischer Alias für Sage; Markenflächen, Icons und Auswahlzustände |
+| Wald | `#67A490` | technischer Alias für Sage; keine eigenständige dunkle Markenfarbe mehr |
 | Seeblau | `#A9C8CF` | Wasser, Orientierung, ruhige Hintergründe |
 | Altrosa | `#D9BABE` | Blüte, Wärme, sparsame Akzente |
 | Tiefes Altrosa | `#987479` | große Akzente und dekorative Labels |
 | Altrosa Text | `#805D62` | zugänglicher Ersatz für kleinen Rosétext |
+| Neutraler Foto-Overlay | `#090B0A` | ausschließlich zum Abdunkeln von Hero- und Fotoflächen |
+| Botanisches Tiefgrün | `#3F4937` | bewusste Bestandsfarbe der erzählerischen Warnsignal- und Besichtigungsflächen |
+
+Seebühne Sage ist die verbindliche primäre Markenfläche. Die bisherigen
+digitalen Rollen „Tiefes Blatt“ und „Wald“ bleiben nur als kompatible Namen
+erhalten und verweisen ebenfalls auf `#67A490`. Sie dürfen nicht mehr als
+separate tannengrüne Farbtöne interpretiert werden.
+
+Markenflächen und Fotofilter sind technisch getrennte Systeme. Änderungen an
+Sage, Tiefem Blatt oder Wald dürfen den neutralen Foto-Overlay niemals
+beeinflussen. Für die Website gelten dafür zentrale semantische Tokens: eine
+Sage-Fläche mit Perlweiß als Vordergrundfarbe, ein eigener neutral-schwarzer
+Foto-Overlay mit heller Vordergrundfarbe sowie eine getrennte botanische
+Dunkelfläche. Die Bereiche „Warnsignale“ und „Offene Fragen“ behalten bewusst
+ihre frühere dunkle, botanische Gestaltung und sind keine Sage-Markenflächen.
 
 ### 5.3 Verhältnis und Hierarchie
 
 Als Ausgangspunkt für eine Seite oder Doppelseite gilt:
 
 - 70-80 % Perlweiß, Cream, Elfenbein oder Papier
-- 15-20 % Ink, Wald oder Grün
+- 15-20 % Ink, Sage oder Blattgrün
 - höchstens 10 % Seeblau und Altrosa zusammen
 
-Altrosa und Seeblau sind Atmosphäre, nicht die neue Hauptmarke. Sage oder ein
-tiefes Grün hält die Verbindung zum bestehenden Erscheinungsbild.
+Altrosa und Seeblau sind Atmosphäre, nicht die neue Hauptmarke. Sage hält die
+Verbindung zum bestehenden Erscheinungsbild.
 
 ### 5.4 Alte Sekundärpalette
 
@@ -207,17 +222,21 @@ Für normalen Text gilt mindestens WCAG AA mit einem Kontrast von 4,5:1.
 | --- | ---: | --- |
 | Ink auf Cream | 15,27:1 | Haupt- und Kleinsttext |
 | Natur-Ink auf Perlweiß | 11,45:1 | Haupttext |
-| Tiefes Blatt auf Perlweiß | 7,39:1 | Links, Buttons, Labels |
 | Soft Ink auf Perlweiß | 4,92:1 | Sekundärtext |
-| Elfenbein auf Wald | 13,79:1 | Hero- und Fototext |
-| Elfenbein auf Tiefem Blatt | 7,65:1 | Buttons |
-| Sage auf Cream | 2,61:1 | nur dekorativ oder sehr groß |
+| Seebühne Ink auf Sage | 5,85:1 | barrierefreie Alternativkombination |
+| Elfenbein auf neutralem Foto-Overlay | bis 19,56:1 | Hero- und Fototext; abhängig vom Motiv prüfen |
+| Sage auf Perlweiß | 2,76:1 | nur dekorativ, als Fläche oder sehr groß |
+| Perlweiß auf Sage | ca. 2,85:1 | verbindliche Markenentscheidung für Buttons; erfüllt bei normaler Schrift nicht WCAG AA |
+| Altrosa Text auf Perlweiß | 5,49:1 | kleine Rosélabels und Links |
 | Tiefes Altrosa auf Perlweiß | 3,94:1 | nur groß oder dekorativ |
 
 Sage, Seeblau und Altrosa dürfen nicht für kleinen Fließtext auf hellen
 Flächen verwendet werden. Für kleine roséfarbene Labels wird `#805D62`
-verwendet. Fokuszustände müssen deutlich sichtbar sein; als Standard dient
-Tiefes Blatt.
+verwendet. Auf Sage steht gemäß aktueller Gestaltungsentscheidung Perlweiß
+`#FBFAF6`. Diese Kombination erreicht bei normaler Schrift nicht WCAG AA und
+ist deshalb als bewusst akzeptierte Markenausnahme dokumentiert. Ein
+Sage-Fokusring wird mit einer dunklen Kontur kombiniert, damit der Zustand
+nicht allein über einen kontrastarmen Farbwechsel erkennbar ist.
 
 ## 6. Typografie
 
@@ -336,7 +355,8 @@ Illustration darf echte Fotografie nicht simulieren oder ersetzen.
 - natürliche Hauttöne und gedämpfte, warme Farben
 - Grün- und Mintstiche im Wasser vorsichtig reduzieren
 - keine harten Presets, künstlichen HDR-Looks oder übermäßige Entsättigung
-- dunkle Fotokapitel dürfen mit tiefem Waldgrün geschlossen werden
+- Hero- und Fotokapitel werden ausschließlich mit dem neutral-schwarzen
+  Overlay `#090B0A` abgedunkelt; kein Sage-, Grün- oder Weißschleier
 - Bildkörnung oder Papiertextur nur sehr fein und konsistent
 
 ### Beschnitt und Text
@@ -454,8 +474,9 @@ allein verwendet.
 
 ### Buttons
 
-- primär: Tiefes Blatt mit Elfenbein
-- sekundär: transparente oder helle Fläche mit Tiefem Blatt als Text und Linie
+- primär: Seebühne Sage `#67A490` mit Perlweiß `#FBFAF6`, in ausgeprägter Pillenform
+- sekundär: transparente oder helle Fläche mit Natur-Ink als Text und Sage als
+  Linie oder Fokusakzent
 - klarer Verbtext, sichtbarer Hover- und Fokuszustand
 - kein Glanzlauf; eine minimale, langsame Atembewegung ist nur für einen
   einzelnen Hero-CTA zulässig
@@ -475,7 +496,8 @@ allein verwendet.
 ### Formulare
 
 - Inclusive Sans, gut lesbare Labels und klare Fehlertexte
-- Tiefes Blatt für Fokus, Auswahl und Bestätigung
+- Sage für Fokus, Auswahl und Bestätigung; Text und zusätzliche Konturen
+  bleiben ausreichend dunkel
 - keine poetischen Ersatzbegriffe für benötigte Angaben
 - Datenschutz- und Einwilligungstexte bleiben sachlich
 
@@ -525,7 +547,7 @@ Dekoelement.
 ### E-Mail und CRM
 
 Mehr Klarheit, weniger Ornament. Inclusive Sans, Cream/Perlweiß, ein
-Sage- oder Tiefgrün-Signal und höchstens ein kleiner Rosé- oder Seeakzent.
+Sage-Signal und höchstens ein kleiner Rosé- oder Seeakzent.
 
 ### Print und Beschilderung
 
@@ -540,6 +562,8 @@ beeinträchtigen.
 - Bleiben mindestens 70 % der Gestaltung ruhig und hell?
 - Gibt es nur wenige, bewusst platzierte Dornrose-Ornamente?
 - Zeigt die Gestaltung zuerst echte Menschen oder den echten Ort?
+- Werden Fotos neutral-schwarz statt grün oder milchig überlagert?
+- Sind Markenflächen und Foto-Overlays technisch getrennt?
 - Sind Gesichter und Teammitglieder auf allen Viewports vollständig sinnvoll
   sichtbar?
 - Ist Display-Typografie auf kurze, große Aussagen begrenzt?
@@ -555,23 +579,29 @@ Empfohlener Ausgangspunkt für neue digitale Oberflächen:
 
 ```css
 :root {
-  --brand-sage: #67a490;
-  --brand-ink: #1c1d20;
-  --brand-cream: #f9f3e9;
+  --color-pearl: #fbfaf6;
+  --color-paper: #f3f0e8;
+  --color-rose-paper: #f7f0ef;
+  --color-ivory: #fffefa;
+  --color-nature-ink: #2f3934;
+  --color-soft-ink: #667069;
+  --color-sage: #67a490;
+  --color-leaf: #748778;
+  --color-deep-leaf: var(--color-sage);
+  --color-forest: var(--color-sage);
+  --color-lake: #a9c8cf;
+  --color-rose: #d9babe;
+  --color-deep-rose: #987479;
+  --color-rose-text: #805d62;
+  --color-photo-overlay: #090b0a;
+  --color-botanical-deep: #3f4937;
+  --color-formal-ink: #1c1d20;
 
-  --dornrose-paper: #fbfaf6;
-  --dornrose-paper-deep: #f3f0e8;
-  --dornrose-paper-rose: #f7f0ef;
-  --dornrose-ivory: #fffefa;
-  --dornrose-ink: #2f3934;
-  --dornrose-ink-soft: #667069;
-  --dornrose-leaf: #748778;
-  --dornrose-leaf-deep: #40584d;
-  --dornrose-forest: #1e3028;
-  --dornrose-lake: #a9c8cf;
-  --dornrose-rose: #d9babe;
-  --dornrose-rose-deep: #987479;
-  --dornrose-rose-text: #805d62;
+  --surface-brand-primary: var(--color-sage);
+  --surface-photo-dark: var(--color-photo-overlay);
+  --surface-content-dark: var(--color-botanical-deep);
+  --on-brand-primary: var(--color-pearl);
+  --on-photo-dark: var(--color-ivory);
 }
 ```
 
