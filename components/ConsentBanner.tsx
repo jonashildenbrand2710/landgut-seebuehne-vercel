@@ -5,29 +5,24 @@ import Link from "next/link";
 import { META_PIXEL_ID } from "@/lib/meta-events";
 import {
   CONSENT_OPEN_EVENT_NAME,
-  readStoredConsent,
   storeConsent,
   type ConsentChoice
 } from "@/lib/consent";
 
 export function ConsentBanner() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(Boolean(META_PIXEL_ID));
 
   useEffect(() => {
     if (!META_PIXEL_ID) return;
 
-    // Nach dem ersten Paint einblenden: vermeidet Hydration-Differenzen,
-    // weil der Server den localStorage-Stand nicht kennen kann.
-    const frame = window.requestAnimationFrame(() => {
-      setIsVisible(readStoredConsent() === null);
-    });
-
     // "Cookie-Einstellungen" im Footer oeffnet das Banner erneut (Widerruf).
-    const reopen = () => setIsVisible(true);
+    const reopen = () => {
+      delete document.documentElement.dataset.consentStored;
+      setIsVisible(true);
+    };
     window.addEventListener(CONSENT_OPEN_EVENT_NAME, reopen);
 
     return () => {
-      window.cancelAnimationFrame(frame);
       window.removeEventListener(CONSENT_OPEN_EVENT_NAME, reopen);
     };
   }, []);
@@ -35,6 +30,7 @@ export function ConsentBanner() {
   if (!isVisible) return null;
 
   const choose = (choice: ConsentChoice) => {
+    document.documentElement.dataset.consentStored = "true";
     storeConsent(choice);
     setIsVisible(false);
   };

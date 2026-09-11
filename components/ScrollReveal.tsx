@@ -4,74 +4,53 @@ import { useLayoutEffect } from "react";
 import { usePathname } from "next/navigation";
 
 const REVEAL_SELECTORS = [
-  ".hero-strip-item",
-  ".landing-copy > *",
+  ".hero-strip-inner",
+  ".landing-copy",
   ".mappe-benefit-panel",
-  ".mappe-proof-card",
-  ".mappe-final-copy > *",
+  ".mappe-proof-grid",
+  ".mappe-final-copy",
   ".mappe-form-card",
   ".section-heading-row > *",
-  ".section-copy > *",
-  ".promise-copy > *",
-  ".promise-card",
-  ".promise-visual",
-  ".availability-content > *",
-  ".bundle-card",
-  ".family-facts div",
-  ".family-story-card",
+  ".section-inner.split > *",
+  ".promise-copy",
+  ".promise-list",
+  ".promise-visual-grid",
+  ".availability-content",
+  ".bundle-grid",
+  ".family-facts",
+  ".family-story-cards",
   ".teamleader-heading",
-  ".teamleader-card",
+  ".teamleader-grid",
   ".teamleader-actions",
-  ".testimonial-heading > *",
-  ".testimonial-card",
-  ".problem-solution-heading > *",
-  ".warning-item",
+  ".testimonial-heading",
+  ".testimonial-grid",
+  ".problem-solution-heading",
+  ".warning-accordion-list",
   ".warning-solution-card",
-  ".gallery-item",
+  ".mini-gallery-grid",
   ".center-actions",
   ".personal-cta-inner > *",
   ".cta-inner > *",
-  ".faq-item",
-  ".article-card",
+  ".faq-grid",
+  ".article-grid",
   ".article-inline-cta",
   ".article-body section",
-  ".footer-grid > *"
-].join(",");
-
-const CARD_SELECTORS = [
-  ".promise-card",
-  ".bundle-card",
-  ".testimonial-card",
-  ".family-story-card",
-  ".teamleader-card",
-  ".mappe-proof-card",
-  ".mappe-form-card",
-  ".gallery-item",
-  ".article-card",
-  ".faq-item"
-].join(",");
-
-const VISUAL_SELECTORS = [
-  ".promise-visual",
-  ".hero-strip-item",
-  ".landing-media",
-  ".gallery-item > div"
+  ".footer-grid"
 ].join(",");
 
 const SPLIT_PARENTS = ".split, .cta-inner, .personal-cta-inner, .section-heading-row";
 
 function revealStartTransform(target: HTMLElement, useVerticalMotion: boolean) {
   let x = 0;
-  let y = target.matches(CARD_SELECTORS) ? 10 : target.matches(VISUAL_SELECTORS) ? 8 : 6;
-  const scale = target.matches(CARD_SELECTORS) ? 0.998 : target.matches(VISUAL_SELECTORS) ? 0.997 : 1;
+  let y = useVerticalMotion ? 4 : 7;
   const parent = target.parentElement;
 
   if (!useVerticalMotion && parent?.matches(SPLIT_PARENTS)) {
-    x = target === parent.firstElementChild ? -4 : 4;
+    x = target === parent.firstElementChild ? -5 : 5;
     y = 0;
   }
 
-  return `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
+  return `translate3d(${x}px, ${y}px, 0)`;
 }
 
 export function ScrollReveal() {
@@ -84,6 +63,8 @@ export function ScrollReveal() {
     if (!targets.length || prefersReducedMotion) return;
 
     const useVerticalMotion = window.matchMedia("(max-width: 680px)").matches;
+    const startOpacity = useVerticalMotion ? 0.985 : 0.97;
+    const duration = useVerticalMotion ? 340 : 440;
     const animations = new Set<Animation>();
     const observer = new IntersectionObserver(
       (entries) => {
@@ -98,11 +79,11 @@ export function ScrollReveal() {
           target.style.willChange = "transform, opacity";
           const animation = target.animate(
             [
-              { opacity: 0.94, transform: revealStartTransform(target, useVerticalMotion) },
-              { opacity: 1, transform: "translate3d(0, 0, 0) scale(1)" }
+              { opacity: startOpacity, transform: revealStartTransform(target, useVerticalMotion) },
+              { opacity: 1, transform: "translate3d(0, 0, 0)" }
             ],
             {
-              duration: 540,
+              duration,
               easing: "cubic-bezier(0.22, 1, 0.36, 1)"
             }
           );
@@ -117,7 +98,7 @@ export function ScrollReveal() {
           animation.addEventListener("cancel", finishAnimation, { once: true });
         });
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+      { rootMargin: "0px 0px -6% 0px", threshold: 0.12 }
     );
 
     const initialViewportHeight = window.innerHeight;
