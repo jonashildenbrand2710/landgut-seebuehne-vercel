@@ -20,6 +20,7 @@ export function Header({
   const isScrolledRef = useRef(false);
   const scrollFrameRef = useRef<number | null>(null);
   const isDornrose = pathname === "/hochzeitsmappe";
+  const isBookingPage = pathname === "/termin-buchen";
 
   useEffect(() => {
     if (isStatic) return;
@@ -55,7 +56,8 @@ export function Header({
     isStatic ? "site-header--static" : "",
     isScrolled ? "is-scrolled" : "",
     variant === "floating" ? "site-header--floating-layout" : "",
-    isDornrose ? "site-header--dornrose" : ""
+    isDornrose ? "site-header--dornrose" : "",
+    isBookingPage ? "site-header--booking" : ""
   ]
     .filter(Boolean)
     .join(" ");
@@ -67,15 +69,17 @@ export function Header({
       <Link className={brandClassName} href="/" aria-label="Landgut Seebühne Startseite">
         <BrandLogo className={`brand-logo brand-logo-header brand-logo-header--${variant}`} decorative priority />
       </Link>
-      <Link
-        className={`header-cta header-cta--${variant} cta-botanical cta-tone-sage`}
-        href="/termin-buchen"
-        aria-label="Termin am Landgut Seebühne buchen"
-      >
-        <CalendarDays aria-hidden="true" size={18} />
-        <span className="header-cta-label-full">Termin buchen</span>
-        <span className="header-cta-label-short">Termin</span>
-      </Link>
+      {!isBookingPage ? (
+        <Link
+          className={`header-cta header-cta--${variant} cta-botanical cta-tone-sage`}
+          href="/termin-buchen"
+          aria-label="Termin am Landgut Seebühne buchen"
+        >
+          <CalendarDays aria-hidden="true" size={18} />
+          <span className="header-cta-label-full">Termin buchen</span>
+          <span className="header-cta-label-short">Termin</span>
+        </Link>
+      ) : null}
     </header>
   );
 }

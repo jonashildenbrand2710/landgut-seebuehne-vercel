@@ -238,6 +238,14 @@ img {
   --header-glass-shadow: 0 14px 38px rgba(12, 23, 19, 0.12);
 }
 
+.site-header--booking {
+  justify-content: center;
+}
+
+.site-header--booking .brand {
+  margin-inline: auto;
+}
+
 /* Entwurfsseite: Header bleibt in seinem Slot statt am Viewport zu kleben. */
 .site-header.site-header--static {
   position: absolute;
