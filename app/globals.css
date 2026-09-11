@@ -3703,6 +3703,10 @@ h2 {
   margin-top: 24px;
 }
 
+.availability-watermark-logo {
+  display: none;
+}
+
 .bundle-section {
   background: var(--surface-section-alt);
 }
@@ -7598,7 +7602,7 @@ body:not(:has(.site-header--dornrose)) .consent-banner-inner {
   }
 
   body:not(:has(.site-header--dornrose)) .availability-section {
-    min-height: 880px;
+    min-height: 800px;
     align-items: start;
   }
 
@@ -7606,8 +7610,22 @@ body:not(:has(.site-header--dornrose)) .consent-banner-inner {
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 52px 0 390px;
+    padding: 52px 0 300px;
     text-align: center;
+  }
+
+  body:not(:has(.site-header--dornrose)) .availability-watermark-logo {
+    position: absolute;
+    z-index: 2;
+    bottom: 54px;
+    left: 50%;
+    display: block;
+    width: min(154px, 42vw);
+    height: auto;
+    opacity: 0.82;
+    filter: drop-shadow(0 3px 14px rgba(0, 0, 0, 0.42));
+    transform: translateX(-50%);
+    pointer-events: none;
   }
 
   body:not(:has(.site-header--dornrose)) .availability-content :is(h2, p:not(.eyebrow)) {
