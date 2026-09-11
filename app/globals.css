@@ -3234,6 +3234,9 @@ h2 {
 
   .booking-entry-options {
     grid-template-columns: 1fr;
+    width: min(100%, 520px);
+    margin-inline: auto;
+    padding-inline: clamp(10px, 3vw, 18px);
   }
 
   .booking-entry-card {
