@@ -2875,6 +2875,10 @@ h2 {
   min-height: 52px;
 }
 
+.booking-step-actions .button.primary:not(:disabled) {
+  animation: booking-primary-invite 2.6s ease-in-out infinite;
+}
+
 .booking-step-actions .button.booking-back-button {
   width: fit-content;
   min-width: 0;
@@ -3353,6 +3357,19 @@ h2 {
   }
 }
 
+@keyframes booking-primary-invite {
+  0%,
+  100% {
+    box-shadow: 0 5px 14px rgba(46, 65, 56, 0.12);
+    transform: translateY(0);
+  }
+
+  50% {
+    box-shadow: 0 10px 24px rgba(46, 65, 56, 0.2);
+    transform: translateY(-2px);
+  }
+}
+
 @keyframes booking-slots-reveal {
   from {
     opacity: 0;
@@ -3379,6 +3396,7 @@ h2 {
 
 @media (prefers-reduced-motion: reduce) {
   .booking-step,
+  .booking-step-actions .button.primary,
   .booking-slot-block,
   .booking-date-reveal,
   .booking-spinner,
@@ -6369,9 +6387,11 @@ body:has(.bewerbung-page) .site-footer {
 
 .consent-banner-inner {
   display: grid;
-  gap: 14px;
-  width: min(680px, 100%);
-  padding: 20px 22px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  width: min(560px, 100%);
+  padding: 12px 14px;
   border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 8px;
   background: linear-gradient(160deg, #fdf9f1 0%, #f4ecdf 100%);
@@ -6382,8 +6402,8 @@ body:has(.bewerbung-page) .site-footer {
 .consent-banner-inner p {
   margin: 0;
   color: var(--ink-soft);
-  font-size: 0.98rem;
-  line-height: 1.6;
+  font-size: 0.8rem;
+  line-height: 1.4;
 }
 
 .consent-banner-inner a {
@@ -6394,16 +6414,16 @@ body:has(.bewerbung-page) .site-footer {
 
 .consent-banner-actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  gap: 6px;
 }
 
 .consent-banner-actions .button {
-  padding: 0 18px;
+  min-height: 36px;
+  padding: 0 11px;
   border-style: solid;
   cursor: pointer;
   font-family: inherit;
-  font-size: 0.95rem;
+  font-size: 0.76rem;
 }
 
 /* ── Dornenrose A · Site-Transfer v2 ──────────────────────────
@@ -7456,6 +7476,25 @@ body:not(:has(.site-header--dornrose)) .consent-banner-inner {
       linear-gradient(rgba(251, 250, 246, 0.86), rgba(251, 250, 246, 0.96)),
       url("/images/hochzeitsmappe-concepts/dornrose-rahmen.webp") center / cover no-repeat;
     opacity: 0.58;
+  }
+
+  body:not(:has(.site-header--dornrose)) .consent-banner {
+    right: 8px;
+    bottom: 8px;
+    left: 8px;
+  }
+
+  body:not(:has(.site-header--dornrose)) .consent-banner-inner {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    width: min(430px, 100%);
+    padding: 10px 12px;
+  }
+
+  body:not(:has(.site-header--dornrose)) .consent-banner-actions .button {
+    min-height: 34px;
+    padding-inline: 9px;
+    font-size: 0.72rem;
   }
 }
 

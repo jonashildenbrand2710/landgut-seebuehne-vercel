@@ -317,6 +317,7 @@ export function BookingFunnel({
   const [availabilityError, setAvailabilityError] = useState("");
   const [bookingResult, setBookingResult] = useState<BookingResponse | null>(null);
   const panelRef = useRef<HTMLElement>(null);
+  const stepActionsRef = useRef<HTMLDivElement>(null);
   const hasRenderedBookingStepRef = useRef(false);
 
   const selectedSlot = useMemo(
@@ -451,6 +452,15 @@ export function BookingFunnel({
 
     return () => window.cancelAnimationFrame(scrollFrame);
   }, [activeStep, bookingResult]);
+
+  const scrollToStepActions = () => {
+    window.requestAnimationFrame(() => {
+      stepActionsRef.current?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        block: "center"
+      });
+    });
+  };
 
   const goToStep = (step: StepId) => {
     const nextIndex = steps.indexOf(step);
@@ -589,9 +599,11 @@ export function BookingFunnel({
           <h2 id="booking-title">{heading}</h2>
         </div>
       </div>
-      <p className="booking-good-choice">
-        <strong>Gute Wahl!</strong> Mit zwei kurzen Fragen bereiten wir euren Termin passend für euch vor.
-      </p>
+      {activeStep === "year" ? (
+        <p className="booking-good-choice">
+          <strong>Gute Wahl!</strong> Mit zwei kurzen Fragen bereiten wir euren Termin passend für euch vor.
+        </p>
+      ) : null}
       <p>{description}</p>
       {activeStep === "year" ? (
         <div className="booking-step booking-question-step">
@@ -604,7 +616,10 @@ export function BookingFunnel({
                 aria-checked={answers.desiredYear === option}
                 className={answers.desiredYear === option ? "booking-choice is-selected" : "booking-choice"}
                 key={option}
-                onClick={() => updateAnswer("desiredYear", option)}
+                onClick={() => {
+                  updateAnswer("desiredYear", option);
+                  scrollToStepActions();
+                }}
                 role="radio"
                 type="button"
               >
@@ -612,7 +627,7 @@ export function BookingFunnel({
               </button>
             ))}
           </div>
-          <div className="booking-actions booking-step-actions">
+          <div className="booking-actions booking-step-actions" ref={stepActionsRef}>
             <button className="button primary" disabled={!answers.desiredYear} onClick={() => goToStep("guests")} type="button">
               <span>Weiter</span>
               <ArrowRight aria-hidden="true" size={18} />
@@ -648,6 +663,8 @@ export function BookingFunnel({
                 setGuestSliderValue(value);
                 updateAnswer("guestRange", String(value));
               }}
+              onKeyUp={scrollToStepActions}
+              onPointerUp={scrollToStepActions}
               step="5"
               type="range"
               value={guestSliderValue}
@@ -656,13 +673,16 @@ export function BookingFunnel({
             <button
               aria-pressed={answers.guestRange === "Noch offen"}
               className={answers.guestRange === "Noch offen" ? "booking-choice booking-guest-open is-selected" : "booking-choice booking-guest-open"}
-              onClick={() => updateAnswer("guestRange", "Noch offen")}
+              onClick={() => {
+                updateAnswer("guestRange", "Noch offen");
+                scrollToStepActions();
+              }}
               type="button"
             >
               Noch offen
             </button>
           </div>
-          <div className="booking-actions booking-step-actions">
+          <div className="booking-actions booking-step-actions" ref={stepActionsRef}>
             <button className="button primary" disabled={!answers.guestRange} onClick={() => goToStep("slot")} type="button">
               <span>Freie Termine ansehen</span>
               <ArrowRight aria-hidden="true" size={18} />
@@ -799,7 +819,10 @@ export function BookingFunnel({
                       <input
                         checked={slot.id === selectedSlotId}
                         name="slot"
-                        onChange={() => setSelectedSlotId(slot.id)}
+                        onChange={() => {
+                          setSelectedSlotId(slot.id);
+                          scrollToStepActions();
+                        }}
                         type="radio"
                         value={slot.id}
                       />
@@ -827,7 +850,7 @@ export function BookingFunnel({
             <p className="booking-hint">Wählt zuerst einen Tag – danach erscheinen die freien Uhrzeiten.</p>
           ) : null}
 
-          <div className="booking-actions booking-step-actions booking-slot-actions">
+          <div className="booking-actions booking-step-actions booking-slot-actions" ref={stepActionsRef}>
             <button className="button primary" disabled={!selectedSlot} onClick={() => goToStep("contact")} type="button">
               <span>Weiter</span>
               <ArrowRight aria-hidden="true" size={18} />
@@ -921,7 +944,7 @@ export function BookingFunnel({
               </small>
             </label>
           </div>
-          <div className="booking-actions booking-step-actions">
+          <div className="booking-actions booking-step-actions" ref={stepActionsRef}>
             <button className="button primary" disabled={!contactComplete} type="submit">
               <span>Weiter</span>
               <ArrowRight aria-hidden="true" size={18} />
@@ -968,7 +991,7 @@ export function BookingFunnel({
             </p>
           ) : null}
 
-          <div className="booking-actions booking-step-actions">
+          <div className="booking-actions booking-step-actions" ref={stepActionsRef}>
             <button className="button primary" disabled={bookingState === "loading"} onClick={submitBooking} type="button">
               {bookingState === "loading" ? (
                 <LoaderCircle aria-hidden="true" className="booking-spinner" size={18} />
