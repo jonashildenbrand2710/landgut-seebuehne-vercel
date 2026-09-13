@@ -43,6 +43,7 @@ export default function HomePage() {
         mobileImage={homepageHeroMobileImage}
         primaryCta={indexPage.primaryCta}
         variant="cinematic"
+        handwrittenTitle="Wald und See"
         proof={{
           label: "Von 120 Paaren bestbewertet",
           mentions: ["Hochzeit.de", "Bridebook", "Instagram", "Google"]

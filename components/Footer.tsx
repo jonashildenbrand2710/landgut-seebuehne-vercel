@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, Phone } from "lucide-react";
+import { ArrowRight, Mail, Phone } from "lucide-react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { CookieSettingsButton } from "@/components/CookieSettingsButton";
 import { mainNavigation, siteConfig } from "@/data/site";
@@ -12,6 +12,55 @@ const footerSecondaryLinks = [
 export function Footer() {
   return (
     <footer className="site-footer">
+      <div className="footer-signature" id="abschluss">
+        <p className="footer-signature-kicker">Bis bald am See</p>
+        <h2
+          className="footer-signature-heading"
+          aria-label="Wir freuen uns auf euch und eure Geschichte."
+        >
+          <span className="footer-signature-lead" aria-hidden="true">
+            Wir freuen uns auf euch und
+          </span>
+          <svg
+            className="footer-signature-script"
+            viewBox="0 0 820 150"
+            role="presentation"
+            aria-hidden="true"
+          >
+            <defs>
+              <mask id="footer-signature-write-mask">
+                <rect width="820" height="150" fill="black" />
+                <path
+                  className="footer-signature-stroke"
+                  d="M42 87 C172 76 291 82 412 82 C544 82 660 77 784 84"
+                  fill="none"
+                  pathLength="1"
+                  stroke="white"
+                  strokeLinecap="round"
+                  strokeWidth="104"
+                />
+              </mask>
+            </defs>
+            <text
+              x="410"
+              y="108"
+              fill="currentColor"
+              mask="url(#footer-signature-write-mask)"
+              textAnchor="middle"
+            >
+              eure Geschichte.
+            </text>
+          </svg>
+        </h2>
+        <p className="footer-signature-copy">
+          Lernt das Landgut in Ruhe kennen und erzählt uns, wie sich euer Hochzeitstag
+          anfühlen soll.
+        </p>
+        <Link className="footer-signature-link" href="/termin-buchen">
+          Besichtigungstermin wählen
+          <ArrowRight aria-hidden="true" size={18} />
+        </Link>
+      </div>
       <div className="footer-grid">
         <div>
           <BrandLogo className="brand-logo brand-logo-footer" variant="light" />

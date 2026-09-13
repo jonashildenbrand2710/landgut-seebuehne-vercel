@@ -25,6 +25,7 @@ type HeroProps = {
     label: string;
     mentions: string[];
   };
+  handwrittenTitle?: string;
 };
 
 type ImageKey = keyof typeof imageLibrary;
@@ -238,13 +239,17 @@ export function Hero({
   variant = "standard",
   draftLabel,
   priority = true,
-  proof
+  proof,
+  handwrittenTitle
 }: HeroProps) {
   const image = imageLibrary[imageKey];
   const imageStyle = { "--hero-image-position": focalPoint(imageKey) } as CSSProperties;
   const className = ["hero", `hero-${variant}`, draftLabel ? "hero-draft-preview" : ""]
     .filter(Boolean)
     .join(" ");
+  const handwrittenTitleStart = handwrittenTitle && title.endsWith(handwrittenTitle)
+    ? title.slice(0, -handwrittenTitle.length).trim()
+    : null;
 
   return (
     <section className={className}>
@@ -275,7 +280,44 @@ export function Hero({
         <div className="hero-copy">
           {draftLabel ? <p className="hero-draft-label">{draftLabel}</p> : null}
           <p className="eyebrow">{eyebrow}</p>
-          <h1>{title}</h1>
+          {handwrittenTitleStart ? (
+            <h1 className="hero-handwritten-heading" aria-label={title}>
+              <span className="hero-handwritten-lead" aria-hidden="true">
+                {handwrittenTitleStart}
+              </span>
+              <svg
+                className="hero-handwritten-script"
+                viewBox="0 0 650 132"
+                role="presentation"
+                aria-hidden="true"
+              >
+                <defs>
+                  <mask id="hero-handwriting-mask">
+                    <rect width="650" height="132" fill="black" />
+                    <path
+                      className="hero-handwriting-stroke"
+                      d="M24 78 C132 68 235 76 332 73 C441 70 532 73 626 78"
+                      fill="none"
+                      stroke="white"
+                      strokeLinecap="round"
+                      strokeWidth="112"
+                    />
+                  </mask>
+                </defs>
+                <text
+                  x="325"
+                  y="101"
+                  fill="currentColor"
+                  mask="url(#hero-handwriting-mask)"
+                  textAnchor="middle"
+                >
+                  {handwrittenTitle}
+                </text>
+              </svg>
+            </h1>
+          ) : (
+            <h1>{title}</h1>
+          )}
           <p>{text}</p>
           <HeroActions
             primaryCta={primaryCta}
