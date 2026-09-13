@@ -47,6 +47,23 @@ Homepage:
 - `prefers-reduced-motion: reduce` deaktiviert Float, Reveal, Seitenwechsel und
   Hover-Dauern.
 
+## Referenzvideo-Adaption 2026-09-13
+
+- Scroll-Reveals orientieren sich jetzt an der Dramaturgie des gelieferten
+  Bildschirmvideos: Überschriften werden per Clip-Maske von unten freigelegt,
+  Text folgt weich vertikal und wiederholte Karten erscheinen gestaffelt.
+- Die Bewegungsstrecke bleibt auf Mobile kürzer; maximal vier Elemente einer
+  Gruppe werden zeitlich versetzt, damit lange Grids nicht träge wirken.
+- Der Footer beginnt mit einem neuen persönlichen Abschlusssatz. Dessen kursive
+  zweite Zeile wird durch eine animierte SVG-Maske von links nach rechts wie
+  frisch geschrieben sichtbar.
+- Die Animationen verändern weder die DOM-Reihenfolge noch die lesbaren Texte.
+  Bei reduzierter Bewegung werden alle Inhalte unmittelbar vollständig gezeigt.
+- Die Startseite greift das Handschriftmotiv bereits im Hero mit „Wald und See“
+  auf. Unterhalb des ersten Viewports werden Reveal-Startzustände vor dem
+  Observer-Treffer vorbereitet; dadurch gibt es beim Hineinscrollen keinen
+  sichtbaren Sprung von vollständig sichtbar zu transparent mehr.
+
 Bewusste Abweichung:
 
 - Onepage nutzt vereinzelt sehr lange `2500ms` Animationen. Im Next-Projekt
