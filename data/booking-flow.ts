@@ -25,6 +25,7 @@ export type BookingFlowField = {
 
 const defaultFlowId = "website_booking";
 const defaultFlowVersion = "2026-09-neutral-v1";
+const bookingRangeDays = 21;
 const sharedFields: BookingFlowField[] = [
   {
     id: "desiredYear",
@@ -60,7 +61,7 @@ export function getBookingFlowConfig(appointmentType: BookingAppointmentType): B
       durationMinutes: 90,
       fields: sharedFields,
       heading: "Landgut live erleben",
-      rangeDays: 10,
+      rangeDays: bookingRangeDays,
       route: "/termin-buchen",
       sourceLabel: "Besichtigung",
       stepMinutes: 30
@@ -75,7 +76,7 @@ export function getBookingFlowConfig(appointmentType: BookingAppointmentType): B
     durationMinutes: 30,
     fields: sharedFields,
     heading: "Kurz kennenlernen",
-    rangeDays: 10,
+    rangeDays: bookingRangeDays,
     route: "/termin-buchen",
     sourceLabel: "Telefontermin",
     stepMinutes: 30

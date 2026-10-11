@@ -752,7 +752,7 @@ export function BookingFunnel({
 
           {availabilityState === "success" && !slots.length ? (
             <p className="booking-note" aria-live="polite">
-              Aktuell wurden keine freien Termine in den nächsten zehn Tagen gefunden.
+              Aktuell wurden keine freien Termine in den nächsten {rangeDays} Tagen gefunden.
             </p>
           ) : null}
 

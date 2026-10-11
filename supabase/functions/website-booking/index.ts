@@ -21,7 +21,6 @@ const googleCalendarApiBase = "https://www.googleapis.com/calendar/v3";
 const defaultTimeZone = "Europe/Berlin";
 const defaultSlotStepMinutes = 30;
 const maxAvailabilityRangeDays = 45;
-const maxAvailabilitySlots = 400;
 
 type GoogleConfig = {
   calendarId: string;
@@ -439,7 +438,7 @@ async function handleAvailability(payload: Record<string, unknown>) {
 
   for (
     let cursor = roundUpToStep(from, stepMinutes);
-    cursor.getTime() < to.getTime() && slots.length < maxAvailabilitySlots;
+    cursor.getTime() < to.getTime();
     cursor = addMinutes(cursor, stepMinutes)
   ) {
     const end = addMinutes(cursor, durationMinutes);
