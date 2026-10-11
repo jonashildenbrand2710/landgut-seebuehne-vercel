@@ -1,4 +1,5 @@
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { loadBusyCalendarIntervals } from "./calendar-busy.ts";
 import {
   appointmentPolicies,
   parseAppointmentType,
@@ -6,7 +7,6 @@ import {
   slotIsBlocked,
   slotMatchesPolicy,
   type BookingAppointmentType,
-  type BusyCalendarInterval,
 } from "./slot-policy.ts";
 
 const corsHeaders = {
@@ -359,11 +359,6 @@ function roundUpToStep(date: Date, stepMinutes: number) {
   return new Date(Math.ceil(date.getTime() / stepMs) * stepMs);
 }
 
-function eventTime(value: unknown) {
-  const record = asRecord(value);
-  return asString(record.dateTime) || asString(record.date);
-}
-
 async function busyCalendarIntervals(
   accessToken: string,
   calendarId: string,
@@ -372,24 +367,16 @@ async function busyCalendarIntervals(
   excludeEventId = "",
 ) {
   const params = new URLSearchParams({
+    maxResults: "2500",
     orderBy: "startTime",
     singleEvents: "true",
     timeMax: to.toISOString(),
     timeMin: from.toISOString(),
   });
-  const payload = await googleCalendarRequest(accessToken, calendarId, `/events?${params}`);
-  const events = Array.isArray(payload.items) ? payload.items.map(asRecord) : [];
-
-  return events
-    .filter((event) => asString(event.id) !== excludeEventId)
-    .filter((event) => asString(event.status) !== "cancelled")
-    .filter((event) => asString(event.transparency) !== "transparent")
-    .map((event) => ({
-      end: parseDate(eventTime(event.end)),
-      id: asString(event.id),
-      start: parseDate(eventTime(event.start)),
-    }))
-    .filter((event): event is BusyCalendarInterval => Boolean(event.start && event.end));
+  return loadBusyCalendarIntervals(async (pageToken) => {
+    if (pageToken) params.set("pageToken", pageToken);
+    return await googleCalendarRequest(accessToken, calendarId, `/events?${params}`);
+  }, defaultTimeZone, excludeEventId);
 }
 
 async function slotAvailable(

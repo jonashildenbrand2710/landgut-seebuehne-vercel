@@ -39,24 +39,29 @@ test("a partial overlap blocks the entire affected start slot", () => {
   assert.equal(slotIsBlocked(busy, at(10), at(11)), true);
 });
 
-test("phone policy allows Monday through Thursday in 30-minute steps", () => {
+test("phone policy allows every weekday in 30-minute steps", () => {
   const policy = appointmentPolicies.phone;
   assert.equal(policy.durationMinutes, 30);
   assert.equal(slotMatchesPolicy(at(10), policy, "Europe/Berlin"), true);
   assert.equal(slotMatchesPolicy(at(19, 30), policy, "Europe/Berlin"), true);
   assert.equal(slotMatchesPolicy(at(19, 45), policy, "Europe/Berlin"), false);
-  assert.equal(slotMatchesPolicy(at(10, 0, "2026-07-24"), policy, "Europe/Berlin"), false);
-  assert.equal(slotMatchesPolicy(at(10, 0, "2026-07-26"), policy, "Europe/Berlin"), false);
+  for (const date of ["2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26"]) {
+    assert.equal(slotMatchesPolicy(at(10, 0, date), policy, "Europe/Berlin"), true);
+  }
+  assert.equal(slotMatchesPolicy(at(9, 30), policy, "Europe/Berlin"), false);
+  assert.equal(slotMatchesPolicy(at(20), policy, "Europe/Berlin"), false);
 });
 
-test("tour policy adds Sunday and reserves the full 90 minutes", () => {
+test("tour policy allows every weekday and reserves the full 90 minutes", () => {
   const policy = appointmentPolicies.tour;
   assert.equal(policy.durationMinutes, 90);
   assert.equal(policy.stepMinutes, 30);
   assert.equal(slotMatchesPolicy(at(10, 0, "2026-07-26"), policy, "Europe/Berlin"), true);
   assert.equal(slotMatchesPolicy(at(18, 30), policy, "Europe/Berlin"), true);
   assert.equal(slotMatchesPolicy(at(19), policy, "Europe/Berlin"), false);
-  assert.equal(slotMatchesPolicy(at(10, 0, "2026-07-25"), policy, "Europe/Berlin"), false);
+  for (const date of ["2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26"]) {
+    assert.equal(slotMatchesPolicy(at(10, 0, date), policy, "Europe/Berlin"), true);
+  }
 });
 
 test("a busy event overlapping any part of a tour blocks that tour", () => {
