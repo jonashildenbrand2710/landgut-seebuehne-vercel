@@ -7,8 +7,8 @@ import {
 
 const berlinTimeZone = "Europe/Berlin";
 const previewPolicies = {
-  phone: { durationMinutes: 30, weekdays: ["Mon", "Tue", "Wed", "Thu"] as string[] },
-  tour: { durationMinutes: 90, weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu"] as string[] }
+  phone: { durationMinutes: 30 },
+  tour: { durationMinutes: 90 }
 } as const;
 
 function localSlotParts(date: Date) {
@@ -16,11 +16,10 @@ function localSlotParts(date: Date) {
     hour: "2-digit",
     hourCycle: "h23",
     minute: "2-digit",
-    timeZone: berlinTimeZone,
-    weekday: "short"
+    timeZone: berlinTimeZone
   }).formatToParts(date);
   const record = Object.fromEntries(parts.map((part) => [part.type, part.value]));
-  return { hour: Number(record.hour), minute: Number(record.minute), weekday: record.weekday };
+  return { hour: Number(record.hour), minute: Number(record.minute) };
 }
 
 function previewSlots(payload: BookingAvailabilityRequest): BookingSlot[] {
@@ -34,7 +33,7 @@ function previewSlots(payload: BookingAvailabilityRequest): BookingSlot[] {
     const local = localSlotParts(cursor);
     const localStartMinutes = local.hour * 60 + local.minute;
     const localEndMinutes = localStartMinutes + policy.durationMinutes;
-    if (policy.weekdays.includes(local.weekday) && localStartMinutes >= 600 && localEndMinutes <= 1200) {
+    if (localStartMinutes >= 600 && localEndMinutes <= 1200) {
       const start = new Date(cursor);
       const end = new Date(start.getTime() + policy.durationMinutes * 60_000);
       slots.push({

@@ -22,12 +22,12 @@ export const appointmentPolicies: Record<BookingAppointmentType, AppointmentPoli
   phone: {
     durationMinutes: 30,
     stepMinutes: 30,
-    windows: [{ end: "20:00", start: "10:00", weekdays: [1, 2, 3, 4] }],
+    windows: [{ end: "20:00", start: "10:00", weekdays: [0, 1, 2, 3, 4, 5, 6] }],
   },
   tour: {
     durationMinutes: 90,
     stepMinutes: 30,
-    windows: [{ end: "20:00", start: "10:00", weekdays: [0, 1, 2, 3, 4] }],
+    windows: [{ end: "20:00", start: "10:00", weekdays: [0, 1, 2, 3, 4, 5, 6] }],
   },
 };
 
