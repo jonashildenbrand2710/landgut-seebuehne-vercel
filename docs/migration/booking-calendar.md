@@ -7,9 +7,9 @@ Telefontermine und Besichtigungen sind an allen sieben Wochentagen von
 dauern 30 Minuten, Besichtigungen 90 Minuten. Beginn ist jeweils zur vollen
 oder halben Stunde; der gesamte Termin muss bis 20:00 Uhr beendet sein.
 
-Die Website zeigt weiterhin zehn Tage ab ungefähr 24 Stunden nach dem
-aktuellen Zeitpunkt. Sieben Tage bezeichnet hier die Wochentage, nicht
-eine Verkürzung des angezeigten Buchungszeitraums.
+Telefontermine und Besichtigungen sind bis zu drei Wochen im Voraus auswählbar.
+Der Kalender zeigt 21 Tage; der früheste Beginn bleibt ungefähr 24 Stunden
+nach dem aktuellen Zeitpunkt. Sieben Tage bezeichnet die Wochentage.
 
 ## Verfügbarkeit im Google-Kalender steuern
 
@@ -28,6 +28,8 @@ und als **Beschäftigt** markiert werden:
 Es gibt keine zusätzliche Pufferzeit. Direkt angrenzende Termine sind möglich.
 Beim Laden der Verfügbarkeit und beim Abschicken der Buchung wird der
 Google-Kalender geprüft. Alle Google-Ergebnisseiten werden berücksichtigt.
+Die Verfügbarkeitsantwort enthält alle freien Zeitfenster im angefragten
+Zeitraum und wird nicht nach einer festen Anzahl von Terminen abgeschnitten.
 Ganztägige Einträge werden in der Kalender-Zeitzone einschließlich
 Sommer-/Winterzeit ausgewertet; ihr Enddatum ist exklusiv.
 
