@@ -12,6 +12,7 @@ declare global {
   interface Window {
     dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
+    [key: `ga-disable-${string}`]: boolean | undefined;
   }
 }
 
@@ -34,6 +35,9 @@ export function GoogleAdsTracking() {
       // Private browsers can block access to storage entirely.
     }
     const tracker = createGoogleAdsTracker(GOOGLE_ADS_CONFIG, {
+      disableAnalytics: (measurementIds) => {
+        for (const id of measurementIds) window[`ga-disable-${id}`] = true;
+      },
       command,
       pageLocation: () => window.location.href,
       storage,

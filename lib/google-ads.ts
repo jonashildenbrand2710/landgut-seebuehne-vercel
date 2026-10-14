@@ -1,12 +1,18 @@
 export type GoogleAdsConfig = {
   tagId: string;
   bookingLabel: string;
+  analyticsOptOutIds?: string[];
 };
+
+export function googleAdsAnalyticsOptOutIds(value?: string) {
+  return [...new Set((value || "").split(/[\s,]+/).filter((id) => /^G-[A-Z0-9]+$/.test(id)))];
+}
 
 export function googleAdsConfigFromValues(values: {
   enabled?: string;
   tagId?: string;
   bookingLabel?: string;
+  analyticsOptOutIds?: string;
 }): GoogleAdsConfig | null {
   const tagId = values.tagId?.trim() || "";
   const bookingLabel = values.bookingLabel?.trim() || "";
@@ -17,14 +23,16 @@ export function googleAdsConfigFromValues(values: {
   ) {
     return null;
   }
-  return { tagId, bookingLabel };
+  const analyticsOptOutIds = googleAdsAnalyticsOptOutIds(values.analyticsOptOutIds);
+  return { tagId, bookingLabel, ...(analyticsOptOutIds.length ? { analyticsOptOutIds } : {}) };
 }
 
 // Explicit activation follows approval of the Google consent/privacy copy.
 export const GOOGLE_ADS_CONFIG = googleAdsConfigFromValues({
   enabled: process.env.NEXT_PUBLIC_GOOGLE_ADS_ENABLED,
   tagId: process.env.NEXT_PUBLIC_GOOGLE_ADS_ID,
-  bookingLabel: process.env.NEXT_PUBLIC_GOOGLE_ADS_BOOKING_LABEL
+  bookingLabel: process.env.NEXT_PUBLIC_GOOGLE_ADS_BOOKING_LABEL,
+  analyticsOptOutIds: process.env.NEXT_PUBLIC_GOOGLE_ADS_ANALYTICS_OPT_OUT_IDS
 });
 
 export type GoogleAdsBooking = {
@@ -33,6 +41,7 @@ export type GoogleAdsBooking = {
 };
 
 export type GoogleAdsHost = {
+  disableAnalytics: (measurementIds: readonly string[]) => void;
   command: (...args: unknown[]) => void;
   loadTag: (tagId: string) => void;
   pageLocation: () => string;
@@ -80,6 +89,8 @@ export function createGoogleAdsTracker(config: GoogleAdsConfig, host: GoogleAdsH
       return;
     }
 
+    // The existing Google tag can have linked Analytics destinations. Keep them off.
+    if (config.analyticsOptOutIds?.length) host.disableAnalytics(config.analyticsOptOutIds);
     host.command("consent", "default", deniedConsent);
     host.command("set", "ads_data_redaction", true);
     host.command("consent", "update", measurementConsent);
