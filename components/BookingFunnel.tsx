@@ -23,6 +23,7 @@ import type {
 import { createMetaEventId, trackMetaCompleteRegistrationWhenReady } from "@/components/MetaConversionTracking";
 import { trackTikTokCompleteRegistrationWhenReady } from "@/components/TikTokConversionTracking";
 import { readStoredConsent } from "@/lib/consent";
+import { trackGoogleAdsBooking } from "@/lib/google-ads";
 
 type BookingFunnelProps = {
   appointmentType: BookingAppointmentType;
@@ -537,6 +538,8 @@ export function BookingFunnel({
       });
       setBookingResult(booking);
       setBookingState("success");
+
+      trackGoogleAdsBooking(booking, eventId, appointmentType);
 
       if (booking.booking?.status !== "preview") {
         trackMetaCompleteRegistrationWhenReady(

@@ -1,6 +1,9 @@
+import { GOOGLE_ADS_CONFIG } from "@/lib/google-ads";
+
 export type ConsentChoice = "granted" | "denied";
 
-export const CONSENT_STORAGE_KEY = "lsb-consent";
+// Previous Meta/TikTok consent does not authorize the newly added Google provider.
+export const CONSENT_STORAGE_KEY = GOOGLE_ADS_CONFIG ? "lsb-consent-google-v1" : "lsb-consent";
 export const CONSENT_EVENT_NAME = "lsb-consent-change";
 export const CONSENT_OPEN_EVENT_NAME = "lsb-consent-open";
 
