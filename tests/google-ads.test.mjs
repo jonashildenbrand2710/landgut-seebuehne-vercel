@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { createGoogleAdsTracker, googleAdsConfigFromValues, googleAdsPageLocation, registerGoogleAdsTracker, trackGoogleAdsBooking } from "../lib/google-ads.ts";
+import { createGoogleAdsTracker, googleAdsAnalyticsOptOutIds, googleAdsConfigFromValues, googleAdsPageLocation, registerGoogleAdsTracker, trackGoogleAdsBooking } from "../lib/google-ads.ts";
 
 const config = { tagId: "AW-123456789", bookingLabel: "booking-label" };
 const confirmed = { booking: { status: "scheduled" }, google_calendar: { synced: true, eventId: "calendar-event" } };
@@ -9,6 +9,7 @@ function harness(storage = undefined) {
   const calls = [];
   const loads = [];
   const tracker = createGoogleAdsTracker(config, {
+    disableAnalytics: () => {},
     command: (...args) => calls.push(args),
     loadTag: (tagId) => loads.push(tagId),
     pageLocation: () => "https://venue.example/termin-buchen?gclid=click-id&access_token=private",
@@ -22,6 +23,27 @@ test("activation requires an explicit flag, valid Ads ID and booking label", () 
   assert.equal(googleAdsConfigFromValues({ enabled: "true", tagId: "G-123", bookingLabel: "booking" }), null);
   assert.equal(googleAdsConfigFromValues({ enabled: "true", tagId: config.tagId, bookingLabel: "<script>" }), null);
   assert.deepEqual(googleAdsConfigFromValues({ enabled: "true", ...config }), config);
+});
+
+test("Analytics opt-outs allow only distinct Analytics measurement IDs", () => {
+  assert.deepEqual(googleAdsAnalyticsOptOutIds("G-TEST1234, AW-123456789 G-TEST1234 G-OTHER5678 <script>"), ["G-TEST1234", "G-OTHER5678"]);
+  assert.deepEqual(googleAdsAnalyticsOptOutIds(), []);
+});
+
+test("linked Analytics destinations are disabled before any Google initialization", () => {
+  const calls = [];
+  let optedOut = false;
+  const tracker = createGoogleAdsTracker({ ...config, analyticsOptOutIds: ["G-TEST1234"] }, {
+    disableAnalytics: (ids) => { optedOut = true; calls.push(["opt_out", ids]); },
+    command: (...args) => { assert.equal(optedOut, true); calls.push(args); },
+    loadTag: (id) => { assert.equal(optedOut, true); calls.push(["load", id]); },
+    pageLocation: () => "https://venue.example/termin-buchen"
+  });
+  tracker.setConsent(false);
+  assert.deepEqual(calls, []);
+  tracker.setConsent(true);
+  assert.deepEqual(calls[0], ["opt_out", ["G-TEST1234"]]);
+  assert.deepEqual(calls.at(-1), ["load", config.tagId]);
 });
 
 test("no Google calls, script loads or conversion storage before consent", () => {
@@ -95,6 +117,7 @@ test("private query strings and hashes are removed while attribution IDs survive
 
 test("a broken advertising integration cannot throw into the booking flow", () => {
   const tracker = createGoogleAdsTracker(config, {
+    disableAnalytics: () => {},
     command: (command) => { if (command === "event") throw new Error("blocked tracker"); },
     loadTag: () => {},
     pageLocation: () => "https://venue.example/termin-buchen"
