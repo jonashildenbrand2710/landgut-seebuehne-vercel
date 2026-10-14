@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inclusive_Sans, Noto_Serif_Georgian } from "next/font/google";
 import { ConsentBanner } from "@/components/ConsentBanner";
 import { Footer } from "@/components/Footer";
+import { GoogleAdsTracking } from "@/components/GoogleAdsTracking";
 import { Header } from "@/components/Header";
 import { MetaConversionFromQuery } from "@/components/MetaConversionTracking";
 import { MetaPixel } from "@/components/MetaPixel";
@@ -83,6 +84,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <a className="skip-link" href="#inhalt">
           Zum Inhalt springen
         </a>
+        <GoogleAdsTracking />
         <MetaPixel />
         <TikTokPixel />
         <MetaConversionFromQuery />
