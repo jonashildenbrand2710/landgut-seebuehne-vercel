@@ -191,7 +191,7 @@ export async function sendMetaCompleteRegistration({
 }: SendMetaCompleteRegistrationInput) {
   const accessToken = process.env.META_CAPI_ACCESS_TOKEN?.trim();
 
-  if (!accessToken || !META_PIXEL_ID) {
+  if (tracking?.marketingConsent !== "granted" || !accessToken || !META_PIXEL_ID) {
     return { ok: false, skipped: true };
   }
 

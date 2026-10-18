@@ -24,6 +24,7 @@ import { createMetaEventId, trackMetaCompleteRegistrationWhenReady } from "@/com
 import { trackTikTokCompleteRegistrationWhenReady } from "@/components/TikTokConversionTracking";
 import { readStoredConsent } from "@/lib/consent";
 import { trackGoogleAdsBooking } from "@/lib/google-ads";
+import { browserGoogleAdsAttribution } from "@/lib/google-ads-attribution";
 
 type BookingFunnelProps = {
   appointmentType: BookingAppointmentType;
@@ -85,6 +86,7 @@ function trackingPayload() {
     meta_placement: params.get("meta_placement") || "",
     landingPageUrl: window.location.href,
     marketingConsent: readStoredConsent() || "",
+    googleAdsAttribution: browserGoogleAdsAttribution(),
     pageUrl: window.location.href,
     referrer: document.referrer,
     ttclid: params.get("ttclid") || "",
