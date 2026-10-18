@@ -1,6 +1,6 @@
 # Google Ads: consented server delivery
 
-Status 2026-10-18: implemented and locally tested, disabled pending account authorization and approval of the privacy notice addition. No new conversions, uploads or changes to campaign goals have been made.
+Status 2026-10-18: account authorization and the exact privacy notice addition explicitly approved by the owner in chat. OAuth grant completed; validate-only requests for both existing destinations returned HTTP 200 with no warnings. Server configuration and production release in progress. No artificial live conversion or change to campaign goals.
 
 ## Behavior
 
@@ -21,7 +21,7 @@ The existing Meta CAPI helper had no consent check although the published privac
 ## Activation
 
 1. `datamanager.googleapis.com` has been enabled on the existing Ads OAuth client's Google Cloud project `sbw-api-20260702` (2026-10-18).
-2. Obtain a separate offline OAuth grant with `https://www.googleapis.com/auth/datamanager` from the existing account owner. Existing Ads OAuth credentials only have `auth/adwords`; a validate-only request returned HTTP 403 `ACCESS_TOKEN_SCOPE_INSUFFICIENT` on 2026-10-18. Do not replace the working Ads audit token. The new consent flow is open in the in-app browser; Google currently shows the unverified-app warning for the existing own app “SB Werbung Google Ads API”. The account owner must complete the warning and expanded account permission themselves. The pending callback listens at `http://127.0.0.1:8080/oauth2callback`; the separate grant is stored only under the original checkout's untracked `.secrets/google-data-manager-token.json`.
+2. Obtain a separate offline OAuth grant with `https://www.googleapis.com/auth/datamanager` from the existing account owner. Existing Ads OAuth credentials only have `auth/adwords`; a validate-only request returned HTTP 403 `ACCESS_TOKEN_SCOPE_INSUFFICIENT` on 2026-10-18. Do not replace the working Ads audit token. During the consent flow, Google showed the unverified-app warning for the existing own app “SB Werbung Google Ads API”. The owner explicitly authorized the warning/expanded permission in chat; the flow was then completed successfully. The callback completed at `http://127.0.0.1:8080/oauth2callback`; the separate grant is stored only under the original checkout's untracked `.secrets/google-data-manager-token.json`.
 3. Store the new OAuth client/secret/refresh token as server-only Vercel Secrets. Populate the documented `GOOGLE_DATA_MANAGER_*` values. Never commit or print tokens.
 4. Use existing customer `6477188860`, manager `7283589984`, lead action `7095345761`, booking action `7670616206`.
 5. Validate both destinations with `validateOnly: true`, using a synthetic test identifier and no customer data. Do not upload a synthetic live conversion. Verify beta eligibility and warnings.
@@ -29,7 +29,7 @@ The existing Meta CAPI helper had no consent check although the published privac
 7. Set both `NEXT_PUBLIC_GOOGLE_ADS_SERVER_ENABLED=true` and `GOOGLE_ADS_SERVER_ENABLED=true`, build and deploy. All other environments remain disabled.
 8. Check the public tracking contract's `serverDelivery.enabled`, then check the next real consented enquiry's Data Manager request status. Confirm the shared transaction ID prevents duplicate counting.
 
-### Proposed privacy notice addition (requires approval)
+### Privacy notice addition (owner approved in chat on 2026-10-18)
 
 > Nach einer erfolgreichen Anfrage oder Buchung können wir die Anzeigen-Klickkennung, den Zeitpunkt und dieselbe Ereignis-ID zusätzlich direkt von unserem Server an Google übermitteln. Damit können wir Ausfälle der Messung im Browser verringern. Die gemeinsame Ereignis-ID dient dazu, eine doppelte Zählung zu verhindern. Auch diese Übermittlung erfolgt nur mit eurer Einwilligung. Dabei übermitteln wir keine Kontaktdaten oder Formularantworten an Google. Zur Zuordnung innerhalb eures aktuellen Browser-Tabs können wir nach eurer Einwilligung Anzeigen-Klickkennungen im Sitzungsspeicher eures Browsers speichern. Bei Ablehnung oder Widerruf wird dieser Eintrag entfernt.
 
