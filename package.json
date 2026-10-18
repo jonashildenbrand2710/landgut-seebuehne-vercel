@@ -9,7 +9,7 @@
     "setup:activecampaign:booking:apply": "node scripts/setup-activecampaign-booking.mjs --apply",
     "test:booking-confirmations": "node --test tests/booking-confirmation-content.test.mjs",
     "test:booking-calendar": "node --test supabase/functions/website-booking/*.test.ts",
-    "test:google-ads": "node --test tests/google-ads.test.mjs",
+    "test:google-ads": "node --test tests/google-ads.test.mjs tests/google-ads-lead.test.mjs",
     "update:activecampaign:hochzeitsmappe": "node scripts/update-activecampaign-hochzeitsmappe-email.mjs",
     "dev": "next dev",
     "build": "node scripts/validate-articles.mjs && next build",

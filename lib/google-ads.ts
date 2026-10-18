@@ -1,6 +1,7 @@
 export type GoogleAdsConfig = {
   tagId: string;
   bookingLabel: string;
+  leadLabel?: string;
   analyticsOptOutIds?: string[];
 };
 
@@ -12,6 +13,7 @@ export function googleAdsConfigFromValues(values: {
   enabled?: string;
   tagId?: string;
   bookingLabel?: string;
+  leadLabel?: string;
   analyticsOptOutIds?: string;
 }): GoogleAdsConfig | null {
   const tagId = values.tagId?.trim() || "";
@@ -24,7 +26,13 @@ export function googleAdsConfigFromValues(values: {
     return null;
   }
   const analyticsOptOutIds = googleAdsAnalyticsOptOutIds(values.analyticsOptOutIds);
-  return { tagId, bookingLabel, ...(analyticsOptOutIds.length ? { analyticsOptOutIds } : {}) };
+  const leadLabel = values.leadLabel?.trim();
+  return {
+    tagId,
+    bookingLabel,
+    ...(leadLabel && /^[A-Za-z0-9_-]+$/.test(leadLabel) ? { leadLabel } : {}),
+    ...(analyticsOptOutIds.length ? { analyticsOptOutIds } : {})
+  };
 }
 
 // Explicit activation follows approval of the Google consent/privacy copy.
@@ -32,6 +40,7 @@ export const GOOGLE_ADS_CONFIG = googleAdsConfigFromValues({
   enabled: process.env.NEXT_PUBLIC_GOOGLE_ADS_ENABLED,
   tagId: process.env.NEXT_PUBLIC_GOOGLE_ADS_ID,
   bookingLabel: process.env.NEXT_PUBLIC_GOOGLE_ADS_BOOKING_LABEL,
+  leadLabel: process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL,
   analyticsOptOutIds: process.env.NEXT_PUBLIC_GOOGLE_ADS_ANALYTICS_OPT_OUT_IDS
 });
 
@@ -59,15 +68,17 @@ export function googleAdsPageLocation(href: string) {
   return clean.toString();
 }
 
-const deniedConsent = {
+export const GOOGLE_ADS_READY_EVENT = "lsb-google-ads-ready";
+
+export const GOOGLE_ADS_DENIED_CONSENT = {
   ad_storage: "denied",
   ad_user_data: "denied",
   ad_personalization: "denied",
   analytics_storage: "denied"
 };
 
-const measurementConsent = {
-  ...deniedConsent,
+export const GOOGLE_ADS_MEASUREMENT_CONSENT = {
+  ...GOOGLE_ADS_DENIED_CONSENT,
   ad_storage: "granted",
   ad_user_data: "granted"
 };
@@ -80,20 +91,20 @@ export function createGoogleAdsTracker(config: GoogleAdsConfig, host: GoogleAdsH
   function setConsent(granted: boolean) {
     consent = granted;
     if (!granted) {
-      if (initialized) host.command("consent", "update", deniedConsent);
+      if (initialized) host.command("consent", "update", GOOGLE_ADS_DENIED_CONSENT);
       return;
     }
 
     if (initialized) {
-      host.command("consent", "update", measurementConsent);
+      host.command("consent", "update", GOOGLE_ADS_MEASUREMENT_CONSENT);
       return;
     }
 
     // The existing Google tag can have linked Analytics destinations. Keep them off.
     if (config.analyticsOptOutIds?.length) host.disableAnalytics(config.analyticsOptOutIds);
-    host.command("consent", "default", deniedConsent);
+    host.command("consent", "default", GOOGLE_ADS_DENIED_CONSENT);
     host.command("set", "ads_data_redaction", true);
-    host.command("consent", "update", measurementConsent);
+    host.command("consent", "update", GOOGLE_ADS_MEASUREMENT_CONSENT);
     host.command("js", new Date());
     host.command("config", config.tagId, {
       allow_ad_personalization_signals: false,
@@ -122,7 +133,11 @@ export function createGoogleAdsTracker(config: GoogleAdsConfig, host: GoogleAdsH
       return false;
     }
 
-    const key = `google_ads_booking_${config.tagId}_${config.bookingLabel}_${transactionId}`;
+    return trackConversion(config.bookingLabel, transactionId, { appointment_type: appointmentType });
+  }
+
+  function trackConversion(label: string, transactionId: string, details: Record<string, string> = {}) {
+    const key = `google_ads_booking_${config.tagId}_${label}_${transactionId}`;
     if (tracked.has(key)) return false;
     try {
       if (host.storage?.getItem(key) === "1") return false;
@@ -131,9 +146,9 @@ export function createGoogleAdsTracker(config: GoogleAdsConfig, host: GoogleAdsH
     }
 
     host.command("event", "conversion", {
-      send_to: `${config.tagId}/${config.bookingLabel}`,
+      send_to: `${config.tagId}/${label}`,
       transaction_id: transactionId,
-      appointment_type: appointmentType,
+      ...details,
       page_location: googleAdsPageLocation(host.pageLocation()),
       page_referrer: ""
     });
@@ -146,7 +161,15 @@ export function createGoogleAdsTracker(config: GoogleAdsConfig, host: GoogleAdsH
     return true;
   }
 
-  return { setConsent, trackBooking };
+  function trackLead(transactionId: string) {
+    // This ID is only supplied by the server after verifying its signed CRM receipt.
+    if (!consent || !initialized || !config.leadLabel || !/^lead_[a-f0-9]{64}$/.test(transactionId)) {
+      return false;
+    }
+    return trackConversion(config.leadLabel, transactionId);
+  }
+
+  return { setConsent, trackBooking, trackLead };
 }
 
 type GoogleAdsTracker = ReturnType<typeof createGoogleAdsTracker>;
@@ -168,6 +191,14 @@ export function trackGoogleAdsBooking(
     return activeTracker?.trackBooking(booking, transactionId, appointmentType) ?? false;
   } catch {
     // Optional advertising measurement must never turn a successful booking into an error.
+    return false;
+  }
+}
+
+export function trackGoogleAdsLead(transactionId: string) {
+  try {
+    return activeTracker?.trackLead(transactionId) ?? false;
+  } catch {
     return false;
   }
 }

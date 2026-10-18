@@ -25,6 +25,8 @@ import {
   verifyHochzeitsmappeAccessToken
 } from "@/lib/hochzeitsmappe-access";
 import styles from "../page.module.css";
+import { GoogleAdsLeadConversion } from "@/components/GoogleAdsLeadConversion";
+import { GOOGLE_ADS_LEAD_COOKIE, verifyGoogleAdsLeadReceipt } from "@/lib/google-ads-lead-receipt";
 
 export const dynamic = "force-dynamic";
 
@@ -135,9 +137,11 @@ export default async function HochzeitsmappeOnlinePage() {
   if (!verifyHochzeitsmappeAccessToken(accessToken)) {
     redirect("/hochzeitsmappe");
   }
+  const leadReceipt = verifyGoogleAdsLeadReceipt(cookieStore.get(GOOGLE_ADS_LEAD_COOKIE)?.value);
 
   return (
     <article className={styles.page}>
+      {leadReceipt ? <GoogleAdsLeadConversion transactionId={leadReceipt.transactionId} /> : null}
       <section className={styles.hero} id="vision">
         <div className={styles.heroVisual}>
           <Image

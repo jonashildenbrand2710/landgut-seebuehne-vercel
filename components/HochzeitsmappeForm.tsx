@@ -4,6 +4,7 @@ import { BookOpenCheck, KeyRound } from "lucide-react";
 import { type FormEvent, Suspense, useEffect, useRef, useState } from "react";
 import { FormStatusMessage } from "@/components/FormStatusMessage";
 import { MetaTrackingFields } from "@/components/MetaConversionTracking";
+import { GoogleAdsConsentField } from "@/components/GoogleAdsLeadConversion";
 
 const statusMessages: Record<string, string> = {
   missing: "Bitte füllt alle Pflichtfelder aus.",
@@ -93,6 +94,7 @@ export function HochzeitsmappeForm() {
         type="text"
       />
       <MetaTrackingFields funnel="hochzeitsmappe" />
+      <GoogleAdsConsentField />
       <div className="mappe-field-grid">
         <label className="mappe-field">
           <span>Vorname</span>

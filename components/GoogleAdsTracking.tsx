@@ -5,6 +5,7 @@ import { CONSENT_EVENT_NAME, readStoredConsent } from "@/lib/consent";
 import {
   createGoogleAdsTracker,
   GOOGLE_ADS_CONFIG,
+  GOOGLE_ADS_READY_EVENT,
   registerGoogleAdsTracker
 } from "@/lib/google-ads";
 
@@ -53,8 +54,12 @@ export function GoogleAdsTracking() {
     });
     const unregister = registerGoogleAdsTracker(tracker);
     tracker.setConsent(readStoredConsent() === "granted");
+    window.dispatchEvent(new Event(GOOGLE_ADS_READY_EVENT));
     const onConsent = (event: Event) => {
-      if (event instanceof CustomEvent) tracker.setConsent(event.detail === "granted");
+      if (event instanceof CustomEvent) {
+        tracker.setConsent(event.detail === "granted");
+        window.dispatchEvent(new Event(GOOGLE_ADS_READY_EVENT));
+      }
     };
     window.addEventListener(CONSENT_EVENT_NAME, onConsent);
     return () => {
