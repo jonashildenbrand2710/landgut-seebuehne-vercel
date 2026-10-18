@@ -11,6 +11,14 @@ import {
 } from "@/lib/hochzeitsmappe-access";
 import { normalizeMetaEventId, sendMetaCompleteRegistration } from "@/lib/meta-capi";
 import { META_EVENT_NAME } from "@/lib/meta-events";
+import { NextResponse } from "next/server";
+import { GOOGLE_ADS_CONFIG } from "@/lib/google-ads";
+import {
+  createGoogleAdsLeadReceipt,
+  GOOGLE_ADS_LEAD_COOKIE,
+  GOOGLE_ADS_LEAD_COOKIE_PATH,
+  GOOGLE_ADS_LEAD_RECEIPT_TTL
+} from "@/lib/google-ads-lead-receipt";
 
 const activeCampaignFlowDetails = {
   automation: "Hochzeitsmappe Opt-in",
@@ -24,6 +32,23 @@ function clean(value: FormDataEntryValue | null) {
 
 function redirect(request: Request, path: string) {
   return Response.redirect(new URL(path, request.url), 303);
+}
+
+function confirmedLeadRedirect(url: URL, formData: FormData, leadId: string) {
+  const response = NextResponse.redirect(url, 303);
+  if (GOOGLE_ADS_CONFIG?.leadLabel && clean(formData.get("googleAdsConsent")) === "granted") {
+    const receipt = createGoogleAdsLeadReceipt(leadId);
+    if (receipt) response.cookies.set(GOOGLE_ADS_LEAD_COOKIE, receipt, {
+      httpOnly: true,
+      secure: url.protocol === "https:",
+      sameSite: "lax",
+      path: GOOGLE_ADS_LEAD_COOKIE_PATH,
+      maxAge: GOOGLE_ADS_LEAD_RECEIPT_TTL
+    });
+  }
+  response.headers.set("Cache-Control", "private, no-store");
+  response.headers.set("Referrer-Policy", "no-referrer");
+  return response;
 }
 
 function isValidEmail(email: string) {
@@ -198,7 +223,7 @@ export async function POST(request: Request) {
 
       await sendHochzeitsmappeConversion(request, formData, payload, metaEventId);
 
-      return Response.redirect(immediateAccessUrl, 303);
+      return confirmedLeadRedirect(immediateAccessUrl, formData, crmLead.lead_id);
     }
 
     await updateActiveCampaignStatus({
@@ -226,5 +251,5 @@ export async function POST(request: Request) {
 
   await sendHochzeitsmappeConversion(request, formData, payload, metaEventId);
 
-  return Response.redirect(immediateAccessUrl, 303);
+  return confirmedLeadRedirect(immediateAccessUrl, formData, crmLead.lead_id);
 }

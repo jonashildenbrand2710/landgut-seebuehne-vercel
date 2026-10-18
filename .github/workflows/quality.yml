@@ -38,5 +38,8 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
+      - name: Google Ads tracking tests
+        run: npm run test:google-ads
+
       - name: Build
         run: npm run build
