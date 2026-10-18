@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { captureGoogleAdsAttribution } from "@/lib/google-ads-attribution";
 import { CONSENT_EVENT_NAME, readStoredConsent } from "@/lib/consent";
 import {
   createGoogleAdsTracker,
@@ -53,10 +54,12 @@ export function GoogleAdsTracking() {
       }
     });
     const unregister = registerGoogleAdsTracker(tracker);
+    captureGoogleAdsAttribution(readStoredConsent() === "granted");
     tracker.setConsent(readStoredConsent() === "granted");
     window.dispatchEvent(new Event(GOOGLE_ADS_READY_EVENT));
     const onConsent = (event: Event) => {
       if (event instanceof CustomEvent) {
+        captureGoogleAdsAttribution(event.detail === "granted");
         tracker.setConsent(event.detail === "granted");
         window.dispatchEvent(new Event(GOOGLE_ADS_READY_EVENT));
       }

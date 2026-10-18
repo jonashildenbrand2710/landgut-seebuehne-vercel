@@ -1,3 +1,4 @@
+import { sendGoogleAdsServerConversion } from "@/lib/google-ads-server";
 import { bookingErrorResponse, createBooking, type BookingRequest } from "@/lib/booking-api";
 import { submitBookingConfirmation } from "@/lib/booking-confirmation";
 import { sendMetaCompleteRegistration } from "@/lib/meta-capi";
@@ -62,6 +63,16 @@ export async function POST(request: Request) {
       "Booking confirmation delivery failed",
       error instanceof Error ? error.message : "Unknown error"
     );
+  }
+
+  // The CRM/calendar confirmation, not the submit button, authorizes this event.
+  if (booking.booking?.status !== "preview" && booking.google_calendar?.synced === true &&
+    booking.google_calendar.eventId && (payload.booking?.type === "phone" || payload.booking?.type === "tour")) {
+    const tracking = payload.tracking && typeof payload.tracking === "object" && !Array.isArray(payload.tracking) ? payload.tracking : {};
+    await sendGoogleAdsServerConversion({
+      kind: "booking", transactionId: payload.eventId,
+      consent: tracking.marketingConsent, attribution: tracking.googleAdsAttribution
+    });
   }
 
   // Tracking darf eine erfolgreich angelegte Buchung nie in einen Fehler verwandeln.

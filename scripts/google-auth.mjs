@@ -198,9 +198,10 @@ async function main() {
 
   const codePromise = waitForOAuthCode(redirectUri, state);
 
-  console.log("Open this URL and grant Google read access:");
+  console.log("Open this URL and review the requested Google API permissions:");
+  console.log(`Requested scopes: ${scopes.join(" ")}`);
   console.log(authUrl.toString());
-  await tryOpenBrowser(authUrl.toString());
+  if (!process.argv.includes("--no-open")) await tryOpenBrowser(authUrl.toString());
 
   const code = await codePromise;
   const token = await exchangeCodeForToken({

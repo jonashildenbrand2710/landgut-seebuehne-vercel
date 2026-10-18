@@ -1,12 +1,17 @@
 "use client";
 
 import { useEffect, useSyncExternalStore } from "react";
+import { browserGoogleAdsAttribution } from "@/lib/google-ads-attribution";
 import { CONSENT_EVENT_NAME, readStoredConsent } from "@/lib/consent";
 import { GOOGLE_ADS_READY_EVENT, trackGoogleAdsLead } from "@/lib/google-ads";
 
 function subscribeConsent(onChange: () => void) {
   window.addEventListener(CONSENT_EVENT_NAME, onChange);
-  return () => window.removeEventListener(CONSENT_EVENT_NAME, onChange);
+  window.addEventListener(GOOGLE_ADS_READY_EVENT, onChange);
+  return () => {
+    window.removeEventListener(CONSENT_EVENT_NAME, onChange);
+    window.removeEventListener(GOOGLE_ADS_READY_EVENT, onChange);
+  };
 }
 
 export function GoogleAdsConsentField() {
@@ -15,9 +20,17 @@ export function GoogleAdsConsentField() {
     () => readStoredConsent() === "granted" ? "granted" : "denied",
     () => "denied"
   );
+  const attribution = useSyncExternalStore(
+    subscribeConsent,
+    () => JSON.stringify(browserGoogleAdsAttribution()),
+    () => "{}"
+  );
   // Hidden inputs must be controlled: the parent's submitting-state render can
   // reset a DOM-mutated defaultValue immediately before native form.submit().
-  return <input type="hidden" name="googleAdsConsent" value={consent} readOnly />;
+  return <>
+    <input type="hidden" name="googleAdsConsent" value={consent} readOnly />
+    <input type="hidden" name="googleAdsAttribution" value={attribution} readOnly />
+  </>;
 }
 
 export function GoogleAdsLeadConversion({ transactionId }: { transactionId: string }) {

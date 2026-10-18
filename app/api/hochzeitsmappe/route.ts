@@ -1,3 +1,4 @@
+import { sendGoogleAdsServerConversion } from "@/lib/google-ads-server";
 import {
   createHochzeitsmappeLeadInSupabase,
   sanitizeError,
@@ -17,7 +18,8 @@ import {
   createGoogleAdsLeadReceipt,
   GOOGLE_ADS_LEAD_COOKIE,
   GOOGLE_ADS_LEAD_COOKIE_PATH,
-  GOOGLE_ADS_LEAD_RECEIPT_TTL
+  GOOGLE_ADS_LEAD_RECEIPT_TTL,
+  verifyGoogleAdsLeadReceipt
 } from "@/lib/google-ads-lead-receipt";
 
 const activeCampaignFlowDetails = {
@@ -34,10 +36,16 @@ function redirect(request: Request, path: string) {
   return Response.redirect(new URL(path, request.url), 303);
 }
 
-function confirmedLeadRedirect(url: URL, formData: FormData, leadId: string) {
+async function confirmedLeadRedirect(url: URL, formData: FormData, leadId: string) {
   const response = NextResponse.redirect(url, 303);
   if (GOOGLE_ADS_CONFIG?.leadLabel && clean(formData.get("googleAdsConsent")) === "granted") {
     const receipt = createGoogleAdsLeadReceipt(leadId);
+    const verified = verifyGoogleAdsLeadReceipt(receipt || undefined);
+    if (verified) {
+      let attribution: unknown;
+      try { attribution = JSON.parse(clean(formData.get("googleAdsAttribution"))); } catch { attribution = {}; }
+      await sendGoogleAdsServerConversion({ kind: "lead", transactionId: verified.transactionId, consent: clean(formData.get("googleAdsConsent")), attribution });
+    }
     if (receipt) response.cookies.set(GOOGLE_ADS_LEAD_COOKIE, receipt, {
       httpOnly: true,
       secure: url.protocol === "https:",
@@ -95,6 +103,7 @@ async function updateActiveCampaignStatus(payload: UpdateHochzeitsmappeLeadActiv
 
 function metaTrackingFromForm(formData: FormData) {
   return {
+    marketingConsent: clean(formData.get("googleAdsConsent")),
     fbclid: clean(formData.get("fbclid")),
     fbc: clean(formData.get("fbc")),
     fbp: clean(formData.get("fbp")),

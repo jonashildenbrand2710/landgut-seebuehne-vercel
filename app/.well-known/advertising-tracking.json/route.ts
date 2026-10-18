@@ -1,3 +1,4 @@
+import { googleAdsServerConfig } from "@/lib/google-ads-server";
 import {
   GOOGLE_ADS_CONFIG,
   GOOGLE_ADS_DENIED_CONSENT,
@@ -16,6 +17,14 @@ export function GET() {
     schemaVersion: 1,
     provider: "google-ads",
     implementation: "gtag",
+    serverDelivery: {
+      provider: "google-data-manager",
+      enabled: googleAdsServerConfig() !== null,
+      requiresConsent: true,
+      identifiers: ["gclid", "gbraid", "wbraid"],
+      contactDataSent: false,
+      deduplicatesWithBrowser: true
+    },
     tagId,
     noPiiInDiagnostics: true,
     consentMode: {
